@@ -44,4 +44,5 @@ void StreamingBody::append_trailer(std::string &header_name,
                                    std::string &header_value) {
   this->bod->append_trailer(header_name, header_value);
 }
+
 } // namespace fastly::http

@@ -1,5 +1,7 @@
+use backend::*;
 use http::{body::*, header::*, request::*, response::*};
 
+mod backend;
 mod http;
 
 // Unfortunately, due to some limitations with cxx, the ENTIRE bridge basically
@@ -18,6 +20,54 @@ mod ffi {
         CONNECT,
         PATCH,
         TRACE,
+    }
+    
+    #[namespace = "fastly::sys::backend"]
+    extern "Rust" {
+        type Backend;
+        fn m_static_backend_backend_from_name(name: &CxxString) -> Box<Backend>;
+        fn m_static_backend_backend_builder(name: &CxxString, target: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_into_string(backend: Box<Backend>) -> String;
+        fn name(&self) -> &str;
+        fn exists(&self) -> bool;
+        fn is_dynamic(&self) -> bool;
+        fn get_host(&self) -> String;
+        // TODO
+        // pub fn get_host_override(&self) {
+        // }
+        fn get_port(&self) -> u16;
+        fn get_connect_timeout(&self) -> u32;
+        fn get_first_byte_timeout(&self) -> u32;
+        fn get_between_bytes_timeout(&self) -> u32;
+        fn get_http_keepalive_time(&self) -> u32;
+        fn get_tcp_keepalive_enable(&self) -> bool;
+        fn get_tcp_keepalive_interval(&self) -> u32;
+        fn get_tcp_keepalive_probes(&self) -> u32;
+        fn get_tcp_keepalive_time(&self) -> u32;
+        fn is_ssl(&self) -> bool;
+    }
+    
+    #[namespace = "fastly::sys::backend"]
+    extern "Rust" {
+        type BackendBuilder;
+        fn m_static_backend_backend_builder_new(name: &CxxString, target: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_override_host(mut builder: Box<BackendBuilder>, name: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_connect_timeout(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_first_byte_timeout(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_between_bytes_timeout(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_enable_ssl(builder: Box<BackendBuilder>) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_disable_ssl(builder: Box<BackendBuilder>) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_check_certificate(builder: Box<BackendBuilder>, cert: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_ca_certificate(builder: Box<BackendBuilder>, cert: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tls_ciphers(builder: Box<BackendBuilder>, ciphers: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_sni_hostname(builder: Box<BackendBuilder>, host: &CxxString) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_enable_pooling(builder: Box<BackendBuilder>, value: bool) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_http_keepalive_time(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_enable(builder: Box<BackendBuilder>, value: bool) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_interval_secs(builder: Box<BackendBuilder>, value: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_probes(builder: Box<BackendBuilder>, value: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_time_secs(builder: Box<BackendBuilder>, value: u32) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_finish(builder: Box<BackendBuilder>) -> Box<Backend>;
     }
 
     #[namespace = "fastly::sys::http"]
