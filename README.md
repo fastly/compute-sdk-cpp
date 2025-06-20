@@ -4,7 +4,7 @@ Creates a static library for C++ usage.
 
 ### Example(s)
 
-To run the "hello world" example (see `./examples/basic.cpp`), you can use:
+To run the "hello world" example (see `./examples/echo.cpp`), you can use:
 
 ```sh
 just example

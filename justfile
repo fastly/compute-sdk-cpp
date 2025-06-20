@@ -2,7 +2,7 @@ default: build
 
 build-dir := "target"
 wasi-sdk := "/opt/wasi-sdk"
-default-example := "basic"
+default-example := "echo"
 
 clean:
     rm -rf .cache {{build-dir}} target

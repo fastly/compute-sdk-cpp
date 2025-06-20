@@ -3,7 +3,7 @@ if(!WASI_SDK)
     set(WASI_SDK "/opt/wasi-sdk")
 endif() 
 if(!EXAMPLE_NAME)
-    set(EXAMPLE_NAME "basic")
+    set(EXAMPLE_NAME "echo")
 endif()
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")

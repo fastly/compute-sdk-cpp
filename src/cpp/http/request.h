@@ -2,6 +2,7 @@
 #define FASTLY_HTTP_REQUEST_H
 
 #include "../sdk-sys.h"
+#include "body.h"
 #include "header.h"
 #include "method.h"
 #include "response.h"
@@ -29,12 +30,11 @@ public:
   Response send(std::string backend);
   HeaderIter get_header_all(std::string name);
   void set_auto_decompress_gzip(bool gzip);
-  Request* with_auto_decompress_gzip(bool gzip);
-  void set_body(std::vector<uint8_t> body);
-  void set_body(std::string body);
-  Request* with_body(std::vector<uint8_t> body);
-  Request* with_body(std::string body);
+  Request *with_auto_decompress_gzip(bool gzip);
+  void set_body(Body body);
+  Request *with_body(Body body);
   bool has_body();
+  Body take_body();
   std::unique_ptr<std::vector<uint8_t>> into_body_bytes();
   std::string into_body_string();
 
@@ -43,10 +43,10 @@ private:
   rust::Box<fastly::sys::http::Request> req;
 };
 
-} // namespace fastly
+} // namespace fastly::http
 
 namespace fastly {
-    using fastly::http::Request;
+using fastly::http::Request;
 }
 
 #endif
