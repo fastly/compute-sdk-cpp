@@ -6,15 +6,19 @@ if(!WASI_SDK)
     set(WASI_SDK "/opt/wasi-sdk")
 endif()
 
-set (CMAKE_CXX_STANDARD 17)
+if(VERBOSE)
+  set(VERBOSE_FLAG "--verbose")
+endif()
+
+set(CMAKE_CXX_STANDARD 17)
 
 set(TARGET_TRIPLE wasm32-wasip1)
 
 if (CMAKE_BUILD_TYPE STREQUAL "Debug")
-    set(CARGO_CMD cargo build --target=${TARGET_TRIPLE} --verbose)
+    set(CARGO_CMD cargo build --target=${TARGET_TRIPLE} ${VERBOSE_FLAG})
     set(TARGET_DIR "debug")
 else ()
-    set(CARGO_CMD cargo build --target=${TARGET_TRIPLE} --release --verbose)
+    set(CARGO_CMD cargo build --target=${TARGET_TRIPLE} --release ${VERBOSE_FLAG})
     set(TARGET_DIR "release")
 endif ()
 

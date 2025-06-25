@@ -5,7 +5,7 @@
 
 namespace fastly::http {
 
-std::string HeaderIter::next() {
+std::string HeaderValuesIter::next() {
   std::unique_ptr<std::vector<uint8_t>> vec = this->iter->next();
   return std::string(vec->begin(), vec->end());
 }

@@ -33,7 +33,6 @@ public:
   // TODO(@zkat): optional stuff is weird.
   // SslVersion get_ssl_min_version();
   // SslVersion get_ssl_max_version();
-private:
   rust::Box<fastly::sys::backend::Backend> backend;
 };
 

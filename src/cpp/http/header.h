@@ -9,14 +9,14 @@
 
 namespace fastly::http {
 
-class HeaderIter {
+class HeaderValuesIter {
 public:
-  HeaderIter(rust::Box<fastly::sys::http::HeaderIter> i)
+  HeaderValuesIter(rust::Box<fastly::sys::http::HeaderValuesIter> i)
       : iter(std::move(i)) {};
   std::string next();
 
 private:
-  rust::Box<fastly::sys::http::HeaderIter> iter;
+  rust::Box<fastly::sys::http::HeaderValuesIter> iter;
 };
 
 } // namespace fastly::http

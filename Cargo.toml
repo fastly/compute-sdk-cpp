@@ -5,7 +5,7 @@ authors = ["Kat Marchán <kat.marchan@fastly.com>"]
 edition = "2024"
 
 [dependencies]
-cxx = "1.0.158"
+cxx = { version = "1.0.158", features = ["c++17"] }
 fastly = "0.11.4"
 
 [build-dependencies]

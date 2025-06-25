@@ -10,6 +10,7 @@ mod http;
 #[cxx::bridge]
 mod ffi {
     #[namespace = "fastly::sys::http"]
+    #[derive(Copy, Clone, Debug)]
     pub enum Method {
         GET,
         POST,
@@ -21,7 +22,7 @@ mod ffi {
         PATCH,
         TRACE,
     }
-    
+
     #[namespace = "fastly::sys::backend"]
     extern "Rust" {
         type Backend;
@@ -46,7 +47,7 @@ mod ffi {
         fn get_tcp_keepalive_time(&self) -> u32;
         fn is_ssl(&self) -> bool;
     }
-    
+
     #[namespace = "fastly::sys::backend"]
     extern "Rust" {
         type BackendBuilder;
@@ -72,7 +73,7 @@ mod ffi {
 
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
-        type HeaderIter;
+        type HeaderValuesIter;
         fn next(&mut self) -> UniquePtr<CxxVector<u8>>;
     }
 
@@ -94,16 +95,41 @@ mod ffi {
         fn m_static_http_request_from_client() -> Box<Request>;
 
         // Regular methods
-        fn m_http_request_send(request: Box<Request>, backend: &CxxString) -> Box<Response>;
         fn is_from_client(&self) -> bool;
         fn clone_without_body(&self) -> Box<Request>;
         fn clone_with_body(&mut self) -> Box<Request>;
-        fn get_header_all(&self, name: &CxxString) -> Box<HeaderIter>;
-        fn set_auto_decompress_gzip(&mut self, gzip: bool);
+        fn m_http_request_send(request: Box<Request>, backend: &Box<Backend>) -> Box<Response>;
         fn set_body(&mut self, body: Box<Body>);
         fn has_body(&self) -> bool;
         fn take_body(&mut self) -> Box<Body>;
-        fn m_http_request_into_body_bytes(request: Box<Request>) -> UniquePtr<CxxVector<u8>>;
+        fn m_http_request_into_body(request: Box<Request>) -> Box<Body>;
+        fn set_body_text_plain(&mut self, body: &CxxString);
+        fn set_body_text_html(&mut self, body: &CxxString);
+        fn set_body_octet_stream(&mut self, body: &CxxVector<u8>);
+        fn get_content_type(&self) -> *const CxxVector<u8>;
+        fn set_content_type(&mut self, mime: &CxxString);
+        fn get_content_length(&self) -> *const usize;
+        fn contains_header(&self, name: &CxxString) -> bool;
+        fn get_header(&self, name: &CxxString) -> *const CxxVector<u8>;
+        fn get_header_all(&self, name: &CxxString) -> Box<HeaderValuesIter>;
+        fn set_header(&mut self, name: &CxxString, value: &CxxString);
+        fn append_header(&mut self, name: &CxxString, value: &CxxString);
+        fn remove_header(&mut self, name: &CxxString) -> *const CxxVector<u8>;
+        fn get_method(&self) -> Method;
+        fn set_method(&mut self, method: Method);
+        fn get_url(&self) -> UniquePtr<CxxVector<u8>>;
+        fn set_url(&mut self, url: &CxxString);
+        fn get_path(&self) -> UniquePtr<CxxVector<u8>>;
+        fn set_path(&mut self, path: &CxxString);
+        fn get_query_string(&self) -> *const CxxVector<u8>;
+        fn get_query_parameter(&self, param: &CxxString) -> *const CxxVector<u8>;
+        fn set_query_string(&mut self, qs: &CxxString);
+        fn remove_query(&mut self);
+        fn get_client_ddos_detected(&self) -> *const bool;
+        fn set_auto_decompress_gzip(&mut self, gzip: bool);
+        fn fastly_key_is_valid(&self) -> bool;
+        fn set_cache_key(&mut self, key: &CxxVector<u8>);
+        fn is_cacheable(&mut self) -> bool;
     }
 
     #[namespace = "fastly::sys::http"]
