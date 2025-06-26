@@ -2,6 +2,46 @@
 
 namespace fastly::http {
 
+int Body::underflow() {
+  if (!this->in_avail()) {
+    size_t read{this->read(reinterpret_cast<uint8_t *>(this->gbuf.data()),
+                           this->gbuf.max_size())};
+    if (!read) {
+      return traits_type::eof();
+    }
+    this->setg(this->gbuf.data(), this->gbuf.data(), this->gbuf.data() + read);
+  }
+  return *this->gptr();
+}
+
+int Body::overflow(int_type val) {
+  auto const eof{traits_type::eof()};
+  auto len{this->pptr() - this->pbase()};
+  if (len) {
+    auto max_size{this->pbuf.max_size()};
+    auto pos{0};
+    while (pos < len) {
+      size_t written{this->write(reinterpret_cast<uint8_t *>(this->pbuf.data() + pos),
+          len - pos)};
+      if (!written) {
+        return traits_type::eof();
+      } else {
+        pos += written;
+      }
+    }
+  }
+  this->setp(this->pbuf.data(), this->pbuf.data() + this->pbuf.max_size());
+  if (!traits_type::eq_int_type(val, eof)) {
+      this->sputc(val);
+  }
+  return traits_type::not_eof(val);
+}
+
+int Body::sync() {
+    auto result{this->overflow(traits_type::eof())};
+    return traits_type::eq_int_type(result, traits_type::eof()) ? -1 : 0;
+}
+
 void Body::append(Body other) {
   return this->bod->append(std::move(other.bod));
 }

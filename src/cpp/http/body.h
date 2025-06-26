@@ -1,8 +1,10 @@
 #ifndef FASTLY_HTTP_BODY_H
 #define FASTLY_HTTP_BODY_H
 
+#include <array>
 #include <memory>
-// #include <streambuf>
+#include <iostream>
+#include <streambuf>
 #include <string>
 #include <vector>
 
@@ -10,16 +12,23 @@
 
 namespace fastly::http {
 
-class Body {
+class Body : public std::iostream, public std::streambuf {
 
 protected:
-  // TODO(@zkat): Implement all the stream stuff.
-  // int underflow();
-  // int overflow(traits_type val);
-  // int sync();
+  int underflow();
+  int overflow(int_type val);
+  int sync();
+
 public:
-  Body() : bod(std::move(fastly::sys::http::m_static_http_body_new())) {};
-  Body(rust::Box<fastly::sys::http::Body> body) : bod(std::move(body)) {};
+  Body() : bod(std::move(fastly::sys::http::m_static_http_body_new())),  std::iostream(this) {
+    this->setg(this->gbuf.data(), this->gbuf.data(), this->gbuf.data());
+    this->setp(this->pbuf.data(), this->pbuf.data() + this->pbuf.max_size());
+  };
+  Body(rust::Box<fastly::sys::http::Body> body) : bod(std::move(body)), std::iostream(this) {
+    this->setg(this->gbuf.data(), this->gbuf.data(), this->gbuf.data());
+    this->setp(this->pbuf.data(), this->pbuf.data() + this->pbuf.max_size());
+  };
+  Body(Body&& old) : bod(std::move(old.bod)), std::iostream(this) {}
   Body(std::vector<uint8_t> body_vec) : Body() {
     this->fill_from_vec(body_vec);
   };
@@ -55,6 +64,9 @@ public:
   rust::Box<fastly::sys::http::Body> bod;
 
 private:
+  std::array<char, 512> pbuf;
+  std::array<char, 512> gbuf;
+
   void fill_from_vec(std::vector<uint8_t> vec) {
     size_t pos{0};
     size_t written{0};
