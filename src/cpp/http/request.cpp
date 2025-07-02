@@ -1,7 +1,52 @@
 #include "request.h"
-#include <iterator>
 
 namespace fastly::http {
+
+namespace request {
+
+std::variant<PendingRequest, Response> PendingRequest::poll() {
+  auto poll_result{
+      fastly::sys::http::request::m_http_request_pending_request_poll(
+          std::move(this->req))};
+  if (poll_result->is_response()) {
+    return {Response(std::move(
+        fastly::sys::http::request::m_http_request_poll_result_into_response(
+            std::move(poll_result))))};
+  } else {
+    return {PendingRequest(std::move(
+        fastly::sys::http::request::m_http_request_poll_result_into_pending(
+            std::move(poll_result))))};
+  }
+}
+
+Response PendingRequest::wait() {
+  return {fastly::sys::http::request::m_http_request_pending_request_wait(
+      std::move(this->req))};
+}
+
+Request PendingRequest::cloned_sent_req() {
+  return {this->req->cloned_sent_req()};
+}
+
+std::pair<Response, std::vector<PendingRequest>>
+select(std::vector<PendingRequest> &reqs) {
+  rust::Vec<fastly::sys::http::request::BoxPendingRequest> vecreqs;
+  rust::Vec<fastly::sys::http::request::BoxPendingRequest> others;
+  for (auto &boxed : reqs) {
+    fastly::sys::http::request::f_http_push_box_pending_request_into_vec(
+        vecreqs, std::move(boxed.req));
+  }
+  auto resp{fastly::sys::http::request::f_http_request_select(
+      std::move(vecreqs), others)};
+  std::vector<PendingRequest> ret_others;
+  for (auto &box : others) {
+    ret_others.push_back(
+        std::move(PendingRequest(std::move(box.extract_req()))));
+  }
+  return std::make_pair(Response(std::move(resp)), std::move(ret_others));
+}
+
+} // namespace request
 
 Request::Request(Method method, std::string url)
     : req(std::move(
@@ -75,13 +120,24 @@ Response Request::send(fastly::backend::Backend backend) {
   return res;
 }
 
-// PendingRequest send_async(fastly::backend::Backend backend);
-// std::pair<fastly::http::StreamingBody, PendingRequest>
-// send_async(fastly::backend::Backend backend);
+request::PendingRequest Request::send_async(fastly::backend::Backend backend) {
+  request::PendingRequest res{fastly::sys::http::m_http_request_send_async(
+      std::move(this->req), backend.backend)};
+  return res;
+}
+
+std::pair<StreamingBody, request::PendingRequest>
+Request::send_async_streaming(fastly::backend::Backend backend) {
+  auto send_stream_res{fastly::sys::http::m_http_request_send_async_streaming(
+      std::move(this->req), backend.backend)};
+  return std::make_pair(
+      StreamingBody(std::move(send_stream_res->take_body())),
+      request::PendingRequest(std::move(send_stream_res->take_req())));
+}
 
 void Request::set_body(Body body) {
-    body << std::flush;
-    this->req->set_body(std::move(body.bod));
+  body << std::flush;
+  this->req->set_body(std::move(body.bod));
 }
 
 Request Request::with_body(Body body) {
@@ -351,21 +407,21 @@ void Request::set_surrogate_key(std::string sk) {
 }
 
 std::optional<std::string> Request::get_client_ip_addr() {
-   std::string ret;
-   if (this->req->get_client_ip_addr(ret)) {
-       return {ret};
-   } else {
-       return std::nullopt;
-   }
+  std::string ret;
+  if (this->req->get_client_ip_addr(ret)) {
+    return {ret};
+  } else {
+    return std::nullopt;
+  }
 }
 
 std::optional<std::string> Request::get_server_ip_addr() {
-    std::string ret;
-    if (this->req->get_server_ip_addr(ret)) {
-        return {ret};
-    } else {
-        return std::nullopt;
-    }
+  std::string ret;
+  if (this->req->get_server_ip_addr(ret)) {
+    return {ret};
+  } else {
+    return std::nullopt;
+  }
 }
 
 // // TODO(@zkat): needs iterator

@@ -43,6 +43,7 @@ int Body::sync() {
 }
 
 void Body::append(Body other) {
+  other.flush();
   return this->bod->append(std::move(other.bod));
 }
 

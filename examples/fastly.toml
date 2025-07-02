@@ -9,3 +9,5 @@ name = "cpp-example"
 service_id = ""
 
 [local_server]
+backends.fastly.url = "https://www.fastly.com"
+backends.wikipedia.url = "https://en.wikipedia.org"

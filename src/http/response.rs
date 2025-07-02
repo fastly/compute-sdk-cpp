@@ -2,7 +2,14 @@ use std::pin::Pin;
 
 use cxx::{CxxString, CxxVector, UniquePtr};
 
-use crate::{backend::Backend, http::{body::{Body, StreamingBody}, header::HeaderValuesIter, request::Request}};
+use crate::{
+    backend::Backend,
+    http::{
+        body::{Body, StreamingBody},
+        header::HeaderValuesIter,
+        request::Request,
+    },
+};
 
 pub struct Response(pub(crate) fastly::Response);
 
@@ -27,7 +34,9 @@ pub fn m_static_http_response_from_status(status: u16) -> Box<Response> {
 }
 
 pub fn m_static_http_response_see_other(destination: &CxxString) -> Box<Response> {
-    Box::new(Response(fastly::Response::see_other(destination.as_bytes())))
+    Box::new(Response(fastly::Response::see_other(
+        destination.as_bytes(),
+    )))
 }
 
 pub fn m_static_http_response_redirect(destination: &CxxString) -> Box<Response> {
@@ -182,11 +191,11 @@ impl Response {
         }
     }
 
-    pub fn get_backend(&self) -> *const Backend {
+    pub fn get_backend(&self) -> *mut Backend {
         if let Some(b) = self.0.get_backend() {
             Box::into_raw(Box::new(Backend(b.clone())))
         } else {
-            std::ptr::null()
+            std::ptr::null_mut()
         }
     }
 
@@ -199,11 +208,11 @@ impl Response {
         }
     }
 
-    pub fn take_backend_request(&mut self) -> *const Request {
+    pub fn take_backend_request(&mut self) -> *mut Request {
         if let Some(req) = self.0.take_backend_request() {
             Box::into_raw(Box::new(Request(req)))
         } else {
-            std::ptr::null()
+            std::ptr::null_mut()
         }
     }
 

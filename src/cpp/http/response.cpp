@@ -35,7 +35,9 @@ Response Response::with_body(Body body) {
 }
 
 void Response::set_body(Body body) {
-  body << std::flush;
+  // TODO(@zkat): this is broken rn because I messed up the move constructor for
+  // Body/StreamingBody.
+  body.flush();
   this->res->set_body(std::move(body.bod));
 }
 
@@ -45,9 +47,9 @@ Body Response::take_body() {
 }
 
 void Response::append_body(Body other) {
-    this->res->append_body(std::move(other.bod));
+  other.flush();
+  this->res->append_body(std::move(other.bod));
 }
-
 
 std::vector<uint8_t> Response::into_body_bytes() {
   auto str{this->into_body_string()};
@@ -193,8 +195,81 @@ Response Response::with_status(StatusCode status) {
   return std::move(*this);
 }
 
+std::optional<std::string> Response::get_backend_name() {
+  std::string name;
+  bool existed{this->res->get_backend_name(name)};
+  if (!existed) {
+    return std::nullopt;
+  } else {
+    return {name};
+  }
+}
+
+std::optional<fastly::backend::Backend> Response::get_backend() {
+  auto ptr{this->res->get_backend()};
+  if (ptr == nullptr) {
+    return std::nullopt;
+  } else {
+    return {fastly::backend::Backend(
+        rust::Box<fastly::sys::backend::Backend>::from_raw(ptr))};
+  }
+}
+
+std::optional<std::string> Response::get_backend_addr() {
+  std::string addr;
+  bool existed{this->res->get_backend_name(addr)};
+  if (!existed) {
+    return std::nullopt;
+  } else {
+    return {addr};
+  }
+}
+
+std::optional<Request> Response::take_backend_request() {
+  auto ptr{this->res->take_backend_request()};
+  if (ptr == nullptr) {
+    return std::nullopt;
+  } else {
+    return {Request(rust::Box<fastly::sys::http::Request>::from_raw(ptr))};
+  }
+}
+
 void Response::send_to_client() {
+  // TODO(@zkat): flush body before sending.
   fastly::sys::http::m_http_response_send_to_client(std::move(this->res));
+}
+
+StreamingBody Response::stream_to_client() {
+  return {fastly::sys::http::m_http_response_stream_to_client(
+      std::move(this->res))};
+}
+
+std::optional<std::chrono::milliseconds> Response::get_ttl() {
+  auto ptr{this->res->get_ttl()};
+  if (ptr == nullptr) {
+    return std::nullopt;
+  } else {
+    return {std::chrono::milliseconds(*ptr)};
+  }
+}
+
+std::optional<std::chrono::milliseconds> Response::get_age() {
+  auto ptr{this->res->get_age()};
+  if (ptr == nullptr) {
+    return std::nullopt;
+  } else {
+    return {std::chrono::milliseconds(*ptr)};
+  }
+}
+
+std::optional<std::chrono::milliseconds>
+Response::get_stale_while_revalidate() {
+  auto ptr{this->res->get_stale_while_revalidate()};
+  if (ptr == nullptr) {
+    return std::nullopt;
+  } else {
+    return {std::chrono::milliseconds(*ptr)};
+  }
 }
 
 } // namespace fastly::http

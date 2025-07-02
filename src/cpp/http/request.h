@@ -7,14 +7,82 @@
 #include "header.h"
 #include "method.h"
 #include "response.h"
+#include <algorithm>
+#include <iostream>
 #include <iterator>
 #include <optional>
 #include <string>
+#include <utility>
+#include <variant>
 #include <vector>
 
 namespace fastly::http {
 
+class Body;
+class StreamingBody;
 class Response;
+class Request;
+
+namespace request {
+
+/// A handle to a pending asynchronous request returned by
+/// `Request::send_async()` or
+/// `Request::send_async_streaming()`.
+///
+/// A handle can be evaluated using `PendingRequest::poll()`,
+/// `PendingRequest::wait()`, or
+/// `http::select`. It can also be discarded if the request was sent for effects
+/// it might have, and the response is unimportant.
+class PendingRequest {
+
+  friend Request;
+  friend std::pair<Response, std::vector<PendingRequest>>
+  select(std::vector<PendingRequest> &reqs);
+
+  /// Try to get the result of a pending request without blocking.
+  ///
+  /// This method returns immediately with a `std::variant` containing either
+  /// the original `PendingRequest` if the response was not ready, or a
+  /// `Response` if the response was ready. If you want to block until a result
+  /// is ready, use `PendingRequest::wait()`.
+  std::variant<PendingRequest, Response> poll();
+
+  /// Block until the result of a pending request is ready.
+  ///
+  /// If you want check whether the result is ready without blocking, use
+  /// `PendingRequest::poll()`.
+  Response wait();
+
+  /// Cloned version of the original request that was sent, without the original
+  /// body. This is only a copy and cannot be used to modify anything, since the
+  /// request has already been sent.
+  Request cloned_sent_req();
+
+private:
+  rust::Box<fastly::sys::http::request::PendingRequest> req;
+
+  PendingRequest(rust::Box<fastly::sys::http::request::PendingRequest> r)
+      : req(std::move(r)) {};
+};
+
+/// Given a collection of `PendingRequest`s, block until the result of one of
+/// the requests is ready.
+///
+/// Returns an `std::pair` of `<result, remaining>`, where:
+///
+/// - `result` is the result of the request that became ready.
+///
+/// - `remaining` is a vector containing all of the requests that did not become
+/// ready. The order of the requests in this vector is not guaranteed to match
+/// the order of the requests in the argument collection.
+///
+/// ### Panics
+///
+/// Panics if the argument collection is empty, or contains too many requests.
+std::pair<Response, std::vector<PendingRequest>>
+select(std::vector<PendingRequest> &reqs);
+
+} // namespace request
 
 /// An HTTP request, including body, headers, method, and URL.
 ///
@@ -71,6 +139,9 @@ class Response;
 /// req.send("example_backend"s);
 /// ```
 class Request {
+  friend request::PendingRequest;
+  friend Response;
+
 public:
   /// Create a new request with the given method and URL, no headers, and an
   /// empty body.
@@ -175,12 +246,103 @@ public:
   /// ```
   Response send(fastly::backend::Backend backend);
 
-  // PendingRequest send_async(fastly::backend::Backend backend);
-  // std::pair<fastly::http::StreamingBody, PendingRequest>
-  // send_async(fastly::backend::Backend backend);
+  /// Begin sending the request to the given backend server, and return a
+  /// `PendingRequest` that can yield the backend response or an error.
+  ///
+  /// This method returns as soon as the request begins sending to the backend,
+  /// and transmission of the request body and headers will continue in the
+  /// background.
+  ///
+  /// This method allows for sending more than one request at once and receiving
+  /// their responses in arbitrary orders. See `PendingRequest` for more details
+  /// on how to wait on, poll, or select between pending requests.
+  ///
+  /// This method is also useful for sending requests where the response is
+  /// unimportant, but the request may take longer than the Compute program is
+  /// able to run, as the request will continue sending even after the program
+  /// that initiated it exits.
+  ///
+  /// # Examples
+  ///
+  /// Sending a request to two backends and returning whichever response
+  /// finishes first:
+  ///
+  /// ```cpp
+  /// auto backend_resp_1{Request::get("https://example.com/"s)
+  ///     .send_async("example_backend_1"s)};
+  /// auto backend_resp_2{Request::get("https://example.com/"s)
+  ///     .send_async("example_backend_2"s)};
+  /// auto [selected_resp, _others] =
+  /// fastly::http::request::select({backend_resp_1, backend_resp_2});
+  /// selected_resp.send_to_client();
+  /// ```
+  ///
+  /// Sending a long-running request and ignoring its result so that the program
+  /// can exit before
+  /// it completes:
+  ///
+  /// ```cpp
+  /// Request::post("https://example.com"s)
+  ///     .with_body(some_large_file)
+  ///     .send_async("example_backend"s);
+  /// ```
+  request::PendingRequest send_async(fastly::backend::Backend backend);
+
+  /// Begin sending the request to the given backend server, and return a
+  /// `PendingRequest` that
+  /// can yield the backend response or an error along with a `StreamingBody`
+  /// that can accept
+  /// further data to send.
+  ///
+  /// The backend connection is only closed once `StreamingBody::finish()` is
+  /// called. The
+  /// `PendingRequest` will not yield a `Response` until the
+  /// `StreamingBody` is finished.
+  ///
+  /// This method is most useful for programs that do some sort of processing or
+  /// inspection of a
+  /// potentially-large client request body. Streaming allows the program to
+  /// operate on small
+  /// parts of the body rather than having to read it all into memory at once.
+  ///
+  /// This method returns as soon as the request begins sending to the backend,
+  /// and transmission
+  /// of the request body and headers will continue in the background.
+  ///
+  /// # Examples
+  ///
+  /// Count the number of lines in a UTF-8 client request body while sending it
+  /// to the backend:
+  ///
+  /// ```cpp
+  /// auto req{Request::from_client()};
+  /// // Take the body so we can iterate through its lines later
+  /// auto req_body{req.take_body()};
+  /// // Start sending the client request to the client with a now-empty body
+  /// auto [backend_body, pending_req] = req
+  ///     .send_async_streaming("example_backend"s);
+  ///
+  /// size_t num_lines{0};
+  /// std::string buf;
+  /// while (std::getline(req_body, buf)) {
+  ///   num_lines++;
+  ///   // Write the line to the streaming backend body
+  ///   backend_body << buf << "\n" << std::flush;
+  /// }
+  /// // Finish the streaming body to allow the backend connection to close
+  /// backend_body.finish();
+  ///
+  /// std::cout
+  ///   << "client request body contained "
+  ///   << num_lines
+  ///   << " lines"
+  ///   << std::endl;
+  /// ```
+  std::pair<StreamingBody, request::PendingRequest>
+  send_async_streaming(fastly::backend::Backend backend);
 
   /// Builder-style equivalent of `Request::set_body()`.
-  Request with_body(Body body);
+  Request with_body(Body &&body);
 
   /// Returns `true` if this request has a body.
   bool has_body();
@@ -191,7 +353,7 @@ public:
   Body take_body();
 
   /// Set the given value as the request's body.
-  void set_body(Body body);
+  void set_body(Body &&body);
 
   /// Append another [`Body`] to the body of this request without reading or
   /// writing any body contents.
@@ -199,9 +361,10 @@ public:
   /// If this request does not have a body, the appended body is set as the
   /// request's body.
   ///
-  /// This method should be used when combining bodies that have not necessarily
-  /// been read yet, such as the body of the client. To append contents that are
-  /// already in memory as strings or bytes, you should instead use
+  /// This method should be used when combining bodies that have not
+  /// necessarily been read yet, such as the body of the client. To append
+  /// contents that are already in memory as strings or bytes, you should
+  /// instead use
   /// [`get_body_mut()`][`Self::get_body_mut()`] to write the contents to the
   /// end of the body.
   ///
@@ -212,7 +375,7 @@ public:
   /// says: "s)}; req.append_body(Request::from_client().into_body());
   /// req.send("example_backend"s);
   /// ```
-  void append_body(Body body);
+  void append_body(Body &body);
 
   /// Consume the request and return its body as a byte vector.
   std::vector<uint8_t> into_body_bytes();
@@ -227,8 +390,8 @@ public:
   /// `Request::set_body_text_plain()`.
   Request with_body_text_plain(std::string body);
 
-  /// Set the given string as the request's body with content type `text/plain;
-  /// charset=UTF-8`.
+  /// Set the given string as the request's body with content type
+  /// `text/plain; charset=UTF-8`.
   void set_body_text_plain(std::string body);
 
   /// Builder-style equivalent of
@@ -261,8 +424,8 @@ public:
 
   /// Get the MIME type described by the request's
   /// [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
-  /// header, or `std::nullopt` if that header is absent or contains an invalid
-  /// MIME type.
+  /// header, or `std::nullopt` if that header is absent or contains an
+  /// invalid MIME type.
   std::optional<std::string> get_content_type();
 
   /// Builder-style equivalent of
@@ -290,8 +453,8 @@ public:
   /// Builder-style equivalent of `Request::set_header()`.
   Request with_set_header(std::string name, std::string value);
 
-  /// Get the value of a header as a string, or `std::nullopt` if the header is
-  /// not present.
+  /// Get the value of a header as a string, or `std::nullopt` if the header
+  /// is not present.
   ///
   /// If there are multiple values for the header, only one is returned, which
   /// may be any of the values. See
@@ -313,8 +476,8 @@ public:
 
   /// Add a request header with given value.
   ///
-  /// Unlike `Request::set_header()`, this does not discard existing values for
-  /// the same header name.
+  /// Unlike `Request::set_header()`, this does not discard existing values
+  /// for the same header name.
   void append_header(std::string name, std::string value);
 
   /// Remove all request headers of the given name, and return one of the
@@ -379,8 +542,8 @@ public:
   /// Get the value of a query parameter in the request's URL.
   ///
   /// This assumes that the query string is a `&` separated list of
-  /// `parameter=value` pairs. The value of the first occurrence of `parameter`
-  /// is returned. No URL decoding is performed.
+  /// `parameter=value` pairs. The value of the first occurrence of
+  /// `parameter` is returned. No URL decoding is performed.
   std::optional<std::string> get_query_parameter(std::string param);
 
   /// Builder-style equivalent of `Request::set_query()`.
@@ -476,8 +639,8 @@ public:
   /// The header value can contain more than one surrogate key, separated by
   /// spaces.
   ///
-  /// Surrogate keys must contain only printable ASCII characters (those between
-  /// `0x21` and `0x7E`, inclusive). Any invalid keys will be ignored.
+  /// Surrogate keys must contain only printable ASCII characters (those
+  /// between `0x21` and `0x7E`, inclusive). Any invalid keys will be ignored.
   ///
   /// See the [Fastly surrogate keys
   /// guide](https://docs.fastly.com/en/guides/purging-api-cache-with-surrogate-keys)
@@ -492,7 +655,7 @@ public:
 
   std::optional<std::string> get_client_ip_addr();
   std::optional<std::string> get_server_ip_addr();
-  
+
   // TODO(@zkat): needs iterator
   // std::optional<HeaderNameIter> get_original_header_names();
 
@@ -507,7 +670,8 @@ public:
   // std::optional<std::array<uint8_t, 16>> get_tls_ja3_md5();
   // std::optional<std::string> get_tls_ja4();
   // std::optional<std::string> get_tls_raw_client_certificate();
-  // std::optional<std::vector<uint8_t>> get_tls_raw_client_certificate_bytes();
+  // std::optional<std::vector<uint8_t>>
+  // get_tls_raw_client_certificate_bytes();
   // // TODO(@zkat): needs additional type
   // // std::optional<ClientCertVerifyResult>
   // get_tls_client_cert_verify_result(); std::optional<std::string>
@@ -518,15 +682,15 @@ public:
   /// Set whether a `gzip`-encoded response to this request will be
   /// automatically decompressed.
   ///
-  /// Enabling this will set the `Accept-Encoding` header before the request is
-  /// sent, regardless of the original value in the request, to ensure that any
-  /// values originally sent by a browser or other client get replaced with
-  /// `gzip`, so that the backend will not try sending unsupported compression
-  /// algorithms.
+  /// Enabling this will set the `Accept-Encoding` header before the request
+  /// is sent, regardless of the original value in the request, to ensure that
+  /// any values originally sent by a browser or other client get replaced
+  /// with `gzip`, so that the backend will not try sending unsupported
+  /// compression algorithms.
   ///
-  /// If the response to this request is `gzip`-encoded, it will be presented in
-  /// decompressed form, and the `Content-Encoding` and `Content-Length` headers
-  /// will be removed.
+  /// If the response to this request is `gzip`-encoded, it will be presented
+  /// in decompressed form, and the `Content-Encoding` and `Content-Length`
+  /// headers will be removed.
   void set_auto_decompress_gzip(bool gzip);
 
   /// Builder-style equivalent of
@@ -537,8 +701,8 @@ public:
   // void set_framing_headers_mode(FramingHeadersMode mode);
   // Request *set_framing_headers_mode(FramingHeadersMode mode);
 
-  /// Returns whether or not the client request had a `Fastly-Key` header which
-  /// is valid for purging content for the service.
+  /// Returns whether or not the client request had a `Fastly-Key` header
+  /// which is valid for purging content for the service.
   ///
   /// This function ignores the current value of any `Fastly-Key` header for
   /// this request.
@@ -548,12 +712,12 @@ public:
   // void handoff_fanout(fastly::backend::Backend backend);
   // Request *on_behalf_of(std::string service);
 
-  /// Set the cache key to be used when attempting to satisfy this request from
-  /// a cached response.
+  /// Set the cache key to be used when attempting to satisfy this request
+  /// from a cached response.
   void set_cache_key(std::string key);
 
-  /// Set the cache key to be used when attempting to satisfy this request from
-  /// a cached response.
+  /// Set the cache key to be used when attempting to satisfy this request
+  /// from a cached response.
   void set_cache_key(std::vector<uint8_t> key);
 
   /// Builder-style equivalent of `Request::set_cache_key()`.

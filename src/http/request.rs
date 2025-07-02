@@ -4,11 +4,108 @@ use cxx::{CxxString, CxxVector, UniquePtr};
 
 use crate::backend::Backend;
 use crate::ffi::Method;
-use crate::http::body::Body;
+use crate::http::body::{Body, StreamingBody};
 use crate::http::header::HeaderValuesIter;
+use crate::http::request::request::PendingRequest;
 use crate::http::response::Response;
 
 pub struct Request(pub(crate) fastly::Request);
+
+pub mod request {
+
+    use crate::http::body::StreamingBody;
+
+    use super::*;
+    pub struct PendingRequest(pub(crate) fastly::http::request::PendingRequest);
+    // Sigh https://github.com/dtolnay/cxx/issues/671
+    pub struct BoxPendingRequest(pub(crate) Option<Box<PendingRequest>>);
+
+    pub fn f_http_push_box_pending_request_into_vec(
+        vec: &mut Vec<BoxPendingRequest>,
+        bx: Box<PendingRequest>,
+    ) {
+        vec.push(BoxPendingRequest(Some(bx)))
+    }
+
+    impl BoxPendingRequest {
+        pub fn extract_req(&mut self) -> Box<PendingRequest> {
+            self.0.take().expect("nothing in the box. oops.")
+        }
+    }
+
+    pub enum PollResult {
+        Pending(PendingRequest),
+        Response(Response),
+    }
+
+    pub fn m_http_request_poll_result_into_pending(result: Box<PollResult>) -> Box<PendingRequest> {
+        match *result {
+            PollResult::Pending(pending_request) => Box::new(pending_request),
+            PollResult::Response(_) => panic!("not a pending request"),
+        }
+    }
+
+    pub fn m_http_request_poll_result_into_response(result: Box<PollResult>) -> Box<Response> {
+        match *result {
+            PollResult::Pending(_) => panic!("not a response"),
+            PollResult::Response(response) => Box::new(response),
+        }
+    }
+
+    impl PollResult {
+        pub fn is_response(&self) -> bool {
+            match self {
+                PollResult::Pending(_) => false,
+                PollResult::Response(_) => true,
+            }
+        }
+    }
+
+    pub fn m_http_request_pending_request_poll(req: Box<PendingRequest>) -> Box<PollResult> {
+        use fastly::http::request::PollResult::{Done, Pending};
+        Box::new(match req.0.poll() {
+            Pending(pending_request) => PollResult::Pending(PendingRequest(pending_request)),
+            Done(response) => PollResult::Response(Response(response.expect("request failed"))),
+        })
+    }
+
+    pub fn m_http_request_pending_request_wait(req: Box<PendingRequest>) -> Box<Response> {
+        Box::new(Response(req.0.wait().expect("request failed")))
+    }
+
+    impl PendingRequest {
+        pub fn cloned_sent_req(&self) -> Box<Request> {
+            Box::new(Request(self.0.sent_req().clone_without_body()))
+        }
+    }
+
+    pub fn f_http_request_select(
+        reqs: Vec<BoxPendingRequest>,
+        others: &mut Vec<BoxPendingRequest>,
+    ) -> Box<Response> {
+        let (ret, xs) =
+            fastly::http::request::select(reqs.into_iter().map(|mut r| (*(r.extract_req())).0));
+        for x in xs {
+            others.push(BoxPendingRequest(Some(Box::new(PendingRequest(x)))));
+        }
+        Box::new(Response(ret.expect("request failed")))
+    }
+
+    pub struct AsyncStreamRes(
+        pub(crate) Option<Box<StreamingBody>>,
+        pub(crate) Option<Box<PendingRequest>>,
+    );
+
+    impl AsyncStreamRes {
+        pub fn take_body(&mut self) -> Box<StreamingBody> {
+            self.0.take().expect("no body")
+        }
+
+        pub fn take_req(&mut self) -> Box<PendingRequest> {
+            self.1.take().expect("no req")
+        }
+    }
+}
 
 pub fn m_static_http_request_new(method: Method, url: &CxxString) -> Box<Request> {
     let method: fastly::http::Method = method.into();
@@ -93,6 +190,32 @@ pub fn m_http_request_send(request: Box<Request>, backend: &Box<Backend>) -> Box
     ))
 }
 
+pub fn m_http_request_send_async(
+    request: Box<Request>,
+    backend: &Box<Backend>,
+) -> Box<request::PendingRequest> {
+    Box::new(request::PendingRequest(
+        request
+            .0
+            .send_async(&backend.0)
+            .expect("Request failed to send."),
+    ))
+}
+
+pub fn m_http_request_send_async_streaming(
+    request: Box<Request>,
+    backend: &Box<Backend>,
+) -> Box<request::AsyncStreamRes> {
+    let (body, req) = request
+        .0
+        .send_async_streaming(&backend.0)
+        .expect("Request failed to send.");
+    Box::new(request::AsyncStreamRes(
+        Some(Box::new(StreamingBody(body))),
+        Some(Box::new(PendingRequest(req))),
+    ))
+}
+
 pub fn m_http_request_into_body(request: Box<Request>) -> Box<Body> {
     Box::new(Body(request.0.into_body()))
 }
@@ -104,7 +227,7 @@ impl Request {
     pub fn clone_without_body(&self) -> Box<Request> {
         Box::new(Request(self.0.clone_without_body()))
     }
-    
+
     pub fn clone_with_body(&mut self) -> Box<Request> {
         Box::new(Request(self.0.clone_with_body()))
     }
@@ -335,9 +458,14 @@ impl Request {
     }
 
     pub fn set_surrogate_key(&mut self, sk: &CxxString) {
-        self.0.set_surrogate_key(sk.to_string_lossy().as_ref().try_into().expect("Failed to parse surrogate key"));
+        self.0.set_surrogate_key(
+            sk.to_string_lossy()
+                .as_ref()
+                .try_into()
+                .expect("Failed to parse surrogate key"),
+        );
     }
-    
+
     pub fn get_client_ip_addr(&self, buf: Pin<&mut CxxString>) -> bool {
         if let Some(ip) = self.0.get_client_ip_addr() {
             buf.push_str(ip.to_string().as_ref());
@@ -346,7 +474,7 @@ impl Request {
             false
         }
     }
-    
+
     pub fn get_server_ip_addr(&self, buf: Pin<&mut CxxString>) -> bool {
         if let Some(ip) = self.0.get_server_ip_addr() {
             buf.push_str(ip.to_string().as_ref());

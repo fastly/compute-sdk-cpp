@@ -10,6 +10,9 @@ namespace fastly::backend {
 class BackendBuilder;
 class Backend {
 public:
+  Backend(std::string name)
+      : backend(std::move(
+            fastly::sys::backend::m_static_backend_backend_from_name(name))) {};
   Backend(rust::Box<fastly::sys::backend::Backend> b)
       : backend(std::move(b)) {};
   static Backend from_name(std::string name);

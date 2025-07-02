@@ -1,5 +1,7 @@
 use backend::*;
-use http::{body::*, header::*, purge::*, request::*, response::*, status_code::*};
+use http::{
+    body::*, header::*, purge::*, request::request::*, request::*, response::*, status_code::*,
+};
 
 mod backend;
 mod http;
@@ -9,7 +11,7 @@ mod http;
 // break.
 #[cxx::bridge]
 mod ffi {
-    
+
     #[namespace = "fastly::sys::http"]
     #[derive(Copy, Clone, Debug)]
     pub enum Method {
@@ -28,7 +30,10 @@ mod ffi {
     extern "Rust" {
         type Backend;
         fn m_static_backend_backend_from_name(name: &CxxString) -> Box<Backend>;
-        fn m_static_backend_backend_builder(name: &CxxString, target: &CxxString) -> Box<BackendBuilder>;
+        fn m_static_backend_backend_builder(
+            name: &CxxString,
+            target: &CxxString,
+        ) -> Box<BackendBuilder>;
         fn m_backend_backend_into_string(backend: Box<Backend>) -> String;
         fn equals(&self, other: &Box<Backend>) -> bool;
         fn clone(&self) -> Box<Backend>;
@@ -54,23 +59,72 @@ mod ffi {
     #[namespace = "fastly::sys::backend"]
     extern "Rust" {
         type BackendBuilder;
-        fn m_static_backend_backend_builder_new(name: &CxxString, target: &CxxString) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_override_host(mut builder: Box<BackendBuilder>, name: &CxxString) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_connect_timeout(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_first_byte_timeout(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_between_bytes_timeout(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_enable_ssl(builder: Box<BackendBuilder>) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_disable_ssl(builder: Box<BackendBuilder>) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_check_certificate(builder: Box<BackendBuilder>, cert: &CxxString) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_ca_certificate(builder: Box<BackendBuilder>, cert: &CxxString) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_tls_ciphers(builder: Box<BackendBuilder>, ciphers: &CxxString) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_sni_hostname(builder: Box<BackendBuilder>, host: &CxxString) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_enable_pooling(builder: Box<BackendBuilder>, value: bool) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_http_keepalive_time(mut builder: Box<BackendBuilder>, timeout: u32) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_tcp_keepalive_enable(builder: Box<BackendBuilder>, value: bool) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_tcp_keepalive_interval_secs(builder: Box<BackendBuilder>, value: u32) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_tcp_keepalive_probes(builder: Box<BackendBuilder>, value: u32) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_tcp_keepalive_time_secs(builder: Box<BackendBuilder>, value: u32) -> Box<BackendBuilder>;
+        fn m_static_backend_backend_builder_new(
+            name: &CxxString,
+            target: &CxxString,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_override_host(
+            mut builder: Box<BackendBuilder>,
+            name: &CxxString,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_connect_timeout(
+            mut builder: Box<BackendBuilder>,
+            timeout: u32,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_first_byte_timeout(
+            mut builder: Box<BackendBuilder>,
+            timeout: u32,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_between_bytes_timeout(
+            mut builder: Box<BackendBuilder>,
+            timeout: u32,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_enable_ssl(
+            builder: Box<BackendBuilder>,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_disable_ssl(
+            builder: Box<BackendBuilder>,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_check_certificate(
+            builder: Box<BackendBuilder>,
+            cert: &CxxString,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_ca_certificate(
+            builder: Box<BackendBuilder>,
+            cert: &CxxString,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tls_ciphers(
+            builder: Box<BackendBuilder>,
+            ciphers: &CxxString,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_sni_hostname(
+            builder: Box<BackendBuilder>,
+            host: &CxxString,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_enable_pooling(
+            builder: Box<BackendBuilder>,
+            value: bool,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_http_keepalive_time(
+            mut builder: Box<BackendBuilder>,
+            timeout: u32,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_enable(
+            builder: Box<BackendBuilder>,
+            value: bool,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_interval_secs(
+            builder: Box<BackendBuilder>,
+            value: u32,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_probes(
+            builder: Box<BackendBuilder>,
+            value: u32,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_tcp_keepalive_time_secs(
+            builder: Box<BackendBuilder>,
+            value: u32,
+        ) -> Box<BackendBuilder>;
         fn m_backend_backend_builder_finish(builder: Box<BackendBuilder>) -> Box<Backend>;
     }
 
@@ -102,6 +156,14 @@ mod ffi {
         fn clone_without_body(&self) -> Box<Request>;
         fn clone_with_body(&mut self) -> Box<Request>;
         fn m_http_request_send(request: Box<Request>, backend: &Box<Backend>) -> Box<Response>;
+        fn m_http_request_send_async(
+            request: Box<Request>,
+            backend: &Box<Backend>,
+        ) -> Box<PendingRequest>;
+        fn m_http_request_send_async_streaming(
+            request: Box<Request>,
+            backend: &Box<Backend>,
+        ) -> Box<AsyncStreamRes>;
         fn set_body(&mut self, body: Box<Body>);
         fn has_body(&self) -> bool;
         fn take_body(&mut self) -> Box<Body>;
@@ -142,11 +204,52 @@ mod ffi {
         fn is_cacheable(&mut self) -> bool;
     }
 
+    #[namespace = "fastly::sys::http::request"]
+    extern "Rust" {
+        type PollResult;
+        fn is_response(&self) -> bool;
+        fn m_http_request_poll_result_into_pending(result: Box<PollResult>) -> Box<PendingRequest>;
+        fn m_http_request_poll_result_into_response(result: Box<PollResult>) -> Box<Response>;
+    }
+
+    #[namespace = "fastly::sys::http::request"]
+    extern "Rust" {
+        type PendingRequest;
+        fn m_http_request_pending_request_poll(req: Box<PendingRequest>) -> Box<PollResult>;
+        fn m_http_request_pending_request_wait(req: Box<PendingRequest>) -> Box<Response>;
+        fn cloned_sent_req(&self) -> Box<Request>;
+    }
+
+    #[namespace = "fastly::sys::http::request"]
+    extern "Rust" {
+        type BoxPendingRequest;
+        fn f_http_push_box_pending_request_into_vec(
+            vec: &mut Vec<BoxPendingRequest>,
+            bx: Box<PendingRequest>,
+        );
+        fn extract_req(&mut self) -> Box<PendingRequest>;
+    }
+
+    #[namespace = "fastly::sys::http::request"]
+    extern "Rust" {
+        type AsyncStreamRes;
+        fn take_body(&mut self) -> Box<StreamingBody>;
+        fn take_req(&mut self) -> Box<PendingRequest>;
+    }
+
+    #[namespace = "fastly::sys::http::request"]
+    extern "Rust" {
+        fn f_http_request_select(
+            reqs: Vec<BoxPendingRequest>,
+            others: &mut Vec<BoxPendingRequest>,
+        ) -> Box<Response>;
+    }
+
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
         fn f_http_status_code_canonical_reason(code: u16, string: Pin<&mut CxxString>) -> bool;
     }
-    
+
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
         type Response;
@@ -178,11 +281,11 @@ mod ffi {
         fn remove_header(&mut self, name: &CxxString) -> *const CxxVector<u8>;
         fn set_status(&mut self, status: u16);
         fn get_backend_name(&self, out: Pin<&mut CxxString>) -> bool;
-        fn get_backend(&self) -> *const Backend;
+        fn get_backend(&self) -> *mut Backend;
         fn get_backend_addr(&self, out: Pin<&mut CxxString>) -> bool;
-        fn take_backend_request(&mut self) -> *const Request;
+        fn take_backend_request(&mut self) -> *mut Request;
         fn m_http_response_send_to_client(response: Box<Response>);
-        pub fn m_http_response_stream_to_client(response: Box<Response>) -> Box<StreamingBody>;
+        fn m_http_response_stream_to_client(response: Box<Response>) -> Box<StreamingBody>;
         fn get_ttl(&self) -> *const u32;
         fn get_age(&self) -> *const u32;
         fn get_stale_while_revalidate(&self) -> *const u32;
@@ -206,7 +309,7 @@ mod ffi {
         fn append_trailer(&mut self, name: &CxxString, value: &CxxString);
         fn write(&mut self, bytes: &[u8]) -> usize;
     }
-    
+
     #[namespace = "fastly::sys::http::purge"]
     extern "Rust" {
         fn f_http_purge_purge_surrogate_key(surrogate_key: &CxxString);

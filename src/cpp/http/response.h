@@ -9,11 +9,21 @@
 #include "status_code.h"
 #include <chrono>
 #include <string>
+#include <utility>
 #include <vector>
 
 namespace fastly::http {
 
+class Body;
+class StreamingBody;
+class Response;
 class Request;
+namespace request {
+class PendingRequest;
+std::pair<Response, std::vector<PendingRequest>>
+select(std::vector<PendingRequest> &reqs);
+} // namespace request
+
 /// An HTTP response, including body, headers, and status code.
 ///
 /// # Sending to the client
@@ -74,6 +84,11 @@ class Request;
 /// resp.send_to_client();
 /// ```
 class Response {
+  friend Request;
+  friend request::PendingRequest;
+  friend std::pair<Response, std::vector<request::PendingRequest>>
+  request::select(std::vector<request::PendingRequest> &reqs);
+
 public:
   /// Create a new `Response`.
   ///
@@ -81,9 +96,6 @@ public:
   /// empty body.
   Response();
   // TODO(@zkat): Make this a "friend"?
-  Response(rust::Box<fastly::sys::http::Response> response)
-      : res(std::move(response)) {};
-
   /// Return whether the response is from a backend request.
   bool is_from_backend();
 
@@ -527,6 +539,8 @@ public:
   std::optional<std::chrono::milliseconds> get_stale_while_revalidate();
 
 private:
+  Response(rust::Box<fastly::sys::http::Response> response)
+      : res(std::move(response)) {};
   rust::Box<fastly::sys::http::Response> res;
 };
 

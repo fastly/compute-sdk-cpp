@@ -7,7 +7,7 @@ if(!WASI_SDK)
 endif()
 
 if(VERBOSE)
-  set(VERBOSE_FLAG "--verbose")
+    set(VERBOSE_FLAG "--verbose")
 endif()
 
 set(CMAKE_CXX_STANDARD 17)
