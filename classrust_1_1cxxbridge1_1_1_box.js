@@ -1,0 +1,25 @@
+var classrust_1_1cxxbridge1_1_1_box =
+[
+    [ "allocation", "classrust_1_1cxxbridge1_1_1_box_1_1allocation.html", "classrust_1_1cxxbridge1_1_1_box_1_1allocation" ],
+    [ "uninit", "classrust_1_1cxxbridge1_1_1_box_1_1uninit.html", null ],
+    [ "const_pointer", "classrust_1_1cxxbridge1_1_1_box.html#a2ae7bcee2586918e8e0a3cd2c9579334", null ],
+    [ "element_type", "classrust_1_1cxxbridge1_1_1_box.html#a1aad144ef404889181e46b78b444b8a1", null ],
+    [ "pointer", "classrust_1_1cxxbridge1_1_1_box.html#aadc83278128e68bec54e07ab85520bd4", null ],
+    [ "value_type", "classrust_1_1cxxbridge1_1_1_box.html#a19d0858563a904554733438aa76906c6", null ],
+    [ "Box", "classrust_1_1cxxbridge1_1_1_box.html#ae8d0f9bfda4d0102e9fddfd9082e8522", null ],
+    [ "Box", "classrust_1_1cxxbridge1_1_1_box.html#a509044ae6a634ff2c5d19272d6d65532", null ],
+    [ "~Box", "classrust_1_1cxxbridge1_1_1_box.html#a6bd2b0d5bea60b88b52dd8ba6df5e3e9", null ],
+    [ "Box", "classrust_1_1cxxbridge1_1_1_box.html#a3dc063307e11a9b0595c6ec836e79a5b", null ],
+    [ "Box", "classrust_1_1cxxbridge1_1_1_box.html#ac372fe15e3542f332053e71b892dd67a", null ],
+    [ "from_raw", "classrust_1_1cxxbridge1_1_1_box.html#a46b1445cc34160d19c2198be13bf551a", null ],
+    [ "in_place", "classrust_1_1cxxbridge1_1_1_box.html#a2eca3027c06d3526da3b89d06372f94f", null ],
+    [ "in_place", "classrust_1_1cxxbridge1_1_1_box.html#adc49cb79b3699646d62a8fabcef2ccd3", null ],
+    [ "into_raw", "classrust_1_1cxxbridge1_1_1_box.html#ac86a0a2abb59d773327f8a94d3417091", null ],
+    [ "operator*", "classrust_1_1cxxbridge1_1_1_box.html#a94bfe7928a4dcda31400524cb614826d", null ],
+    [ "operator*", "classrust_1_1cxxbridge1_1_1_box.html#ab865be6abd4bb7ed9614c002bc1ca0e3", null ],
+    [ "operator->", "classrust_1_1cxxbridge1_1_1_box.html#a88e1e97ad0478ac34219fa0aebd43774", null ],
+    [ "operator->", "classrust_1_1cxxbridge1_1_1_box.html#ae1e334d1d272273d8ef17e357579e5ee", null ],
+    [ "operator=", "classrust_1_1cxxbridge1_1_1_box.html#ad77d7cc714a09307c47379020563a495", null ],
+    [ "swap", "classrust_1_1cxxbridge1_1_1_box.html#a42c7e241fb47cb99a672ed3530ee1a96", null ],
+    [ "swap", "classrust_1_1cxxbridge1_1_1_box.html#a4580cad16def88bd0883db36bcbfe951", null ]
+];

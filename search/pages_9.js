@@ -1,0 +1,7 @@
+var searchData=
+[
+  ['sending_20backend_20requests_0',['Sending backend requests',['../classfastly_1_1_request.html#autotoc_md2',1,'']]],
+  ['sending_20to_20the_20client_1',['Sending to the client',['../classfastly_1_1_response.html#autotoc_md22',1,'']]],
+  ['setter_20methods_2',['Setter methods',['../classfastly_1_1_request.html#autotoc_md4',1,'Setter methods'],['../classfastly_1_1_response.html#autotoc_md25',1,'Setter methods']]],
+  ['style_20methods_3',['style methods',['../classfastly_1_1_request.html#autotoc_md3',1,'Builder-style methods'],['../classfastly_1_1_response.html#autotoc_md24',1,'Builder-style methods']]]
+];
