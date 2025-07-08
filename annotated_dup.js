@@ -5,6 +5,9 @@ var annotated_dup =
         [ "Backend", "classfastly_1_1backend_1_1_backend.html", "classfastly_1_1backend_1_1_backend" ],
         [ "BackendBuilder", "classfastly_1_1backend_1_1_backend_builder.html", "classfastly_1_1backend_1_1_backend_builder" ]
       ] ],
+      [ "config_store", "namespacefastly_1_1config__store.html", [
+        [ "ConfigStore", "classfastly_1_1config__store_1_1_config_store.html", "classfastly_1_1config__store_1_1_config_store" ]
+      ] ],
       [ "device_detection", "namespacefastly_1_1device__detection.html", [
         [ "Device", "classfastly_1_1device__detection_1_1_device.html", "classfastly_1_1device__detection_1_1_device" ]
       ] ],
@@ -20,6 +23,7 @@ var annotated_dup =
         [ "StreamingBody", "classfastly_1_1http_1_1_streaming_body.html", "classfastly_1_1http_1_1_streaming_body" ]
       ] ],
       [ "Body", "classfastly_1_1_body.html", "classfastly_1_1_body" ],
+      [ "ConfigStore", "classfastly_1_1_config_store.html", "classfastly_1_1_config_store" ],
       [ "Request", "classfastly_1_1_request.html", "classfastly_1_1_request" ],
       [ "Response", "classfastly_1_1_response.html", "classfastly_1_1_response" ]
     ] ]

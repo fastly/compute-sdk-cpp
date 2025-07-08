@@ -2,7 +2,7 @@ var searchData=
 [
   ['backend_0',['Backend',['../classfastly_1_1backend_1_1_backend.html',1,'fastly::backend::Backend'],['../classfastly_1_1backend_1_1_backend.html#ac54c92d2ab26635e99105bc76c18f940',1,'fastly::backend::Backend::Backend(std::string name)'],['../classfastly_1_1backend_1_1_backend.html#a4876d48eaad1e2184bc534e108af9fe4',1,'fastly::backend::Backend::Backend(rust::Box&lt; fastly::sys::backend::Backend &gt; b)']]],
   ['backend_1',['backend',['../classfastly_1_1backend_1_1_backend.html#a41665fb8ac5df0b61d4911d9a17cc051',1,'fastly::backend::Backend']]],
-  ['backend_20requests_2',['Sending backend requests',['../classfastly_1_1_request.html#autotoc_md2',1,'']]],
+  ['backend_20requests_2',['Sending backend requests',['../classfastly_1_1_request.html#autotoc_md5',1,'']]],
   ['backend_2eh_3',['backend.h',['../backend_8h.html',1,'']]],
   ['backendbuilder_4',['BackendBuilder',['../classfastly_1_1backend_1_1_backend_builder.html',1,'fastly::backend::BackendBuilder'],['../classfastly_1_1backend_1_1_backend_builder.html#a45ef36678f947f32159473f0ca488bf1',1,'fastly::backend::BackendBuilder::BackendBuilder(std::string name, std::string target)'],['../classfastly_1_1backend_1_1_backend_builder.html#af9fa42d0fa7ab41fde54bc82e3c72c5f',1,'fastly::backend::BackendBuilder::BackendBuilder(rust::Box&lt; fastly::sys::backend::BackendBuilder &gt; b)']]],
   ['bad_5fgateway_5',['BAD_GATEWAY',['../classfastly_1_1http_1_1_status_code.html#a32bbda4feacea969948bb2ae09d77112',1,'fastly::http::StatusCode']]],
@@ -13,5 +13,5 @@ var searchData=
   ['body_2eh_10',['body.h',['../body_8h.html',1,'']]],
   ['brand_11',['brand',['../classfastly_1_1device__detection_1_1_device.html#adba06cfc700fc5b7e385636dfcf1cb04',1,'fastly::device_detection::Device']]],
   ['builder_12',['builder',['../classfastly_1_1backend_1_1_backend.html#a1cc20c7787389c78f1b6cbaf6cb6d675',1,'fastly::backend::Backend']]],
-  ['builder_20style_20methods_13',['Builder style methods',['../classfastly_1_1_request.html#autotoc_md3',1,'Builder-style methods'],['../classfastly_1_1_response.html#autotoc_md24',1,'Builder-style methods']]]
+  ['builder_20style_20methods_13',['Builder style methods',['../classfastly_1_1_request.html#autotoc_md6',1,'Builder-style methods'],['../classfastly_1_1_response.html#autotoc_md27',1,'Builder-style methods']]]
 ];

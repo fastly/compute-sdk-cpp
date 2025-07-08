@@ -1,7 +1,7 @@
 var searchData=
 [
   ['gateway_5ftimeout_0',['GATEWAY_TIMEOUT',['../classfastly_1_1http_1_1_status_code.html#a1a45d5646323913cf126b3c026673b6a',1,'fastly::http::StatusCode']]],
-  ['get_1',['get',['../classfastly_1_1http_1_1_request.html#a1a38aed07fbd0de74e5f15c65d64810e',1,'fastly::http::Request::get()'],['../classfastly_1_1_request.html#a1a38aed07fbd0de74e5f15c65d64810e',1,'fastly::Request::get()']]],
+  ['get_1',['get',['../classfastly_1_1config__store_1_1_config_store.html#a3a927648f83174d3a284236ad177cde6',1,'fastly::config_store::ConfigStore::get()'],['../classfastly_1_1http_1_1_request.html#a1a38aed07fbd0de74e5f15c65d64810e',1,'fastly::http::Request::get()'],['../classfastly_1_1_config_store.html#a3a927648f83174d3a284236ad177cde6',1,'fastly::ConfigStore::get()'],['../classfastly_1_1_request.html#a1a38aed07fbd0de74e5f15c65d64810e',1,'fastly::Request::get()']]],
   ['get_5fage_2',['get_age',['../classfastly_1_1http_1_1_response.html#ac7617dead4aa4aefe5bfe395aeddfbf8',1,'fastly::http::Response::get_age()'],['../classfastly_1_1_response.html#ac7617dead4aa4aefe5bfe395aeddfbf8',1,'fastly::Response::get_age()']]],
   ['get_5fbackend_3',['get_backend',['../classfastly_1_1http_1_1_response.html#a4df0e354da3a0549d8bb86c74d3c2114',1,'fastly::http::Response::get_backend()'],['../classfastly_1_1_response.html#a4df0e354da3a0549d8bb86c74d3c2114',1,'fastly::Response::get_backend()']]],
   ['get_5fbackend_5faddr_4',['get_backend_addr',['../classfastly_1_1http_1_1_response.html#a109ec1d2961883caef1fbb34c346fae3',1,'fastly::http::Response::get_backend_addr()'],['../classfastly_1_1_response.html#a109ec1d2961883caef1fbb34c346fae3',1,'fastly::Response::get_backend_addr()']]],
@@ -31,6 +31,6 @@ var searchData=
   ['get_5ftcp_5fkeepalive_5ftime_28',['get_tcp_keepalive_time',['../classfastly_1_1backend_1_1_backend.html#ab8d67b69f39d7c20a4035190cde5f7c7',1,'fastly::backend::Backend']]],
   ['get_5fttl_29',['get_ttl',['../classfastly_1_1http_1_1_response.html#ae0af8db7becce3b2507852888f7a8e91',1,'fastly::http::Response::get_ttl()'],['../classfastly_1_1_response.html#ae0af8db7becce3b2507852888f7a8e91',1,'fastly::Response::get_ttl()']]],
   ['get_5furl_30',['get_url',['../classfastly_1_1http_1_1_request.html#a45d2168567b596349a36048931219197',1,'fastly::http::Request::get_url()'],['../classfastly_1_1_request.html#a45d2168567b596349a36048931219197',1,'fastly::Request::get_url()']]],
-  ['getting_20the_20client_20request_31',['Getting the client request',['../classfastly_1_1_request.html#autotoc_md0',1,'']]],
+  ['getting_20the_20client_20request_31',['Getting the client request',['../classfastly_1_1_request.html#autotoc_md3',1,'']]],
   ['gone_32',['GONE',['../classfastly_1_1http_1_1_status_code.html#ae7e7c7f157666d85f22054a30b4637ff',1,'fastly::http::StatusCode']]]
 ];

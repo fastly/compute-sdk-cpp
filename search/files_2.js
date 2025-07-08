@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['header_2eh_0',['header.h',['../header_8h.html',1,'']]]
+  ['device_5fdetection_2eh_0',['device_detection.h',['../device__detection_8h.html',1,'']]]
 ];

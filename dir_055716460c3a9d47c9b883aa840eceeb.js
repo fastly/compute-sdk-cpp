@@ -2,6 +2,7 @@ var dir_055716460c3a9d47c9b883aa840eceeb =
 [
     [ "http", "dir_3f8aaf53e1005e83516f0f89dc817ecf.html", "dir_3f8aaf53e1005e83516f0f89dc817ecf" ],
     [ "backend.h", "backend_8h.html", "backend_8h" ],
+    [ "config_store.h", "config__store_8h.html", "config__store_8h" ],
     [ "device_detection.h", "device__detection_8h.html", "device__detection_8h" ],
     [ "sdk.h", "sdk_8h.html", null ],
     [ "util.h", "util_8h.html", "util_8h" ]

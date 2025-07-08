@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['layout_0',['layout',['../classrust_1_1cxxbridge1_1_1layout.html',1,'rust::cxxbridge1::layout'],['../classrust_1_1cxxbridge1_1_1layout.html',1,'rust::layout']]]
+  ['statuscode_0',['StatusCode',['../classfastly_1_1http_1_1_status_code.html',1,'fastly::http']]],
+  ['streamingbody_1',['StreamingBody',['../classfastly_1_1http_1_1_streaming_body.html',1,'fastly::http']]]
 ];

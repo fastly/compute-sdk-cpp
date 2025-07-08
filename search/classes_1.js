@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['device_0',['Device',['../classfastly_1_1device__detection_1_1_device.html',1,'fastly::device_detection']]]
+  ['configstore_0',['ConfigStore',['../classfastly_1_1config__store_1_1_config_store.html',1,'fastly::config_store::ConfigStore'],['../classfastly_1_1_config_store.html',1,'fastly::ConfigStore']]]
 ];

@@ -2,6 +2,8 @@ var hierarchy =
 [
     [ "fastly::backend::Backend", "classfastly_1_1backend_1_1_backend.html", null ],
     [ "fastly::backend::BackendBuilder", "classfastly_1_1backend_1_1_backend_builder.html", null ],
+    [ "fastly::config_store::ConfigStore", "classfastly_1_1config__store_1_1_config_store.html", null ],
+    [ "fastly::ConfigStore", "classfastly_1_1_config_store.html", null ],
     [ "fastly::device_detection::Device", "classfastly_1_1device__detection_1_1_device.html", null ],
     [ "fastly::http::HeaderValuesIter", "classfastly_1_1http_1_1_header_values_iter.html", null ],
     [ "std::iostream", null, [

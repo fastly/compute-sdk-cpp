@@ -1,6 +1,6 @@
 var searchData=
 [
-  ['panics_0',['Panics',['../namespacefastly_1_1http_1_1request.html#autotoc_md5',1,'Panics'],['../classfastly_1_1_request.html#autotoc_md6',1,'Panics'],['../classfastly_1_1_request.html#autotoc_md12',1,'Panics'],['../classfastly_1_1_request.html#autotoc_md14',1,'Panics'],['../classfastly_1_1_response.html#autotoc_md35',1,'Panics'],['../classfastly_1_1_response.html#autotoc_md37',1,'Panics']]],
+  ['panics_0',['Panics',['../namespacefastly_1_1http_1_1request.html#autotoc_md8',1,'Panics'],['../classfastly_1_1_request.html#autotoc_md9',1,'Panics'],['../classfastly_1_1_request.html#autotoc_md15',1,'Panics'],['../classfastly_1_1_request.html#autotoc_md17',1,'Panics'],['../classfastly_1_1_response.html#autotoc_md38',1,'Panics'],['../classfastly_1_1_response.html#autotoc_md40',1,'Panics']]],
   ['partial_5fcontent_1',['PARTIAL_CONTENT',['../classfastly_1_1http_1_1_status_code.html#aa847d8644f801aa7b43d305c9573d40d',1,'fastly::http::StatusCode']]],
   ['patch_2',['patch',['../classfastly_1_1http_1_1_request.html#ac7abf01610ed43afd8df5668e2fe5fe5',1,'fastly::http::Request::patch()'],['../classfastly_1_1_request.html#ac7abf01610ed43afd8df5668e2fe5fe5',1,'fastly::Request::patch()']]],
   ['payload_5ftoo_5flarge_3',['PAYLOAD_TOO_LARGE',['../classfastly_1_1http_1_1_status_code.html#afe48377749b40dc0f245ccd2e8db440e',1,'fastly::http::StatusCode']]],
