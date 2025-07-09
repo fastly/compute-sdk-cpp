@@ -11,6 +11,10 @@ var annotated_dup =
       [ "device_detection", "namespacefastly_1_1device__detection.html", [
         [ "Device", "classfastly_1_1device__detection_1_1_device.html", "classfastly_1_1device__detection_1_1_device" ]
       ] ],
+      [ "geo", "namespacefastly_1_1geo.html", [
+        [ "Geo", "classfastly_1_1geo_1_1_geo.html", "classfastly_1_1geo_1_1_geo" ],
+        [ "UtcOffset", "classfastly_1_1geo_1_1_utc_offset.html", "classfastly_1_1geo_1_1_utc_offset" ]
+      ] ],
       [ "http", "namespacefastly_1_1http.html", [
         [ "request", "namespacefastly_1_1http_1_1request.html", [
           [ "PendingRequest", "classfastly_1_1http_1_1request_1_1_pending_request.html", "classfastly_1_1http_1_1request_1_1_pending_request" ]

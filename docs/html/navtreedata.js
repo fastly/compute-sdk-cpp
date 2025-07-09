@@ -29,7 +29,8 @@ var NAVTREE =
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
         [ "All", "namespacemembers.html", null ],
-        [ "Functions", "namespacemembers_func.html", null ]
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Enumerations", "namespacemembers_enum.html", null ]
       ] ]
     ] ],
     [ "Classes", "annotated.html", [
@@ -47,7 +48,8 @@ var NAVTREE =
       [ "File List", "files.html", "files_dup" ],
       [ "File Members", "globals.html", [
         [ "All", "globals.html", null ],
-        [ "Functions", "globals_func.html", null ]
+        [ "Functions", "globals_func.html", null ],
+        [ "Macros", "globals_defs.html", null ]
       ] ]
     ] ]
   ] ]
@@ -57,9 +59,9 @@ var NAVTREEINDEX =
 [
 "annotated.html",
 "classfastly_1_1_response.html#a7cb222720c592ea876a9624505b52bd3",
-"classfastly_1_1http_1_1_request.html#a250edfbcf779a73528555be2170512a7",
-"classfastly_1_1http_1_1_status_code.html#a1a45d5646323913cf126b3c026673b6a",
-"secret__store_8h.html"
+"classfastly_1_1http_1_1_body.html#a53fb789b0dca94fd2c6b7d599f9a78c2",
+"classfastly_1_1http_1_1_response.html#aabcf6d66464987715e31c2e733118c43",
+"functions_func_i.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronization';

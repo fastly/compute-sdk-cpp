@@ -5,6 +5,7 @@ var hierarchy =
     [ "fastly::config_store::ConfigStore", "classfastly_1_1config__store_1_1_config_store.html", null ],
     [ "fastly::ConfigStore", "classfastly_1_1_config_store.html", null ],
     [ "fastly::device_detection::Device", "classfastly_1_1device__detection_1_1_device.html", null ],
+    [ "fastly::geo::Geo", "classfastly_1_1geo_1_1_geo.html", null ],
     [ "fastly::http::HeaderValuesIter", "classfastly_1_1http_1_1_header_values_iter.html", null ],
     [ "std::iostream", null, [
       [ "fastly::http::Body", "classfastly_1_1http_1_1_body.html", null ]
@@ -24,5 +25,6 @@ var hierarchy =
     [ "std::streambuf", null, [
       [ "fastly::http::Body", "classfastly_1_1http_1_1_body.html", null ],
       [ "fastly::http::StreamingBody", "classfastly_1_1http_1_1_streaming_body.html", null ]
-    ] ]
+    ] ],
+    [ "fastly::geo::UtcOffset", "classfastly_1_1geo_1_1_utc_offset.html", null ]
 ];

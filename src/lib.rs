@@ -1,6 +1,7 @@
 use backend::*;
 use config_store::*;
 use device_detection::*;
+use geo::*;
 use http::{
     body::*, header::*, purge::*, request::request::*, request::*, response::*, status_code::*,
 };
@@ -9,6 +10,7 @@ use secret_store::*;
 mod backend;
 mod config_store;
 mod device_detection;
+mod geo;
 mod http;
 mod secret_store;
 
@@ -30,6 +32,130 @@ mod ffi {
         CONNECT,
         PATCH,
         TRACE,
+    }
+
+    /// Connection speed.
+    ///
+    /// These connection speeds imply different latencies, as well as throughput.
+    ///
+    /// See [OC rates][oc] and [T-carrier][t] for background on OC- and T- connections.
+    ///
+    /// [oc]: https://en.wikipedia.org/wiki/Optical_Carrier_transmission_rates
+    /// [t]: https://en.wikipedia.org/wiki/T-carrier
+    #[namespace = "fastly::sys::geo"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum ConnSpeed {
+        Broadband,
+        Cable,
+        Dialup,
+        Mobile,
+        Oc12,
+        Oc3,
+        Satellite,
+        T1,
+        T3,
+        UltraBroadband,
+        Wireless,
+        Xdsl,
+        Other,
+    }
+
+    /// Connection type.
+    ///
+    /// Defaults to `Unknown` when the connection type is not known. `Other`
+    /// means a connection known to the database but that this version of the
+    /// library might not yet be aware of.
+    #[namespace = "fastly::sys::geo"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum ConnType {
+        Wired,
+        Wifi,
+        Mobile,
+        Dialup,
+        Satellite,
+        Unknown,
+        Other,
+    }
+
+    /// Continent.
+    #[namespace = "fastly::sys::geo"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum Continent {
+        Africa,
+        Antarctica,
+        Asia,
+        Europe,
+        NorthAmerica,
+        Oceania,
+        SouthAmerica,
+        Other,
+    }
+
+    /// Client proxy description.
+    ///
+    /// Defaults to `Unknown` when an IP address is not known to be a proxy or VPN.
+    #[namespace = "fastly::sys::geo"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum ProxyDescription {
+        /// Enables ubiquitous network access to a shared pool of configurable
+        /// computing resources.
+        Cloud,
+
+        /// A host accessing the internet via a web security and data protection
+        /// cloud provider.
+        ///
+        /// Example providers with this type of service are Zscaler, Scansafe,
+        /// and Onavo.
+        CloudSecurity,
+
+        /// A proxy used by overriding the client's DNS value for an endpoint
+        /// host to that of the proxy instead of the actual DNS value.
+        Dns,
+
+        /// The gateway nodes where encrypted or anonymous Tor traffic hits the
+        /// internet.
+        TorExit,
+
+        /// Receives traffic on the Tor network and passes it along; also
+        /// referred to as "routers".
+        TorRelay,
+
+        /// Virtual private network that encrypts and routes all traffic through
+        /// the VPN server, including programs and applications.
+        Vpn,
+
+        /// Connectivity that is taking place through mobile device web browser software that proxies
+        /// the user through a centralized location.
+        ///
+        /// Examples of such browsers are Opera mobile browsers and UCBrowser.
+        WebBrowser,
+
+        /// An IP address that is not known to be a proxy or VPN.
+        Unknown,
+
+        /// Description of a proxy or VPN that is known, but not in the above list of variants.
+        ///
+        /// This typically indicates that the geolocation database contains a proxy description that
+        /// did not exist when this crate was published.
+        Other,
+    }
+
+    /// Client proxy type.
+    ///
+    /// Defaults to `Unknown` when an IP address is not known to be a proxy or VPN.
+    #[namespace = "fastly::sys::geo"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum ProxyType {
+        Anonymous,
+        Aol,
+        Blackberry,
+        Corporate,
+        Edu,
+        Hosting,
+        Public,
+        Transparent,
+        Unknown,
+        Other,
     }
 
     #[namespace = "fastly::sys::backend"]
@@ -364,5 +490,42 @@ mod ffi {
         fn m_static_secret_store_secret_store_open(name: &CxxString) -> Box<SecretStore>;
         fn get(&self, key: &CxxString) -> *mut Secret;
         fn contains(&self, key: &CxxString) -> bool;
+    }
+
+    #[namespace = "fastly::sys::geo"]
+    extern "Rust" {
+        type UtcOffset;
+        fn whole_hours(&self) -> i8;
+        fn whole_minutes(&self) -> i16;
+        fn minutes_past_hour(&self) -> i8;
+        fn whole_seconds(&self) -> i32;
+        fn seconds_past_minute(&self) -> i8;
+        fn is_utc(&self) -> bool;
+        fn is_positive(&self) -> bool;
+        fn is_negative(&self) -> bool;
+    }
+
+    #[namespace = "fastly::sys::geo"]
+    extern "Rust" {
+        type Geo;
+        fn f_geo_geo_lookup(ip: &CxxString) -> *mut Geo;
+        fn as_name(&self, out: Pin<&mut CxxString>);
+        fn as_number(&self) -> u32;
+        fn area_code(&self) -> u16;
+        fn city(&self, out: Pin<&mut CxxString>);
+        fn conn_speed(&self) -> ConnSpeed;
+        fn conn_type(&self) -> ConnType;
+        fn continent(&self) -> Continent;
+        fn country_code(&self, out: Pin<&mut CxxString>);
+        fn country_code3(&self, out: Pin<&mut CxxString>);
+        fn country_name(&self, out: Pin<&mut CxxString>);
+        fn latitude(&self) -> f64;
+        fn longitude(&self) -> f64;
+        fn metro_code(&self) -> i64;
+        fn postal_code(&self, out: Pin<&mut CxxString>);
+        fn proxy_description(&self) -> ProxyDescription;
+        fn proxy_type(&self) -> ProxyType;
+        fn region(&self, out: Pin<&mut CxxString>) -> bool;
+        fn utc_offset(&self) -> *mut UtcOffset;
     }
 }

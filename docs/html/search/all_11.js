@@ -8,5 +8,7 @@ var searchData=
   ['upgrade_5frequired_5',['UPGRADE_REQUIRED',['../classfastly_1_1http_1_1_status_code.html#a3966b8866f10a6997b3b3a744da4c383',1,'fastly::http::StatusCode']]],
   ['uri_5ftoo_5flong_6',['URI_TOO_LONG',['../classfastly_1_1http_1_1_status_code.html#acf02c1e24f2c00e3f1c8caa7e0185bc6',1,'fastly::http::StatusCode']]],
   ['use_5fproxy_7',['USE_PROXY',['../classfastly_1_1http_1_1_status_code.html#ae37ce26eeb051f1b12b6f00fd1dc94ca',1,'fastly::http::StatusCode']]],
-  ['util_2eh_8',['util.h',['../util_8h.html',1,'']]]
+  ['utc_5foffset_8',['utc_offset',['../classfastly_1_1geo_1_1_geo.html#a50a5f8a41434cebbf6a356acf4788740',1,'fastly::geo::Geo']]],
+  ['utcoffset_9',['UtcOffset',['../classfastly_1_1geo_1_1_utc_offset.html',1,'fastly::geo']]],
+  ['util_2eh_10',['util.h',['../util_8h.html',1,'']]]
 ];
