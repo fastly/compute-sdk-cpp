@@ -97,6 +97,8 @@ $(function(){initNavTree('classfastly_1_1http_1_1_status_code.html','','classfas
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:a73abc51446360c3cb7b06e469880f2b2" id="r_a73abc51446360c3cb7b06e469880f2b2"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a73abc51446360c3cb7b06e469880f2b2">StatusCode</a> ()=default</td></tr>
+<tr class="memitem:afbe0b1c8ac4587bffaa20432974d8ee1" id="r_afbe0b1c8ac4587bffaa20432974d8ee1"><td class="memItemLeft" align="right" valign="top">constexpr&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afbe0b1c8ac4587bffaa20432974d8ee1">StatusCode</a> (uint16_t code)</td></tr>
+<tr class="memdesc:afbe0b1c8ac4587bffaa20432974d8ee1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Creates a new <a class="el" href="classfastly_1_1http_1_1_status_code.html">StatusCode</a>. Panics if the code is out of range.  <br /></td></tr>
 <tr class="memitem:a5bb67da90a1b3998ebd97fd751c76657" id="r_a5bb67da90a1b3998ebd97fd751c76657"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a5bb67da90a1b3998ebd97fd751c76657">operator==</a> (<a class="el" href="classfastly_1_1http_1_1_status_code.html">StatusCode</a> a) const</td></tr>
 <tr class="memitem:a08f57a2d80e53301627b0052ebdaabb7" id="r_a08f57a2d80e53301627b0052ebdaabb7"><td class="memItemLeft" align="right" valign="top">constexpr bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a08f57a2d80e53301627b0052ebdaabb7">operator!=</a> (<a class="el" href="classfastly_1_1http_1_1_status_code.html">StatusCode</a> a) const</td></tr>
 <tr class="memitem:a8b1d10cf8e3c58526b81df91f5de8cb7" id="r_a8b1d10cf8e3c58526b81df91f5de8cb7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8b1d10cf8e3c58526b81df91f5de8cb7">operator bool</a> () const =delete</td></tr>
@@ -181,7 +183,7 @@ Static Public Attributes</h2></td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a73abc51446360c3cb7b06e469880f2b2" name="a73abc51446360c3cb7b06e469880f2b2"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a73abc51446360c3cb7b06e469880f2b2">&#9670;&#160;</a></span>StatusCode()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a73abc51446360c3cb7b06e469880f2b2">&#9670;&#160;</a></span>StatusCode() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -202,6 +204,33 @@ Static Public Attributes</h2></td></tr>
   </tr>
 </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="afbe0b1c8ac4587bffaa20432974d8ee1" name="afbe0b1c8ac4587bffaa20432974d8ee1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afbe0b1c8ac4587bffaa20432974d8ee1">&#9670;&#160;</a></span>StatusCode() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastly::http::StatusCode::StatusCode </td>
+          <td>(</td>
+          <td class="paramtype">uint16_t</td>          <td class="paramname"><span class="paramname"><em>code</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span><span class="mlabel constexpr">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Creates a new <a class="el" href="classfastly_1_1http_1_1_status_code.html">StatusCode</a>. Panics if the code is out of range. </p>
 
 </div>
 </div>
@@ -247,7 +276,7 @@ Static Public Attributes</h2></td></tr>
 Example</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> status{<a class="code hl_variable" href="#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a>};</div>
 <div class="line">assert(status.canonical_reason() == std::optional(<span class="stringliteral">&quot;OK&quot;</span>s)));</div>
-<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a43639d24869da04cf8436b692baaecf7"><div class="ttname"><a href="#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a></div><div class="ttdeci">static const StatusCode OK</div><div class="ttdef"><b>Definition</b> status_code.h:27</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a43639d24869da04cf8436b692baaecf7"><div class="ttname"><a href="#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a></div><div class="ttdeci">static const StatusCode OK</div><div class="ttdef"><b>Definition</b> status_code.h:38</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

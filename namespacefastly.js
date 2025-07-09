@@ -4,8 +4,10 @@ var namespacefastly =
     [ "config_store", "namespacefastly_1_1config__store.html", "namespacefastly_1_1config__store" ],
     [ "device_detection", "namespacefastly_1_1device__detection.html", "namespacefastly_1_1device__detection" ],
     [ "http", "namespacefastly_1_1http.html", "namespacefastly_1_1http" ],
+    [ "secret_store", "namespacefastly_1_1secret__store.html", "namespacefastly_1_1secret__store" ],
     [ "Body", "classfastly_1_1_body.html", "classfastly_1_1_body" ],
     [ "ConfigStore", "classfastly_1_1_config_store.html", "classfastly_1_1_config_store" ],
     [ "Request", "classfastly_1_1_request.html", "classfastly_1_1_request" ],
-    [ "Response", "classfastly_1_1_response.html", "classfastly_1_1_response" ]
+    [ "Response", "classfastly_1_1_response.html", "classfastly_1_1_response" ],
+    [ "SecretStore", "classfastly_1_1_secret_store.html", "classfastly_1_1_secret_store" ]
 ];

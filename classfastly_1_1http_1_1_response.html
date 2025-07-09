@@ -741,7 +741,7 @@ Examples</h1>
 <div class="line">assert(resp.get_status() == <a class="code hl_variable" href="classfastly_1_1http_1_1_status_code.html#a69d58a7544bf2c028186d37df6a26db5">StatusCode::PERMANENT_REDIRECT</a>);</div>
 <div class="line">assert(resp.get_header(<span class="stringliteral">&quot;Location&quot;</span>s).value(), <span class="stringliteral">&quot;https://www.fastly.com&quot;</span>s);</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1_response_html_a7cb222720c592ea876a9624505b52bd3"><div class="ttname"><a href="#a7cb222720c592ea876a9624505b52bd3">fastly::http::Response::redirect</a></div><div class="ttdeci">static Response redirect(std::string destination)</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a69d58a7544bf2c028186d37df6a26db5"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#a69d58a7544bf2c028186d37df6a26db5">fastly::http::StatusCode::PERMANENT_REDIRECT</a></div><div class="ttdeci">static const StatusCode PERMANENT_REDIRECT</div><div class="ttdef"><b>Definition</b> status_code.h:95</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a69d58a7544bf2c028186d37df6a26db5"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#a69d58a7544bf2c028186d37df6a26db5">fastly::http::StatusCode::PERMANENT_REDIRECT</a></div><div class="ttdeci">static const StatusCode PERMANENT_REDIRECT</div><div class="ttdef"><b>Definition</b> status_code.h:106</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -792,7 +792,7 @@ Examples</h1>
 <div class="line">assert(resp.get_status() == <a class="code hl_variable" href="classfastly_1_1http_1_1_status_code.html#abc8859baec85539e5c4c95d826081ad1">StatusCode::SEE_OTHER</a>);</div>
 <div class="line">assert(resp.get_header(<span class="stringliteral">&quot;Location&quot;</span>s).value(), <span class="stringliteral">&quot;https://www.fastly.com&quot;</span>s);</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1_response_html_a06128e1c5a894d5885969ba10c13ebac"><div class="ttname"><a href="#a06128e1c5a894d5885969ba10c13ebac">fastly::http::Response::see_other</a></div><div class="ttdeci">static Response see_other(std::string destination)</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_abc8859baec85539e5c4c95d826081ad1"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#abc8859baec85539e5c4c95d826081ad1">fastly::http::StatusCode::SEE_OTHER</a></div><div class="ttdeci">static const StatusCode SEE_OTHER</div><div class="ttdef"><b>Definition</b> status_code.h:79</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_abc8859baec85539e5c4c95d826081ad1"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#abc8859baec85539e5c4c95d826081ad1">fastly::http::StatusCode::SEE_OTHER</a></div><div class="ttdeci">static const StatusCode SEE_OTHER</div><div class="ttdef"><b>Definition</b> status_code.h:90</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -1138,7 +1138,7 @@ Examples</h1>
 <div class="line">assert(resp.get_status() == <a class="code hl_variable" href="classfastly_1_1http_1_1_status_code.html#adae478cb2dd8af7427ee68e1326f60d8">StatusCode::TEMPORARY_REDIRECT</a>);</div>
 <div class="line">assert(resp.get_header(<span class="stringliteral">&quot;Location&quot;</span>s).value(), <span class="stringliteral">&quot;https://www.fastly.com&quot;</span>);</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1_response_html_aabcf6d66464987715e31c2e733118c43"><div class="ttname"><a href="#aabcf6d66464987715e31c2e733118c43">fastly::http::Response::temporary_redirect</a></div><div class="ttdeci">static Response temporary_redirect(std::string destination)</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_adae478cb2dd8af7427ee68e1326f60d8"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#adae478cb2dd8af7427ee68e1326f60d8">fastly::http::StatusCode::TEMPORARY_REDIRECT</a></div><div class="ttdeci">static const StatusCode TEMPORARY_REDIRECT</div><div class="ttdef"><b>Definition</b> status_code.h:91</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_adae478cb2dd8af7427ee68e1326f60d8"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#adae478cb2dd8af7427ee68e1326f60d8">fastly::http::StatusCode::TEMPORARY_REDIRECT</a></div><div class="ttdeci">static const StatusCode TEMPORARY_REDIRECT</div><div class="ttdef"><b>Definition</b> status_code.h:102</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -1301,7 +1301,7 @@ Examples</h1>
 <div class="line">resp.set_status(<a class="code hl_variable" href="classfastly_1_1http_1_1_status_code.html#a736fbd919131a5febd9a14f100778d87">fastly::http::StatusCode::NOT_FOUND</a>);</div>
 <div class="line">resp.send_to_client();</div>
 <div class="ttc" id="aclassfastly_1_1_response_html_a6cd79ae4d99f6c68d3df5c944ef6a5b4"><div class="ttname"><a href="classfastly_1_1_response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a></div><div class="ttdeci">static Response from_body(Body body)</div><div class="ttdoc">Create a new Response with the given value as the body.</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a736fbd919131a5febd9a14f100778d87"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#a736fbd919131a5febd9a14f100778d87">fastly::http::StatusCode::NOT_FOUND</a></div><div class="ttdeci">static const StatusCode NOT_FOUND</div><div class="ttdef"><b>Definition</b> status_code.h:115</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a736fbd919131a5febd9a14f100778d87"><div class="ttname"><a href="classfastly_1_1http_1_1_status_code.html#a736fbd919131a5febd9a14f100778d87">fastly::http::StatusCode::NOT_FOUND</a></div><div class="ttdeci">static const StatusCode NOT_FOUND</div><div class="ttdef"><b>Definition</b> status_code.h:126</div></div>
 </div><!-- fragment --><p>Using a <span class="tt">uint16_t</span>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1_response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(<span class="stringliteral">&quot;not found!&quot;</span>s)};</div>
 <div class="line">resp.set_status(404);</div>

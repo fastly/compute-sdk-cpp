@@ -17,6 +17,9 @@ var hierarchy =
     [ "fastly::Request", "classfastly_1_1_request.html", null ],
     [ "fastly::http::Response", "classfastly_1_1http_1_1_response.html", null ],
     [ "fastly::Response", "classfastly_1_1_response.html", null ],
+    [ "fastly::secret_store::Secret", "classfastly_1_1secret__store_1_1_secret.html", null ],
+    [ "fastly::secret_store::SecretStore", "classfastly_1_1secret__store_1_1_secret_store.html", null ],
+    [ "fastly::SecretStore", "classfastly_1_1_secret_store.html", null ],
     [ "fastly::http::StatusCode", "classfastly_1_1http_1_1_status_code.html", null ],
     [ "std::streambuf", null, [
       [ "fastly::http::Body", "classfastly_1_1http_1_1_body.html", null ],

@@ -22,9 +22,14 @@ var annotated_dup =
         [ "StatusCode", "classfastly_1_1http_1_1_status_code.html", "classfastly_1_1http_1_1_status_code" ],
         [ "StreamingBody", "classfastly_1_1http_1_1_streaming_body.html", "classfastly_1_1http_1_1_streaming_body" ]
       ] ],
+      [ "secret_store", "namespacefastly_1_1secret__store.html", [
+        [ "Secret", "classfastly_1_1secret__store_1_1_secret.html", "classfastly_1_1secret__store_1_1_secret" ],
+        [ "SecretStore", "classfastly_1_1secret__store_1_1_secret_store.html", "classfastly_1_1secret__store_1_1_secret_store" ]
+      ] ],
       [ "Body", "classfastly_1_1_body.html", "classfastly_1_1_body" ],
       [ "ConfigStore", "classfastly_1_1_config_store.html", "classfastly_1_1_config_store" ],
       [ "Request", "classfastly_1_1_request.html", "classfastly_1_1_request" ],
-      [ "Response", "classfastly_1_1_response.html", "classfastly_1_1_response" ]
+      [ "Response", "classfastly_1_1_response.html", "classfastly_1_1_response" ],
+      [ "SecretStore", "classfastly_1_1_secret_store.html", "classfastly_1_1_secret_store" ]
     ] ]
 ];

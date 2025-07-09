@@ -1,6 +1,7 @@
 var classfastly_1_1http_1_1_status_code =
 [
     [ "StatusCode", "classfastly_1_1http_1_1_status_code.html#a73abc51446360c3cb7b06e469880f2b2", null ],
+    [ "StatusCode", "classfastly_1_1http_1_1_status_code.html#afbe0b1c8ac4587bffaa20432974d8ee1", null ],
     [ "as_code", "classfastly_1_1http_1_1_status_code.html#a24ce3754eb4be91a3c8754872fb1cfef", null ],
     [ "canonical_reason", "classfastly_1_1http_1_1_status_code.html#ae886804628da701022f65dc7cf1accb0", null ],
     [ "from_code", "classfastly_1_1http_1_1_status_code.html#a180d88c56bfb1e9b6c932c4dfe4313ee", null ],
