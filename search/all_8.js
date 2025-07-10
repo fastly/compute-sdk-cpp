@@ -19,12 +19,15 @@ var searchData=
   ['is_5finformational_16',['is_informational',['../classfastly_1_1http_1_1_status_code.html#aa2853e6e9012897ba92e8ac00454aad0',1,'fastly::http::StatusCode']]],
   ['is_5fmediaplayer_17',['is_mediaplayer',['../classfastly_1_1device__detection_1_1_device.html#a65e8a8c2c9e3615d2f1937cc280e375a',1,'fastly::device_detection::Device']]],
   ['is_5fmobile_18',['is_mobile',['../classfastly_1_1device__detection_1_1_device.html#a4f12ea4b0e8f490fff09213ea849e710',1,'fastly::device_detection::Device']]],
-  ['is_5fredirection_19',['is_redirection',['../classfastly_1_1http_1_1_status_code.html#aaefe9a9b73d60c6a4df65932355f3d12',1,'fastly::http::StatusCode']]],
-  ['is_5fserver_5ferror_20',['is_server_error',['../classfastly_1_1http_1_1_status_code.html#aac1ebaaf60603b13b2969c6aba7c04f0',1,'fastly::http::StatusCode']]],
-  ['is_5fsmarttv_21',['is_smarttv',['../classfastly_1_1device__detection_1_1_device.html#a9c249945482734a985aea39d3f778720',1,'fastly::device_detection::Device']]],
-  ['is_5fssl_22',['is_ssl',['../classfastly_1_1backend_1_1_backend.html#a01f2c898e23ebe3d7694c5c59a394c26',1,'fastly::backend::Backend']]],
-  ['is_5fsuccess_23',['is_success',['../classfastly_1_1http_1_1_status_code.html#a7f2dbd9deb3a939b5e75afca817734dc',1,'fastly::http::StatusCode']]],
-  ['is_5ftablet_24',['is_tablet',['../classfastly_1_1device__detection_1_1_device.html#aeacb0fb06f4c9fb1d6189caef342db97',1,'fastly::device_detection::Device']]],
-  ['is_5ftouchscreen_25',['is_touchscreen',['../classfastly_1_1device__detection_1_1_device.html#ae4c21474714b7b611f7de65c91085edd',1,'fastly::device_detection::Device']]],
-  ['is_5ftvplayer_26',['is_tvplayer',['../classfastly_1_1device__detection_1_1_device.html#a1fdf614103097c962c701ccea0df1490',1,'fastly::device_detection::Device']]]
+  ['is_5fnegative_19',['is_negative',['../classfastly_1_1geo_1_1_utc_offset.html#a54dfc7e99df284519ac0810bc3d10bc1',1,'fastly::geo::UtcOffset']]],
+  ['is_5fpositive_20',['is_positive',['../classfastly_1_1geo_1_1_utc_offset.html#a3c254fe07ac6f03b936d0c5405f1e9e2',1,'fastly::geo::UtcOffset']]],
+  ['is_5fredirection_21',['is_redirection',['../classfastly_1_1http_1_1_status_code.html#aaefe9a9b73d60c6a4df65932355f3d12',1,'fastly::http::StatusCode']]],
+  ['is_5fserver_5ferror_22',['is_server_error',['../classfastly_1_1http_1_1_status_code.html#aac1ebaaf60603b13b2969c6aba7c04f0',1,'fastly::http::StatusCode']]],
+  ['is_5fsmarttv_23',['is_smarttv',['../classfastly_1_1device__detection_1_1_device.html#a9c249945482734a985aea39d3f778720',1,'fastly::device_detection::Device']]],
+  ['is_5fssl_24',['is_ssl',['../classfastly_1_1backend_1_1_backend.html#a01f2c898e23ebe3d7694c5c59a394c26',1,'fastly::backend::Backend']]],
+  ['is_5fsuccess_25',['is_success',['../classfastly_1_1http_1_1_status_code.html#a7f2dbd9deb3a939b5e75afca817734dc',1,'fastly::http::StatusCode']]],
+  ['is_5ftablet_26',['is_tablet',['../classfastly_1_1device__detection_1_1_device.html#aeacb0fb06f4c9fb1d6189caef342db97',1,'fastly::device_detection::Device']]],
+  ['is_5ftouchscreen_27',['is_touchscreen',['../classfastly_1_1device__detection_1_1_device.html#ae4c21474714b7b611f7de65c91085edd',1,'fastly::device_detection::Device']]],
+  ['is_5ftvplayer_28',['is_tvplayer',['../classfastly_1_1device__detection_1_1_device.html#a1fdf614103097c962c701ccea0df1490',1,'fastly::device_detection::Device']]],
+  ['is_5futc_29',['is_utc',['../classfastly_1_1geo_1_1_utc_offset.html#a754e9a66a72d7a252552f140b4133405',1,'fastly::geo::UtcOffset']]]
 ];

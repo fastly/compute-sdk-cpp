@@ -10,10 +10,10 @@ var searchData=
   ['tcp_5fkeepalive_5ftime_5fsecs_7',['tcp_keepalive_time_secs',['../classfastly_1_1backend_1_1_backend_builder.html#a3d5059d641e9aaea89e6604c653db8b7',1,'fastly::backend::BackendBuilder']]],
   ['temporary_5fredirect_8',['TEMPORARY_REDIRECT',['../classfastly_1_1http_1_1_status_code.html#adae478cb2dd8af7427ee68e1326f60d8',1,'fastly::http::StatusCode']]],
   ['temporary_5fredirect_9',['temporary_redirect',['../classfastly_1_1http_1_1_response.html#aabcf6d66464987715e31c2e733118c43',1,'fastly::http::Response::temporary_redirect()'],['../classfastly_1_1_response.html#aabcf6d66464987715e31c2e733118c43',1,'fastly::Response::temporary_redirect()']]],
-  ['the_20client_10',['Sending to the client',['../classfastly_1_1_response.html#autotoc_md25',1,'']]],
-  ['the_20client_20request_11',['Getting the client request',['../classfastly_1_1_request.html#autotoc_md3',1,'']]],
+  ['the_20client_10',['Sending to the client',['../classfastly_1_1_response.html#autotoc_md27',1,'']]],
+  ['the_20client_20request_11',['Getting the client request',['../classfastly_1_1_request.html#autotoc_md5',1,'']]],
   ['tls_5fciphers_12',['tls_ciphers',['../classfastly_1_1backend_1_1_backend_builder.html#a2c81b96c388f76fb9c789432e41c6a2c',1,'fastly::backend::BackendBuilder']]],
-  ['to_20the_20client_13',['Sending to the client',['../classfastly_1_1_response.html#autotoc_md25',1,'']]],
+  ['to_20the_20client_13',['Sending to the client',['../classfastly_1_1_response.html#autotoc_md27',1,'']]],
   ['too_5fearly_14',['TOO_EARLY',['../classfastly_1_1http_1_1_status_code.html#ae1a0179e03e32464705388fc932ccaa9',1,'fastly::http::StatusCode']]],
   ['too_5fmany_5frequests_15',['TOO_MANY_REQUESTS',['../classfastly_1_1http_1_1_status_code.html#acf885d2e6d1841b30ca2ad1fa07b3127',1,'fastly::http::StatusCode']]],
   ['trace_16',['trace',['../classfastly_1_1http_1_1_request.html#a21cc9b31d9c056bce226284a30523547',1,'fastly::http::Request::trace()'],['../classfastly_1_1_request.html#a21cc9b31d9c056bce226284a30523547',1,'fastly::Request::trace()']]]

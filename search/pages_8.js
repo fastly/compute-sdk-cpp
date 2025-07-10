@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['request_0',['Getting the client request',['../classfastly_1_1_request.html#autotoc_md3',1,'']]],
-  ['requests_1',['Sending backend requests',['../classfastly_1_1_request.html#autotoc_md5',1,'']]]
+  ['request_0',['Getting the client request',['../classfastly_1_1_request.html#autotoc_md5',1,'']]],
+  ['requests_1',['Sending backend requests',['../classfastly_1_1_request.html#autotoc_md7',1,'']]]
 ];
