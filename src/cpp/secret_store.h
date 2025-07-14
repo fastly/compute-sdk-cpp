@@ -1,10 +1,13 @@
 #ifndef FASTLY_SECRET_STORE_H
 #define FASTLY_SECRET_STORE_H
 
+#include "error.h"
 #include "sdk-sys.h"
+#include "util.h"
 #include <optional>
 #include <string>
 #include <string_view>
+#include <vector>
 
 namespace fastly::secret_store {
 
@@ -20,7 +23,7 @@ class Secret {
   friend SecretStore;
 
 public:
-  /// Create a new "ecret" from the given memory. This is *not* the suggested
+  /// Create a new "Secret" from the given memory. This is *not* the suggested
   /// way to create `Secret`s; instead, we suggest using `SecretStore::get`.
   /// This secret will *NOT* be shared with other sessions.
   ///
@@ -33,9 +36,7 @@ public:
   /// store them. As the early note says, this `Secret` will be local to the
   /// current session, and will not be shared with other sessions of this
   /// service.
-  Secret(std::string_view str)
-      : s(fastly::sys::secret_store::m_static_secret_store_secret_from_bytes(
-            static_cast<std::string>(str))) {};
+  fastly::expected<Secret> from_bytes(std::vector<uint8_t> data);
 
   /// Read the plaintext contents of a secret into memory as a byte buffer.
   ///
@@ -69,18 +70,18 @@ private:
 /// periods (.).
 class SecretStore {
 public:
-  static SecretStore open(std::string_view name);
+  static fastly::expected<SecretStore> open(std::string_view name);
 
   /// Lookup a `Secret` by name in this secret store.
   ///
   /// Returns `std::optional<Secret>` if the secret is found, and `std::nullopt`
   /// if the secret was not found.
-  std::optional<Secret> get(std::string_view key);
+  fastly::expected<std::optional<Secret>> get(std::string_view key);
 
   /// Return true if the secret store contains a secret with the given
 
   /// name.
-  bool contains(std::string_view key);
+  fastly::expected<bool> contains(std::string_view key);
 
 private:
   rust::Box<fastly::sys::secret_store::SecretStore> ss;

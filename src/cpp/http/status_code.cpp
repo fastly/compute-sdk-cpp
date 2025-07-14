@@ -135,11 +135,16 @@ std::optional<StatusCode> StatusCode::from_code(uint16_t code) {
 /// Returns the `uint16_t` corresponding to this `StatusCode`.
 uint16_t StatusCode::as_code() { return this->value; }
 
-std::optional<std::string> StatusCode::canonical_reason() {
+tl::expected<std::optional<std::string>, fastly::FastlyError>
+StatusCode::canonical_reason() {
   std::string reason;
-  if (fastly::sys::http::f_http_status_code_canonical_reason(this->value,
-                                                                    reason)) {
-    return {reason};
+  fastly::sys::error::FastlyError *err;
+  bool has_reason{fastly::sys::http::f_http_status_code_canonical_reason(
+      this->value, reason, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (has_reason) {
+    return reason;
   } else {
     return std::nullopt;
   }

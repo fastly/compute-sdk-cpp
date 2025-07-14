@@ -29,9 +29,9 @@ int main() {
             "now. That sounds like a pain.";
   } else {
     fastly::Response::from_status(404)
-        .with_body("Route not found"s)
+        .with_body("Route not found")
         .send_to_client();
-    return 1;
+    return 0;
   }
   body << std::endl;
   fastly::Response::from_body(std::move(body)).send_to_client();

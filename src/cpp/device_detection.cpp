@@ -1,16 +1,19 @@
 #include "device_detection.h"
+#include "sdk-sys.h"
 
 namespace fastly::device_detection {
 
-std::optional<Device> lookup(std::string_view user_agent) {
-  auto ptr{fastly::sys::device_detection::f_device_detection_lookup(
-      static_cast<std::string>(user_agent))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+fastly::expected<std::optional<Device>> lookup(std::string_view user_agent) {
+  fastly::sys::device_detection::Device *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::device_detection::f_device_detection_lookup(
+      static_cast<std::string>(user_agent), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (out != nullptr) {
+    return std::optional<Device>(FSLY_BOX(device_detection, Device, out));
   } else {
-    return std::optional<Device>(
-        Device(::rust::Box<fastly::sys::device_detection::Device>::from_raw(
-            std::move(ptr))));
+    return std::nullopt;
   }
 }
 

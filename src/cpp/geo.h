@@ -1,7 +1,9 @@
 #ifndef FASTLY_GEO_H
 #define FASTLY_GEO_H
 
+#include "error.h"
 #include "sdk-sys.h"
+#include "util.h"
 #include <optional>
 #include <string>
 #include <string_view>
@@ -33,7 +35,7 @@ class Geo;
 ///     std::cout << "receiving a request from outer space 🛸";
 /// }
 /// ```
-std::optional<Geo> geo_lookup(std::string_view ip);
+fastly::expected<std::optional<Geo>> geo_lookup(std::string_view ip);
 
 /// An offset from UTC.
 ///
@@ -78,7 +80,7 @@ private:
 
 /// The geographic data associated with a particular IP address.
 class Geo {
-  friend std::optional<Geo> geo_lookup(std::string_view ip);
+  friend fastly::expected<std::optional<Geo>> geo_lookup(std::string_view ip);
 
 public:
   /// The name of the organization associated with `as_number`.

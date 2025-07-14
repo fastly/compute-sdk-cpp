@@ -236,7 +236,7 @@ dependencies = [
  "serde_urlencoded",
  "sha2",
  "smallvec",
- "thiserror",
+ "thiserror 1.0.69",
  "time",
  "url",
 ]
@@ -254,9 +254,9 @@ dependencies = [
 
 [[package]]
 name = "fastly-shared"
-version = "0.11.4"
+version = "0.11.5"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4a47030cf7bae93c0305f76541896c1b86dbf3edde21bb1cf938e05f1fb30f78"
+checksum = "80cbb4ef1d9c7f4321179814dd51b39f2a91f0993a7303396bb34581ae4f5daa"
 dependencies = [
  "bitflags",
  "http",
@@ -269,7 +269,10 @@ dependencies = [
  "cxx",
  "cxx-build",
  "fastly",
+ "fastly-shared",
+ "http",
  "link-cplusplus",
+ "thiserror 2.0.12",
 ]
 
 [[package]]
@@ -710,7 +713,16 @@ version = "1.0.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "b6aaf5339b578ea85b50e080feb250a3e8ae8cfcdff9a461c9ec2904bc923f52"
 dependencies = [
- "thiserror-impl",
+ "thiserror-impl 1.0.69",
+]
+
+[[package]]
+name = "thiserror"
+version = "2.0.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "567b8a2dae586314f7be2a752ec7474332959c6460e02bde30d702a66d488708"
+dependencies = [
+ "thiserror-impl 2.0.12",
 ]
 
 [[package]]
@@ -718,6 +730,17 @@ name = "thiserror-impl"
 version = "1.0.69"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4fee6c4efc90059e10f81e6d42c60a18f76588c3d74cb83a0b242a2b6c7504c1"
+dependencies = [
+ "proc-macro2",
+ "quote",
+ "syn 2.0.102",
+]
+
+[[package]]
+name = "thiserror-impl"
+version = "2.0.12"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "7f7cf42b4507d8ea322120659672cf1b9dbb93f8f2d4ecfd6e51350ff5b17a1d"
 dependencies = [
  "proc-macro2",
  "quote",

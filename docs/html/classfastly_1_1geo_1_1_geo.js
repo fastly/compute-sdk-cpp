@@ -18,5 +18,5 @@ var classfastly_1_1geo_1_1_geo =
     [ "proxy_type", "classfastly_1_1geo_1_1_geo.html#abe53920cdfa15bcca98ec75ac3afbd80", null ],
     [ "region", "classfastly_1_1geo_1_1_geo.html#a3fd24ef5be28c810e3221ec97fab89ec", null ],
     [ "utc_offset", "classfastly_1_1geo_1_1_geo.html#a50a5f8a41434cebbf6a356acf4788740", null ],
-    [ "geo_lookup", "classfastly_1_1geo_1_1_geo.html#a2ca06990e34a8029f7c0b09adfa4e049", null ]
+    [ "geo_lookup", "classfastly_1_1geo_1_1_geo.html#a308def92372cab29b28119f0f1cd2480", null ]
 ];

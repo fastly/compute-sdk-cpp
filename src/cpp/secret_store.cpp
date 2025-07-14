@@ -1,6 +1,20 @@
 #include "secret_store.h"
+#include "error.h"
+#include "sdk-sys.h"
 
 namespace fastly::secret_store {
+
+fastly::expected<Secret> Secret::from_bytes(std::vector<uint8_t> data) {
+  fastly::sys::secret_store::Secret *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::secret_store::m_static_secret_store_secret_from_bytes(data, out,
+                                                                     err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(secret_store, Secret, out);
+  }
+}
 
 std::string Secret::plaintext() {
   std::string out;
@@ -8,24 +22,39 @@ std::string Secret::plaintext() {
   return out;
 }
 
-SecretStore SecretStore::open(std::string_view name) {
-  return SecretStore(
-      fastly::sys::secret_store::m_static_secret_store_secret_store_open(
-          static_cast<std::string>(name)));
-}
-
-std::optional<Secret> SecretStore::get(std::string_view key) {
-  auto ptr{this->ss->get(static_cast<std::string>(key))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+fastly::expected<SecretStore> SecretStore::open(std::string_view name) {
+  fastly::sys::secret_store::SecretStore *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::secret_store::m_static_secret_store_secret_store_open(
+      static_cast<std::string>(name), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
   } else {
-    return std::optional<Secret>(Secret(std::move(
-        rust::Box<fastly::sys::secret_store::Secret>::from_raw(ptr))));
+    return FSLY_BOX(secret_store, SecretStore, out);
   }
 }
 
-bool SecretStore::contains(std::string_view key) {
-  return this->ss->contains(static_cast<std::string>(key));
+fastly::expected<std::optional<Secret>> SecretStore::get(std::string_view key) {
+  fastly::sys::secret_store::Secret *out;
+  fastly::sys::error::FastlyError *err;
+  this->ss->get(static_cast<std::string>(key), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (out != nullptr) {
+    return std::optional<Secret>(FSLY_BOX(secret_store, Secret, out));
+  } else {
+    return std::nullopt;
+  }
+}
+
+fastly::expected<bool> SecretStore::contains(std::string_view key) {
+  fastly::sys::error::FastlyError *err;
+  bool out{this->ss->contains(static_cast<std::string>(key), err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<bool>(out);
+  }
 }
 
 } // namespace fastly::secret_store

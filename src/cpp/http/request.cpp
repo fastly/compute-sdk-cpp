@@ -1,34 +1,48 @@
 #include "request.h"
+#include "error.h"
+#include "sdk-sys.h"
 
 namespace fastly::http {
 
 namespace request {
 
-std::variant<PendingRequest, Response> PendingRequest::poll() {
+std::variant<PendingRequest, fastly::expected<Response>>
+PendingRequest::poll() {
   auto poll_result{
       fastly::sys::http::request::m_http_request_pending_request_poll(
           std::move(this->req))};
   if (poll_result->is_response()) {
-    return {Response(std::move(
+    return {fastly::expected<Response>(Response(std::move(
         fastly::sys::http::request::m_http_request_poll_result_into_response(
-            std::move(poll_result))))};
-  } else {
+            std::move(poll_result)))))};
+  } else if (poll_result->is_pending()) {
     return {PendingRequest(std::move(
         fastly::sys::http::request::m_http_request_poll_result_into_pending(
+            std::move(poll_result))))};
+  } else {
+    return {fastly::unexpected(std::move(
+        fastly::sys::http::request::m_http_request_poll_result_into_error(
             std::move(poll_result))))};
   }
 }
 
-Response PendingRequest::wait() {
-  return {fastly::sys::http::request::m_http_request_pending_request_wait(
-      std::move(this->req))};
+fastly::expected<Response> PendingRequest::wait() {
+  fastly::sys::http::Response *ret;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::request::m_http_request_pending_request_wait(
+      std::move(this->req), ret, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(http, Response, ret);
+  }
 }
 
 Request PendingRequest::cloned_sent_req() {
   return {this->req->cloned_sent_req()};
 }
 
-std::pair<Response, std::vector<PendingRequest>>
+std::pair<fastly::expected<Response>, std::vector<PendingRequest>>
 select(std::vector<PendingRequest> &reqs) {
   rust::Vec<fastly::sys::http::request::BoxPendingRequest> vecreqs;
   rust::Vec<fastly::sys::http::request::BoxPendingRequest> others;
@@ -36,14 +50,22 @@ select(std::vector<PendingRequest> &reqs) {
     fastly::sys::http::request::f_http_push_box_pending_request_into_vec(
         vecreqs, std::move(boxed.req));
   }
-  auto resp{fastly::sys::http::request::f_http_request_select(
-      std::move(vecreqs), others)};
+  fastly::sys::http::Response *resp;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::request::f_http_request_select(std::move(vecreqs), resp,
+                                                    others, err);
   std::vector<PendingRequest> ret_others;
   for (auto &box : others) {
     ret_others.push_back(
         std::move(PendingRequest(std::move(box.extract_req()))));
   }
-  return std::make_pair(Response(std::move(resp)), std::move(ret_others));
+  if (err != nullptr) {
+    return std::make_pair(fastly::unexpected(err), std::move(ret_others));
+  } else {
+    return std::make_pair(
+        fastly::expected<Response>(FSLY_BOX(http, Response, resp)),
+        std::move(ret_others));
+  }
 }
 
 } // namespace request
@@ -123,25 +145,66 @@ Request Request::clone_with_body() {
   return req;
 }
 
-Response Request::send(fastly::backend::Backend backend) {
-  Response res{fastly::sys::http::m_http_request_send(std::move(this->req),
-                                                      backend.backend)};
-  return res;
+fastly::expected<Response> Request::send(std::string_view backend_name) {
+  return fastly::backend::Backend::from_name(backend_name)
+      .and_then([this](fastly::backend::Backend backend) {
+        return this->send(backend);
+      });
 }
 
-request::PendingRequest Request::send_async(fastly::backend::Backend backend) {
-  request::PendingRequest res{fastly::sys::http::m_http_request_send_async(
-      std::move(this->req), backend.backend)};
-  return res;
+fastly::expected<Response> Request::send(fastly::backend::Backend &backend) {
+  fastly::sys::http::Response *resp;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::m_http_request_send(std::move(this->req), *backend.backend,
+                                         resp, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(http, Response, resp);
+  }
 }
 
-std::pair<StreamingBody, request::PendingRequest>
-Request::send_async_streaming(fastly::backend::Backend backend) {
-  auto send_stream_res{fastly::sys::http::m_http_request_send_async_streaming(
-      std::move(this->req), backend.backend)};
-  return std::make_pair(
-      StreamingBody(std::move(send_stream_res->take_body())),
-      request::PendingRequest(std::move(send_stream_res->take_req())));
+fastly::expected<request::PendingRequest>
+Request::send_async(std::string_view backend_name) {
+  return fastly::backend::Backend::from_name(backend_name)
+      .and_then([this](fastly::backend::Backend backend) {
+        return this->send_async(backend);
+      });
+}
+
+fastly::expected<request::PendingRequest>
+Request::send_async(fastly::backend::Backend &backend) {
+  fastly::sys::http::request::PendingRequest *req;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::m_http_request_send_async(std::move(this->req),
+                                               *backend.backend, req, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(http, request::PendingRequest, req);
+  }
+}
+
+fastly::expected<std::pair<StreamingBody, request::PendingRequest>>
+Request::send_async_streaming(std::string_view backend_name) {
+  return fastly::backend::Backend::from_name(backend_name)
+      .and_then([this](fastly::backend::Backend backend) {
+        return this->send_async_streaming(backend);
+      });
+}
+
+fastly::expected<std::pair<StreamingBody, request::PendingRequest>>
+Request::send_async_streaming(fastly::backend::Backend &backend) {
+  fastly::sys::http::request::AsyncStreamRes *res;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::m_http_request_send_async_streaming(
+      std::move(this->req), *backend.backend, res, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return std::make_pair(StreamingBody(std::move(res->take_body())),
+                          request::PendingRequest(std::move(res->take_req())));
+  }
 }
 
 void Request::set_body(Body body) {
@@ -177,22 +240,34 @@ Body Request::into_body() {
       fastly::sys::http::m_http_request_into_body(std::move(this->req)));
 }
 
-void Request::set_body_text_plain(std::string_view body) {
-  return this->req->set_body_text_plain(static_cast<std::string>(body));
+fastly::expected<void> Request::set_body_text_plain(std::string_view body) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_body_text_plain(static_cast<std::string>(body), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
-Request Request::with_body_text_html(std::string_view body) {
-  this->set_body_text_html(body);
-  return std::move(*this);
+fastly::expected<Request> Request::with_body_text_html(std::string_view body) {
+  return this->set_body_text_html(body).map(
+      [this]() { return std::move(*this); });
 }
 
-void Request::set_body_text_html(std::string_view body) {
-  return this->req->set_body_text_html(static_cast<std::string>(body));
+fastly::expected<void> Request::set_body_text_html(std::string_view body) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_body_text_html(static_cast<std::string>(body), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
-Request Request::with_body_text_plain(std::string_view body) {
-  this->set_body_text_plain(body);
-  return std::move(*this);
+fastly::expected<Request> Request::with_body_text_plain(std::string_view body) {
+  return this->set_body_text_plain(body).map(
+      [this]() { return std::move(*this); });
 }
 
 std::string Request::take_body_string() {
@@ -218,12 +293,11 @@ std::vector<uint8_t> Request::take_body_bytes() {
 // ChunksIter Request::read_body_chunks(size_t chunk_size);
 
 std::optional<std::string> Request::get_content_type() {
-  auto ptr{this->req->get_content_type()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  std::string out;
+  if (this->req->get_content_type(out)) {
+    return {out};
   } else {
-    std::string str(ptr->begin(), ptr->end());
-    return std::optional<std::string>{str};
+    return std::nullopt;
   }
 }
 
@@ -237,65 +311,107 @@ void Request::set_content_type(std::string_view mime) {
 }
 
 std::optional<size_t> Request::get_content_length() {
-  auto ptr{this->req->get_content_length()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  size_t out;
+  if (this->req->get_content_length(out)) {
+    return {out};
   } else {
-    return std::optional<size_t>(*ptr);
+    return std::nullopt;
   }
 }
 
-bool Request::contains_header(std::string_view name) {
-  return this->req->contains_header(static_cast<std::string>(name));
+fastly::expected<bool> Request::contains_header(std::string_view name) {
+  fastly::sys::error::FastlyError *err;
+  bool has_header{
+      this->req->contains_header(static_cast<std::string>(name), err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<bool>(has_header);
+  }
 }
 
-Request Request::with_header(std::string_view name, std::string_view value) {
-  this->append_header(name, value);
-  return std::move(*this);
+fastly::expected<Request> Request::with_header(std::string_view name,
+                                               std::string_view value) {
+  return this->append_header(name, value).map([this]() {
+    return std::move(*this);
+  });
 }
 
-Request Request::with_set_header(std::string_view name,
-                                 std::string_view value) {
-  this->set_header(name, value);
-  return std::move(*this);
+fastly::expected<Request> Request::with_set_header(std::string_view name,
+                                                   std::string_view value) {
+  return this->set_header(name, value).map([this]() {
+    return std::move(*this);
+  });
 }
 
 // TODO(@zkat): do a proper HeaderValue situation here?
-std::optional<std::string> Request::get_header(std::string_view name) {
-  auto ptr{this->req->get_header(static_cast<std::string>(name))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+fastly::expected<std::optional<std::string>>
+Request::get_header(std::string_view name) {
+  fastly::sys::error::FastlyError *err;
+  std::string out;
+  bool has_header{
+      this->req->get_header(static_cast<std::string>(name), out, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (has_header) {
+    return std::optional<std::string>(out);
   } else {
-    std::string str{ptr->begin(), ptr->end()};
-    return {str};
+    return std::nullopt;
   }
 }
 
-HeaderValuesIter Request::get_header_all(std::string_view name) {
-  return this->req->get_header_all(static_cast<std::string>(name));
+fastly::expected<HeaderValuesIter>
+Request::get_header_all(std::string_view name) {
+  fastly::sys::http::HeaderValuesIter *out;
+  fastly::sys::error::FastlyError *err;
+  this->req->get_header_all(static_cast<std::string>(name), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(http, HeaderValuesIter, out);
+  }
 }
 
 // TODO(@zkat): sigh. IDK
 // ??? get_headers();
 // HeaderNamesIter get_header_names();
 
-void Request::set_header(std::string_view name, std::string_view value) {
+fastly::expected<void> Request::set_header(std::string_view name,
+                                           std::string_view value) {
+  fastly::sys::error::FastlyError *err;
   this->req->set_header(static_cast<std::string>(name),
-                        static_cast<std::string>(value));
-}
-
-void Request::append_header(std::string_view name, std::string_view value) {
-  this->req->append_header(static_cast<std::string>(name),
-                           static_cast<std::string>(value));
-}
-
-std::optional<std::string> Request::remove_header(std::string_view name) {
-  auto ptr{this->req->remove_header(static_cast<std::string>(name))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+                        static_cast<std::string>(value), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
   } else {
-    std::string str{ptr->begin(), ptr->end()};
-    return {str};
+    return fastly::expected<void>();
+  }
+}
+
+fastly::expected<void> Request::append_header(std::string_view name,
+                                              std::string_view value) {
+  fastly::sys::error::FastlyError *err;
+  this->req->append_header(static_cast<std::string>(name),
+                           static_cast<std::string>(value), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
+}
+
+fastly::expected<std::optional<std::string>>
+Request::remove_header(std::string_view name) {
+  fastly::sys::error::FastlyError *err;
+  std::string out;
+  bool has_header{
+      this->req->remove_header(static_cast<std::string>(name), out, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (has_header) {
+    return std::optional<std::string>(std::move(out));
+  } else {
+    return std::nullopt;
   }
 }
 
@@ -308,72 +424,88 @@ Method Request::get_method() { return this->req->get_method(); }
 
 void Request::set_method(Method method) { this->req->set_method(method); }
 
-Request Request::with_url(std::string_view url) {
-  this->set_url(url);
-  return std::move(*this);
+fastly::expected<Request> Request::with_url(std::string_view url) {
+  return this->set_url(url).map([this]() { return std::move(*this); });
 }
 
 std::string Request::get_url() {
-  std::unique_ptr<std::vector<uint8_t>> data{this->req->get_url()};
-  return {data->begin(), data->end()};
+  std::string out;
+  this->req->get_url(out);
+  return out;
 }
 
-void Request::set_url(std::string_view url) {
-  this->req->set_url(static_cast<std::string>(url));
+fastly::expected<void> Request::set_url(std::string_view url) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_url(static_cast<std::string>(url), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 std::string Request::get_path() {
-  std::unique_ptr<std::vector<uint8_t>> data{this->req->get_path()};
-  return {data->begin(), data->end()};
+  std::string out;
+  this->req->get_path(out);
+  return out;
 }
 
-Request Request::with_path(std::string_view path) {
-  this->set_path(path);
-  return std::move(*this);
+fastly::expected<Request> Request::with_path(std::string_view path) {
+  return this->set_path(path).map([this]() { return std::move(*this); });
 }
 
-void Request::set_path(std::string_view path) {
-  this->req->set_path(static_cast<std::string>(path));
+fastly::expected<void> Request::set_path(std::string_view path) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_path(static_cast<std::string>(path), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 std::optional<std::string> Request::get_query_string() {
-  auto ptr{this->req->get_query_string()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  std::string out;
+  if (this->req->get_query_string(out)) {
+    return {out};
   } else {
-    std::string str{ptr->begin(), ptr->end()};
-    return {str};
+    return std::nullopt;
   }
 }
 
 std::optional<std::string>
 Request::get_query_parameter(std::string_view param) {
-  auto ptr{this->req->get_query_parameter(static_cast<std::string>(param))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  std::string out;
+  if (this->req->get_query_parameter(static_cast<std::string>(param), out)) {
+    return {out};
   } else {
-    std::string str{ptr->begin(), ptr->end()};
-    return {str};
+    return std::nullopt;
   }
 }
 
-Request Request::with_query_string(std::string_view query) {
-  this->set_query_string(query);
-  return std::move(*this);
+fastly::expected<Request> Request::with_query_string(std::string_view query) {
+  return this->set_query_string(query).map(
+      [this]() { return std::move(*this); });
 }
 
-void Request::set_query_string(std::string_view query) {
-  this->req->set_query_string(static_cast<std::string>(query));
+fastly::expected<void> Request::set_query_string(std::string_view query) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_query_string(static_cast<std::string>(query), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 void Request::remove_query() { this->req->remove_query(); }
 
 std::optional<bool> Request::get_client_ddos_detected() {
-  auto ptr{this->req->get_client_ddos_detected()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  bool detected;
+  if (this->req->get_client_ddos_detected(detected)) {
+    return {detected};
   } else {
-    return {*ptr};
+    return std::nullopt;
   }
 }
 
@@ -413,13 +545,18 @@ Request Request::with_pci(bool pci) {
 
 void Request::set_pci(bool pci) { this->req->set_pci(pci); }
 
-Request Request::with_surrogate_key(std::string_view sk) {
-  this->set_surrogate_key(sk);
-  return std::move(*this);
+fastly::expected<Request> Request::with_surrogate_key(std::string_view sk) {
+  return this->set_surrogate_key(sk).map([this]() { return std::move(*this); });
 }
 
-void Request::set_surrogate_key(std::string_view sk) {
-  this->req->set_surrogate_key(static_cast<std::string>(sk));
+fastly::expected<void> Request::set_surrogate_key(std::string_view sk) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_surrogate_key(static_cast<std::string>(sk), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 std::optional<std::string> Request::get_client_ip_addr() {

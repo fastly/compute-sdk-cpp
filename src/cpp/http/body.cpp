@@ -1,11 +1,18 @@
 #include "body.h"
+#include "expected.h"
+#include "sdk-sys.h"
 
 namespace fastly::http {
 
 int Body::underflow() {
   if (!this->in_avail()) {
     size_t read{this->read(reinterpret_cast<uint8_t *>(this->gbuf.data()),
-                           this->gbuf.max_size())};
+                           this->gbuf.max_size())
+                    .or_else([](fastly::FastlyError err) {
+                      std::cerr << err.error_msg() << std::endl;
+                      std::abort();
+                    })
+                    .value()};
     if (!read) {
       return traits_type::eof();
     }
@@ -20,8 +27,14 @@ int Body::overflow(int_type val) {
   if (len) {
     auto pos{0};
     while (pos < len) {
-      size_t written{this->write(
-          reinterpret_cast<uint8_t *>(this->pbuf.data() + pos), len - pos)};
+      size_t written{
+          this->write(reinterpret_cast<uint8_t *>(this->pbuf.data() + pos),
+                      len - pos)
+              .or_else([](fastly::FastlyError err) {
+                std::cerr << err.error_msg() << std::endl;
+                std::abort();
+              })
+              .value()};
       if (!written) {
         return traits_type::eof();
       } else {
@@ -46,24 +59,42 @@ void Body::append(Body other) {
   return this->bod->append(std::move(other.bod));
 }
 
-std::size_t Body::read(uint8_t *buf, std::size_t bufsize) {
+fastly::expected<std::size_t> Body::read(uint8_t *buf, std::size_t bufsize) {
   rust::Slice<uint8_t> slice{buf, bufsize};
-  return this->bod->read(slice);
+  fastly::sys::error::FastlyError *err;
+  auto ret{this->bod->read(slice, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return ret;
+  }
 }
 
-std::size_t Body::write(uint8_t *buf, std::size_t bufsize) {
+fastly::expected<std::size_t> Body::write(uint8_t *buf, std::size_t bufsize) {
   rust::Slice<const uint8_t> slice{buf, bufsize};
-  return this->bod->write(slice);
+  fastly::sys::error::FastlyError *err;
+  auto ret{this->bod->write(slice, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return ret;
+  }
 }
 
 // TODO(@zkat): these need other types
 // Prefix get_prefix(uint32_t prefix_len);
 // PrefixString get_prefix_string(uint32_t prefix_len);
 
-void Body::append_trailer(std::string_view header_name,
-                          std::string_view header_value) {
+fastly::expected<void> Body::append_trailer(std::string_view header_name,
+                                            std::string_view header_value) {
+  fastly::sys::error::FastlyError *err;
   this->bod->append_trailer(static_cast<std::string>(header_name),
-                            static_cast<std::string>(header_value));
+                            static_cast<std::string>(header_value), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 // TODO(@zkat): this needs a HeaderMap wrapper.
@@ -73,11 +104,16 @@ int StreamingBody::overflow(int_type val) {
   auto const eof{traits_type::eof()};
   auto len{this->pptr() - this->pbase()};
   if (len) {
-    auto max_size{this->pbuf.max_size()};
     auto pos{0};
     while (pos < len) {
-      size_t written{this->write(
-          reinterpret_cast<uint8_t *>(this->pbuf.data() + pos), len - pos)};
+      size_t written{
+          this->write(reinterpret_cast<uint8_t *>(this->pbuf.data() + pos),
+                      len - pos)
+              .or_else([](fastly::FastlyError err) {
+                std::cerr << err.error_msg() << std::endl;
+                std::abort();
+              })
+              .value()};
       if (!written) {
         return traits_type::eof();
       } else {
@@ -97,24 +133,44 @@ int StreamingBody::sync() {
   return traits_type::eq_int_type(result, traits_type::eof()) ? -1 : 0;
 }
 
-void StreamingBody::finish() {
+fastly::expected<void> StreamingBody::finish() {
   this->flush();
-  return fastly::sys::http::m_http_streaming_body_finish(std::move(this->bod));
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::m_http_streaming_body_finish(std::move(this->bod), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 void StreamingBody::append(Body other) {
   return this->bod->append(std::move(other.bod));
 }
 
-std::size_t StreamingBody::write(uint8_t *buf, std::size_t bufsize) {
+fastly::expected<std::size_t> StreamingBody::write(uint8_t *buf,
+                                                   std::size_t bufsize) {
   rust::Slice<const uint8_t> slice{buf, bufsize};
-  return this->bod->write(slice);
+  fastly::sys::error::FastlyError *err;
+  auto ret{this->bod->write(slice, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return ret;
+  }
 }
 
-void StreamingBody::append_trailer(std::string_view header_name,
-                                   std::string_view header_value) {
+fastly::expected<void>
+StreamingBody::append_trailer(std::string_view header_name,
+                              std::string_view header_value) {
+  fastly::sys::error::FastlyError *err;
   this->bod->append_trailer(static_cast<std::string>(header_name),
-                            static_cast<std::string>(header_value));
+                            static_cast<std::string>(header_value), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
 } // namespace fastly::http

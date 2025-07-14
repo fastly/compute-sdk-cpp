@@ -1,11 +1,9 @@
 var classfastly_1_1backend_1_1_backend =
 [
-    [ "Backend", "classfastly_1_1backend_1_1_backend.html#ac54c92d2ab26635e99105bc76c18f940", null ],
-    [ "Backend", "classfastly_1_1backend_1_1_backend.html#a4876d48eaad1e2184bc534e108af9fe4", null ],
-    [ "builder", "classfastly_1_1backend_1_1_backend.html#a1cc20c7787389c78f1b6cbaf6cb6d675", null ],
+    [ "builder", "classfastly_1_1backend_1_1_backend.html#a69c268400892bbd6de0d5f92cb7b41dd", null ],
     [ "clone", "classfastly_1_1backend_1_1_backend.html#ae26bfbb4180827e3ab0d9d0b2c96bebb", null ],
     [ "exists", "classfastly_1_1backend_1_1_backend.html#adbe3525b4d22c42e2fb56e90183bc57c", null ],
-    [ "from_name", "classfastly_1_1backend_1_1_backend.html#a7d483bb3da665988abd4259cf3ecde4f", null ],
+    [ "from_name", "classfastly_1_1backend_1_1_backend.html#aef26136a63a51ee9be04a7d52114f7f4", null ],
     [ "get_between_byte_timeout", "classfastly_1_1backend_1_1_backend.html#a565d29b4265301297f255c4b49b462e7", null ],
     [ "get_connect_timeout", "classfastly_1_1backend_1_1_backend.html#a2ae6edf2f2c3b3c6c045bc3fbaa233a0", null ],
     [ "get_first_byte_timeout", "classfastly_1_1backend_1_1_backend.html#a14c1db7c6478183e5749bae38306c49a", null ],
@@ -21,6 +19,5 @@ var classfastly_1_1backend_1_1_backend =
     [ "is_ssl", "classfastly_1_1backend_1_1_backend.html#a01f2c898e23ebe3d7694c5c59a394c26", null ],
     [ "name", "classfastly_1_1backend_1_1_backend.html#ad603a6744382f11cba1d0dd78fe0a883", null ],
     [ "operator!=", "classfastly_1_1backend_1_1_backend.html#a640d68bec5e43828e52d9236cb74f623", null ],
-    [ "operator==", "classfastly_1_1backend_1_1_backend.html#ac7d3b4a79171d19215e69a696564ed04", null ],
-    [ "backend", "classfastly_1_1backend_1_1_backend.html#a41665fb8ac5df0b61d4911d9a17cc051", null ]
+    [ "operator==", "classfastly_1_1backend_1_1_backend.html#ac7d3b4a79171d19215e69a696564ed04", null ]
 ];

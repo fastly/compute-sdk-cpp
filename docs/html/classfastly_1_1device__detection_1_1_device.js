@@ -13,5 +13,5 @@ var classfastly_1_1device__detection_1_1_device =
     [ "is_touchscreen", "classfastly_1_1device__detection_1_1_device.html#ae4c21474714b7b611f7de65c91085edd", null ],
     [ "is_tvplayer", "classfastly_1_1device__detection_1_1_device.html#a1fdf614103097c962c701ccea0df1490", null ],
     [ "model", "classfastly_1_1device__detection_1_1_device.html#a35dbfe715296cc1f9e3f589b1e61e3a4", null ],
-    [ "lookup", "classfastly_1_1device__detection_1_1_device.html#a7ede6df8409a4cbb2f2978410dc69461", null ]
+    [ "lookup", "classfastly_1_1device__detection_1_1_device.html#a17882354a698c180ed8dc3e5917868cb", null ]
 ];

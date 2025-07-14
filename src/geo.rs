@@ -1,6 +1,10 @@
 use std::pin::Pin;
 
-use crate::ffi::{ConnSpeed, ConnType, Continent, ProxyDescription, ProxyType};
+use crate::{
+    error::ErrPtr,
+    ffi::{ConnSpeed, ConnType, Continent, ProxyDescription, ProxyType},
+    try_fe,
+};
 use cxx::CxxString;
 use fastly::geo::{
     ConnSpeed as FConnSpeed, ConnType as FConnType, Continent as FContinent,
@@ -9,17 +13,14 @@ use fastly::geo::{
 
 pub struct Geo(pub(crate) fastly::geo::Geo);
 
-pub fn f_geo_geo_lookup(ip: &CxxString) -> *mut Geo {
-    if let Some(geo) = fastly::geo::geo_lookup(
-        ip.to_string_lossy()
-            .as_ref()
-            .parse()
-            .expect("bad ip format"),
-    ) {
-        Box::into_raw(Box::new(Geo(geo)))
-    } else {
-        std::ptr::null_mut()
-    }
+pub fn f_geo_geo_lookup(ip: &CxxString, mut out: Pin<&mut *mut Geo>, mut err: ErrPtr) {
+    out.set(
+        fastly::geo::geo_lookup(try_fe!(err, try_fe!(err, ip.to_str()).parse()))
+            .map(Geo)
+            .map(Box::new)
+            .map(Box::into_raw)
+            .unwrap_or_else(std::ptr::null_mut),
+    )
 }
 
 impl Geo {

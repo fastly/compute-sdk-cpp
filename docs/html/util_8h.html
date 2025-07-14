@@ -91,31 +91,39 @@ $(function(){initNavTree('util_8h.html','',''); });
   <div class="headertitle"><div class="title">util.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &lt;string&gt;</code><br />
-<code>#include &lt;memory&gt;</code><br />
-</div>
+
 <p><a href="util_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:ad1eef5cbf6dec5601fcec4c8f4a7c1db" id="r_ad1eef5cbf6dec5601fcec4c8f4a7c1db"><td class="memItemLeft" align="right" valign="top">std::unique_ptr&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad1eef5cbf6dec5601fcec4c8f4a7c1db">get_empty_string</a> ()</td></tr>
+<tr class="heading"><td colspan="2"><h2 id="header-define-members" class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:aeb03bce5b77fdaab70c6d7825c89a3e1" id="r_aeb03bce5b77fdaab70c6d7825c89a3e1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aeb03bce5b77fdaab70c6d7825c89a3e1">FSLY_BOX</a>(NS,  CLS,  PTR)</td></tr>
 </table>
-<a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="ad1eef5cbf6dec5601fcec4c8f4a7c1db" name="ad1eef5cbf6dec5601fcec4c8f4a7c1db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad1eef5cbf6dec5601fcec4c8f4a7c1db">&#9670;&#160;</a></span>get_empty_string()</h2>
+<a name="doc-define-members" id="doc-define-members"></a><h2 id="header-doc-define-members" class="groupheader">Macro Definition Documentation</h2>
+<a id="aeb03bce5b77fdaab70c6d7825c89a3e1" name="aeb03bce5b77fdaab70c6d7825c89a3e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aeb03bce5b77fdaab70c6d7825c89a3e1">&#9670;&#160;</a></span>FSLY_BOX</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::unique_ptr&lt; std::string &gt; get_empty_string </td>
+          <td class="memname">#define FSLY_BOX</td>
           <td>(</td>
-          <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>NS</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>CLS</em></span>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"></td>          <td class="paramname"><span class="paramname"><em>PTR</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
-
+<b>Value:</b><div class="fragment"><div class="line">  ::fastly::NS::CLS(std::move(::rust::Box&lt;fastly::sys::NS::CLS&gt;::from_raw(PTR)))</div>
+</div><!-- fragment -->
 </div>
 </div>
 </div><!-- contents -->

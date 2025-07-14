@@ -1,4 +1,6 @@
 #include "response.h"
+#include "error.h"
+#include "sdk-sys.h"
 
 namespace fastly::http {
 
@@ -67,22 +69,36 @@ Body Response::into_body() {
       fastly::sys::http::m_http_response_into_body(std::move(this->res)));
 }
 
-void Response::set_body_text_plain(std::string_view body) {
-  return this->res->set_body_text_plain(static_cast<std::string>(body));
+fastly::expected<void> Response::set_body_text_plain(std::string_view body) {
+  fastly::sys::error::FastlyError *err;
+  this->res->set_body_text_plain(static_cast<std::string>(body), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
 }
 
-Response Response::with_body_text_html(std::string_view body) {
-  this->set_body_text_html(body);
-  return std::move(*this);
+fastly::expected<Response>
+Response::with_body_text_html(std::string_view body) {
+  return this->set_body_text_html(body).map(
+      [this]() { return std::move(*this); });
 }
 
-void Response::set_body_text_html(std::string_view body) {
-  return this->res->set_body_text_html(static_cast<std::string>(body));
+fastly::expected<void> Response::set_body_text_html(std::string_view body) {
+  fastly::sys::error::FastlyError *err;
+  this->res->set_body_text_html(static_cast<std::string>(body), err);
+  if (err != nullptr) {
+    return fastly::expected<void>();
+  } else {
+    return fastly::unexpected(err);
+  }
 }
 
-Response Response::with_body_text_plain(std::string_view body) {
-  this->set_body_text_plain(body);
-  return std::move(*this);
+fastly::expected<Response>
+Response::with_body_text_plain(std::string_view body) {
+  return this->set_body_text_plain(body).map(
+      [this]() { return std::move(*this); });
 }
 
 std::string Response::take_body_string() {
@@ -108,12 +124,11 @@ std::vector<uint8_t> Response::take_body_bytes() {
 // ChunksIter Response::read_body_chunks(size_t chunk_size);
 
 std::optional<std::string> Response::get_content_type() {
-  auto ptr{this->res->get_content_type()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  std::string out;
+  if (this->res->get_content_type(out)) {
+    return out;
   } else {
-    std::string str(ptr->begin(), ptr->end());
-    return std::optional<std::string>{str};
+    return std::nullopt;
   }
 }
 
@@ -127,65 +142,107 @@ void Response::set_content_type(std::string_view mime) {
 }
 
 std::optional<size_t> Response::get_content_length() {
-  auto ptr{this->res->get_content_length()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  size_t len;
+  if (this->res->get_content_length(len)) {
+    return len;
   } else {
-    return std::optional<size_t>(*ptr);
+    return std::nullopt;
   }
 }
 
-bool Response::contains_header(std::string_view name) {
-  return this->res->contains_header(static_cast<std::string>(name));
+fastly::expected<bool> Response::contains_header(std::string_view name) {
+  fastly::sys::error::FastlyError *err;
+  bool has_header{
+      this->res->contains_header(static_cast<std::string>(name), err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<bool>(has_header);
+  }
 }
 
-Response Response::with_header(std::string_view name, std::string_view value) {
-  this->append_header(name, value);
-  return std::move(*this);
+fastly::expected<Response> Response::with_header(std::string_view name,
+                                                 std::string_view value) {
+  return this->append_header(name, value).map([this]() {
+    return std::move(*this);
+  });
 }
 
-Response Response::with_set_header(std::string_view name,
-                                   std::string_view value) {
-  this->set_header(name, value);
-  return std::move(*this);
+fastly::expected<Response> Response::with_set_header(std::string_view name,
+                                                     std::string_view value) {
+  return this->set_header(name, value).map([this]() {
+    return std::move(*this);
+  });
 }
 
 // TODO(@zkat): do a proper HeaderValue situation here?
-std::optional<std::string> Response::get_header(std::string_view name) {
-  auto ptr{this->res->get_header(static_cast<std::string>(name))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+fastly::expected<std::optional<std::string>>
+Response::get_header(std::string_view name) {
+  fastly::sys::error::FastlyError *err;
+  std::string out;
+  bool has_header{
+      this->res->get_header(static_cast<std::string>(name), out, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (has_header) {
+    return std::optional<std::string>(std::move(out));
   } else {
-    std::string str{ptr->begin(), ptr->end()};
-    return {str};
+    return std::nullopt;
   }
 }
 
-HeaderValuesIter Response::get_header_all(std::string_view name) {
-  return this->res->get_header_all(static_cast<std::string>(name));
+fastly::expected<HeaderValuesIter>
+Response::get_header_all(std::string_view name) {
+  fastly::sys::http::HeaderValuesIter *out;
+  fastly::sys::error::FastlyError *err;
+  this->res->get_header_all(static_cast<std::string>(name), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(http, HeaderValuesIter, out);
+  }
 }
 
 // TODO(@zkat): sigh. IDK
 // ??? get_headers();
 // HeaderNamesIter get_header_names();
 
-void Response::set_header(std::string_view name, std::string_view value) {
+fastly::expected<void> Response::set_header(std::string_view name,
+                                            std::string_view value) {
+  fastly::sys::error::FastlyError *err;
   this->res->set_header(static_cast<std::string>(name),
-                        static_cast<std::string>(value));
-}
-
-void Response::append_header(std::string_view name, std::string_view value) {
-  this->res->append_header(static_cast<std::string>(name),
-                           static_cast<std::string>(value));
-}
-
-std::optional<std::string> Response::remove_header(std::string_view name) {
-  auto ptr{this->res->remove_header(static_cast<std::string>(name))};
-  if (ptr == nullptr) {
-    return std::nullopt;
+                        static_cast<std::string>(value), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
   } else {
-    std::string str{ptr->begin(), ptr->end()};
-    return {str};
+    return fastly::expected<void>();
+  }
+}
+
+fastly::expected<void> Response::append_header(std::string_view name,
+                                               std::string_view value) {
+  fastly::sys::error::FastlyError *err;
+  this->res->append_header(static_cast<std::string>(name),
+                           static_cast<std::string>(value), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
+}
+
+fastly::expected<std::optional<std::string>>
+Response::remove_header(std::string_view name) {
+  fastly::sys::error::FastlyError *err;
+  std::string out;
+  bool has_header{
+      this->res->remove_header(static_cast<std::string>(name), out, err)};
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (has_header) {
+    return std::optional<std::string>(std::move(out));
+  } else {
+    return std::nullopt;
   }
 }
 
@@ -213,8 +270,7 @@ std::optional<fastly::backend::Backend> Response::get_backend() {
   if (ptr == nullptr) {
     return std::nullopt;
   } else {
-    return {fastly::backend::Backend(
-        rust::Box<fastly::sys::backend::Backend>::from_raw(ptr))};
+    return FSLY_BOX(backend, Backend, ptr);
   }
 }
 
@@ -233,7 +289,7 @@ std::optional<Request> Response::take_backend_request() {
   if (ptr == nullptr) {
     return std::nullopt;
   } else {
-    return {Request(rust::Box<fastly::sys::http::Request>::from_raw(ptr))};
+    return FSLY_BOX(http, Request, ptr);
   }
 }
 
@@ -248,30 +304,30 @@ StreamingBody Response::stream_to_client() {
 }
 
 std::optional<std::chrono::milliseconds> Response::get_ttl() {
-  auto ptr{this->res->get_ttl()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  uint32_t out;
+  if (this->res->get_ttl(out)) {
+    return std::chrono::milliseconds(out);
   } else {
-    return {std::chrono::milliseconds(*ptr)};
+    return std::nullopt;
   }
 }
 
 std::optional<std::chrono::milliseconds> Response::get_age() {
-  auto ptr{this->res->get_age()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  uint32_t out;
+  if (this->res->get_age(out)) {
+    return std::chrono::milliseconds(out);
   } else {
-    return {std::chrono::milliseconds(*ptr)};
+    return std::nullopt;
   }
 }
 
 std::optional<std::chrono::milliseconds>
 Response::get_stale_while_revalidate() {
-  auto ptr{this->res->get_stale_while_revalidate()};
-  if (ptr == nullptr) {
-    return std::nullopt;
+  uint32_t out;
+  if (this->res->get_stale_while_revalidate(out)) {
+    return std::chrono::milliseconds(out);
   } else {
-    return {std::chrono::milliseconds(*ptr)};
+    return std::nullopt;
   }
 }
 

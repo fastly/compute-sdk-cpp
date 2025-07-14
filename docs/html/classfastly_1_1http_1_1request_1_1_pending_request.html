@@ -96,14 +96,14 @@ $(function(){initNavTree('classfastly_1_1http_1_1request_1_1_pending_request.htm
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:ab6a45f570f8e820f878f79b4881b29e7" id="r_ab6a45f570f8e820f878f79b4881b29e7"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a>, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab6a45f570f8e820f878f79b4881b29e7">select</a> (std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &amp;reqs)</td></tr>
+<tr class="memitem:ae67aaa496a2e424ef14fa601764e07e3" id="r_ae67aaa496a2e424ef14fa601764e07e3"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a> &gt;, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae67aaa496a2e424ef14fa601764e07e3">select</a> (std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &amp;reqs)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>A handle to a pending asynchronous request returned by <span class="tt"><a class="el" href="classfastly_1_1http_1_1_request.html#a0d1a40d6eaa7c926174bd85f546cfeeb">Request::send_async()</a></span> or <span class="tt"><a class="el" href="classfastly_1_1http_1_1_request.html#a998b30e6d08db1391c91f8006360cdb7">Request::send_async_streaming()</a></span>.</p>
+<div class="textblock"><p>A handle to a pending asynchronous request returned by <span class="tt"><a class="el" href="classfastly_1_1http_1_1_request.html#a538af8485d5e528dd6aab37f0f403b54">Request::send_async()</a></span> or <span class="tt"><a class="el" href="classfastly_1_1http_1_1_request.html#aced2600c8b42f779c323a60a38178a7f">Request::send_async_streaming()</a></span>.</p>
 <p>A handle can be evaluated using <span class="tt">PendingRequest::poll()</span>, <span class="tt">PendingRequest::wait()</span>, or <span class="tt"><a href="http::select">http::select</a></span>. It can also be discarded if the request was sent for effects it might have, and the response is unimportant. </p>
 </div><a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="ab6a45f570f8e820f878f79b4881b29e7" name="ab6a45f570f8e820f878f79b4881b29e7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6a45f570f8e820f878f79b4881b29e7">&#9670;&#160;</a></span>select</h2>
+<a id="ae67aaa496a2e424ef14fa601764e07e3" name="ae67aaa496a2e424ef14fa601764e07e3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae67aaa496a2e424ef14fa601764e07e3">&#9670;&#160;</a></span>select</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -112,7 +112,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a>, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &gt; select </td>
+          <td class="memname">std::pair&lt; <a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a> &gt;, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &gt; select </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">PendingRequest</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>reqs</em></span></td><td>)</td>
           <td></td>

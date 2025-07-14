@@ -2,7 +2,9 @@
 #define FASTLY_HTTP_RESPONSE_H
 
 #include "../backend.h"
+#include "../error.h"
 #include "../sdk-sys.h"
+#include "../util.h"
 #include "body.h"
 #include "header.h"
 #include "request.h"
@@ -13,6 +15,10 @@
 #include <utility>
 #include <vector>
 
+namespace fastly::backend {
+class Backend;
+}
+
 namespace fastly::http {
 
 class Body;
@@ -21,7 +27,7 @@ class Response;
 class Request;
 namespace request {
 class PendingRequest;
-std::pair<Response, std::vector<PendingRequest>>
+std::pair<fastly::expected<Response>, std::vector<PendingRequest>>
 select(std::vector<PendingRequest> &reqs);
 } // namespace request
 
@@ -87,7 +93,8 @@ select(std::vector<PendingRequest> &reqs);
 class Response {
   friend Request;
   friend request::PendingRequest;
-  friend std::pair<Response, std::vector<request::PendingRequest>>
+  friend std::pair<fastly::expected<Response>,
+                   std::vector<request::PendingRequest>>
   request::select(std::vector<request::PendingRequest> &reqs);
 
 public:
@@ -202,19 +209,19 @@ public:
 
   /// Builder-style equivalent of
   /// `Response::set_body_text_plain()`.
-  Response with_body_text_plain(std::string_view body);
+  fastly::expected<Response> with_body_text_plain(std::string_view body);
 
   /// Set the given string as the response's body with content type `text/plain;
   /// charset=UTF-8`.
-  void set_body_text_plain(std::string_view body);
+  fastly::expected<void> set_body_text_plain(std::string_view body);
 
   /// Builder-style equivalent of
   /// `Response::set_body_text_html()`.
-  Response with_body_text_html(std::string_view body);
+  fastly::expected<Response> with_body_text_html(std::string_view body);
 
   /// Set the given string as the response's body with content type `text/html;
   /// charset=UTF-8`.
-  void set_body_text_html(std::string_view body);
+  fastly::expected<void> set_body_text_html(std::string_view body);
 
   /// Take and return the body from this response as a string.
   ///
@@ -257,13 +264,15 @@ public:
   std::optional<size_t> get_content_length();
 
   /// Returns whether the given header name is present in the response.
-  bool contains_header(std::string_view name);
+  fastly::expected<bool> contains_header(std::string_view name);
 
   /// Builder-style equivalent of `Response::append_header()`.
-  Response with_header(std::string_view name, std::string_view value);
+  fastly::expected<Response> with_header(std::string_view name,
+                                         std::string_view value);
 
   /// Builder-style equivalent of `Response::set_header()`.
-  Response with_set_header(std::string_view name, std::string_view value);
+  fastly::expected<Response> with_set_header(std::string_view name,
+                                             std::string_view value);
 
   /// Get the value of a header as a string, or `std::nullopt` if the header is
   /// not present.
@@ -273,10 +282,11 @@ public:
   /// `Response::get_header_all()`
   /// all of the values.
   // TODO(@zkat): do a proper HeaderValue situation here?
-  std::optional<std::string> get_header(std::string_view name);
+  fastly::expected<std::optional<std::string>>
+  get_header(std::string_view name);
 
   /// Get an iterator of all the values of a header.
-  HeaderValuesIter get_header_all(std::string_view name);
+  fastly::expected<HeaderValuesIter> get_header_all(std::string_view name);
 
   // TODO(@zkat): sigh. IDK
   // ??? get_headers();
@@ -284,17 +294,20 @@ public:
 
   /// Set a response header to the given value, discarding any previous values
   /// for the given header name.
-  void set_header(std::string_view name, std::string_view value);
+  fastly::expected<void> set_header(std::string_view name,
+                                    std::string_view value);
 
   /// Add a request header with given value.
   ///
   /// Unlike `Response::set_header()`, this does not discard existing values for
   /// the same header name.
-  void append_header(std::string_view name, std::string_view value);
+  fastly::expected<void> append_header(std::string_view name,
+                                       std::string_view value);
 
   /// Remove all request headers of the given name, and return one of the
   /// removed header values if any were present.
-  std::optional<std::string> remove_header(std::string_view name);
+  fastly::expected<std::optional<std::string>>
+  remove_header(std::string_view name);
 
   /// Builder-style equivalent of `Response::set_status()`.
   void set_status(StatusCode status);

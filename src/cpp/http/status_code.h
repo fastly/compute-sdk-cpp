@@ -1,7 +1,10 @@
 #ifndef FASTLY_HTTP_STATUS_CODE_H
 #define FASTLY_HTTP_STATUS_CODE_H
 
+#include "../error.h"
+#include "../expected.h"
 #include "../sdk-sys.h"
+#include <cstdint>
 #include <cstdlib>
 #include <iostream>
 #include <optional>
@@ -296,7 +299,8 @@ public:
   /// auto status{fastly::http::StatusCode::OK};
   /// assert(status.canonical_reason() == std::optional("OK"s)));
   /// ```
-  std::optional<std::string> canonical_reason();
+  tl::expected<std::optional<std::string>, fastly::FastlyError>
+  canonical_reason();
 
   /// Check if status is within 100-199.
   bool is_informational();

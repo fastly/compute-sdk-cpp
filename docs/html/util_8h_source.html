@@ -91,11 +91,10 @@ $(function(){initNavTree('util_8h_source.html','',''); });
   <div class="headertitle"><div class="title">util.h</div></div>
 </div><!--header-->
 <div class="contents">
-<a href="util_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#include &lt;memory&gt;</span></div>
-<div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno"><a class="line" href="util_8h.html#ad1eef5cbf6dec5601fcec4c8f4a7c1db">    4</a></span>std::unique_ptr&lt;std::string&gt; <a class="code hl_function" href="util_8h.html#ad1eef5cbf6dec5601fcec4c8f4a7c1db">get_empty_string</a>();</div>
-<div class="ttc" id="autil_8h_html_ad1eef5cbf6dec5601fcec4c8f4a7c1db"><div class="ttname"><a href="util_8h.html#ad1eef5cbf6dec5601fcec4c8f4a7c1db">get_empty_string</a></div><div class="ttdeci">std::unique_ptr&lt; std::string &gt; get_empty_string()</div></div>
+<a href="util_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="foldopen" id="foldopen00001" data-start="" data-end="">
+<div class="line"><a id="l00001" name="l00001"></a><span class="lineno"><a class="line" href="util_8h.html#aeb03bce5b77fdaab70c6d7825c89a3e1">    1</a></span><span class="preprocessor">#define FSLY_BOX(NS, CLS, PTR)                                                 \</span></div>
+<div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">  ::fastly::NS::CLS(std::move(::rust::Box&lt;fastly::sys::NS::CLS&gt;::from_raw(PTR)))</span></div>
+</div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

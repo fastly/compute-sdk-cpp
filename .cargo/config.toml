@@ -1,2 +1,8 @@
 [build]
 target = "wasm32-wasip1"
+
+[env]
+CC = "/opt/wasi-sdk/bin/clang"
+CXX = "/opt/wasi-sdk/bin/clang++"
+CXXFLAGS = "--sysroot=/opt/wasi-sdk/share/wasi-sysroot -DRUST_CXX_NO_EXCEPTIONS"
+RUSTFLAGS = "-L${WASI_SDK}/share/wasi-sysroot/lib/wasm32-wasi -lstatic=c++ -lstatic=c++abi"

@@ -2,7 +2,9 @@
 #define FASTLY_HTTP_REQUEST_H
 
 #include "../backend.h"
+#include "../error.h"
 #include "../sdk-sys.h"
+#include "../util.h"
 #include "body.h"
 #include "header.h"
 #include "method.h"
@@ -16,6 +18,10 @@
 #include <utility>
 #include <variant>
 #include <vector>
+
+namespace fastly::backend {
+class Backend;
+}
 
 namespace fastly::http {
 
@@ -37,7 +43,7 @@ namespace request {
 class PendingRequest {
 
   friend Request;
-  friend std::pair<Response, std::vector<PendingRequest>>
+  friend std::pair<fastly::expected<Response>, std::vector<PendingRequest>>
   select(std::vector<PendingRequest> &reqs);
 
   /// Try to get the result of a pending request without blocking.
@@ -46,13 +52,13 @@ class PendingRequest {
   /// the original `PendingRequest` if the response was not ready, or a
   /// `Response` if the response was ready. If you want to block until a result
   /// is ready, use `PendingRequest::wait()`.
-  std::variant<PendingRequest, Response> poll();
+  std::variant<PendingRequest, fastly::expected<Response>> poll();
 
   /// Block until the result of a pending request is ready.
   ///
   /// If you want check whether the result is ready without blocking, use
   /// `PendingRequest::poll()`.
-  Response wait();
+  fastly::expected<Response> wait();
 
   /// Cloned version of the original request that was sent, without the original
   /// body. This is only a copy and cannot be used to modify anything, since the
@@ -80,7 +86,7 @@ private:
 /// ### Panics
 ///
 /// Panics if the argument collection is empty, or contains too many requests.
-std::pair<Response, std::vector<PendingRequest>>
+std::pair<fastly::expected<Response>, std::vector<PendingRequest>>
 select(std::vector<PendingRequest> &reqs);
 
 } // namespace request
@@ -245,7 +251,8 @@ public:
   /// backend_resp{Request::get("https://example.com").send("example_backend")};
   /// assert(backend_resp.get_status().is_success());
   /// ```
-  Response send(fastly::backend::Backend backend);
+  fastly::expected<Response> send(fastly::backend::Backend &backend);
+  fastly::expected<Response> send(std::string_view backend_name);
 
   /// Begin sending the request to the given backend server, and return a
   /// `PendingRequest` that can yield the backend response or an error.
@@ -287,7 +294,10 @@ public:
   ///     .with_body(some_large_file)
   ///     .send_async("example_backend");
   /// ```
-  request::PendingRequest send_async(fastly::backend::Backend backend);
+  fastly::expected<request::PendingRequest>
+  send_async(fastly::backend::Backend &backend);
+  fastly::expected<request::PendingRequest>
+  send_async(std::string_view backend_name);
 
   /// Begin sending the request to the given backend server, and return a
   /// `PendingRequest` that
@@ -339,8 +349,10 @@ public:
   ///   << " lines"
   ///   << std::endl;
   /// ```
-  std::pair<StreamingBody, request::PendingRequest>
-  send_async_streaming(fastly::backend::Backend backend);
+  fastly::expected<std::pair<StreamingBody, request::PendingRequest>>
+  send_async_streaming(fastly::backend::Backend &backend);
+  fastly::expected<std::pair<StreamingBody, request::PendingRequest>>
+  send_async_streaming(std::string_view backend_name);
 
   /// Builder-style equivalent of `Request::set_body()`.
   Request with_body(Body body);
@@ -389,19 +401,19 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_body_text_plain()`.
-  Request with_body_text_plain(std::string_view body);
+  fastly::expected<Request> with_body_text_plain(std::string_view body);
 
   /// Set the given string as the request's body with content type
   /// `text/plain; charset=UTF-8`.
-  void set_body_text_plain(std::string_view body);
+  fastly::expected<void> set_body_text_plain(std::string_view body);
 
   /// Builder-style equivalent of
   /// `Request::set_body_text_html()`.
-  Request with_body_text_html(std::string_view body);
+  fastly::expected<Request> with_body_text_html(std::string_view body);
 
   /// Set the given string as the request's body with content type `text/html;
   /// charset=UTF-8`.
-  void set_body_text_html(std::string_view body);
+  fastly::expected<void> set_body_text_html(std::string_view body);
 
   /// Take and return the body from this request as a string.
   ///
@@ -446,13 +458,15 @@ public:
   std::optional<size_t> get_content_length();
 
   /// Returns whether the given header name is present in the request.
-  bool contains_header(std::string_view name);
+  fastly::expected<bool> contains_header(std::string_view name);
 
   /// Builder-style equivalent of `Request::append_header()`.
-  Request with_header(std::string_view name, std::string_view value);
+  fastly::expected<Request> with_header(std::string_view name,
+                                        std::string_view value);
 
   /// Builder-style equivalent of `Request::set_header()`.
-  Request with_set_header(std::string_view name, std::string_view value);
+  fastly::expected<Request> with_set_header(std::string_view name,
+                                            std::string_view value);
 
   /// Get the value of a header as a string, or `std::nullopt` if the header
   /// is not present.
@@ -462,10 +476,11 @@ public:
   /// `Request::get_header_all()`
   /// all of the values.
   // TODO(@zkat): do a proper HeaderValue situation here?
-  std::optional<std::string> get_header(std::string_view name);
+  fastly::expected<std::optional<std::string>>
+  get_header(std::string_view name);
 
   /// Get an iterator of all the values of a header.
-  HeaderValuesIter get_header_all(std::string_view name);
+  fastly::expected<HeaderValuesIter> get_header_all(std::string_view name);
 
   // TODO(@zkat): sigh. IDK
   // ??? get_headers();
@@ -473,17 +488,20 @@ public:
 
   /// Set a request header to the given value, discarding any previous values
   /// for the given header name.
-  void set_header(std::string_view name, std::string_view value);
+  fastly::expected<void> set_header(std::string_view name,
+                                    std::string_view value);
 
   /// Add a request header with given value.
   ///
   /// Unlike `Request::set_header()`, this does not discard existing values
   /// for the same header name.
-  void append_header(std::string_view name, std::string_view value);
+  fastly::expected<void> append_header(std::string_view name,
+                                       std::string_view value);
 
   /// Remove all request headers of the given name, and return one of the
   /// removed header values if any were present.
-  std::optional<std::string> remove_header(std::string_view name);
+  fastly::expected<std::optional<std::string>>
+  remove_header(std::string_view name);
 
   /// Builder-style equivalent of `Request::set_method()`.
   Request with_method(Method method);
@@ -495,18 +513,13 @@ public:
   void set_method(Method method);
 
   /// Builder-style equivalent of `Request::set_url()`.
-  // TODO(@zkat): Actual URL object?
-  Request with_url(std::string_view url);
+  fastly::expected<Request> with_url(std::string_view url);
 
   /// Get the request URL as a string.
   std::string get_url();
 
   /// Set the request URL.
-  ///
-  /// # Panics
-  ///
-  /// Panics if the url fails to parse as a URL or invalid UTF-8.
-  void set_url(std::string_view url);
+  fastly::expected<void> set_url(std::string_view url);
 
   /// Get the path component of the request URL.
   ///
@@ -519,14 +532,9 @@ public:
   std::string get_path();
 
   /// Builder-style equivalent of `Request::set_path()`.
-  Request with_path(std::string_view path);
+  fastly::expected<Request> with_path(std::string_view path);
 
   /// Set the path component of the request URL.
-  ///
-  /// # Panics
-  ///
-  /// Panics if the path is an invalid URL path, or if it's invalid UTF-8.
-  ///
   /// # Examples
   ///
   /// ```cpp
@@ -534,7 +542,7 @@ public:
   /// req.set_path("/hello");
   /// assert!(req.get_url(), "https://example.com/hello");
   /// ```
-  void set_path(std::string_view path);
+  fastly::expected<void> set_path(std::string_view path);
 
   /// Get the query component of the request URL, if it exists, as a
   /// percent-encoded ASCII string.
@@ -548,7 +556,7 @@ public:
   std::optional<std::string> get_query_parameter(std::string_view param);
 
   /// Builder-style equivalent of `Request::set_query()`.
-  Request with_query_string(std::string_view query);
+  fastly::expected<Request> with_query_string(std::string_view query);
 
   /// Set the query string of the request URL query component to the given
   /// string, performing percent-encoding if necessary.
@@ -561,7 +569,7 @@ public:
   /// assert(req.get_url(),
   /// "https://example.com/foo?hello=%F0%9F%8C%90!&bar=baz");
   /// ```
-  void set_query_string(std::string_view query);
+  fastly::expected<void> set_query_string(std::string_view query);
 
   /// Remove the query component from the request URL, if one exists.
   void remove_query();
@@ -632,7 +640,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_surrogate_key()`.
-  Request with_surrogate_key(std::string_view sk);
+  fastly::expected<Request> with_surrogate_key(std::string_view sk);
 
   /// Override the caching behavior of this request to include the given
   /// surrogate key(s), provided as a header value.
@@ -652,7 +660,7 @@ public:
   /// This sets the `Request::set_pass()` behavior to `false`, and
   /// extends (but does not replace) any `Surrogate-Key` response headers from
   /// the backend.
-  void set_surrogate_key(std::string_view sk);
+  fastly::expected<void> set_surrogate_key(std::string_view sk);
 
   std::optional<std::string> get_client_ip_addr();
   std::optional<std::string> get_server_ip_addr();

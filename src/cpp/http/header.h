@@ -13,6 +13,7 @@ class HeaderValuesIter {
 public:
   HeaderValuesIter(rust::Box<fastly::sys::http::HeaderValuesIter> i)
       : iter(std::move(i)) {};
+  /// Gets the next value.
   std::string next();
 
 private:

@@ -1,14 +1,20 @@
-use std::{num::NonZero, time::Duration};
+use std::{num::NonZero, pin::Pin, time::Duration};
 
 use cxx::CxxString;
 
+use crate::{error::ErrPtr, try_fe};
+
 pub struct Backend(pub(crate) fastly::backend::Backend);
 
-pub fn m_static_backend_backend_from_name(name: &CxxString) -> Box<Backend> {
-    Box::new(Backend(
-        fastly::backend::Backend::from_name(name.to_string_lossy().as_ref())
-            .expect("Failed to create backend"),
-    ))
+pub fn m_static_backend_backend_from_name(
+    name: &CxxString,
+    mut out: Pin<&mut *mut Backend>,
+    mut err: ErrPtr,
+) {
+    out.set(Box::into_raw(Box::new(Backend(try_fe!(
+        err,
+        fastly::backend::Backend::from_name(try_fe!(err, name.to_str()))
+    )))));
 }
 
 pub fn m_static_backend_backend_builder(
@@ -16,8 +22,8 @@ pub fn m_static_backend_backend_builder(
     target: &CxxString,
 ) -> Box<BackendBuilder> {
     Box::new(BackendBuilder(fastly::backend::Backend::builder(
-        name.to_string_lossy().as_ref(),
-        target.to_string_lossy().as_ref(),
+        name.to_str().expect("Invalid UTF-8"),
+        target.to_str().expect("Invalid UTF-8"),
     )))
 }
 
@@ -26,14 +32,14 @@ pub fn m_backend_backend_into_string(backend: Box<Backend>) -> String {
 }
 
 impl Backend {
-    pub fn equals(&self, other: &Box<Backend>) -> bool {
+    pub fn equals(&self, other: &Backend) -> bool {
         self.0 == other.0
     }
-    
+
     pub fn clone(&self) -> Box<Backend> {
         Box::new(Backend(self.0.clone()))
     }
-    
+
     pub fn name(&self) -> &str {
         self.0.name()
     }
@@ -110,8 +116,8 @@ pub fn m_static_backend_backend_builder_new(
     target: &CxxString,
 ) -> Box<BackendBuilder> {
     Box::new(BackendBuilder(fastly::backend::BackendBuilder::new(
-        name.to_string_lossy().as_ref(),
-        target.to_string_lossy().as_ref(),
+        name.to_str().expect("Invalid UTF-8"),
+        target.to_str().expect("Invalid UTF-8"),
     )))
 }
 
@@ -119,7 +125,9 @@ pub fn m_backend_backend_builder_override_host(
     mut builder: Box<BackendBuilder>,
     name: &CxxString,
 ) -> Box<BackendBuilder> {
-    builder.0 = builder.0.override_host(name.to_string_lossy().as_ref());
+    builder.0 = builder
+        .0
+        .override_host(name.to_str().expect("Invalid UTF-8"));
     builder
 }
 
@@ -182,7 +190,9 @@ pub fn m_backend_backend_builder_check_certificate(
     mut builder: Box<BackendBuilder>,
     cert: &CxxString,
 ) -> Box<BackendBuilder> {
-    builder.0 = builder.0.check_certificate(cert.to_string_lossy().as_ref());
+    builder.0 = builder
+        .0
+        .check_certificate(cert.to_str().expect("Invalid UTF-8"));
     builder
 }
 
@@ -190,7 +200,9 @@ pub fn m_backend_backend_builder_ca_certificate(
     mut builder: Box<BackendBuilder>,
     cert: &CxxString,
 ) -> Box<BackendBuilder> {
-    builder.0 = builder.0.ca_certificate(cert.to_string_lossy().as_ref());
+    builder.0 = builder
+        .0
+        .ca_certificate(cert.to_str().expect("Invalid UTF-8"));
     builder
 }
 
@@ -198,7 +210,9 @@ pub fn m_backend_backend_builder_tls_ciphers(
     mut builder: Box<BackendBuilder>,
     ciphers: &CxxString,
 ) -> Box<BackendBuilder> {
-    builder.0 = builder.0.tls_ciphers(ciphers.to_string_lossy().as_ref());
+    builder.0 = builder
+        .0
+        .tls_ciphers(ciphers.to_str().expect("Invalid UTF-8"));
     builder
 }
 
@@ -206,13 +220,15 @@ pub fn m_backend_backend_builder_sni_hostname(
     mut builder: Box<BackendBuilder>,
     host: &CxxString,
 ) -> Box<BackendBuilder> {
-    builder.0 = builder.0.sni_hostname(host.to_string_lossy().as_ref());
+    builder.0 = builder
+        .0
+        .sni_hostname(host.to_str().expect("Invalid UTF-8"));
     builder
 }
 
 // TODO
 // pub fn m_backend_backend_builder_provide_client_certificate(mut builder: Box<BackendBuilder>, pem_certificate: &CxxString, pem_key: Box<Secret>) -> Box<BackendBuilder> {
-//     builder.0 = builder.0.provide_client_certificate(pem_certificate.to_string_lossy().as_ref(), (*pem_key).0);
+//     builder.0 = builder.0.provide_client_certificate(pem_certificate.to_str().expect("Invalid UTF-8"), (*pem_key).0);
 //     builder
 // }
 
@@ -270,8 +286,13 @@ pub fn m_backend_backend_builder_tcp_keepalive_time_secs(
     builder
 }
 
-pub fn m_backend_backend_builder_finish(builder: Box<BackendBuilder>) -> Box<Backend> {
-    Box::new(Backend(
-        builder.0.finish().expect("Failed to build Backend object"),
-    ))
+pub fn m_backend_backend_builder_finish(
+    builder: Box<BackendBuilder>,
+    mut out: Pin<&mut *mut Backend>,
+    mut err: ErrPtr,
+) {
+    out.set(Box::into_raw(Box::new(Backend(try_fe!(
+        err,
+        builder.0.finish()
+    )))));
 }

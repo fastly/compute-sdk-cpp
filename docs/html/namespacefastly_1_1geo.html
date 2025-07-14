@@ -100,19 +100,19 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a96e1aa9506fe15e43996c6c8f093dabc" id="r_a96e1aa9506fe15e43996c6c8f093dabc"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a96e1aa9506fe15e43996c6c8f093dabc">geo_lookup</a> (std::string ip)</td></tr>
+<tr class="memitem:adf483f56c28f5b6beb45e27eae7273cf" id="r_adf483f56c28f5b6beb45e27eae7273cf"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adf483f56c28f5b6beb45e27eae7273cf">geo_lookup</a> (std::string_view ip)</td></tr>
 </table>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Function Documentation</h2>
-<a id="a96e1aa9506fe15e43996c6c8f093dabc" name="a96e1aa9506fe15e43996c6c8f093dabc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96e1aa9506fe15e43996c6c8f093dabc">&#9670;&#160;</a></span>geo_lookup()</h2>
+<a id="adf483f56c28f5b6beb45e27eae7273cf" name="adf483f56c28f5b6beb45e27eae7273cf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adf483f56c28f5b6beb45e27eae7273cf">&#9670;&#160;</a></span>geo_lookup()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt; fastly::geo::geo_lookup </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt; &gt; fastly::geo::geo_lookup </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>ip</em></span></td><td>)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>ip</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -123,14 +123,14 @@ Functions</h2></td></tr>
 Examples</h1>
 <p>To get geographic information for the downstream client:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> client_ip{<a class="code hl_function" href="classfastly_1_1_request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1_request.html#ac3f6d63177dca86b1cccf58bb662aa0d">get_client_ip_addr</a>().value()};</div>
-<div class="line"><span class="keyword">auto</span> <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>{<a class="code hl_function" href="#a96e1aa9506fe15e43996c6c8f093dabc">fastly::geo::geo_lookup</a>(client_ip).value()};</div>
+<div class="line"><span class="keyword">auto</span> <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>{<a class="code hl_function" href="#adf483f56c28f5b6beb45e27eae7273cf">fastly::geo::geo_lookup</a>(client_ip).value()};</div>
 <div class="line"><span class="keywordflow">if</span> (geo.conn_type() == fastly::geo::ConnType::Satellite) {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;receiving a request from outer space 🛸&quot;</span>;</div>
 <div class="line">}</div>
 <div class="ttc" id="aclassfastly_1_1_request_html_a008de1b7b69832f3928b3f0f4fc7ca88"><div class="ttname"><a href="classfastly_1_1_request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a></div><div class="ttdeci">static Request from_client()</div></div>
 <div class="ttc" id="aclassfastly_1_1http_1_1_request_html_ac3f6d63177dca86b1cccf58bb662aa0d"><div class="ttname"><a href="classfastly_1_1http_1_1_request.html#ac3f6d63177dca86b1cccf58bb662aa0d">fastly::http::Request::get_client_ip_addr</a></div><div class="ttdeci">std::optional&lt; std::string &gt; get_client_ip_addr()</div></div>
-<div class="ttc" id="anamespacefastly_1_1geo_html"><div class="ttname"><a href="namespacefastly_1_1geo.html">fastly::geo</a></div><div class="ttdef"><b>Definition</b> geo.h:8</div></div>
-<div class="ttc" id="anamespacefastly_1_1geo_html_a96e1aa9506fe15e43996c6c8f093dabc"><div class="ttname"><a href="#a96e1aa9506fe15e43996c6c8f093dabc">fastly::geo::geo_lookup</a></div><div class="ttdeci">std::optional&lt; Geo &gt; geo_lookup(std::string ip)</div></div>
+<div class="ttc" id="anamespacefastly_1_1geo_html"><div class="ttname"><a href="namespacefastly_1_1geo.html">fastly::geo</a></div><div class="ttdef"><b>Definition</b> geo.h:11</div></div>
+<div class="ttc" id="anamespacefastly_1_1geo_html_adf483f56c28f5b6beb45e27eae7273cf"><div class="ttname"><a href="#adf483f56c28f5b6beb45e27eae7273cf">fastly::geo::geo_lookup</a></div><div class="ttdeci">fastly::expected&lt; std::optional&lt; Geo &gt; &gt; geo_lookup(std::string_view ip)</div></div>
 </div><!-- fragment --> 
 </div>
 </div>

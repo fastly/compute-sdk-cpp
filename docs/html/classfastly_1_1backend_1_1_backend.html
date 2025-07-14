@@ -96,10 +96,8 @@ $(function(){initNavTree('classfastly_1_1backend_1_1_backend.html','','classfast
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac54c92d2ab26635e99105bc76c18f940" id="r_ac54c92d2ab26635e99105bc76c18f940"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac54c92d2ab26635e99105bc76c18f940">Backend</a> (std::string <a class="el" href="#ad603a6744382f11cba1d0dd78fe0a883">name</a>)</td></tr>
-<tr class="memitem:a4876d48eaad1e2184bc534e108af9fe4" id="r_a4876d48eaad1e2184bc534e108af9fe4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4876d48eaad1e2184bc534e108af9fe4">Backend</a> (rust::Box&lt; fastly::sys::backend::Backend &gt; b)</td></tr>
 <tr class="memitem:ae26bfbb4180827e3ab0d9d0b2c96bebb" id="r_ae26bfbb4180827e3ab0d9d0b2c96bebb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1backend_1_1_backend.html">Backend</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae26bfbb4180827e3ab0d9d0b2c96bebb">clone</a> ()</td></tr>
-<tr class="memitem:a1cc20c7787389c78f1b6cbaf6cb6d675" id="r_a1cc20c7787389c78f1b6cbaf6cb6d675"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1backend_1_1_backend_builder.html">BackendBuilder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1cc20c7787389c78f1b6cbaf6cb6d675">builder</a> (std::string <a class="el" href="#ad603a6744382f11cba1d0dd78fe0a883">name</a>, std::string target)</td></tr>
+<tr class="memitem:a69c268400892bbd6de0d5f92cb7b41dd" id="r_a69c268400892bbd6de0d5f92cb7b41dd"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1backend_1_1_backend_builder.html">BackendBuilder</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a69c268400892bbd6de0d5f92cb7b41dd">builder</a> (std::string_view <a class="el" href="#ad603a6744382f11cba1d0dd78fe0a883">name</a>, std::string_view target)</td></tr>
 <tr class="memitem:ad603a6744382f11cba1d0dd78fe0a883" id="r_ad603a6744382f11cba1d0dd78fe0a883"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad603a6744382f11cba1d0dd78fe0a883">name</a> ()</td></tr>
 <tr class="memitem:af99e5987aa5ece83c148099a049e919f" id="r_af99e5987aa5ece83c148099a049e919f"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#af99e5987aa5ece83c148099a049e919f">into_string</a> ()</td></tr>
 <tr class="memitem:adbe3525b4d22c42e2fb56e90183bc57c" id="r_adbe3525b4d22c42e2fb56e90183bc57c"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adbe3525b4d22c42e2fb56e90183bc57c">exists</a> ()</td></tr>
@@ -120,66 +118,11 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:a7d483bb3da665988abd4259cf3ecde4f" id="r_a7d483bb3da665988abd4259cf3ecde4f"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classfastly_1_1backend_1_1_backend.html">Backend</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7d483bb3da665988abd4259cf3ecde4f">from_name</a> (std::string <a class="el" href="#ad603a6744382f11cba1d0dd78fe0a883">name</a>)</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
-Public Attributes</h2></td></tr>
-<tr class="memitem:a41665fb8ac5df0b61d4911d9a17cc051" id="r_a41665fb8ac5df0b61d4911d9a17cc051"><td class="memItemLeft" align="right" valign="top">rust::Box&lt; fastly::sys::backend::Backend &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a41665fb8ac5df0b61d4911d9a17cc051">backend</a></td></tr>
+<tr class="memitem:aef26136a63a51ee9be04a7d52114f7f4" id="r_aef26136a63a51ee9be04a7d52114f7f4"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1backend_1_1_backend.html">Backend</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aef26136a63a51ee9be04a7d52114f7f4">from_name</a> (std::string_view <a class="el" href="#ad603a6744382f11cba1d0dd78fe0a883">name</a>)</td></tr>
 </table>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac54c92d2ab26635e99105bc76c18f940" name="ac54c92d2ab26635e99105bc76c18f940"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac54c92d2ab26635e99105bc76c18f940">&#9670;&#160;</a></span>Backend() <span class="overload">[1/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">fastly::backend::Backend::Backend </td>
-          <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a id="a4876d48eaad1e2184bc534e108af9fe4" name="a4876d48eaad1e2184bc534e108af9fe4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4876d48eaad1e2184bc534e108af9fe4">&#9670;&#160;</a></span>Backend() <span class="overload">[2/2]</span></h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">fastly::backend::Backend::Backend </td>
-          <td>(</td>
-          <td class="paramtype">rust::Box&lt; fastly::sys::backend::Backend &gt;</td>          <td class="paramname"><span class="paramname"><em>b</em></span></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a1cc20c7787389c78f1b6cbaf6cb6d675" name="a1cc20c7787389c78f1b6cbaf6cb6d675"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1cc20c7787389c78f1b6cbaf6cb6d675">&#9670;&#160;</a></span>builder()</h2>
+<a id="a69c268400892bbd6de0d5f92cb7b41dd" name="a69c268400892bbd6de0d5f92cb7b41dd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a69c268400892bbd6de0d5f92cb7b41dd">&#9670;&#160;</a></span>builder()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -187,12 +130,12 @@ Public Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="classfastly_1_1backend_1_1_backend_builder.html">BackendBuilder</a> fastly::backend::Backend::builder </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>target</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -233,8 +176,8 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a7d483bb3da665988abd4259cf3ecde4f" name="a7d483bb3da665988abd4259cf3ecde4f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a7d483bb3da665988abd4259cf3ecde4f">&#9670;&#160;</a></span>from_name()</h2>
+<a id="aef26136a63a51ee9be04a7d52114f7f4" name="aef26136a63a51ee9be04a7d52114f7f4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef26136a63a51ee9be04a7d52114f7f4">&#9670;&#160;</a></span>from_name()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -243,9 +186,9 @@ Public Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classfastly_1_1backend_1_1_backend.html">Backend</a> fastly::backend::Backend::from_name </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1backend_1_1_backend.html">Backend</a> &gt; fastly::backend::Backend::from_name </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -542,21 +485,6 @@ Public Attributes</h2></td></tr>
 <span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
   </tr>
 </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-<a name="doc-variable-members" id="doc-variable-members"></a><h2 id="header-doc-variable-members" class="groupheader">Member Data Documentation</h2>
-<a id="a41665fb8ac5df0b61d4911d9a17cc051" name="a41665fb8ac5df0b61d4911d9a17cc051"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a41665fb8ac5df0b61d4911d9a17cc051">&#9670;&#160;</a></span>backend</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">rust::Box&lt;fastly::sys::backend::Backend&gt; fastly::backend::Backend::backend</td>
-        </tr>
-      </table>
 </div><div class="memdoc">
 
 </div>

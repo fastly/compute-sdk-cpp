@@ -1,6 +1,7 @@
 use backend::*;
 use config_store::*;
 use device_detection::*;
+use error::*;
 use geo::*;
 use http::{
     body::*, header::*, purge::*, request::request::*, request::*, response::*, status_code::*,
@@ -10,6 +11,7 @@ use secret_store::*;
 mod backend;
 mod config_store;
 mod device_detection;
+mod error;
 mod geo;
 mod http;
 mod secret_store;
@@ -19,6 +21,26 @@ mod secret_store;
 // break.
 #[cxx::bridge]
 mod ffi {
+    #[namespace = "fastly::sys::error"]
+    #[derive(Copy, Clone, Debug)]
+    #[repr(usize)]
+    pub enum FastlyErrorCode {
+        Utf8Error,
+        InvalidHeaderName,
+        InvalidHeaderValue,
+        InvalidStatusCode,
+        IoError,
+        FastlyError,
+        FastlySendError,
+        AddrParseError,
+        BackendError,
+        BackendCreationError,
+        FastlyStatus,
+        ConfigStoreOpenError,
+        ConfigStoreLookupError,
+        SecretStoreOpenError,
+        SecretStoreLookupError,
+    }
 
     #[namespace = "fastly::sys::http"]
     #[derive(Copy, Clone, Debug)]
@@ -158,16 +180,27 @@ mod ffi {
         Other,
     }
 
+    #[namespace = "fastly::sys::error"]
+    extern "Rust" {
+        type FastlyError;
+        fn error_code(&self) -> FastlyErrorCode;
+        fn error_msg(&self, out: Pin<&mut CxxString>);
+    }
+
     #[namespace = "fastly::sys::backend"]
     extern "Rust" {
         type Backend;
-        fn m_static_backend_backend_from_name(name: &CxxString) -> Box<Backend>;
+        fn m_static_backend_backend_from_name(
+            name: &CxxString,
+            mut out: Pin<&mut *mut Backend>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
         fn m_static_backend_backend_builder(
             name: &CxxString,
             target: &CxxString,
         ) -> Box<BackendBuilder>;
         fn m_backend_backend_into_string(backend: Box<Backend>) -> String;
-        fn equals(&self, other: &Box<Backend>) -> bool;
+        fn equals(&self, other: &Backend) -> bool;
         fn clone(&self) -> Box<Backend>;
         fn name(&self) -> &str;
         fn exists(&self) -> bool;
@@ -257,7 +290,11 @@ mod ffi {
             builder: Box<BackendBuilder>,
             value: u32,
         ) -> Box<BackendBuilder>;
-        fn m_backend_backend_builder_finish(builder: Box<BackendBuilder>) -> Box<Backend>;
+        fn m_backend_backend_builder_finish(
+            builder: Box<BackendBuilder>,
+            mut out: Pin<&mut *mut Backend>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
     }
 
     #[namespace = "fastly::sys::http"]
@@ -287,49 +324,83 @@ mod ffi {
         fn is_from_client(&self) -> bool;
         fn clone_without_body(&self) -> Box<Request>;
         fn clone_with_body(&mut self) -> Box<Request>;
-        fn m_http_request_send(request: Box<Request>, backend: &Box<Backend>) -> Box<Response>;
+        fn m_http_request_send(
+            request: Box<Request>,
+            backend: &Backend,
+            out: Pin<&mut *mut Response>,
+            err: Pin<&mut *mut FastlyError>,
+        );
         fn m_http_request_send_async(
             request: Box<Request>,
-            backend: &Box<Backend>,
-        ) -> Box<PendingRequest>;
+            backend: &Backend,
+            out: Pin<&mut *mut PendingRequest>,
+            err: Pin<&mut *mut FastlyError>,
+        );
         fn m_http_request_send_async_streaming(
             request: Box<Request>,
-            backend: &Box<Backend>,
-        ) -> Box<AsyncStreamRes>;
+            backend: &Backend,
+            out: Pin<&mut *mut AsyncStreamRes>,
+            err: Pin<&mut *mut FastlyError>,
+        );
         fn set_body(&mut self, body: Box<Body>);
         fn has_body(&self) -> bool;
         fn take_body(&mut self) -> Box<Body>;
         fn m_http_request_into_body(request: Box<Request>) -> Box<Body>;
-        fn set_body_text_plain(&mut self, body: &CxxString);
-        fn set_body_text_html(&mut self, body: &CxxString);
+        fn set_body_text_plain(&mut self, body: &CxxString, mut err: Pin<&mut *mut FastlyError>);
+        fn set_body_text_html(&mut self, body: &CxxString, mut err: Pin<&mut *mut FastlyError>);
         fn set_body_octet_stream(&mut self, body: &CxxVector<u8>);
-        fn get_content_type(&self) -> *const CxxVector<u8>;
+        fn get_content_type(&self, mut out: Pin<&mut CxxString>) -> bool;
         fn set_content_type(&mut self, mime: &CxxString);
-        fn get_content_length(&self) -> *const usize;
-        fn contains_header(&self, name: &CxxString) -> bool;
-        fn get_header(&self, name: &CxxString) -> *const CxxVector<u8>;
-        fn get_header_all(&self, name: &CxxString) -> Box<HeaderValuesIter>;
-        fn set_header(&mut self, name: &CxxString, value: &CxxString);
-        fn append_header(&mut self, name: &CxxString, value: &CxxString);
-        fn remove_header(&mut self, name: &CxxString) -> *const CxxVector<u8>;
+        fn get_content_length(&self, mut out: Pin<&mut usize>) -> bool;
+        fn contains_header(&self, name: &CxxString, mut err: Pin<&mut *mut FastlyError>) -> bool;
+        fn get_header(
+            &self,
+            name: &CxxString,
+            out: Pin<&mut CxxString>,
+            mut err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
+        fn get_header_all(
+            &self,
+            name: &CxxString,
+            out: Pin<&mut *mut HeaderValuesIter>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn set_header(
+            &mut self,
+            name: &CxxString,
+            value: &CxxString,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn append_header(
+            &mut self,
+            name: &CxxString,
+            value: &CxxString,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn remove_header(
+            &mut self,
+            name: &CxxString,
+            out: Pin<&mut CxxString>,
+            mut err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
         fn get_method(&self) -> Method;
         fn set_method(&mut self, method: Method);
-        fn get_url(&self) -> UniquePtr<CxxVector<u8>>;
-        fn set_url(&mut self, url: &CxxString);
-        fn get_path(&self) -> UniquePtr<CxxVector<u8>>;
-        fn set_path(&mut self, path: &CxxString);
-        fn get_query_string(&self) -> *const CxxVector<u8>;
-        fn get_query_parameter(&self, param: &CxxString) -> *const CxxVector<u8>;
-        fn set_query_string(&mut self, qs: &CxxString);
+        fn get_url(&self, mut out: Pin<&mut CxxString>);
+        fn set_url(&mut self, url: &CxxString, mut err: Pin<&mut *mut FastlyError>);
+        fn get_path(&self, mut out: Pin<&mut CxxString>);
+        fn set_path(&mut self, path: &CxxString, mut err: Pin<&mut *mut FastlyError>);
+        fn get_query_string(&self, mut out: Pin<&mut CxxString>) -> bool;
+        fn get_query_parameter(&self, param: &CxxString, mut out: Pin<&mut CxxString>) -> bool;
+        fn set_query_string(&mut self, qs: &CxxString, err: Pin<&mut *mut FastlyError>);
         fn remove_query(&mut self);
-        fn get_client_ddos_detected(&self) -> *const bool;
+        fn get_client_ddos_detected(&self, mut out: Pin<&mut bool>) -> bool;
         fn get_client_ip_addr(&self, buf: Pin<&mut CxxString>) -> bool;
         fn get_server_ip_addr(&self, buf: Pin<&mut CxxString>) -> bool;
         fn set_pass(&mut self, pass: bool);
         fn set_ttl(&mut self, ttl: u32);
         fn set_stale_while_revalidate(&mut self, swr: u32);
         fn set_pci(&mut self, pci: bool);
-        fn set_surrogate_key(&mut self, sk: &CxxString);
+        fn set_surrogate_key(&mut self, sk: &CxxString, mut err: Pin<&mut *mut FastlyError>);
         fn set_auto_decompress_gzip(&mut self, gzip: bool);
         fn fastly_key_is_valid(&self) -> bool;
         fn set_cache_key(&mut self, key: &CxxVector<u8>);
@@ -340,15 +411,21 @@ mod ffi {
     extern "Rust" {
         type PollResult;
         fn is_response(&self) -> bool;
+        fn is_pending(&self) -> bool;
         fn m_http_request_poll_result_into_pending(result: Box<PollResult>) -> Box<PendingRequest>;
         fn m_http_request_poll_result_into_response(result: Box<PollResult>) -> Box<Response>;
+        fn m_http_request_poll_result_into_error(result: Box<PollResult>) -> Box<FastlyError>;
     }
 
     #[namespace = "fastly::sys::http::request"]
     extern "Rust" {
         type PendingRequest;
         fn m_http_request_pending_request_poll(req: Box<PendingRequest>) -> Box<PollResult>;
-        fn m_http_request_pending_request_wait(req: Box<PendingRequest>) -> Box<Response>;
+        fn m_http_request_pending_request_wait(
+            req: Box<PendingRequest>,
+            out: Pin<&mut *mut Response>,
+            err: Pin<&mut *mut FastlyError>,
+        );
         fn cloned_sent_req(&self) -> Box<Request>;
     }
 
@@ -373,13 +450,19 @@ mod ffi {
     extern "Rust" {
         fn f_http_request_select(
             reqs: Vec<BoxPendingRequest>,
+            out: Pin<&mut *mut Response>,
             others: &mut Vec<BoxPendingRequest>,
-        ) -> Box<Response>;
+            err: Pin<&mut *mut FastlyError>,
+        );
     }
 
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
-        fn f_http_status_code_canonical_reason(code: u16, string: Pin<&mut CxxString>) -> bool;
+        fn f_http_status_code_canonical_reason(
+            code: u16,
+            string: Pin<&mut CxxString>,
+            err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -399,18 +482,43 @@ mod ffi {
         fn take_body(&mut self) -> Box<Body>;
         fn append_body(&mut self, other: Box<Body>);
         fn m_http_response_into_body(response: Box<Response>) -> Box<Body>;
-        fn set_body_text_plain(&mut self, body: &CxxString);
-        fn set_body_text_html(&mut self, body: &CxxString);
+        fn set_body_text_plain(&mut self, body: &CxxString, mut err: Pin<&mut *mut FastlyError>);
+        fn set_body_text_html(&mut self, body: &CxxString, mut err: Pin<&mut *mut FastlyError>);
         fn set_body_octet_stream(&mut self, body: &CxxVector<u8>);
-        fn get_content_type(&self) -> *const CxxVector<u8>;
+        fn get_content_type(&self, mut out: Pin<&mut CxxString>) -> bool;
         fn set_content_type(&mut self, mime: &CxxString);
-        fn get_content_length(&self) -> *const usize;
-        fn contains_header(&self, name: &CxxString) -> bool;
-        fn get_header(&self, name: &CxxString) -> *const CxxVector<u8>;
-        fn get_header_all(&self, name: &CxxString) -> Box<HeaderValuesIter>;
-        fn set_header(&mut self, name: &CxxString, value: &CxxString);
-        fn append_header(&mut self, name: &CxxString, value: &CxxString);
-        fn remove_header(&mut self, name: &CxxString) -> *const CxxVector<u8>;
+        fn get_content_length(&self, mut out: Pin<&mut usize>) -> bool;
+        fn contains_header(&self, name: &CxxString, mut err: Pin<&mut *mut FastlyError>) -> bool;
+        fn get_header(
+            &self,
+            name: &CxxString,
+            out: Pin<&mut CxxString>,
+            mut err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
+        fn get_header_all(
+            &self,
+            name: &CxxString,
+            out: Pin<&mut *mut HeaderValuesIter>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn set_header(
+            &mut self,
+            name: &CxxString,
+            value: &CxxString,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn append_header(
+            &mut self,
+            name: &CxxString,
+            value: &CxxString,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn remove_header(
+            &mut self,
+            name: &CxxString,
+            out: Pin<&mut CxxString>,
+            mut err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
         fn set_status(&mut self, status: u16);
         fn get_backend_name(&self, out: Pin<&mut CxxString>) -> bool;
         fn get_backend(&self) -> *mut Backend;
@@ -418,9 +526,9 @@ mod ffi {
         fn take_backend_request(&mut self) -> *mut Request;
         fn m_http_response_send_to_client(response: Box<Response>);
         fn m_http_response_stream_to_client(response: Box<Response>) -> Box<StreamingBody>;
-        fn get_ttl(&self) -> *const u32;
-        fn get_age(&self) -> *const u32;
-        fn get_stale_while_revalidate(&self) -> *const u32;
+        fn get_ttl(&self, mut out: Pin<&mut u32>) -> bool;
+        fn get_age(&self, mut out: Pin<&mut u32>) -> bool;
+        fn get_stale_while_revalidate(&self, mut out: Pin<&mut u32>) -> bool;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -428,30 +536,50 @@ mod ffi {
         type Body;
         fn m_static_http_body_new() -> Box<Body>;
         fn append(&mut self, other: Box<Body>);
-        fn append_trailer(&mut self, name: &CxxString, value: &CxxString);
-        fn read(&mut self, buf: &mut [u8]) -> usize;
-        fn write(&mut self, bytes: &[u8]) -> usize;
+        fn append_trailer(
+            &mut self,
+            name: &CxxString,
+            value: &CxxString,
+            err: Pin<&mut *mut FastlyError>,
+        );
+        fn read(&mut self, buf: &mut [u8], err: Pin<&mut *mut FastlyError>) -> usize;
+        fn write(&mut self, bytes: &[u8], err: Pin<&mut *mut FastlyError>) -> usize;
     }
 
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
         type StreamingBody;
-        fn m_http_streaming_body_finish(body: Box<StreamingBody>);
+        fn m_http_streaming_body_finish(body: Box<StreamingBody>, err: Pin<&mut *mut FastlyError>);
         fn append(&mut self, other: Box<Body>);
-        fn append_trailer(&mut self, name: &CxxString, value: &CxxString);
-        fn write(&mut self, bytes: &[u8]) -> usize;
+        fn append_trailer(
+            &mut self,
+            name: &CxxString,
+            value: &CxxString,
+            err: Pin<&mut *mut FastlyError>,
+        );
+        fn write(&mut self, bytes: &[u8], err: Pin<&mut *mut FastlyError>) -> usize;
     }
 
     #[namespace = "fastly::sys::http::purge"]
     extern "Rust" {
-        fn f_http_purge_purge_surrogate_key(surrogate_key: &CxxString);
-        fn f_http_purge_soft_purge_surrogate_key(surrogate_key: &CxxString);
+        fn f_http_purge_purge_surrogate_key(
+            surrogate_key: &CxxString,
+            err: Pin<&mut *mut FastlyError>,
+        );
+        fn f_http_purge_soft_purge_surrogate_key(
+            surrogate_key: &CxxString,
+            err: Pin<&mut *mut FastlyError>,
+        );
     }
 
     #[namespace = "fastly::sys::device_detection"]
     extern "Rust" {
         type Device;
-        fn f_device_detection_lookup(user_agent: &CxxString) -> *mut Device;
+        fn f_device_detection_lookup(
+            user_agent: &CxxString,
+            mut out: Pin<&mut *mut Device>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
         fn device_name(&self, out: Pin<&mut CxxString>) -> bool;
         fn brand(&self, out: Pin<&mut CxxString>) -> bool;
         fn model(&self, out: Pin<&mut CxxString>) -> bool;
@@ -472,24 +600,46 @@ mod ffi {
     #[namespace = "fastly::sys::config_store"]
     extern "Rust" {
         type ConfigStore;
-        fn m_static_config_store_config_store_open(name: &CxxString) -> Box<ConfigStore>;
-        fn get(&self, key: &CxxString, out: Pin<&mut CxxString>) -> bool;
-        fn contains(&self, key: &CxxString) -> bool;
+        fn m_static_config_store_config_store_open(
+            name: &CxxString,
+            mut out: Pin<&mut *mut ConfigStore>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn get(
+            &self,
+            key: &CxxString,
+            mut out: Pin<&mut CxxString>,
+            mut err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
+        fn contains(&self, key: &CxxString, mut err: Pin<&mut *mut FastlyError>) -> bool;
     }
 
     #[namespace = "fastly::sys::secret_store"]
     extern "Rust" {
         type Secret;
         fn plaintext(&self, out: Pin<&mut CxxString>);
-        fn m_static_secret_store_secret_from_bytes(bytes: &CxxString) -> Box<Secret>;
+        fn m_static_secret_store_secret_from_bytes(
+            bytes: &CxxVector<u8>,
+            out: Pin<&mut *mut Secret>,
+            err: Pin<&mut *mut FastlyError>,
+        );
     }
 
     #[namespace = "fastly::sys::secret_store"]
     extern "Rust" {
         type SecretStore;
-        fn m_static_secret_store_secret_store_open(name: &CxxString) -> Box<SecretStore>;
-        fn get(&self, key: &CxxString) -> *mut Secret;
-        fn contains(&self, key: &CxxString) -> bool;
+        fn m_static_secret_store_secret_store_open(
+            name: &CxxString,
+            mut out: Pin<&mut *mut SecretStore>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn get(
+            &self,
+            key: &CxxString,
+            mut out: Pin<&mut *mut Secret>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn contains(&self, key: &CxxString, mut err: Pin<&mut *mut FastlyError>) -> bool;
     }
 
     #[namespace = "fastly::sys::geo"]
@@ -508,7 +658,11 @@ mod ffi {
     #[namespace = "fastly::sys::geo"]
     extern "Rust" {
         type Geo;
-        fn f_geo_geo_lookup(ip: &CxxString) -> *mut Geo;
+        fn f_geo_geo_lookup(
+            ip: &CxxString,
+            mut out: Pin<&mut *mut Geo>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
         fn as_name(&self, out: Pin<&mut CxxString>);
         fn as_number(&self) -> u32;
         fn area_code(&self) -> u16;

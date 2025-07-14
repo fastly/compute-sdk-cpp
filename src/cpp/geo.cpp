@@ -2,11 +2,14 @@
 
 namespace fastly::geo {
 
-std::optional<Geo> geo_lookup(std::string_view ip) {
-  auto ptr{fastly::sys::geo::f_geo_geo_lookup(static_cast<std::string>(ip))};
-  if (ptr != nullptr) {
-    return std::optional<Geo>(
-        Geo(rust::Box<fastly::sys::geo::Geo>::from_raw(ptr)));
+fastly::expected<std::optional<Geo>> geo_lookup(std::string_view ip) {
+  fastly::sys::geo::Geo *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::geo::f_geo_geo_lookup(static_cast<std::string>(ip), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else if (out != nullptr) {
+    return FSLY_BOX(geo, Geo, out);
   } else {
     return std::nullopt;
   }
@@ -79,8 +82,7 @@ std::optional<std::string> Geo::region() {
 std::optional<UtcOffset> Geo::utc_offset() {
   auto ptr{this->geo->utc_offset()};
   if (ptr != nullptr) {
-    return std::optional<UtcOffset>(
-        UtcOffset(rust::Box<fastly::sys::geo::UtcOffset>::from_raw(ptr)));
+    return std::optional<UtcOffset>(FSLY_BOX(geo, UtcOffset, ptr));
   } else {
     return std::nullopt;
   }

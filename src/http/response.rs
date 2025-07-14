@@ -1,14 +1,17 @@
 use std::pin::Pin;
 
 use cxx::{CxxString, CxxVector, UniquePtr};
+use http::{HeaderName, HeaderValue};
 
 use crate::{
     backend::Backend,
+    error::ErrPtr,
     http::{
         body::{Body, StreamingBody},
         header::HeaderValuesIter,
         request::Request,
     },
+    try_fe,
 };
 
 pub struct Response(pub(crate) fastly::Response);
@@ -82,70 +85,63 @@ impl Response {
         self.0.append_body(other.0);
     }
 
-    pub fn set_body_text_plain(&mut self, body: &CxxString) {
-        self.0.set_body_text_plain(body.to_string_lossy().as_ref())
+    pub fn set_body_text_plain(&mut self, body: &CxxString, mut err: ErrPtr) {
+        self.0.set_body_text_plain(try_fe!(err, body.to_str()));
     }
 
-    pub fn set_body_text_html(&mut self, body: &CxxString) {
-        self.0.set_body_text_html(body.to_string_lossy().as_ref())
+    pub fn set_body_text_html(&mut self, body: &CxxString, mut err: ErrPtr) {
+        self.0.set_body_text_html(try_fe!(err, body.to_str()));
     }
 
     pub fn set_body_octet_stream(&mut self, body: &CxxVector<u8>) {
         self.0.set_body_octet_stream(body.as_slice())
     }
 
-    pub fn get_content_type(&self) -> *const CxxVector<u8> {
-        if let Some(mime) = self.0.get_content_type() {
-            let mut vec: UniquePtr<CxxVector<u8>> = CxxVector::new();
-            for b in mime.as_ref().as_bytes() {
-                vec.pin_mut().push(*b);
-            }
-            // SAFETY: we're no longer responsible for this vec, so YOLO
-            vec.into_raw()
-        } else {
-            std::ptr::null()
-        }
+    pub fn get_content_type(&self, out: Pin<&mut CxxString>) -> bool {
+        self.0
+            .get_content_type()
+            .map(|mime| out.push_str(mime.as_ref()))
+            .is_some()
     }
 
     pub fn set_content_type(&mut self, mime: &CxxString) {
         self.0.set_content_type(
-            mime.to_string_lossy()
-                .as_ref()
+            mime.to_str()
+                .expect("Invalid UTF-8")
                 .parse()
                 .expect("Invalid MIME type"),
         )
     }
 
-    pub fn get_content_length(&self) -> *const usize {
-        if let Some(len) = self.0.get_content_length() {
-            Box::into_raw(Box::new(len))
-        } else {
-            std::ptr::null()
-        }
+    pub fn get_content_length(&self, mut out: Pin<&mut usize>) -> bool {
+        self.0
+            .get_content_length()
+            .map(|len| out.set(len))
+            .is_some()
     }
 
-    pub fn contains_header(&self, name: &CxxString) -> bool {
-        self.0.contains_header(name.as_bytes())
+    pub fn contains_header(&self, name: &CxxString, mut err: ErrPtr) -> bool {
+        self.0
+            .contains_header(try_fe!(err, HeaderName::try_from(name.as_bytes())))
     }
 
-    pub fn get_header(&self, name: &CxxString) -> *const CxxVector<u8> {
-        if let Some(header) = self.0.get_header(name.as_bytes()) {
-            let mut vec: UniquePtr<CxxVector<u8>> = CxxVector::new();
-            for b in header.as_bytes() {
-                vec.pin_mut().push(*b);
-            }
-            // SAFETY: we're no longer responsible for this vec, so YOLO
-            vec.into_raw()
-        } else {
-            std::ptr::null()
-        }
+    pub fn get_header(&self, name: &CxxString, out: Pin<&mut CxxString>, mut err: ErrPtr) -> bool {
+        self.0
+            .get_header(try_fe!(err, HeaderName::try_from(name.as_bytes())))
+            .map(|header| out.push_bytes(header.as_bytes()))
+            .is_some()
     }
 
-    pub fn get_header_all(&self, name: &CxxString) -> Box<HeaderValuesIter> {
+    pub fn get_header_all(
+        &self,
+        name: &CxxString,
+        mut out: Pin<&mut *mut HeaderValuesIter>,
+        mut err: ErrPtr,
+    ) {
         // Yeah. Sorry. Lifetimes :/
         let iter = self
             .0
-            .get_header_all(name.as_bytes())
+            .get_header_all(try_fe!(err, HeaderName::try_from(name.as_bytes())))
             .map(|v| {
                 let mut vector = CxxVector::new();
                 for byte in v.as_bytes() {
@@ -154,28 +150,35 @@ impl Response {
                 vector
             })
             .collect::<Vec<UniquePtr<CxxVector<u8>>>>();
-        Box::new(HeaderValuesIter(Box::new(iter.into_iter())))
+        out.set(Box::into_raw(Box::new(HeaderValuesIter(Box::new(
+            iter.into_iter(),
+        )))))
     }
 
-    pub fn set_header(&mut self, name: &CxxString, value: &CxxString) {
-        self.0.set_header(name.as_bytes(), value.as_bytes());
+    pub fn set_header(&mut self, name: &CxxString, value: &CxxString, mut err: ErrPtr) {
+        self.0.set_header(
+            try_fe!(err, HeaderName::try_from(name.as_bytes())),
+            try_fe!(err, HeaderValue::try_from(value.as_bytes())),
+        );
     }
 
-    pub fn append_header(&mut self, name: &CxxString, value: &CxxString) {
-        self.0.append_header(name.as_bytes(), value.as_bytes());
+    pub fn append_header(&mut self, name: &CxxString, value: &CxxString, mut err: ErrPtr) {
+        self.0.append_header(
+            try_fe!(err, HeaderName::try_from(name.as_bytes())),
+            try_fe!(err, HeaderValue::try_from(value.as_bytes())),
+        );
     }
 
-    pub fn remove_header(&mut self, name: &CxxString) -> *const CxxVector<u8> {
-        if let Some(header) = self.0.remove_header(name.as_bytes()) {
-            let mut vec: UniquePtr<CxxVector<u8>> = CxxVector::new();
-            for b in header.as_bytes() {
-                vec.pin_mut().push(*b);
-            }
-            // SAFETY: we're no longer responsible for this vec, so YOLO
-            vec.into_raw()
-        } else {
-            std::ptr::null()
-        }
+    pub fn remove_header(
+        &mut self,
+        name: &CxxString,
+        out: Pin<&mut CxxString>,
+        mut err: ErrPtr,
+    ) -> bool {
+        self.0
+            .remove_header(try_fe!(err, HeaderName::try_from(name.as_bytes())))
+            .map(|header| out.push_bytes(header.as_bytes()))
+            .is_some()
     }
 
     pub fn set_status(&mut self, status: u16) {
@@ -183,12 +186,7 @@ impl Response {
     }
 
     pub fn get_backend_name(&self, out: Pin<&mut CxxString>) -> bool {
-        if let Some(b) = self.0.get_backend_name() {
-            out.push_str(b);
-            true
-        } else {
-            false
-        }
+        self.0.get_backend_name().map(|b| out.push_str(b)).is_some()
     }
 
     pub fn get_backend(&self) -> *mut Backend {
@@ -200,12 +198,10 @@ impl Response {
     }
 
     pub fn get_backend_addr(&self, out: Pin<&mut CxxString>) -> bool {
-        if let Some(ip) = self.0.get_backend_addr() {
-            out.push_str(ip.to_string().as_ref());
-            true
-        } else {
-            false
-        }
+        self.0
+            .get_backend_addr()
+            .map(|ip| out.push_str(ip.to_string().as_ref()))
+            .is_some()
     }
 
     pub fn take_backend_request(&mut self) -> *mut Request {
@@ -216,28 +212,31 @@ impl Response {
         }
     }
 
-    pub fn get_ttl(&self) -> *const u32 {
-        if let Some(ttl) = self.0.get_ttl() {
-            Box::into_raw(Box::new(ensure_u32(ttl.as_millis())))
-        } else {
-            std::ptr::null()
-        }
+    pub fn get_ttl(&self, mut out: Pin<&mut u32>) -> bool {
+        self.0
+            .get_ttl()
+            .map(|ttl| ttl.as_millis())
+            .map(ensure_u32)
+            .map(|ttl| out.set(ttl))
+            .is_some()
     }
 
-    pub fn get_age(&self) -> *const u32 {
-        if let Some(age) = self.0.get_age() {
-            Box::into_raw(Box::new(ensure_u32(age.as_millis())))
-        } else {
-            std::ptr::null()
-        }
+    pub fn get_age(&self, mut out: Pin<&mut u32>) -> bool {
+        self.0
+            .get_age()
+            .map(|age| age.as_millis())
+            .map(ensure_u32)
+            .map(|age| out.set(age))
+            .is_some()
     }
 
-    pub fn get_stale_while_revalidate(&self) -> *const u32 {
-        if let Some(swr) = self.0.get_stale_while_revalidate() {
-            Box::into_raw(Box::new(ensure_u32(swr.as_millis())))
-        } else {
-            std::ptr::null()
-        }
+    pub fn get_stale_while_revalidate(&self, mut out: Pin<&mut u32>) -> bool {
+        self.0
+            .get_age()
+            .map(|swr| swr.as_millis())
+            .map(ensure_u32)
+            .map(|swr| out.set(swr))
+            .is_some()
     }
 }
 

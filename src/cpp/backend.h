@@ -1,24 +1,31 @@
 #ifndef FASTLY_BACKEND_H
 #define FASTLY_BACKEND_H
 
+#include "error.h"
+#include "http/request.h"
 #include "sdk-sys.h"
+#include "util.h"
 #include <chrono>
 #include <string>
 #include <string_view>
+
+#include <iostream>
+
+namespace fastly::http {
+class Request;
+class Response;
+} // namespace fastly::http
 
 namespace fastly::backend {
 
 class BackendBuilder;
 class Backend {
+  friend fastly::http::Request;
+  friend fastly::http::Response;
+  friend BackendBuilder;
+
 public:
-  Backend(const char *name) : Backend(std::string(name)) {};
-  Backend(std::string_view name)
-      : backend(
-            std::move(fastly::sys::backend::m_static_backend_backend_from_name(
-                static_cast<std::string>(name)))) {};
-  Backend(rust::Box<fastly::sys::backend::Backend> b)
-      : backend(std::move(b)) {};
-  static Backend from_name(std::string_view name);
+  static fastly::expected<Backend> from_name(std::string_view name);
   Backend clone();
   BackendBuilder builder(std::string_view name, std::string_view target);
   std::string name();
@@ -38,24 +45,26 @@ public:
   uint32_t get_tcp_keepalive_probes();
   std::chrono::milliseconds get_tcp_keepalive_time();
   bool is_ssl();
-  bool operator==(Backend b) { return backend->equals(b.backend); }
-  bool operator!=(Backend b) { return !backend->equals(b.backend); }
+  bool operator==(Backend b) { return backend->equals(*b.backend); }
+  bool operator!=(Backend b) { return !backend->equals(*b.backend); }
   // TODO(@zkat): optional stuff is weird.
   // SslVersion get_ssl_min_version();
   // SslVersion get_ssl_max_version();
+private:
+  Backend(rust::Box<fastly::sys::backend::Backend> b)
+      : backend(std::move(b)) {};
   rust::Box<fastly::sys::backend::Backend> backend;
 };
 
 class BackendBuilder {
+  friend Backend;
+
 public:
   BackendBuilder(std::string_view name, std::string_view target)
       : builder(std::move(
             fastly::sys::backend::m_static_backend_backend_builder_new(
                 static_cast<std::string>(name),
                 static_cast<std::string>(target)))) {};
-  BackendBuilder(rust::Box<fastly::sys::backend::BackendBuilder> b)
-      : builder(std::move(b)) {};
-
   BackendBuilder override_host(std::string_view name);
   BackendBuilder connect_timeout(std::chrono::milliseconds timeout);
   BackendBuilder first_byte_timeout(std::chrono::milliseconds timeout);
@@ -72,9 +81,11 @@ public:
   BackendBuilder tcp_keepalive_interval_secs(uint32_t secs);
   BackendBuilder tcp_keepalive_probes(uint32_t probes);
   BackendBuilder tcp_keepalive_time_secs(uint32_t secs);
-  Backend finish();
+  fastly::expected<Backend> finish();
 
 private:
+  BackendBuilder(rust::Box<fastly::sys::backend::BackendBuilder> b)
+      : builder(std::move(b)) {};
   rust::Box<fastly::sys::backend::BackendBuilder> builder;
 };
 

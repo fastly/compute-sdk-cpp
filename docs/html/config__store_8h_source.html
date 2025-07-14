@@ -94,44 +94,50 @@ $(function(){initNavTree('config__store_8h_source.html','',''); });
 <a href="config__store_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef FASTLY_CONFIG_STORE_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define FASTLY_CONFIG_STORE_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="sdk-sys_8h.html">sdk-sys.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span> </div>
-<div class="foldopen" id="foldopen00008" data-start="{" data-end="}">
-<div class="line"><a id="l00008" name="l00008"></a><span class="lineno"><a class="line" href="namespacefastly_1_1config__store.html">    8</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefastly_1_1config__store.html">fastly::config_store</a> {</div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span></div>
-<div class="foldopen" id="foldopen00011" data-start="{" data-end="};">
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html">   11</a></span><span class="keyword">class </span>ConfigStore {</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span><span class="keyword">public</span>:</div>
-<div class="line"><a id="l00021" name="l00021"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html#ae05ee2fe48bfd1efbeab6b8d8c63a3f6">   21</a></span>  <span class="keyword">static</span> ConfigStore <a class="code hl_function" href="classfastly_1_1config__store_1_1_config_store.html#ae05ee2fe48bfd1efbeab6b8d8c63a3f6">open</a>(std::string name);</div>
-<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span></div>
-<div class="line"><a id="l00044" name="l00044"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html#a3a927648f83174d3a284236ad177cde6">   44</a></span>  std::optional&lt;std::string&gt; <a class="code hl_function" href="classfastly_1_1config__store_1_1_config_store.html#a3a927648f83174d3a284236ad177cde6">get</a>(std::string key);</div>
-<div class="line"><a id="l00045" name="l00045"></a><span class="lineno">   45</span></div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html#a734fcc043ee5492f4ef5f4a89dcd1cfc">   54</a></span>  <span class="keywordtype">bool</span> <a class="code hl_function" href="classfastly_1_1config__store_1_1_config_store.html#a734fcc043ee5492f4ef5f4a89dcd1cfc">contains</a>(std::string key);</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span> </div>
-<div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span><span class="keyword">private</span>:</div>
-<div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>  rust::Box&lt;fastly::sys::config_store::ConfigStore&gt; cs;</div>
-<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>  ConfigStore(rust::Box&lt;fastly::sys::config_store::ConfigStore&gt; c)</div>
-<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span>      : cs(std::move(c)) {};</div>
-<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>};</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="error_8h.html">error.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="sdk-sys_8h.html">sdk-sys.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &quot;<a class="code" href="util_8h.html">util.h</a>&quot;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;optional&gt;</span></div>
+<div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno">    9</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
+<div class="foldopen" id="foldopen00011" data-start="{" data-end="}">
+<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespacefastly_1_1config__store.html">   11</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefastly_1_1config__store.html">fastly::config_store</a> {</div>
+<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span></div>
+<div class="foldopen" id="foldopen00014" data-start="{" data-end="};">
+<div class="line"><a id="l00014" name="l00014"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html">   14</a></span><span class="keyword">class </span>ConfigStore {</div>
+<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="keyword">public</span>:</div>
+<div class="line"><a id="l00024" name="l00024"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html#abcb747127291994145fe4a3ae2cc381d">   24</a></span>  <span class="keyword">static</span> <a class="code hl_typedef" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected&lt;ConfigStore&gt;</a> <a class="code hl_function" href="classfastly_1_1config__store_1_1_config_store.html#abcb747127291994145fe4a3ae2cc381d">open</a>(std::string_view name);</div>
+<div class="line"><a id="l00025" name="l00025"></a><span class="lineno">   25</span></div>
+<div class="line"><a id="l00047" name="l00047"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html#a2190b3ba10f68389085d28f6c6887af6">   47</a></span>  <a class="code hl_typedef" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected&lt;std::optional&lt;std::string&gt;</a>&gt; <a class="code hl_function" href="classfastly_1_1config__store_1_1_config_store.html#a2190b3ba10f68389085d28f6c6887af6">get</a>(std::string_view key);</div>
+<div class="line"><a id="l00048" name="l00048"></a><span class="lineno">   48</span></div>
+<div class="line"><a id="l00057" name="l00057"></a><span class="lineno"><a class="line" href="classfastly_1_1config__store_1_1_config_store.html#ab408c1970a8cee171a9824f88c247c3c">   57</a></span>  <a class="code hl_typedef" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected&lt;bool&gt;</a> <a class="code hl_function" href="classfastly_1_1config__store_1_1_config_store.html#ab408c1970a8cee171a9824f88c247c3c">contains</a>(std::string_view key);</div>
+<div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span> </div>
+<div class="line"><a id="l00059" name="l00059"></a><span class="lineno">   59</span><span class="keyword">private</span>:</div>
+<div class="line"><a id="l00060" name="l00060"></a><span class="lineno">   60</span>  rust::Box&lt;fastly::sys::config_store::ConfigStore&gt; cs;</div>
+<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span>  ConfigStore(rust::Box&lt;fastly::sys::config_store::ConfigStore&gt; c)</div>
+<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>      : cs(std::move(c)) {};</div>
+<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span>};</div>
 </div>
-<div class="line"><a id="l00061" name="l00061"></a><span class="lineno">   61</span> </div>
-<div class="line"><a id="l00062" name="l00062"></a><span class="lineno">   62</span>} <span class="comment">// namespace fastly::config_store</span></div>
+<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span> </div>
+<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span>} <span class="comment">// namespace fastly::config_store</span></div>
 </div>
-<div class="line"><a id="l00063" name="l00063"></a><span class="lineno">   63</span> </div>
-<div class="line"><a id="l00064" name="l00064"></a><span class="lineno">   64</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefastly.html">fastly</a> {</div>
-<div class="line"><a id="l00065" name="l00065"></a><span class="lineno">   65</span><span class="keyword">using </span><a class="code hl_class" href="classfastly_1_1config__store_1_1_config_store.html">fastly::config_store::ConfigStore</a>;</div>
-<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span>}</div>
-<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span> </div>
-<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html">fastly::config_store::ConfigStore</a></div><div class="ttdoc">A Compute Config Store.</div><div class="ttdef"><b>Definition</b> config_store.h:11</div></div>
-<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html_a3a927648f83174d3a284236ad177cde6"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html#a3a927648f83174d3a284236ad177cde6">fastly::config_store::ConfigStore::get</a></div><div class="ttdeci">std::optional&lt; std::string &gt; get(std::string key)</div></div>
-<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html_a734fcc043ee5492f4ef5f4a89dcd1cfc"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html#a734fcc043ee5492f4ef5f4a89dcd1cfc">fastly::config_store::ConfigStore::contains</a></div><div class="ttdeci">bool contains(std::string key)</div></div>
-<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html_ae05ee2fe48bfd1efbeab6b8d8c63a3f6"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html#ae05ee2fe48bfd1efbeab6b8d8c63a3f6">fastly::config_store::ConfigStore::open</a></div><div class="ttdeci">static ConfigStore open(std::string name)</div></div>
-<div class="ttc" id="anamespacefastly_1_1config__store_html"><div class="ttname"><a href="namespacefastly_1_1config__store.html">fastly::config_store</a></div><div class="ttdef"><b>Definition</b> config_store.h:8</div></div>
-<div class="ttc" id="anamespacefastly_html"><div class="ttname"><a href="namespacefastly.html">fastly</a></div><div class="ttdef"><b>Definition</b> backend.h:8</div></div>
+<div class="line"><a id="l00066" name="l00066"></a><span class="lineno">   66</span> </div>
+<div class="line"><a id="l00067" name="l00067"></a><span class="lineno">   67</span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefastly.html">fastly</a> {</div>
+<div class="line"><a id="l00068" name="l00068"></a><span class="lineno">   68</span><span class="keyword">using </span><a class="code hl_class" href="classfastly_1_1config__store_1_1_config_store.html">fastly::config_store::ConfigStore</a>;</div>
+<div class="line"><a id="l00069" name="l00069"></a><span class="lineno">   69</span>}</div>
+<div class="line"><a id="l00070" name="l00070"></a><span class="lineno">   70</span> </div>
+<div class="line"><a id="l00071" name="l00071"></a><span class="lineno">   71</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html">fastly::config_store::ConfigStore</a></div><div class="ttdoc">A Compute Config Store.</div><div class="ttdef"><b>Definition</b> config_store.h:14</div></div>
+<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html_a2190b3ba10f68389085d28f6c6887af6"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html#a2190b3ba10f68389085d28f6c6887af6">fastly::config_store::ConfigStore::get</a></div><div class="ttdeci">fastly::expected&lt; std::optional&lt; std::string &gt; &gt; get(std::string_view key)</div></div>
+<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html_ab408c1970a8cee171a9824f88c247c3c"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html#ab408c1970a8cee171a9824f88c247c3c">fastly::config_store::ConfigStore::contains</a></div><div class="ttdeci">fastly::expected&lt; bool &gt; contains(std::string_view key)</div></div>
+<div class="ttc" id="aclassfastly_1_1config__store_1_1_config_store_html_abcb747127291994145fe4a3ae2cc381d"><div class="ttname"><a href="classfastly_1_1config__store_1_1_config_store.html#abcb747127291994145fe4a3ae2cc381d">fastly::config_store::ConfigStore::open</a></div><div class="ttdeci">static fastly::expected&lt; ConfigStore &gt; open(std::string_view name)</div></div>
+<div class="ttc" id="aerror_8h_html"><div class="ttname"><a href="error_8h.html">error.h</a></div></div>
+<div class="ttc" id="anamespacefastly_1_1config__store_html"><div class="ttname"><a href="namespacefastly_1_1config__store.html">fastly::config_store</a></div><div class="ttdef"><b>Definition</b> config_store.h:11</div></div>
+<div class="ttc" id="anamespacefastly_1_1error_html_aa62ff3bf88a50b54b7246263c4f55bef"><div class="ttname"><a href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::error::expected</a></div><div class="ttdeci">tl::expected&lt; T, FastlyError &gt; expected</div><div class="ttdef"><b>Definition</b> error.h:25</div></div>
+<div class="ttc" id="anamespacefastly_html"><div class="ttname"><a href="namespacefastly.html">fastly</a></div><div class="ttdef"><b>Definition</b> backend.h:14</div></div>
 <div class="ttc" id="asdk-sys_8h_html"><div class="ttname"><a href="sdk-sys_8h.html">sdk-sys.h</a></div></div>
+<div class="ttc" id="autil_8h_html"><div class="ttname"><a href="util_8h.html">util.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 </div><!-- container -->

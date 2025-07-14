@@ -1,10 +1,18 @@
 #include "backend.h"
+#include "sdk-sys.h"
 
 namespace fastly::backend {
 
-Backend Backend::from_name(std::string_view name) {
-  return std::move(fastly::sys::backend::m_static_backend_backend_from_name(
-      static_cast<std::string>(name)));
+fastly::expected<Backend> Backend::from_name(std::string_view name) {
+  fastly::sys::backend::Backend *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::backend::m_static_backend_backend_from_name(
+      static_cast<std::string>(name), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(backend, Backend, out);
+  }
 }
 
 Backend Backend::clone() { return std::move(this->backend->clone()); }
@@ -189,9 +197,16 @@ BackendBuilder BackendBuilder::tcp_keepalive_time_secs(uint32_t secs) {
   return std::move(*this);
 }
 
-Backend BackendBuilder::finish() {
-  return fastly::sys::backend::m_backend_backend_builder_finish(
-      std::move(this->builder));
+fastly::expected<Backend> BackendBuilder::finish() {
+  fastly::sys::backend::Backend *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::backend::m_backend_backend_builder_finish(
+      std::move(this->builder), out, err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(backend, Backend, out);
+  }
 }
 
 } // namespace fastly::backend

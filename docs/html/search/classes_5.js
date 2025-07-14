@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pendingrequest_0',['PendingRequest',['../classfastly_1_1http_1_1request_1_1_pending_request.html',1,'fastly::http::request']]]
+  ['geo_0',['Geo',['../classfastly_1_1geo_1_1_geo.html',1,'fastly::geo']]]
 ];

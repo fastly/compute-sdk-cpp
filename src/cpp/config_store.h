@@ -1,7 +1,9 @@
 #ifndef FASTLY_CONFIG_STORE_H
 #define FASTLY_CONFIG_STORE_H
 
+#include "error.h"
 #include "sdk-sys.h"
+#include "util.h"
 #include <optional>
 #include <string>
 #include <string_view>
@@ -19,7 +21,7 @@ public:
   /// auto merriam{fastly::ConfigStore::open("merriam webster")};
   /// auto oed{fastly::ConfigStore::open("oxford english config store")};
   /// ```
-  static ConfigStore open(std::string_view name);
+  static fastly::expected<ConfigStore> open(std::string_view name);
 
   /// Lookup a value in this config store.
   ///
@@ -42,7 +44,7 @@ public:
   /// // Otherwise, `get` will return nullopt.
   /// assert(store.get("zzzzz") == std::nullopt);
   /// ```
-  std::optional<std::string> get(std::string_view key);
+  fastly::expected<std::optional<std::string>> get(std::string_view key);
 
   /// Return true if the config_store contains an entry with the given key.
   ///
@@ -50,9 +52,9 @@ public:
   ///
   /// ```no_run
   /// auto store{fastly::ConfigStore::open("test config store")};
-  /// assert(store.contains("key"));
+  /// assert(store.contains("key").value());
   /// ```
-  bool contains(std::string_view key);
+  fastly::expected<bool> contains(std::string_view key);
 
 private:
   rust::Box<fastly::sys::config_store::ConfigStore> cs;
