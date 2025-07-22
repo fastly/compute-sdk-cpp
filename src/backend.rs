@@ -102,8 +102,8 @@ impl Backend {
 }
 
 fn ensure_u32(num: u128) -> u32 {
-    if num > std::u32::MAX as u128 {
-        std::u32::MAX
+    if num > u32::MAX as u128 {
+        u32::MAX
     } else {
         num as u32
     }

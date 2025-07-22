@@ -1,3 +1,5 @@
+#![allow(clippy::boxed_local)]
+
 use backend::*;
 use config_store::*;
 use device_detection::*;

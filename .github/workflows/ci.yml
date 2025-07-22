@@ -1,0 +1,73 @@
+name: Build WebAssembly with WASI SDK
+
+on: [push, pull_request]
+
+env:
+  RUSTFLAGS: -Dwarnings
+
+jobs:
+  rustfmt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: rustfmt
+      - name: Check Rust Format
+        run: cargo fmt --all -- --check
+
+  clippy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          components: clippy
+      - name: Install WASI SDK
+        uses: konsumer/install-wasi-sdk@v1
+        with:
+          version: "25"
+      - name: Run clippy
+        run: cargo clippy --all -- -D warnings
+
+  clangfmt:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Install WASI SDK
+        uses: konsumer/install-wasi-sdk@v1
+        with:
+          version: "25"
+      - name: Check C++ Format
+        run: /opt/wasi-sdk/bin/clang-format --dry-run --Werror src/**/*.h src/**/*.cpp
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Install WASI SDK
+        uses: konsumer/install-wasi-sdk@v1
+        with:
+          version: "25"
+
+      - uses: extractions/setup-just@v3
+
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+
+      - name: Build WebAssembly module
+        run: just
+
+      - name: Build docs
+        uses: DenverCoder1/doxygen-github-pages-action@v2.0.0
+        if: github.ref == 'refs/heads/main'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: gh-pages
+          folder: docs/html
+          config_file: Doxyfile

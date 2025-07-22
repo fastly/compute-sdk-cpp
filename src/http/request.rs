@@ -14,6 +14,7 @@ use crate::try_fe;
 
 pub struct Request(pub(crate) fastly::Request);
 
+#[allow(clippy::module_inception)]
 pub mod request {
 
     use crate::{

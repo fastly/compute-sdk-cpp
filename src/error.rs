@@ -37,6 +37,7 @@ pub enum FastlyError {
     #[error(transparent)]
     IoError(#[from] std::io::Error),
     #[error(transparent)]
+    #[allow(clippy::enum_variant_names)]
     FastlyError(#[from] fastly::Error),
     #[error(transparent)]
     FastlySendError(#[from] fastly::http::request::SendError),
