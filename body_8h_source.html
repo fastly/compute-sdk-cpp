@@ -135,15 +135,15 @@ $(function(){initNavTree('body_8h_source.html','',''); });
 <div class="line"><a id="l00046" name="l00046"></a><span class="lineno">   46</span><span class="keyword">public</span>:</div>
 <div class="foldopen" id="foldopen00048" data-start="{" data-end="}">
 <div class="line"><a id="l00048" name="l00048"></a><span class="lineno"><a class="line" href="classfastly_1_1http_1_1_body.html#aabd513e7537b9567ce9465e965f88e9d">   48</a></span>  <a class="code hl_function" href="classfastly_1_1http_1_1_body.html#aabd513e7537b9567ce9465e965f88e9d">Body</a>()</div>
-<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      : <a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>(<a class="code hl_namespace" href="namespacefastly.html">fastly</a>::sys::<a class="code hl_namespace" href="namespacefastly_1_1http.html">http</a>::m_static_http_body_new()), std::iostream(this) {</div>
+<div class="line"><a id="l00049" name="l00049"></a><span class="lineno">   49</span>      : std::iostream(this), <a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>(<a class="code hl_namespace" href="namespacefastly.html">fastly</a>::sys::<a class="code hl_namespace" href="namespacefastly_1_1http.html">http</a>::m_static_http_body_new()) {</div>
 <div class="line"><a id="l00050" name="l00050"></a><span class="lineno">   50</span>    this-&gt;setg(this-&gt;gbuf.data(), this-&gt;gbuf.data(), this-&gt;gbuf.data());</div>
 <div class="line"><a id="l00051" name="l00051"></a><span class="lineno">   51</span>    this-&gt;setp(this-&gt;pbuf.data(), this-&gt;pbuf.data() + this-&gt;pbuf.max_size());</div>
 <div class="line"><a id="l00052" name="l00052"></a><span class="lineno">   52</span>  };</div>
 </div>
 <div class="foldopen" id="foldopen00053" data-start="{" data-end="}">
 <div class="line"><a id="l00053" name="l00053"></a><span class="lineno"><a class="line" href="classfastly_1_1http_1_1_body.html#aaf11a89ce2c2b5a32fbe3e7951d0823e">   53</a></span>  <a class="code hl_function" href="classfastly_1_1http_1_1_body.html#aaf11a89ce2c2b5a32fbe3e7951d0823e">Body</a>(<a class="code hl_function" href="classfastly_1_1http_1_1_body.html#aabd513e7537b9567ce9465e965f88e9d">Body</a> &amp;&amp;old)</div>
-<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      : <a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>((old.<a class="code hl_function" href="classfastly_1_1http_1_1_body.html#a53fb789b0dca94fd2c6b7d599f9a78c2">sync</a>(), std::move(old.<a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>))), pbuf(std::move(old.pbuf)),</div>
-<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        std::iostream(this) {</div>
+<div class="line"><a id="l00054" name="l00054"></a><span class="lineno">   54</span>      : std::iostream(this), <a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>((old.<a class="code hl_function" href="classfastly_1_1http_1_1_body.html#a53fb789b0dca94fd2c6b7d599f9a78c2">sync</a>(), std::move(old.<a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>))),</div>
+<div class="line"><a id="l00055" name="l00055"></a><span class="lineno">   55</span>        pbuf(std::move(old.pbuf)) {</div>
 <div class="line"><a id="l00056" name="l00056"></a><span class="lineno">   56</span>    <span class="keyword">auto</span> gcurr{old.gptr() - old.eback()};</div>
 <div class="line"><a id="l00057" name="l00057"></a><span class="lineno">   57</span>    <span class="keyword">auto</span> gend{old.egptr() - old.eback()};</div>
 <div class="line"><a id="l00058" name="l00058"></a><span class="lineno">   58</span>    this-&gt;gbuf = std::move(old.gbuf);</div>
@@ -200,7 +200,7 @@ $(function(){initNavTree('body_8h_source.html','',''); });
 <div class="line"><a id="l00120" name="l00120"></a><span class="lineno">  120</span>  std::array&lt;char, 512&gt; pbuf;</div>
 <div class="line"><a id="l00121" name="l00121"></a><span class="lineno">  121</span>  std::array&lt;char, 512&gt; gbuf;</div>
 <div class="line"><a id="l00122" name="l00122"></a><span class="lineno">  122</span>  <a class="code hl_function" href="classfastly_1_1http_1_1_body.html#aabd513e7537b9567ce9465e965f88e9d">Body</a>(rust::Box&lt;fastly::sys::http::Body&gt; body)</div>
-<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>      : <a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>(std::move(body)), std::iostream(this) {</div>
+<div class="line"><a id="l00123" name="l00123"></a><span class="lineno">  123</span>      : std::iostream(this), <a class="code hl_variable" href="classfastly_1_1http_1_1_body.html#a5bdd099b0919c1920e021c06a67eeb2b">bod</a>(std::move(body)) {</div>
 <div class="line"><a id="l00124" name="l00124"></a><span class="lineno">  124</span>    this-&gt;setg(this-&gt;gbuf.data(), this-&gt;gbuf.data(), this-&gt;gbuf.data());</div>
 <div class="line"><a id="l00125" name="l00125"></a><span class="lineno">  125</span>    this-&gt;setp(this-&gt;pbuf.data(), this-&gt;pbuf.data() + this-&gt;pbuf.max_size());</div>
 <div class="line"><a id="l00126" name="l00126"></a><span class="lineno">  126</span>  };</div>
@@ -236,8 +236,8 @@ $(function(){initNavTree('body_8h_source.html','',''); });
 <div class="line"><a id="l00154" name="l00154"></a><span class="lineno">  154</span><span class="keyword">public</span>:</div>
 <div class="foldopen" id="foldopen00155" data-start="{" data-end="}">
 <div class="line"><a id="l00155" name="l00155"></a><span class="lineno"><a class="line" href="classfastly_1_1http_1_1_streaming_body.html#afce5d659491a7db3a74cb6d47a6b47fd">  155</a></span>  <a class="code hl_function" href="classfastly_1_1http_1_1_streaming_body.html#afce5d659491a7db3a74cb6d47a6b47fd">StreamingBody</a>(<a class="code hl_function" href="classfastly_1_1http_1_1_streaming_body.html#afce5d659491a7db3a74cb6d47a6b47fd">StreamingBody</a> &amp;&amp;other)</div>
-<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>      : bod((other.<a class="code hl_function" href="classfastly_1_1http_1_1_streaming_body.html#ad89f356abb6b2bb1c028d7218869881e">sync</a>(), std::move(other.bod))), pbuf(std::move(other.pbuf)),</div>
-<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        std::ostream(this) {</div>
+<div class="line"><a id="l00156" name="l00156"></a><span class="lineno">  156</span>      : std::ostream(this), bod((other.<a class="code hl_function" href="classfastly_1_1http_1_1_streaming_body.html#ad89f356abb6b2bb1c028d7218869881e">sync</a>(), std::move(other.bod))),</div>
+<div class="line"><a id="l00157" name="l00157"></a><span class="lineno">  157</span>        pbuf(std::move(other.pbuf)) {</div>
 <div class="line"><a id="l00158" name="l00158"></a><span class="lineno">  158</span>    this-&gt;setp(this-&gt;pbuf.data(), this-&gt;pbuf.data() + this-&gt;pbuf.max_size());</div>
 <div class="line"><a id="l00159" name="l00159"></a><span class="lineno">  159</span>  };</div>
 </div>
@@ -251,7 +251,7 @@ $(function(){initNavTree('body_8h_source.html','',''); });
 <div class="line"><a id="l00167" name="l00167"></a><span class="lineno">  167</span> </div>
 <div class="line"><a id="l00168" name="l00168"></a><span class="lineno">  168</span><span class="keyword">private</span>:</div>
 <div class="line"><a id="l00169" name="l00169"></a><span class="lineno">  169</span>  <a class="code hl_function" href="classfastly_1_1http_1_1_streaming_body.html#afce5d659491a7db3a74cb6d47a6b47fd">StreamingBody</a>(rust::Box&lt;fastly::sys::http::StreamingBody&gt; body)</div>
-<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>      : bod(std::move(body)), std::ostream(this) {</div>
+<div class="line"><a id="l00170" name="l00170"></a><span class="lineno">  170</span>      : std::ostream(this), bod(std::move(body)) {</div>
 <div class="line"><a id="l00171" name="l00171"></a><span class="lineno">  171</span>    this-&gt;setp(this-&gt;pbuf.data(), this-&gt;pbuf.data() + this-&gt;pbuf.max_size());</div>
 <div class="line"><a id="l00172" name="l00172"></a><span class="lineno">  172</span>  };</div>
 <div class="line"><a id="l00173" name="l00173"></a><span class="lineno">  173</span>  rust::Box&lt;fastly::sys::http::StreamingBody&gt; bod;</div>
