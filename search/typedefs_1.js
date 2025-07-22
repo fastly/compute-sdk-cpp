@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['decay_5ft_0',['decay_t',['../namespacetl_1_1detail.html#a4b7fec0b3924439ddf76809104d6b64c',1,'tl::detail']]]
+  ['unexpected_0',['unexpected',['../namespacefastly_1_1error.html#a3aa8716ecbb7e10829aad57f1d1959f4',1,'fastly::error::unexpected'],['../namespacefastly.html#a3aa8716ecbb7e10829aad57f1d1959f4',1,'fastly::unexpected']]]
 ];
