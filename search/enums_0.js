@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['method_0',['Method',['../namespacefastly_1_1http.html#aefde43db022226c635200348ddf3d8b3',1,'fastly::http']]]
+  ['fastlyerrorcode_0',['FastlyErrorCode',['../namespacefastly_1_1error.html#a62c6d982719867b38eba2a7afd3be598',1,'fastly::error::FastlyErrorCode'],['../namespacefastly.html#a62c6d982719867b38eba2a7afd3be598',1,'fastly::FastlyErrorCode']]]
 ];

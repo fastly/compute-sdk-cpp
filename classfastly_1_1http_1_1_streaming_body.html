@@ -103,10 +103,10 @@ Inheritance diagram for fastly::http::StreamingBody:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:afce5d659491a7db3a74cb6d47a6b47fd" id="r_afce5d659491a7db3a74cb6d47a6b47fd"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afce5d659491a7db3a74cb6d47a6b47fd">StreamingBody</a> (<a class="el" href="classfastly_1_1http_1_1_streaming_body.html">StreamingBody</a> &amp;&amp;other)</td></tr>
-<tr class="memitem:a9a5afea0142d5784ebf2b09d8d9e1219" id="r_a9a5afea0142d5784ebf2b09d8d9e1219"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9a5afea0142d5784ebf2b09d8d9e1219">finish</a> ()</td></tr>
+<tr class="memitem:ac522f320335af6f28468ed0817588faa" id="r_ac522f320335af6f28468ed0817588faa"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ac522f320335af6f28468ed0817588faa">finish</a> ()</td></tr>
 <tr class="memitem:a9c54230ebf01a3edb3bd10f2c438889d" id="r_a9c54230ebf01a3edb3bd10f2c438889d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a9c54230ebf01a3edb3bd10f2c438889d">append</a> (<a class="el" href="classfastly_1_1http_1_1_body.html">Body</a> other)</td></tr>
-<tr class="memitem:a8dc1dd888117eb64db7461e06a323ff5" id="r_a8dc1dd888117eb64db7461e06a323ff5"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8dc1dd888117eb64db7461e06a323ff5">write</a> (uint8_t *buf, size_t bufsize)</td></tr>
-<tr class="memitem:a8d3c7db770dfb45a3370deb27433522a" id="r_a8d3c7db770dfb45a3370deb27433522a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a8d3c7db770dfb45a3370deb27433522a">append_trailer</a> (std::string &amp;header_name, std::string &amp;header_value)</td></tr>
+<tr class="memitem:a006bb8f57d24ba907bd4cf1b815504d3" id="r_a006bb8f57d24ba907bd4cf1b815504d3"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a006bb8f57d24ba907bd4cf1b815504d3">write</a> (uint8_t *buf, size_t bufsize)</td></tr>
+<tr class="memitem:a0e61e19003eb5ae509a8794824a70799" id="r_a0e61e19003eb5ae509a8794824a70799"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a0e61e19003eb5ae509a8794824a70799">append_trailer</a> (std::string_view header_name, std::string_view header_value)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pro-methods" class="groupheader"><a id="pro-methods" name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
@@ -115,7 +115,7 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:ad255b2abeed1a203d6695870792b8087" id="r_ad255b2abeed1a203d6695870792b8087"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a>, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad255b2abeed1a203d6695870792b8087">request::select</a> (std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &amp;reqs)</td></tr>
+<tr class="memitem:aa010d06e7428826fe716128b2c715bb3" id="r_aa010d06e7428826fe716128b2c715bb3"><td class="memItemLeft" align="right" valign="top">std::pair&lt; <a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a> &gt;, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa010d06e7428826fe716128b2c715bb3">request::select</a> (std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &amp;reqs)</td></tr>
 </table>
 <a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="afce5d659491a7db3a74cb6d47a6b47fd" name="afce5d659491a7db3a74cb6d47a6b47fd"></a>
@@ -161,35 +161,35 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a8d3c7db770dfb45a3370deb27433522a" name="a8d3c7db770dfb45a3370deb27433522a"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8d3c7db770dfb45a3370deb27433522a">&#9670;&#160;</a></span>append_trailer()</h2>
+<a id="a0e61e19003eb5ae509a8794824a70799" name="a0e61e19003eb5ae509a8794824a70799"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0e61e19003eb5ae509a8794824a70799">&#9670;&#160;</a></span>append_trailer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void fastly::http::StreamingBody::append_trailer </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; void &gt; fastly::http::StreamingBody::append_trailer </td>
           <td>(</td>
-          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>header_name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>header_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>header_value</em></span>&#160;)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>header_value</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a9a5afea0142d5784ebf2b09d8d9e1219" name="a9a5afea0142d5784ebf2b09d8d9e1219"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9a5afea0142d5784ebf2b09d8d9e1219">&#9670;&#160;</a></span>finish()</h2>
+<a id="ac522f320335af6f28468ed0817588faa" name="ac522f320335af6f28468ed0817588faa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac522f320335af6f28468ed0817588faa">&#9670;&#160;</a></span>finish()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void fastly::http::StreamingBody::finish </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; void &gt; fastly::http::StreamingBody::finish </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -249,14 +249,14 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<a id="a8dc1dd888117eb64db7461e06a323ff5" name="a8dc1dd888117eb64db7461e06a323ff5"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8dc1dd888117eb64db7461e06a323ff5">&#9670;&#160;</a></span>write()</h2>
+<a id="a006bb8f57d24ba907bd4cf1b815504d3" name="a006bb8f57d24ba907bd4cf1b815504d3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a006bb8f57d24ba907bd4cf1b815504d3">&#9670;&#160;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t fastly::http::StreamingBody::write </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; size_t &gt; fastly::http::StreamingBody::write </td>
           <td>(</td>
           <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
         </tr>
@@ -271,8 +271,8 @@ Friends</h2></td></tr>
 </div>
 </div>
 <a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="ad255b2abeed1a203d6695870792b8087" name="ad255b2abeed1a203d6695870792b8087"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad255b2abeed1a203d6695870792b8087">&#9670;&#160;</a></span>request::select</h2>
+<a id="aa010d06e7428826fe716128b2c715bb3" name="aa010d06e7428826fe716128b2c715bb3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa010d06e7428826fe716128b2c715bb3">&#9670;&#160;</a></span>request::select</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -281,7 +281,7 @@ Friends</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::pair&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a>, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &gt; <a class="el" href="namespacefastly_1_1http_1_1request.html#a3be3cdf8a2047e4499bfbff6f51108fb">request::select</a> </td>
+          <td class="memname">std::pair&lt; <a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1http_1_1_response.html">Response</a> &gt;, std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &gt; <a class="el" href="namespacefastly_1_1http_1_1request.html#a51ca1c5739c98242822e5303dd0907c0">request::select</a> </td>
           <td>(</td>
           <td class="paramtype">std::vector&lt; <a class="el" href="classfastly_1_1http_1_1request_1_1_pending_request.html">request::PendingRequest</a> &gt; &amp;</td>          <td class="paramname"><span class="paramname"><em>reqs</em></span></td><td>)</td>
           <td></td>

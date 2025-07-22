@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['difference_5ftype_0',['difference_type',['../classrust_1_1cxxbridge1_1_1_slice_1_1iterator.html#a04ca253eb8f5659f440060476744e163',1,'rust::cxxbridge1::Slice::iterator']]]
+  ['decay_5ft_0',['decay_t',['../namespacetl_1_1detail.html#a4b7fec0b3924439ddf76809104d6b64c',1,'tl::detail']]]
 ];

@@ -105,7 +105,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a180d88c56bfb1e9b6c932c4dfe4313ee" id="r_a180d88c56bfb1e9b6c932c4dfe4313ee"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classfastly_1_1http_1_1_status_code.html">StatusCode</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a180d88c56bfb1e9b6c932c4dfe4313ee">from_code</a> (uint16_t code)</td></tr>
 <tr class="memitem:a24ce3754eb4be91a3c8754872fb1cfef" id="r_a24ce3754eb4be91a3c8754872fb1cfef"><td class="memItemLeft" align="right" valign="top">uint16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a24ce3754eb4be91a3c8754872fb1cfef">as_code</a> ()</td></tr>
 <tr class="memdesc:a24ce3754eb4be91a3c8754872fb1cfef"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns the <span class="tt">uint16_t</span> corresponding to this <span class="tt"><a class="el" href="classfastly_1_1http_1_1_status_code.html">StatusCode</a></span>.  <br /></td></tr>
-<tr class="memitem:ae886804628da701022f65dc7cf1accb0" id="r_ae886804628da701022f65dc7cf1accb0"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae886804628da701022f65dc7cf1accb0">canonical_reason</a> ()</td></tr>
+<tr class="memitem:a7cbaee5ed31733a7caf215041193fe3b" id="r_a7cbaee5ed31733a7caf215041193fe3b"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classtl_1_1expected.html">tl::expected</a>&lt; std::optional&lt; std::string &gt;, <a class="el" href="classfastly_1_1error_1_1_fastly_error.html">fastly::FastlyError</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7cbaee5ed31733a7caf215041193fe3b">canonical_reason</a> ()</td></tr>
 <tr class="memitem:aa2853e6e9012897ba92e8ac00454aad0" id="r_aa2853e6e9012897ba92e8ac00454aad0"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2853e6e9012897ba92e8ac00454aad0">is_informational</a> ()</td></tr>
 <tr class="memdesc:aa2853e6e9012897ba92e8ac00454aad0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Check if status is within 100-199.  <br /></td></tr>
 <tr class="memitem:a7f2dbd9deb3a939b5e75afca817734dc" id="r_a7f2dbd9deb3a939b5e75afca817734dc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a7f2dbd9deb3a939b5e75afca817734dc">is_success</a> ()</td></tr>
@@ -254,14 +254,14 @@ Static Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae886804628da701022f65dc7cf1accb0" name="ae886804628da701022f65dc7cf1accb0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae886804628da701022f65dc7cf1accb0">&#9670;&#160;</a></span>canonical_reason()</h2>
+<a id="a7cbaee5ed31733a7caf215041193fe3b" name="a7cbaee5ed31733a7caf215041193fe3b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7cbaee5ed31733a7caf215041193fe3b">&#9670;&#160;</a></span>canonical_reason()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; std::string &gt; fastly::http::StatusCode::canonical_reason </td>
+          <td class="memname"><a class="el" href="classtl_1_1expected.html">tl::expected</a>&lt; std::optional&lt; std::string &gt;, <a class="el" href="classfastly_1_1error_1_1_fastly_error.html">fastly::FastlyError</a> &gt; fastly::http::StatusCode::canonical_reason </td>
           <td>(</td>
           <td class="paramname"><span class="paramname"><em></em></span></td><td>)</td>
           <td></td>
@@ -272,11 +272,11 @@ Static Public Attributes</h2></td></tr>
 <p>This is mostly here for servers writing responses, but could potentially have application at other times.</p>
 <p>The reason phrase is defined as being exclusively for human readers. You should avoid deriving any meaning from it at all costs.</p>
 <p>Bear in mind also that in HTTP/2.0 and HTTP/3.0 the reason phrase is abolished from transmission, and so this canonical reason phrase really is the only reason phrase you’ll find.</p>
-<h1 class="doxsection"><a class="anchor" id="autotoc_md44"></a>
+<h1 class="doxsection"><a class="anchor" id="autotoc_md42"></a>
 Example</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> status{<a class="code hl_variable" href="#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a>};</div>
 <div class="line">assert(status.canonical_reason() == std::optional(<span class="stringliteral">&quot;OK&quot;</span>s)));</div>
-<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a43639d24869da04cf8436b692baaecf7"><div class="ttname"><a href="#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a></div><div class="ttdeci">static const StatusCode OK</div><div class="ttdef"><b>Definition</b> status_code.h:38</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1_status_code_html_a43639d24869da04cf8436b692baaecf7"><div class="ttname"><a href="#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a></div><div class="ttdeci">static const StatusCode OK</div><div class="ttdef"><b>Definition</b> status_code.h:41</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -972,7 +972,7 @@ Example</h1>
   </tr>
 </table>
 </div><div class="memdoc">
-<p>405 <a class="el" href="namespacefastly_1_1http.html#aefde43db022226c635200348ddf3d8b3">Method</a> Not Allowed [<a href="https://datatracker.ietf.org/doc/html/rfc9110#section-15.5.6">RFC9110, Section 15.5.6</a>] </p>
+<p>405 Method Not Allowed [<a href="https://datatracker.ietf.org/doc/html/rfc9110#section-15.5.6">RFC9110, Section 15.5.6</a>] </p>
 
 </div>
 </div>

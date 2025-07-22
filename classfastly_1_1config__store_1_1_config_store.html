@@ -99,26 +99,26 @@ $(function(){initNavTree('classfastly_1_1config__store_1_1_config_store.html',''
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3a927648f83174d3a284236ad177cde6" id="r_a3a927648f83174d3a284236ad177cde6"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3a927648f83174d3a284236ad177cde6">get</a> (std::string key)</td></tr>
-<tr class="memitem:a734fcc043ee5492f4ef5f4a89dcd1cfc" id="r_a734fcc043ee5492f4ef5f4a89dcd1cfc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a734fcc043ee5492f4ef5f4a89dcd1cfc">contains</a> (std::string key)</td></tr>
+<tr class="memitem:a2190b3ba10f68389085d28f6c6887af6" id="r_a2190b3ba10f68389085d28f6c6887af6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2190b3ba10f68389085d28f6c6887af6">get</a> (std::string_view key)</td></tr>
+<tr class="memitem:ab408c1970a8cee171a9824f88c247c3c" id="r_ab408c1970a8cee171a9824f88c247c3c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab408c1970a8cee171a9824f88c247c3c">contains</a> (std::string_view key)</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-static-methods" class="groupheader"><a id="pub-static-methods" name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
-<tr class="memitem:ae05ee2fe48bfd1efbeab6b8d8c63a3f6" id="r_ae05ee2fe48bfd1efbeab6b8d8c63a3f6"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="classfastly_1_1config__store_1_1_config_store.html">ConfigStore</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ae05ee2fe48bfd1efbeab6b8d8c63a3f6">open</a> (std::string name)</td></tr>
+<tr class="memitem:abcb747127291994145fe4a3ae2cc381d" id="r_abcb747127291994145fe4a3ae2cc381d"><td class="memItemLeft" align="right" valign="top">static <a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1config__store_1_1_config_store.html">ConfigStore</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abcb747127291994145fe4a3ae2cc381d">open</a> (std::string_view name)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>A Compute Config Store. </p>
 </div><a name="doc-func-members" id="doc-func-members"></a><h2 id="header-doc-func-members" class="groupheader">Member Function Documentation</h2>
-<a id="a734fcc043ee5492f4ef5f4a89dcd1cfc" name="a734fcc043ee5492f4ef5f4a89dcd1cfc"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a734fcc043ee5492f4ef5f4a89dcd1cfc">&#9670;&#160;</a></span>contains()</h2>
+<a id="ab408c1970a8cee171a9824f88c247c3c" name="ab408c1970a8cee171a9824f88c247c3c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab408c1970a8cee171a9824f88c247c3c">&#9670;&#160;</a></span>contains()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">bool fastly::config_store::ConfigStore::contains </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; bool &gt; fastly::config_store::ConfigStore::contains </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -127,21 +127,21 @@ Static Public Member Functions</h2></td></tr>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md2"></a>
 Examples</h1>
 <div class="fragment"><div class="line">_run</div>
-<div class="line">     auto store{fastly::ConfigStore::open(&quot;test config store&quot;s)};</div>
-<div class="line">     assert(store.contains(&quot;key&quot;s));</div>
+<div class="line">     auto store{fastly::ConfigStore::open(&quot;test config store&quot;)};</div>
+<div class="line">     assert(store.contains(&quot;key&quot;).value());</div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="a3a927648f83174d3a284236ad177cde6" name="a3a927648f83174d3a284236ad177cde6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3a927648f83174d3a284236ad177cde6">&#9670;&#160;</a></span>get()</h2>
+<a id="a2190b3ba10f68389085d28f6c6887af6" name="a2190b3ba10f68389085d28f6c6887af6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2190b3ba10f68389085d28f6c6887af6">&#9670;&#160;</a></span>get()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; std::string &gt; fastly::config_store::ConfigStore::get </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; std::string &gt; &gt; fastly::config_store::ConfigStore::get </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>key</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -151,22 +151,22 @@ Examples</h1>
 <h1 class="doxsection"><a class="anchor" id="autotoc_md1"></a>
 Examples</h1>
 <div class="fragment"><div class="line">_run</div>
-<div class="line">     auto store{fastly::ConfigStore::open(&quot;test config store&quot;s)};</div>
-<div class="line">     assert(store.get(&quot;bread&quot;s).value() ==</div>
-<div class="line">            &quot;a usually baked and leavened food&quot;s);</div>
+<div class="line">     auto store{fastly::ConfigStore::open(&quot;test config store&quot;)};</div>
+<div class="line">     assert(store.get(&quot;bread&quot;).value() ==</div>
+<div class="line">            &quot;a usually baked and leavened food&quot;);</div>
 <div class="line">    </div>
 <div class="line">     assert(</div>
-<div class="line">         store.get(&quot;freedom&quot;s).value() ==</div>
-<div class="line">         &quot;the absence of necessity, coercion, or constraint&quot;s,</div>
+<div class="line">         store.get(&quot;freedom&quot;).value() ==</div>
+<div class="line">         &quot;the absence of necessity, coercion, or constraint&quot;,</div>
 <div class="line">     );</div>
 <div class="line">    </div>
 <div class="line">     // Otherwise, `get` will return nullopt.</div>
-<div class="line">     assert(store.get(&quot;zzzzz&quot;s) == std::nullopt);</div>
+<div class="line">     assert(store.get(&quot;zzzzz&quot;) == std::nullopt);</div>
 </div><!-- fragment --> 
 </div>
 </div>
-<a id="ae05ee2fe48bfd1efbeab6b8d8c63a3f6" name="ae05ee2fe48bfd1efbeab6b8d8c63a3f6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae05ee2fe48bfd1efbeab6b8d8c63a3f6">&#9670;&#160;</a></span>open()</h2>
+<a id="abcb747127291994145fe4a3ae2cc381d" name="abcb747127291994145fe4a3ae2cc381d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abcb747127291994145fe4a3ae2cc381d">&#9670;&#160;</a></span>open()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -175,9 +175,9 @@ Examples</h1>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="classfastly_1_1config__store_1_1_config_store.html">ConfigStore</a> fastly::config_store::ConfigStore::open </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; <a class="el" href="classfastly_1_1config__store_1_1_config_store.html">ConfigStore</a> &gt; fastly::config_store::ConfigStore::open </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>name</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>

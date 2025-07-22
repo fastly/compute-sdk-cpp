@@ -91,9 +91,12 @@ $(function(){initNavTree('device__detection_8h.html','',''); });
   <div class="headertitle"><div class="title">device_detection.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="sdk-sys_8h_source.html">sdk-sys.h</a>&quot;</code><br />
+<div class="textblock"><code>#include &quot;<a class="el" href="error_8h_source.html">error.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sdk-sys_8h_source.html">sdk-sys.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="util_8h_source.html">util.h</a>&quot;</code><br />
 <code>#include &lt;optional&gt;</code><br />
 <code>#include &lt;string&gt;</code><br />
+<code>#include &lt;string_view&gt;</code><br />
 </div>
 <p><a href="device__detection_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -109,8 +112,8 @@ Namespaces</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-func-members" class="groupheader"><a id="func-members" name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:acb585cd82f1242692c1ae24bc2af9613" id="r_acb585cd82f1242692c1ae24bc2af9613"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classfastly_1_1device__detection_1_1_device.html">Device</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefastly_1_1device__detection.html#acb585cd82f1242692c1ae24bc2af9613">fastly::device_detection::lookup</a> (std::string user_agent)</td></tr>
-<tr class="memdesc:acb585cd82f1242692c1ae24bc2af9613"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the data associated with a particular User-Agent string.  <br /></td></tr>
+<tr class="memitem:a963348758b3806eb80f24a329fc64479" id="r_a963348758b3806eb80f24a329fc64479"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; <a class="el" href="classfastly_1_1device__detection_1_1_device.html">Device</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefastly_1_1device__detection.html#a963348758b3806eb80f24a329fc64479">fastly::device_detection::lookup</a> (std::string_view user_agent)</td></tr>
+<tr class="memdesc:a963348758b3806eb80f24a329fc64479"><td class="mdescLeft">&#160;</td><td class="mdescRight">Look up the data associated with a particular User-Agent string.  <br /></td></tr>
 </table>
 </div><!-- contents -->
 </div><!-- doc-content -->

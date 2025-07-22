@@ -126,7 +126,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-friends" class="groupheader"><a id="friends" name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:a2ca06990e34a8029f7c0b09adfa4e049" id="r_a2ca06990e34a8029f7c0b09adfa4e049"><td class="memItemLeft" align="right" valign="top">std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a2ca06990e34a8029f7c0b09adfa4e049">geo_lookup</a> (std::string ip)</td></tr>
+<tr class="memitem:a308def92372cab29b28119f0f1cd2480" id="r_a308def92372cab29b28119f0f1cd2480"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a308def92372cab29b28119f0f1cd2480">geo_lookup</a> (std::string_view ip)</td></tr>
 </table>
 <a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>The geographic data associated with a particular IP address. </p>
@@ -457,7 +457,7 @@ Examples</h1>
 <p>Region values are the subdivision part only. For typical use, a subdivision is normally formatted with its associated country code. The following example illustrates constructing an <a href="https://en.wikipedia.org/wiki/ISO_3166-2">ISO 3166-2</a> two-part country and subdivision code from the respective fields:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span></div>
 <div class="line">client_ip{<a class="code hl_function" href="classfastly_1_1_request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1_request.html#ac3f6d63177dca86b1cccf58bb662aa0d">get_client_ip_addr</a>().value()};</div>
-<div class="line"><span class="keyword">auto</span> <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>{<a class="code hl_function" href="namespacefastly_1_1geo.html#a96e1aa9506fe15e43996c6c8f093dabc">fastly::geo::geo_lookup</a>(client_ip).value()};</div>
+<div class="line"><span class="keyword">auto</span> <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>{<a class="code hl_function" href="namespacefastly_1_1geo.html#adf483f56c28f5b6beb45e27eae7273cf">fastly::geo::geo_lookup</a>(client_ip).value()};</div>
 <div class="line"><span class="keywordflow">if</span> (<span class="keyword">auto</span> <a class="code hl_function" href="#a3fd24ef5be28c810e3221ec97fab89ec">region</a> = <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>.region()) {</div>
 <div class="line">  <span class="keywordflow">return</span> std::format(<span class="stringliteral">&quot;{}-{}&quot;</span>, <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>.country_code(), <a class="code hl_function" href="#a3fd24ef5be28c810e3221ec97fab89ec">region</a>.value());</div>
 <div class="line">} <span class="keywordflow">else</span> {</div>
@@ -466,8 +466,8 @@ Examples</h1>
 <div class="ttc" id="aclassfastly_1_1_request_html_a008de1b7b69832f3928b3f0f4fc7ca88"><div class="ttname"><a href="classfastly_1_1_request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a></div><div class="ttdeci">static Request from_client()</div></div>
 <div class="ttc" id="aclassfastly_1_1geo_1_1_geo_html_a3fd24ef5be28c810e3221ec97fab89ec"><div class="ttname"><a href="#a3fd24ef5be28c810e3221ec97fab89ec">fastly::geo::Geo::region</a></div><div class="ttdeci">std::optional&lt; std::string &gt; region()</div></div>
 <div class="ttc" id="aclassfastly_1_1http_1_1_request_html_ac3f6d63177dca86b1cccf58bb662aa0d"><div class="ttname"><a href="classfastly_1_1http_1_1_request.html#ac3f6d63177dca86b1cccf58bb662aa0d">fastly::http::Request::get_client_ip_addr</a></div><div class="ttdeci">std::optional&lt; std::string &gt; get_client_ip_addr()</div></div>
-<div class="ttc" id="anamespacefastly_1_1geo_html"><div class="ttname"><a href="namespacefastly_1_1geo.html">fastly::geo</a></div><div class="ttdef"><b>Definition</b> geo.h:8</div></div>
-<div class="ttc" id="anamespacefastly_1_1geo_html_a96e1aa9506fe15e43996c6c8f093dabc"><div class="ttname"><a href="namespacefastly_1_1geo.html#a96e1aa9506fe15e43996c6c8f093dabc">fastly::geo::geo_lookup</a></div><div class="ttdeci">std::optional&lt; Geo &gt; geo_lookup(std::string ip)</div></div>
+<div class="ttc" id="anamespacefastly_1_1geo_html"><div class="ttname"><a href="namespacefastly_1_1geo.html">fastly::geo</a></div><div class="ttdef"><b>Definition</b> geo.h:11</div></div>
+<div class="ttc" id="anamespacefastly_1_1geo_html_adf483f56c28f5b6beb45e27eae7273cf"><div class="ttname"><a href="namespacefastly_1_1geo.html#adf483f56c28f5b6beb45e27eae7273cf">fastly::geo::geo_lookup</a></div><div class="ttdeci">fastly::expected&lt; std::optional&lt; Geo &gt; &gt; geo_lookup(std::string_view ip)</div></div>
 </div><!-- fragment --><table class="markdownTable">
 <tr class="markdownTableHead">
 <th class="markdownTableHeadNone"><span class="tt">code</span>  </th><th class="markdownTableHeadNone">Region Name  </th><th class="markdownTableHeadNone">Country  </th><th class="markdownTableHeadNone">ISO 3166-2 subdivision  </th></tr>
@@ -509,8 +509,8 @@ Examples</h1>
 </div>
 </div>
 <a name="doc-related-members" id="doc-related-members"></a><h2 id="header-doc-related-members" class="groupheader">Friends And Related Symbol Documentation</h2>
-<a id="a2ca06990e34a8029f7c0b09adfa4e049" name="a2ca06990e34a8029f7c0b09adfa4e049"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2ca06990e34a8029f7c0b09adfa4e049">&#9670;&#160;</a></span>geo_lookup</h2>
+<a id="a308def92372cab29b28119f0f1cd2480" name="a308def92372cab29b28119f0f1cd2480"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a308def92372cab29b28119f0f1cd2480">&#9670;&#160;</a></span>geo_lookup</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,9 +519,9 @@ Examples</h1>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt; geo_lookup </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; std::optional&lt; <a class="el" href="classfastly_1_1geo_1_1_geo.html">Geo</a> &gt; &gt; geo_lookup </td>
           <td>(</td>
-          <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>ip</em></span></td><td>)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>ip</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -537,7 +537,7 @@ Examples</h1>
 Examples</h1>
 <p>To get geographic information for the downstream client:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> client_ip{<a class="code hl_function" href="classfastly_1_1_request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1_request.html#ac3f6d63177dca86b1cccf58bb662aa0d">get_client_ip_addr</a>().value()};</div>
-<div class="line"><span class="keyword">auto</span> <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>{<a class="code hl_function" href="namespacefastly_1_1geo.html#a96e1aa9506fe15e43996c6c8f093dabc">fastly::geo::geo_lookup</a>(client_ip).value()};</div>
+<div class="line"><span class="keyword">auto</span> <a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>{<a class="code hl_function" href="namespacefastly_1_1geo.html#adf483f56c28f5b6beb45e27eae7273cf">fastly::geo::geo_lookup</a>(client_ip).value()};</div>
 <div class="line"><span class="keywordflow">if</span> (<a class="code hl_namespace" href="namespacefastly_1_1geo.html">geo</a>.conn_type() == fastly::geo::ConnType::Satellite) {</div>
 <div class="line">    std::cout &lt;&lt; <span class="stringliteral">&quot;receiving a request from outer space 🛸&quot;</span>;</div>
 <div class="line">}</div>

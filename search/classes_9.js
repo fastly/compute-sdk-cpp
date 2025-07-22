@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pendingrequest_0',['PendingRequest',['../classfastly_1_1http_1_1request_1_1_pending_request.html',1,'fastly::http::request']]]
+  ['no_5finit_5ft_0',['no_init_t',['../structtl_1_1detail_1_1no__init__t.html',1,'tl::detail']]]
 ];

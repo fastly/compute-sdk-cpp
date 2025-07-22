@@ -94,23 +94,27 @@ $(function(){initNavTree('purge_8h_source.html','',''); });
 <a href="purge_8h.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a id="l00001" name="l00001"></a><span class="lineno">    1</span><span class="preprocessor">#ifndef FASTLY_HTTP_PURGE_H</span></div>
 <div class="line"><a id="l00002" name="l00002"></a><span class="lineno">    2</span><span class="preprocessor">#define FASTLY_HTTP_PURGE_H</span></div>
 <div class="line"><a id="l00003" name="l00003"></a><span class="lineno">    3</span> </div>
-<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="sdk-sys_8h.html">../sdk-sys.h</a>&quot;</span></div>
-<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &lt;string&gt;</span></div>
-<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span> </div>
-<div class="foldopen" id="foldopen00007" data-start="{" data-end="}">
-<div class="line"><a id="l00007" name="l00007"></a><span class="lineno"><a class="line" href="namespacefastly_1_1http_1_1purge.html">    7</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefastly_1_1http_1_1purge.html">fastly::http::purge</a> {</div>
+<div class="line"><a id="l00004" name="l00004"></a><span class="lineno">    4</span><span class="preprocessor">#include &quot;<a class="code" href="error_8h.html">../error.h</a>&quot;</span></div>
+<div class="line"><a id="l00005" name="l00005"></a><span class="lineno">    5</span><span class="preprocessor">#include &quot;<a class="code" href="sdk-sys_8h.html">../sdk-sys.h</a>&quot;</span></div>
+<div class="line"><a id="l00006" name="l00006"></a><span class="lineno">    6</span><span class="preprocessor">#include &lt;string&gt;</span></div>
+<div class="line"><a id="l00007" name="l00007"></a><span class="lineno">    7</span><span class="preprocessor">#include &lt;string_view&gt;</span></div>
 <div class="line"><a id="l00008" name="l00008"></a><span class="lineno">    8</span> </div>
-<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="namespacefastly_1_1http_1_1purge.html#ab10dfadbd168120b8347fdf0735f9d44">    9</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacefastly_1_1http_1_1purge.html#ab10dfadbd168120b8347fdf0735f9d44">purge_surrogate_key</a>(std::string surrogate_key);</div>
-<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span> </div>
-<div class="line"><a id="l00011" name="l00011"></a><span class="lineno"><a class="line" href="namespacefastly_1_1http_1_1purge.html#a3a7da3126455d9196b6e0ef15f274dc2">   11</a></span><span class="keywordtype">void</span> <a class="code hl_function" href="namespacefastly_1_1http_1_1purge.html#a3a7da3126455d9196b6e0ef15f274dc2">soft_purge_surrogate_key</a>(std::string surrogate_key);</div>
-<div class="line"><a id="l00012" name="l00012"></a><span class="lineno">   12</span> </div>
-<div class="line"><a id="l00013" name="l00013"></a><span class="lineno">   13</span>} <span class="comment">// namespace fastly::http::purge</span></div>
+<div class="foldopen" id="foldopen00009" data-start="{" data-end="}">
+<div class="line"><a id="l00009" name="l00009"></a><span class="lineno"><a class="line" href="namespacefastly_1_1http_1_1purge.html">    9</a></span><span class="keyword">namespace </span><a class="code hl_namespace" href="namespacefastly_1_1http_1_1purge.html">fastly::http::purge</a> {</div>
+<div class="line"><a id="l00010" name="l00010"></a><span class="lineno">   10</span></div>
+<div class="line"><a id="l00016" name="l00016"></a><span class="lineno"><a class="line" href="namespacefastly_1_1http_1_1purge.html#a778040cf14e4e1a1aaaf07c07552667a">   16</a></span><a class="code hl_typedef" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected&lt;void&gt;</a> <a class="code hl_function" href="namespacefastly_1_1http_1_1purge.html#a778040cf14e4e1a1aaaf07c07552667a">purge_surrogate_key</a>(std::string_view surrogate_key);</div>
+<div class="line"><a id="l00017" name="l00017"></a><span class="lineno">   17</span> </div>
+<div class="line"><a id="l00018" name="l00018"></a><span class="lineno"><a class="line" href="namespacefastly_1_1http_1_1purge.html#adc34607891e7bcd21ad67c33ea09f158">   18</a></span><a class="code hl_typedef" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected&lt;void&gt;</a> <a class="code hl_function" href="namespacefastly_1_1http_1_1purge.html#adc34607891e7bcd21ad67c33ea09f158">soft_purge_surrogate_key</a>(std::string_view surrogate_key);</div>
+<div class="line"><a id="l00019" name="l00019"></a><span class="lineno">   19</span> </div>
+<div class="line"><a id="l00020" name="l00020"></a><span class="lineno">   20</span>} <span class="comment">// namespace fastly::http::purge</span></div>
 </div>
-<div class="line"><a id="l00014" name="l00014"></a><span class="lineno">   14</span> </div>
-<div class="line"><a id="l00015" name="l00015"></a><span class="lineno">   15</span><span class="preprocessor">#endif</span></div>
-<div class="ttc" id="anamespacefastly_1_1http_1_1purge_html"><div class="ttname"><a href="namespacefastly_1_1http_1_1purge.html">fastly::http::purge</a></div><div class="ttdef"><b>Definition</b> purge.h:7</div></div>
-<div class="ttc" id="anamespacefastly_1_1http_1_1purge_html_a3a7da3126455d9196b6e0ef15f274dc2"><div class="ttname"><a href="namespacefastly_1_1http_1_1purge.html#a3a7da3126455d9196b6e0ef15f274dc2">fastly::http::purge::soft_purge_surrogate_key</a></div><div class="ttdeci">void soft_purge_surrogate_key(std::string surrogate_key)</div></div>
-<div class="ttc" id="anamespacefastly_1_1http_1_1purge_html_ab10dfadbd168120b8347fdf0735f9d44"><div class="ttname"><a href="namespacefastly_1_1http_1_1purge.html#ab10dfadbd168120b8347fdf0735f9d44">fastly::http::purge::purge_surrogate_key</a></div><div class="ttdeci">void purge_surrogate_key(std::string surrogate_key)</div></div>
+<div class="line"><a id="l00021" name="l00021"></a><span class="lineno">   21</span> </div>
+<div class="line"><a id="l00022" name="l00022"></a><span class="lineno">   22</span><span class="preprocessor">#endif</span></div>
+<div class="ttc" id="aerror_8h_html"><div class="ttname"><a href="error_8h.html">error.h</a></div></div>
+<div class="ttc" id="anamespacefastly_1_1error_html_aa62ff3bf88a50b54b7246263c4f55bef"><div class="ttname"><a href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::error::expected</a></div><div class="ttdeci">tl::expected&lt; T, FastlyError &gt; expected</div><div class="ttdef"><b>Definition</b> error.h:25</div></div>
+<div class="ttc" id="anamespacefastly_1_1http_1_1purge_html"><div class="ttname"><a href="namespacefastly_1_1http_1_1purge.html">fastly::http::purge</a></div><div class="ttdef"><b>Definition</b> purge.h:9</div></div>
+<div class="ttc" id="anamespacefastly_1_1http_1_1purge_html_a778040cf14e4e1a1aaaf07c07552667a"><div class="ttname"><a href="namespacefastly_1_1http_1_1purge.html#a778040cf14e4e1a1aaaf07c07552667a">fastly::http::purge::purge_surrogate_key</a></div><div class="ttdeci">fastly::expected&lt; void &gt; purge_surrogate_key(std::string_view surrogate_key)</div></div>
+<div class="ttc" id="anamespacefastly_1_1http_1_1purge_html_adc34607891e7bcd21ad67c33ea09f158"><div class="ttname"><a href="namespacefastly_1_1http_1_1purge.html#adc34607891e7bcd21ad67c33ea09f158">fastly::http::purge::soft_purge_surrogate_key</a></div><div class="ttdeci">fastly::expected&lt; void &gt; soft_purge_surrogate_key(std::string_view surrogate_key)</div></div>
 <div class="ttc" id="asdk-sys_8h_html"><div class="ttname"><a href="sdk-sys_8h.html">sdk-sys.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->

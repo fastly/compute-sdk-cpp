@@ -1,11 +1,4 @@
 var searchData=
 [
-  ['_7eallocation_0',['~allocation',['../classrust_1_1cxxbridge1_1_1_box_1_1allocation.html#a03c2e792730deed42c34f15ecae6c1b2',1,'rust::cxxbridge1::Box::allocation']]],
-  ['_7ebackend_1',['~Backend',['../structfastly_1_1sys_1_1backend_1_1_backend.html#a3736d72b3412c95c048c4c095d7de6c1',1,'fastly::sys::backend::Backend']]],
-  ['_7ebox_2',['~Box',['../classrust_1_1cxxbridge1_1_1_box.html#a6bd2b0d5bea60b88b52dd8ba6df5e3e9',1,'rust::cxxbridge1::Box']]],
-  ['_7eopaque_3',['~Opaque',['../classrust_1_1cxxbridge1_1_1_opaque.html#a2cdb850dfa2c63430fe35bf67126f984',1,'rust::cxxbridge1::Opaque']]],
-  ['_7eslice_4',['~Slice',['../classrust_1_1cxxbridge1_1_1_slice.html#a3648296f6297e4c9bc5df7adaa636e5b',1,'rust::cxxbridge1::Slice']]],
-  ['_7estr_5',['~Str',['../classrust_1_1cxxbridge1_1_1_str.html#aad0fa687e55c5de70aaf7a852b0e5719',1,'rust::cxxbridge1::Str']]],
-  ['_7estring_6',['~String',['../classrust_1_1cxxbridge1_1_1_string.html#ab59fb0aa00fa0745a809eeb565b97062',1,'rust::cxxbridge1::String']]],
-  ['_7evec_7',['~Vec',['../classrust_1_1cxxbridge1_1_1_vec.html#ad55bd0d1a29b84a8662b12a4a6bdb368',1,'rust::cxxbridge1::Vec']]]
+  ['_7eexpected_5fstorage_5fbase_0',['~expected_storage_base',['../structtl_1_1detail_1_1expected__storage__base.html#aaec3c38a4df1c2c465b4ffe27f8b2158',1,'tl::detail::expected_storage_base::~expected_storage_base()'],['../structtl_1_1detail_1_1expected__storage__base_3_01_t_00_01_e_00_01true_00_01true_01_4.html#a53fcb6799d0c06343bd2200784df8360',1,'tl::detail::expected_storage_base&lt; T, E, true, true &gt;::~expected_storage_base()'],['../structtl_1_1detail_1_1expected__storage__base_3_01_t_00_01_e_00_01true_00_01false_01_4.html#a5138dd75e65d209d2ce974f57fdaa2d1',1,'tl::detail::expected_storage_base&lt; T, E, true, false &gt;::~expected_storage_base()'],['../structtl_1_1detail_1_1expected__storage__base_3_01_t_00_01_e_00_01false_00_01true_01_4.html#a03da71b66c654da9475c7d7fed1604cf',1,'tl::detail::expected_storage_base&lt; T, E, false, true &gt;::~expected_storage_base()'],['../structtl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01true_01_4.html#abb3121524b54a8134672fea967056044',1,'tl::detail::expected_storage_base&lt; void, E, false, true &gt;::~expected_storage_base()'],['../structtl_1_1detail_1_1expected__storage__base_3_01void_00_01_e_00_01false_00_01false_01_4.html#ad4b509b186355e79df4d75a90f4ed1b2',1,'tl::detail::expected_storage_base&lt; void, E, false, false &gt;::~expected_storage_base()']]]
 ];

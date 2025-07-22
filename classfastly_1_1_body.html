@@ -103,13 +103,18 @@ Inheritance diagram for fastly::Body:</div>
 <tr class="heading"><td colspan="2"><h2 id="header-pub-methods" class="groupheader"><a id="pub-methods" name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:aabd513e7537b9567ce9465e965f88e9d" id="r_aabd513e7537b9567ce9465e965f88e9d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aabd513e7537b9567ce9465e965f88e9d">Body</a> ()</td></tr>
+<tr class="memdesc:aabd513e7537b9567ce9465e965f88e9d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get a new, empty HTTP body.  <br /></td></tr>
 <tr class="memitem:aaf11a89ce2c2b5a32fbe3e7951d0823e" id="r_aaf11a89ce2c2b5a32fbe3e7951d0823e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aaf11a89ce2c2b5a32fbe3e7951d0823e">Body</a> (<a class="el" href="classfastly_1_1http_1_1_body.html">Body</a> &amp;&amp;old)</td></tr>
 <tr class="memitem:a6d81c7e939a729b42229b55cd8147569" id="r_a6d81c7e939a729b42229b55cd8147569"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a6d81c7e939a729b42229b55cd8147569">Body</a> (std::vector&lt; uint8_t &gt; body_vec)</td></tr>
 <tr class="memitem:afb72380f813c3a90a4c2e718440c9a4e" id="r_afb72380f813c3a90a4c2e718440c9a4e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb72380f813c3a90a4c2e718440c9a4e">Body</a> (std::string body_str)</td></tr>
-<tr class="memitem:a82a302b004a902e81c6e8f1ecede5027" id="r_a82a302b004a902e81c6e8f1ecede5027"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a82a302b004a902e81c6e8f1ecede5027">read</a> (uint8_t *buf, size_t bufsize)</td></tr>
-<tr class="memitem:adaf5932ca46f52559cceacd231215f79" id="r_adaf5932ca46f52559cceacd231215f79"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#adaf5932ca46f52559cceacd231215f79">write</a> (uint8_t *buf, size_t bufsize)</td></tr>
+<tr class="memitem:ab31be01f9c9b563314dd44514e76cc89" id="r_ab31be01f9c9b563314dd44514e76cc89"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ab31be01f9c9b563314dd44514e76cc89">Body</a> (const char *body_str)</td></tr>
+<tr class="memitem:a3bbed2d1e528db47e63f07a8e8b59915" id="r_a3bbed2d1e528db47e63f07a8e8b59915"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a3bbed2d1e528db47e63f07a8e8b59915">Body</a> (std::string_view body_str)</td></tr>
+<tr class="memitem:a4e29337b74a715e7909ad33fdf8e8c2a" id="r_a4e29337b74a715e7909ad33fdf8e8c2a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a4e29337b74a715e7909ad33fdf8e8c2a">read</a> (uint8_t *buf, size_t bufsize)</td></tr>
+<tr class="memitem:abf21089ea02f08dd62d6b6752523a6ad" id="r_abf21089ea02f08dd62d6b6752523a6ad"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#abf21089ea02f08dd62d6b6752523a6ad">write</a> (uint8_t *buf, size_t bufsize)</td></tr>
 <tr class="memitem:a679dab8f5955541f47db5ed956bb062a" id="r_a679dab8f5955541f47db5ed956bb062a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a679dab8f5955541f47db5ed956bb062a">append</a> (<a class="el" href="classfastly_1_1http_1_1_body.html">Body</a> other)</td></tr>
-<tr class="memitem:a1c7b6b31fa13a05a6355da816be3731d" id="r_a1c7b6b31fa13a05a6355da816be3731d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1c7b6b31fa13a05a6355da816be3731d">append_trailer</a> (std::string &amp;header_name, std::string &amp;header_value)</td></tr>
+<tr class="memdesc:a679dab8f5955541f47db5ed956bb062a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Append another body onto the end of this body.  <br /></td></tr>
+<tr class="memitem:a03f79fca343c15fd4eb208d2178c27f5" id="r_a03f79fca343c15fd4eb208d2178c27f5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a03f79fca343c15fd4eb208d2178c27f5">append_trailer</a> (std::string_view header_name, std::string_view header_value)</td></tr>
+<tr class="memdesc:a03f79fca343c15fd4eb208d2178c27f5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends request or response trailers to the body.  <br /></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 id="header-pub-attribs" class="groupheader"><a id="pub-attribs" name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -121,9 +126,13 @@ Protected Member Functions</h2></td></tr>
 <tr class="memitem:a614c60caab0bb4955f8e11022ec8a1df" id="r_a614c60caab0bb4955f8e11022ec8a1df"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a614c60caab0bb4955f8e11022ec8a1df">overflow</a> (int_type val)</td></tr>
 <tr class="memitem:a53fb789b0dca94fd2c6b7d599f9a78c2" id="r_a53fb789b0dca94fd2c6b7d599f9a78c2"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a53fb789b0dca94fd2c6b7d599f9a78c2">sync</a> ()</td></tr>
 </table>
-<a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 id="header-details" class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>An HTTP body that can be read from, written to, or appended to another body.</p>
+<p>The most efficient ways to read from and write to the body are through the [<span class="tt">iostreams</span>] implementations. If you want a non-panicking interface, you can use <span class="tt"><a class="el" href="classfastly_1_1http_1_1_body.html#a4e29337b74a715e7909ad33fdf8e8c2a">Body::read</a></span> and <span class="tt"><a class="el" href="classfastly_1_1http_1_1_body.html#abf21089ea02f08dd62d6b6752523a6ad">Body::write</a></span> directly, instead.</p>
+<p>Read and write operations to a [<span class="tt"><a class="el" href="classfastly_1_1_body.html">Body</a></span>] are automatically buffered. </p>
+</div><a name="doc-constructors" id="doc-constructors"></a><h2 id="header-doc-constructors" class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="aabd513e7537b9567ce9465e965f88e9d" name="aabd513e7537b9567ce9465e965f88e9d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aabd513e7537b9567ce9465e965f88e9d">&#9670;&#160;</a></span>Body() <span class="overload">[1/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aabd513e7537b9567ce9465e965f88e9d">&#9670;&#160;</a></span>Body() <span class="overload">[1/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,10 +154,12 @@ Protected Member Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
+<p>Get a new, empty HTTP body. </p>
+
 </div>
 </div>
 <a id="aaf11a89ce2c2b5a32fbe3e7951d0823e" name="aaf11a89ce2c2b5a32fbe3e7951d0823e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaf11a89ce2c2b5a32fbe3e7951d0823e">&#9670;&#160;</a></span>Body() <span class="overload">[2/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aaf11a89ce2c2b5a32fbe3e7951d0823e">&#9670;&#160;</a></span>Body() <span class="overload">[2/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -173,7 +184,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="a6d81c7e939a729b42229b55cd8147569" name="a6d81c7e939a729b42229b55cd8147569"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d81c7e939a729b42229b55cd8147569">&#9670;&#160;</a></span>Body() <span class="overload">[3/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a6d81c7e939a729b42229b55cd8147569">&#9670;&#160;</a></span>Body() <span class="overload">[3/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -198,7 +209,7 @@ Protected Member Functions</h2></td></tr>
 </div>
 </div>
 <a id="afb72380f813c3a90a4c2e718440c9a4e" name="afb72380f813c3a90a4c2e718440c9a4e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afb72380f813c3a90a4c2e718440c9a4e">&#9670;&#160;</a></span>Body() <span class="overload">[4/4]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#afb72380f813c3a90a4c2e718440c9a4e">&#9670;&#160;</a></span>Body() <span class="overload">[4/6]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -210,6 +221,56 @@ Protected Member Functions</h2></td></tr>
           <td class="memname">fastly::http::Body::Body </td>
           <td>(</td>
           <td class="paramtype">std::string</td>          <td class="paramname"><span class="paramname"><em>body_str</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ab31be01f9c9b563314dd44514e76cc89" name="ab31be01f9c9b563314dd44514e76cc89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab31be01f9c9b563314dd44514e76cc89">&#9670;&#160;</a></span>Body() <span class="overload">[5/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastly::http::Body::Body </td>
+          <td>(</td>
+          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>body_str</em></span></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel inline">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a3bbed2d1e528db47e63f07a8e8b59915" name="a3bbed2d1e528db47e63f07a8e8b59915"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3bbed2d1e528db47e63f07a8e8b59915">&#9670;&#160;</a></span>Body() <span class="overload">[6/6]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastly::http::Body::Body </td>
+          <td>(</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>body_str</em></span></td><td>)</td>
           <td></td>
         </tr>
       </table>
@@ -238,26 +299,30 @@ Protected Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p>Append another body onto the end of this body. </p>
+
 </div>
 </div>
-<a id="a1c7b6b31fa13a05a6355da816be3731d" name="a1c7b6b31fa13a05a6355da816be3731d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1c7b6b31fa13a05a6355da816be3731d">&#9670;&#160;</a></span>append_trailer()</h2>
+<a id="a03f79fca343c15fd4eb208d2178c27f5" name="a03f79fca343c15fd4eb208d2178c27f5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03f79fca343c15fd4eb208d2178c27f5">&#9670;&#160;</a></span>append_trailer()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void fastly::http::Body::append_trailer </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; void &gt; fastly::http::Body::append_trailer </td>
           <td>(</td>
-          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>header_name</em></span>, </td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>header_name</em></span>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string &amp;</td>          <td class="paramname"><span class="paramname"><em>header_value</em></span>&#160;)</td>
+          <td class="paramtype">std::string_view</td>          <td class="paramname"><span class="paramname"><em>header_value</em></span>&#160;)</td>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p>Appends request or response trailers to the body. </p>
 
 </div>
 </div>
@@ -286,14 +351,14 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a82a302b004a902e81c6e8f1ecede5027" name="a82a302b004a902e81c6e8f1ecede5027"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a82a302b004a902e81c6e8f1ecede5027">&#9670;&#160;</a></span>read()</h2>
+<a id="a4e29337b74a715e7909ad33fdf8e8c2a" name="a4e29337b74a715e7909ad33fdf8e8c2a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4e29337b74a715e7909ad33fdf8e8c2a">&#9670;&#160;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t fastly::http::Body::read </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; size_t &gt; fastly::http::Body::read </td>
           <td>(</td>
           <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
         </tr>
@@ -304,6 +369,8 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Read bytes from the body, and return the number of bytes read. Bytes read will be <span class="tt">0</span> when the <a class="el" href="classfastly_1_1_body.html">Body</a> is or has become empty.</p>
+<p>Unlike <span class="tt">operator&lt;&lt;</span>, this operation will return a <span class="tt"><a class="el" href="namespacefastly_1_1error.html#a3aa8716ecbb7e10829aad57f1d1959f4">fastly::unexpected</a>&lt;<a class="el" href="classfastly_1_1_fastly_error.html">FastlyError</a>&gt;</span> that can then be handled if the read itself fails, instead of aborting the entire process. </p>
 
 </div>
 </div>
@@ -357,14 +424,14 @@ Protected Member Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="adaf5932ca46f52559cceacd231215f79" name="adaf5932ca46f52559cceacd231215f79"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adaf5932ca46f52559cceacd231215f79">&#9670;&#160;</a></span>write()</h2>
+<a id="abf21089ea02f08dd62d6b6752523a6ad" name="abf21089ea02f08dd62d6b6752523a6ad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf21089ea02f08dd62d6b6752523a6ad">&#9670;&#160;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">size_t fastly::http::Body::write </td>
+          <td class="memname"><a class="el" href="namespacefastly_1_1error.html#aa62ff3bf88a50b54b7246263c4f55bef">fastly::expected</a>&lt; size_t &gt; fastly::http::Body::write </td>
           <td>(</td>
           <td class="paramtype">uint8_t *</td>          <td class="paramname"><span class="paramname"><em>buf</em></span>, </td>
         </tr>
@@ -375,6 +442,8 @@ Protected Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Write bytes to the end of this body, and return the number of bytes written. Bytes written will be <span class="tt">0</span> on EOF.</p>
+<p>Unlike <span class="tt">operator&lt;&lt;</span>, this operation will return a <span class="tt"><a class="el" href="namespacefastly_1_1error.html#a3aa8716ecbb7e10829aad57f1d1959f4">fastly::unexpected</a>&lt;<a class="el" href="classfastly_1_1_fastly_error.html">FastlyError</a>&gt;</span> that can then be handled if the write itself fails, instead of aborting the entire process. </p>
 
 </div>
 </div>
