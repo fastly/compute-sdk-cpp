@@ -25,7 +25,20 @@
 var NAVTREE =
 [
   [ "Fastly Compute C++ SDK", "index.html", [
-    [ "Contributing to this project", "md_CONTRIBUTING.html", null ],
+    [ "Contributing to this project", "md_CONTRIBUTING.html", [
+      [ "Examples", "index.html#autotoc_md1", null ],
+      [ "Requirements", "index.html#autotoc_md2", [
+        [ "Quickstart", "index.html#autotoc_md3", null ],
+        [ "Just the SDK", "index.html#autotoc_md4", null ],
+        [ "Building from source", "index.html#autotoc_md5", null ],
+        [ "Requirements", "md_CONTRIBUTING.html#autotoc_md7", null ],
+        [ "Example(s)", "md_CONTRIBUTING.html#autotoc_md8", null ],
+        [ "Building Static library", "md_CONTRIBUTING.html#autotoc_md9", [
+          [ "Building in Debug mode", "md_CONTRIBUTING.html#autotoc_md10", null ],
+          [ "Building the docs", "md_CONTRIBUTING.html#autotoc_md11", null ]
+        ] ]
+      ] ]
+    ] ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [

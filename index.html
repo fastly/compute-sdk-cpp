@@ -135,16 +135,20 @@ $(document).ready(function(){initNavTree('index.html',''); initResizable(); });
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><p ><a class="anchor" id="md_README"></a> This SDK is lets you use Fastly Compute platform directly with C++, using a C++-native API with all the usual facilities of modern C++. In case you got to this page from elsewhere, the full documentation is available online at <a href="https://cuddly-adventure-lrw9z3m.pages.github.io">this link</a>.</p>
-<h3><a class="anchor" id="autotoc_md1"></a>
-Examples</h3>
+<h2><a class="anchor" id="autotoc_md1"></a>
+Examples</h2>
 <p >There's a <a href="./examples">list of examples</a> you can refer to for a variety of tasks.</p>
-<h3><a class="anchor" id="autotoc_md2"></a>
-Requirements</h3>
+<p >The examples are fully runnable right away if used as the contents of <code>main.cpp</code> for the <code>quickstart</code> project.</p>
+<h2><a class="anchor" id="autotoc_md2"></a>
+Requirements</h2>
 <p >To use the SDK from the prebuilt static library, all you need is:</p>
 <ul>
-<li><a href="https://github.com/WebAssembly/wasi-sdk"><code>wasi-sdk</code></a>, version <code>25.0</code></li>
+<li><a href="https://github.com/WebAssembly/wasi-sdk"><code>wasi-sdk</code></a>, version <code>25.0</code> (see note below)</li>
 <li><a href="https://www.fastly.com/documentation/reference/tools/cli">The Fastly CLI</a> (optional, but recommended)</li>
 </ul>
+<blockquote class="doxtable">
+<p >&zwj;[!note] As documented in its README, <code>wasi-sdk</code> is <em>typically</em> installed to <code>/opt/wasi-sdk</code> to reduce duplication, but you're free to install it anywhere, as long as you configure your build system appropriately. </p>
+</blockquote>
 <h3><a class="anchor" id="autotoc_md3"></a>
 Quickstart</h3>
 <p >The fastest way to get started with the SDK is to fetch <code>fastly-compute-sdk-cpp-quickstart-vX.Y.Z.tar.gz</code> from the <a href="https://github.com/fastly/compute-sdk-cpp/releases/latest">latest GitHub Release's assets list</a>. This tarball includes a full prebuilt version of the library, its headers, a copy of the full reference docs, and a set of quickstart files with a preconfigured, CMake-based project.</p>

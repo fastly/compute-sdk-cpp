@@ -136,13 +136,6 @@ $(document).ready(function(){initNavTree('md_CONTRIBUTING.html',''); initResizab
 <div class="contents">
 <div class="textblock"><p >Hi, thanks for contributing! If you just want to use the SDK, it's recommended you use the prebuilt binaries in releases, as documented in the <a class="el" href="index.html#md_README">README</a>. If you want to build from source, you've come to the right place.</p>
 <h2><a class="anchor" id="autotoc_md7"></a>
-Example(s)</h2>
-<p >To run the "hello world" example (see <code>./examples/echo.cpp</code>), you can use:</p>
-<div class="fragment"><div class="line">just example</div>
-</div><!-- fragment --><p >To run any other examples, you can use:</p>
-<div class="fragment"><div class="line">just example example-name</div>
-</div><!-- fragment --><p >Where <code>example-name</code> will refer to a corresponding <code>example-name.cpp</code> in the <code>examples/</code> directory. Every example will have appropriate links and explanations to what it's doing.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
 Requirements</h2>
 <ul>
 <li><code>rustc</code> + <code>cargo</code> (use <a href="https://rustup.sh"><code>rustup</code></a> to install/manage) *</li>
@@ -154,15 +147,27 @@ Requirements</h2>
 </ul>
 <p >** <code>wasi-sdk-25.0</code> is only compatible with <code>rustc</code> versions up to <code>1.86.0</code>. If you use <code>1.87.0</code> or later, you'll need to use a higher <code>wasi-sdk</code> version. If building this project manually, you must make sure that the version of <code>wasi-sdk</code> version you're using has an equal or greater LLVM version than the one used by your <code>rustc</code>.</p>
 <p >*** The build script assumes you're installing <code>wasi-sdk</code> to <code>/opt/wasi-sdk</code>. You can specify a custom path using <code>--set wasi-sdk /path/to/wasi-sdk-dist</code> in <code>just</code>, or <code>-DWASI_SDK=/path/to/wasi-sdk-dist</code> if using <code>cmake</code> along.</p>
+<h2><a class="anchor" id="autotoc_md8"></a>
+Example(s)</h2>
+<p >You can run the examples directly using <code>just</code>, if you have all the above set up.</p>
+<p >To run the "hello world" example (see <code>./examples/echo.cpp</code>), you can use:</p>
+<div class="fragment"><div class="line">just example</div>
+</div><!-- fragment --><p >To run any other examples, you can use:</p>
+<div class="fragment"><div class="line">just example example-name</div>
+</div><!-- fragment --><p >Where <code>example-name</code> will refer to a corresponding <code>example-name.cpp</code> in the <code>examples/</code> directory. Every example will have appropriate links and explanations to what it's doing.</p>
 <h2><a class="anchor" id="autotoc_md9"></a>
 Building Static library</h2>
 <div class="fragment"><div class="line">just</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md10"></a>
-Using a different &lt;tt&gt;wasi-sdk&lt;/tt&gt;</h3>
-<div class="fragment"><div class="line">just --set wasi-sdk /path/to/your/wasi-sdk-XX.Y</div>
+Building in Debug mode</h3>
+<div class="fragment"><div class="line">#### Using a different `wasi-sdk`</div>
+<div class="line"> </div>
+<div class="line">```sh</div>
+<div class="line">just --set wasi-sdk /path/to/your/wasi-sdk-XX.Y</div>
 </div><!-- fragment --><h3><a class="anchor" id="autotoc_md11"></a>
 Building the docs</h3>
-</div></div><!-- contents -->
+<div class="fragment"><div class="line">just docs</div>
+</div><!-- fragment --> </div></div><!-- contents -->
 </div><!-- PageDoc -->
 </div><!-- doc-content -->
 <!-- start footer part -->
