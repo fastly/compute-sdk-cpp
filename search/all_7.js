@@ -1,10 +1,4 @@
 var searchData=
 [
-  ['has_5fbody_0',['has_body',['../classfastly_1_1http_1_1_request.html#a38bd8b681b15d72a2b46a3f6abeaf194',1,'fastly::http::Request::has_body()'],['../classfastly_1_1http_1_1_response.html#ae2dc7cf7ec95c69c525e9be48b5a4950',1,'fastly::http::Response::has_body()'],['../classfastly_1_1_request.html#a38bd8b681b15d72a2b46a3f6abeaf194',1,'fastly::Request::has_body()'],['../classfastly_1_1_response.html#ae2dc7cf7ec95c69c525e9be48b5a4950',1,'fastly::Response::has_body()']]],
-  ['head_1',['head',['../classfastly_1_1http_1_1_request.html#a67768acd7c910668639eb3cab1ce29cc',1,'fastly::http::Request::head()'],['../classfastly_1_1_request.html#a67768acd7c910668639eb3cab1ce29cc',1,'fastly::Request::head()']]],
-  ['header_2eh_2',['header.h',['../header_8h.html',1,'']]],
-  ['headervaluesiter_3',['HeaderValuesIter',['../classfastly_1_1http_1_1_header_values_iter.html',1,'fastly::http::HeaderValuesIter'],['../classfastly_1_1http_1_1_header_values_iter.html#aab089675950da31d9c47e4b6738a2390',1,'fastly::http::HeaderValuesIter::HeaderValuesIter()']]],
-  ['http_5fkeepalive_5ftime_4',['http_keepalive_time',['../classfastly_1_1backend_1_1_backend_builder.html#a915206e1bb4bfd91b54ce5205532e335',1,'fastly::backend::BackendBuilder']]],
-  ['http_5fversion_5fnot_5fsupported_5',['HTTP_VERSION_NOT_SUPPORTED',['../classfastly_1_1http_1_1_status_code.html#acd70ee5cadb756cbe181252b6d92e470',1,'fastly::http::StatusCode']]],
-  ['hwtype_6',['hwtype',['../classfastly_1_1device__detection_1_1_device.html#a3c6054bed6385cc51a4a5810116eda82',1,'fastly::device_detection::Device']]]
+  ['main_0',['main',['../async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;async_reqs.cpp'],['../clock_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;clock.cpp'],['../device__detection_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;device_detection.cpp'],['../echo_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;echo.cpp'],['../random_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;random.cpp'],['../robots_8txt_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;robots.txt.cpp'],['../router_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;router.cpp'],['../streaming__response_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;streaming_response.cpp']]]
 ];

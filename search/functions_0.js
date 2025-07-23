@@ -1,11 +1,5 @@
 var searchData=
 [
-  ['append_0',['append',['../classfastly_1_1http_1_1_body.html#a679dab8f5955541f47db5ed956bb062a',1,'fastly::http::Body::append()'],['../classfastly_1_1http_1_1_streaming_body.html#a9c54230ebf01a3edb3bd10f2c438889d',1,'fastly::http::StreamingBody::append()'],['../classfastly_1_1_body.html#a679dab8f5955541f47db5ed956bb062a',1,'fastly::Body::append()']]],
-  ['append_5fbody_1',['append_body',['../classfastly_1_1http_1_1_request.html#af31af63be0ba1a460c100927e07f2a06',1,'fastly::http::Request::append_body()'],['../classfastly_1_1http_1_1_response.html#a1a27de3a5c240d7bc24665676f7bd34a',1,'fastly::http::Response::append_body()'],['../classfastly_1_1_request.html#af31af63be0ba1a460c100927e07f2a06',1,'fastly::Request::append_body()'],['../classfastly_1_1_response.html#a1a27de3a5c240d7bc24665676f7bd34a',1,'fastly::Response::append_body()']]],
-  ['append_5fheader_2',['append_header',['../classfastly_1_1http_1_1_request.html#ab0d9683b4b54aab6d5c1664eee1305e2',1,'fastly::http::Request::append_header()'],['../classfastly_1_1http_1_1_response.html#ae1d4599abcd4010e812181d19ac7dca5',1,'fastly::http::Response::append_header()'],['../classfastly_1_1_request.html#ab0d9683b4b54aab6d5c1664eee1305e2',1,'fastly::Request::append_header()'],['../classfastly_1_1_response.html#ae1d4599abcd4010e812181d19ac7dca5',1,'fastly::Response::append_header()']]],
-  ['append_5ftrailer_3',['append_trailer',['../classfastly_1_1http_1_1_body.html#a03f79fca343c15fd4eb208d2178c27f5',1,'fastly::http::Body::append_trailer()'],['../classfastly_1_1http_1_1_streaming_body.html#a0e61e19003eb5ae509a8794824a70799',1,'fastly::http::StreamingBody::append_trailer()'],['../classfastly_1_1_body.html#a03f79fca343c15fd4eb208d2178c27f5',1,'fastly::Body::append_trailer()']]],
-  ['area_5fcode_4',['area_code',['../classfastly_1_1geo_1_1_geo.html#aaf86c9fae16ec8691d0a9f9acdcd1e8a',1,'fastly::geo::Geo']]],
-  ['as_5fcode_5',['as_code',['../classfastly_1_1http_1_1_status_code.html#a24ce3754eb4be91a3c8754872fb1cfef',1,'fastly::http::StatusCode']]],
-  ['as_5fname_6',['as_name',['../classfastly_1_1geo_1_1_geo.html#a04dfe39bd713010c037c76a7975342ee',1,'fastly::geo::Geo']]],
-  ['as_5fnumber_7',['as_number',['../classfastly_1_1geo_1_1_geo.html#a292cf302baf178b30999a5168805fe29',1,'fastly::geo::Geo']]]
+  ['book_5fget_0',['BOOK_GET',['../router_8cpp.html#a5e37c39c88529f981cd25ed3f532a89f',1,'router.cpp']]],
+  ['book_5flist_1',['BOOK_LIST',['../router_8cpp.html#a509d5b1567ba3d982019878136fd405a',1,'router.cpp']]]
 ];

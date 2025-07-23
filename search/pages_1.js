@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['backend_20requests_0',['Sending backend requests',['../classfastly_1_1_request.html#autotoc_md7',1,'']]],
-  ['builder_20style_20methods_1',['Builder style methods',['../classfastly_1_1_request.html#autotoc_md8',1,'Builder-style methods'],['../classfastly_1_1_response.html#autotoc_md27',1,'Builder-style methods']]]
+  ['fastly_20compute_20c_2b_2b_20sdk_0',['Fastly Compute C++ SDK',['../index.html',1,'']]]
 ];

@@ -24,12 +24,22 @@
 */
 var NAVTREE =
 [
-  [ "Fastly Compute C++ SDK", "index.html", ]
+  [ "Fastly Compute C++ SDK", "index.html", [
+    [ "Contributing to this project", "md_CONTRIBUTING.html", null ],
+    [ "Files", "files.html", [
+      [ "File List", "files.html", "files_dup" ],
+      [ "File Members", "globals.html", [
+        [ "All", "globals.html", null ],
+        [ "Functions", "globals_func.html", null ]
+      ] ]
+    ] ],
+    [ "Examples", "examples.html", "examples" ]
+  ] ]
 ];
 
 var NAVTREEINDEX =
 [
-"index.html"
+"async__reqs_8cpp.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
