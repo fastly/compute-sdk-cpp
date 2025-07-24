@@ -35,7 +35,8 @@ var NAVTREE =
         [ "Example(s)", "md_CONTRIBUTING.html#autotoc_md8", null ],
         [ "Building Static library", "md_CONTRIBUTING.html#autotoc_md9", [
           [ "Building in Debug mode", "md_CONTRIBUTING.html#autotoc_md10", null ],
-          [ "Building the docs", "md_CONTRIBUTING.html#autotoc_md11", null ]
+          [ "Using a different <tt>wasi-sdk</tt>", "md_CONTRIBUTING.html#autotoc_md11", null ],
+          [ "Building the docs", "md_CONTRIBUTING.html#autotoc_md12", null ]
         ] ]
       ] ]
     ] ],

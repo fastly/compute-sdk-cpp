@@ -175,7 +175,7 @@ Static Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <p >Return true if the <a class="el" href="namespacefastly_1_1config__store.html">config_store</a> contains an entry with the given key.</p>
-<h1><a class="anchor" id="autotoc_md14"></a>
+<h1><a class="anchor" id="autotoc_md15"></a>
 Examples</h1>
 <div class="fragment"><div class="line">auto store{fastly::ConfigStore::open(&quot;test config store&quot;)};</div>
 <div class="line">assert(store.contains(&quot;key&quot;).value());</div>
@@ -199,7 +199,7 @@ Examples</h1>
 </div><div class="memdoc">
 <p >Lookup a value in this config store.</p>
 <p >If successful, this function returns <code>std::optional&lt;std::string&gt;&gt;</code> if an entry was found, or <code>std::nullopt</code> if no entry with the given key was found.</p>
-<h1><a class="anchor" id="autotoc_md13"></a>
+<h1><a class="anchor" id="autotoc_md14"></a>
 Examples</h1>
 <div class="fragment"><div class="line">auto store{fastly::ConfigStore::open(&quot;test config store&quot;)};</div>
 <div class="line">assert(store.get(&quot;bread&quot;).value() ==</div>
@@ -239,7 +239,7 @@ Examples</h1>
 </table>
 </div><div class="memdoc">
 <p >Open a config store, given its name.</p>
-<h1><a class="anchor" id="autotoc_md12"></a>
+<h1><a class="anchor" id="autotoc_md13"></a>
 Examples</h1>
 <div class="fragment"><div class="line">auto merriam{fastly::ConfigStore::open(&quot;merriam webster&quot;)};</div>
 <div class="line">auto oed{fastly::ConfigStore::open(&quot;oxford english config store&quot;)};</div>

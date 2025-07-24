@@ -340,16 +340,16 @@ Static Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >An HTTP request, including body, headers, method, and URL.</p>
-<h1><a class="anchor" id="autotoc_md17"></a>
+<h1><a class="anchor" id="autotoc_md18"></a>
 Getting the client request</h1>
 <p >Call <code><a class="el" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">Request::from_client()</a></code> to get the client request being handled by this execution of the Compute program.</p>
-<h1><a class="anchor" id="autotoc_md18"></a>
+<h1><a class="anchor" id="autotoc_md19"></a>
 Creation and conversion</h1>
 <p >New requests can be created programmatically with the <code>Request()</code> constructor. In addition, there are convenience constructors like <code><a class="el" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get()</a></code> which automatically select the appropriate method.</p>
-<h1><a class="anchor" id="autotoc_md19"></a>
+<h1><a class="anchor" id="autotoc_md20"></a>
 Sending backend requests</h1>
 <p >Requests can be sent to a backend in blocking or asynchronous fashion using <code><a class="el" href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">Request::send()</a></code>, <code><a class="el" href="classfastly_1_1http_1_1Request.html#a538af8485d5e528dd6aab37f0f403b54">Request::send_async()</a></code>, or <code><a class="el" href="classfastly_1_1http_1_1Request.html#aced2600c8b42f779c323a60a38178a7f">Request::send_async_streaming()</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md20"></a>
+<h1><a class="anchor" id="autotoc_md21"></a>
 Builder-style methods</h1>
 <p ><code><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a></code> can be used as a builder allowing requests to be constructed and used through method chaining. Methods with the <code>with_</code> name prefix, such as <code><a class="el" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6" title="Builder-style equivalent of Request::append_header().">Request::with_header()</a></code>, return a moved <code><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a></code> to allow chaining. The builder style is typically most useful when constructing and using a request in a single expression.</p>
 <p >For example:</p>
@@ -359,7 +359,7 @@ Builder-style methods</h1>
 <div class="line">    .send(<span class="stringliteral">&quot;example_backend&quot;</span>);</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a237df390b687857c9a0384762716342f"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">fastly::http::Request::get</a></div><div class="ttdeci">static Request get(std::string_view url)</div></div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a75df25144332d5458b3243f3bccd9ab6"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">fastly::http::Request::with_header</a></div><div class="ttdeci">fastly::expected&lt; Request &gt; with_header(std::string_view name, std::string_view value)</div><div class="ttdoc">Builder-style equivalent of Request::append_header().</div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md21"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md22"></a>
 Setter methods</h1>
 <p >Setter methods, such as <code><a class="el" href="classfastly_1_1http_1_1Request.html#af85ecaa099a855e5cc704983a61cfa23">Request::set_header()</a></code>, are prefixed by <code>set_</code>, and can be used interchangeably with the builder-style methods, allowing you to mix and match styles based on what is most convenient for your program. Setter methods tend to work better than builder-style methods when constructing a request involves conditional branches or loops.</p>
 <p >For example:</p>
@@ -418,7 +418,7 @@ Setter methods</h1>
 <p >Append another [<code><a class="el" href="classfastly_1_1http_1_1Body.html">Body</a></code>] to the body of this request without reading or writing any body contents.</p>
 <p >If this request does not have a body, the appended body is set as the request's body.</p>
 <p >This method should be used when combining bodies that have not necessarily been read yet, such as the body of the client. To append contents that are already in memory as strings or bytes, you should instead use [<code>get_body_mut()</code>][<code>Self::get_body_mut()</code>] to write the contents to the end of the body.</p>
-<h1><a class="anchor" id="autotoc_md28"></a>
+<h1><a class="anchor" id="autotoc_md29"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#ad5724ea0cfd42bb3e188bf1e2a5a7d47">with_body</a>(<span class="stringliteral">&quot;hello! client</span></div>
 <div class="line"><span class="stringliteral">says: &quot;</span>)}; req.append_body(<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a4ff82cec2759ffdb1c8b28b4de7e3f95">into_body</a>());</div>
@@ -495,7 +495,7 @@ Examples</h1>
 </div><div class="memdoc">
 <p >Make a new request with the same method, url, headers, and version of this request, but no body.</p>
 <p >If you also need to clone the request body, use [<code><a class="el" href="classfastly_1_1http_1_1Request.html#a783a4924ec165ea57c9023e4d0871c02">clone_with_body()</a></code>][<code>Self::clone_with_body()</code>]</p>
-<h1><a class="anchor" id="autotoc_md24"></a>
+<h1><a class="anchor" id="autotoc_md25"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> original = <a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>)</div>
 <div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">with_header</a>(<span class="stringliteral">&quot;hello&quot;</span>, <span class="stringliteral">&quot;world!&quot;</span>)</div>
@@ -626,7 +626,7 @@ Examples</h1>
 </table>
 </div><div class="memdoc">
 <p >Get the client request being handled by this execution of the Compute program.</p>
-<h1><a class="anchor" id="autotoc_md23"></a>
+<h1><a class="anchor" id="autotoc_md24"></a>
 Panics</h1>
 <p >This method panics if the client request has already been retrieved by this method or by the low-level handle API. </p>
 <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="device_detection_8cpp-example.html#a1">device_detection.cpp</a>, <a class="el" href="echo_8cpp-example.html#a1">echo.cpp</a>, <a class="el" href="robots_8txt_8cpp-example.html#a1">robots.txt.cpp</a>, and <a class="el" href="router_8cpp-example.html#a4">router.cpp</a>.</dd>
@@ -809,7 +809,7 @@ Panics</h1>
       </table>
 </div><div class="memdoc">
 <p >Get the path component of the request URL.</p>
-<h1><a class="anchor" id="autotoc_md29"></a>
+<h1><a class="anchor" id="autotoc_md30"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com/hello#world&quot;</span>)};</div>
 <div class="line">assert(req.get_path() == <span class="stringliteral">&quot;/hello&quot;</span>);</div>
@@ -1194,7 +1194,7 @@ Examples</h1>
       </table>
 </div><div class="memdoc">
 <p >Retrieve a reponse for the request, either from cache or by sending it to the given backend server. Returns once the response headers have been received, or an error occurs.</p>
-<h1><a class="anchor" id="autotoc_md25"></a>
+<h1><a class="anchor" id="autotoc_md26"></a>
 Examples</h1>
 <p >Sending the client request to a backend without modification:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> backend_resp{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">send</a>(<span class="stringliteral">&quot;example_backend&quot;</span>)};</div>
@@ -1246,7 +1246,7 @@ Examples</h1>
 <p >This method returns as soon as the request begins sending to the backend, and transmission of the request body and headers will continue in the background.</p>
 <p >This method allows for sending more than one request at once and receiving their responses in arbitrary orders. See <code>PendingRequest</code> for more details on how to wait on, poll, or select between pending requests.</p>
 <p >This method is also useful for sending requests where the response is unimportant, but the request may take longer than the Compute program is able to run, as the request will continue sending even after the program that initiated it exits.</p>
-<h1><a class="anchor" id="autotoc_md26"></a>
+<h1><a class="anchor" id="autotoc_md27"></a>
 Examples</h1>
 <p >Sending a request to two backends and returning whichever response finishes first:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> backend_resp_1{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com/&quot;</span>)</div>
@@ -1302,7 +1302,7 @@ Examples</h1>
 <p >The backend connection is only closed once <code><a class="el" href="classfastly_1_1http_1_1StreamingBody.html#ac522f320335af6f28468ed0817588faa">StreamingBody::finish()</a></code> is called. The <code>PendingRequest</code> will not yield a <code><a class="el" href="classfastly_1_1http_1_1Response.html">Response</a></code> until the <code><a class="el" href="classfastly_1_1http_1_1StreamingBody.html">StreamingBody</a></code> is finished.</p>
 <p >This method is most useful for programs that do some sort of processing or inspection of a potentially-large client request body. Streaming allows the program to operate on small parts of the body rather than having to read it all into memory at once.</p>
 <p >This method returns as soon as the request begins sending to the backend, and transmission of the request body and headers will continue in the background.</p>
-<h1><a class="anchor" id="autotoc_md27"></a>
+<h1><a class="anchor" id="autotoc_md28"></a>
 Examples</h1>
 <p >Count the number of lines in a UTF-8 client request body while sending it to the backend:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">Request::from_client</a>()};</div>
@@ -1570,7 +1570,7 @@ Examples</h1>
 </div><div class="memdoc">
 <p >Set whether this request should be cached if sent to a backend.</p>
 <p >By default this is <code>false</code>, which means the backend will only be reached if a cached response is not available. Set this to <code>true</code> to send the request directly to the backend without caching.</p>
-<h1><a class="anchor" id="autotoc_md32"></a>
+<h1><a class="anchor" id="autotoc_md33"></a>
 Overrides</h1>
 <p >Setting this to <code>true</code> overrides any other custom caching behaviors for this request, such as <code><a class="el" href="classfastly_1_1http_1_1Request.html#af6e4e9a778f3d43c431a6d010bde30a0">Request::set_ttl()</a></code> or <code><a class="el" href="classfastly_1_1http_1_1Request.html#a73b2d6236e4f0281278eebba7b4ab197">Request::set_surrogate_key()</a></code>. </p>
 
@@ -1592,7 +1592,7 @@ Overrides</h1>
       </table>
 </div><div class="memdoc">
 <p >Set the path component of the request URL. </p>
-<h1><a class="anchor" id="autotoc_md30"></a>
+<h1><a class="anchor" id="autotoc_md31"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com/&quot;</span>)};</div>
 <div class="line">req.set_path(<span class="stringliteral">&quot;/hello&quot;</span>);</div>
@@ -1618,7 +1618,7 @@ Examples</h1>
 <p >Override the caching behavior of this request to enable or disable PCI/HIPAA-compliant non-volatile caching.</p>
 <p >By default, this is <code>false</code>, which means the request may not be PCI/HIPAA-compliant. Set it to <code>true</code> to enable compliant caching.</p>
 <p >See the <a href="https://docs.fastly.com/products/pci-compliant-caching-and-delivery">Fastly PCI-Compliant Caching and Delivery documentation</a> for details.</p>
-<h1><a class="anchor" id="autotoc_md35"></a>
+<h1><a class="anchor" id="autotoc_md36"></a>
 Overrides</h1>
 <p >This sets the <code><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">Request::set_pass()</a></code> behavior to <code>false</code>. </p>
 
@@ -1640,7 +1640,7 @@ Overrides</h1>
       </table>
 </div><div class="memdoc">
 <p >Set the query string of the request URL query component to the given string, performing percent-encoding if necessary.</p>
-<h1><a class="anchor" id="autotoc_md31"></a>
+<h1><a class="anchor" id="autotoc_md32"></a>
 Examples</h1>
 <div class="fragment"><div class="line">auto req{Request::get(&quot;https://example.com/foo&quot;)};</div>
 <div class="line">req.set_query_string(&quot;hello=🌐!&amp;bar=baz&quot;);</div>
@@ -1665,7 +1665,7 @@ Examples</h1>
       </table>
 </div><div class="memdoc">
 <p >Override the caching behavior of this request to use the given <code>stale-while-revalidate</code> time, in seconds.</p>
-<h1><a class="anchor" id="autotoc_md34"></a>
+<h1><a class="anchor" id="autotoc_md35"></a>
 Overrides</h1>
 <p >This overrides the behavior specified in the response headers, and sets the <code><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">Request::set_pass()</a></code> behavior to <code>false</code>. </p>
 
@@ -1690,7 +1690,7 @@ Overrides</h1>
 <p >The header value can contain more than one surrogate key, separated by spaces.</p>
 <p >Surrogate keys must contain only printable ASCII characters (those between <code>0x21</code> and <code>0x7E</code>, inclusive). Any invalid keys will be ignored.</p>
 <p >See the <a href="https://docs.fastly.com/en/guides/purging-api-cache-with-surrogate-keys">Fastly surrogate keys guide</a> for details.</p>
-<h1><a class="anchor" id="autotoc_md36"></a>
+<h1><a class="anchor" id="autotoc_md37"></a>
 Overrides</h1>
 <p >This sets the <code><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">Request::set_pass()</a></code> behavior to <code>false</code>, and extends (but does not replace) any <code>Surrogate-Key</code> response headers from the backend. </p>
 
@@ -1712,7 +1712,7 @@ Overrides</h1>
       </table>
 </div><div class="memdoc">
 <p >Override the caching behavior of this request to use the given Time to Live (TTL), in seconds.</p>
-<h1><a class="anchor" id="autotoc_md33"></a>
+<h1><a class="anchor" id="autotoc_md34"></a>
 Overrides</h1>
 <p >This overrides the behavior specified in the response headers, and sets the <code><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">Request::set_pass()</a></code> behavior to <code>false</code>. </p>
 

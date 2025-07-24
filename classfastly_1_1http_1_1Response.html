@@ -265,7 +265,7 @@ Friends</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p >An HTTP response, including body, headers, and status code.</p>
-<h1><a class="anchor" id="autotoc_md37"></a>
+<h1><a class="anchor" id="autotoc_md38"></a>
 Sending to the client</h1>
 <p >Each execution of a Compute program may send a single response back to the client:</p>
 <ul>
@@ -273,7 +273,7 @@ Sending to the client</h1>
 <li><code><a class="el" href="classfastly_1_1http_1_1Response.html#a1f76bc6ed588fb20239b5de0a8b8e589">Response::stream_to_client()</a></code></li>
 </ul>
 <p >If no response is explicitly sent by the program, a default <code>200 OK</code> response is sent.</p>
-<h1><a class="anchor" id="autotoc_md38"></a>
+<h1><a class="anchor" id="autotoc_md39"></a>
 Creation and conversion</h1>
 <p >Responses can be created programmatically:</p>
 <ul>
@@ -287,7 +287,7 @@ Creation and conversion</h1>
 <li><code><a class="el" href="classfastly_1_1http_1_1Request.html#a538af8485d5e528dd6aab37f0f403b54">Request::send_async()</a></code></li>
 <li><code><a class="el" href="classfastly_1_1http_1_1Request.html#aced2600c8b42f779c323a60a38178a7f">Request::send_async_streaming()</a></code></li>
 </ul>
-<h1><a class="anchor" id="autotoc_md39"></a>
+<h1><a class="anchor" id="autotoc_md40"></a>
 Builder-style methods</h1>
 <p ><code><a class="el" href="classfastly_1_1http_1_1Response.html">Response</a></code> can be used as a <a href="https://doc.rust-lang.org/1.0.0/style/ownership/builders.html">builder</a>, allowing responses to be constructed and used through method chaining. Methods with the <code>with_</code> name prefix, such as <code><a class="el" href="classfastly_1_1http_1_1Response.html#a001c3c6d2023cc9c4a424975ff5df88c" title="Builder-style equivalent of Response::append_header().">Response::with_header()</a></code>, return <code>std::move(*this)</code> to allow chaining. The builder style is typically most useful when constructing and using a response in a single expression. For example:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#af370bd919aa1688f585f3abd1f689ecc">Response</a>()</div>
@@ -295,7 +295,7 @@ Builder-style methods</h1>
 <div class="line">    .with_header(<span class="stringliteral">&quot;my-other-header&quot;</span>, <span class="stringliteral">&quot;Здравствуйте!&quot;</span>)</div>
 <div class="line">    .send_to_client();</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Response_html_af370bd919aa1688f585f3abd1f689ecc"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#af370bd919aa1688f585f3abd1f689ecc">fastly::http::Response::Response</a></div><div class="ttdeci">Response()</div></div>
-</div><!-- fragment --><h1><a class="anchor" id="autotoc_md40"></a>
+</div><!-- fragment --><h1><a class="anchor" id="autotoc_md41"></a>
 Setter methods</h1>
 <p >Setter methods, such as <code><a class="el" href="classfastly_1_1http_1_1Response.html#ad5c06c0e0414b2d757ea9beb86fc8d2b">Response::set_header()</a></code>, are prefixed by <code>set_</code>, and can be used interchangeably with the builder-style methods, allowing you to mix and match styles based on what is most convenient for your program. Setter methods tend to work better than builder-style methods when constructing a value involves conditional branches or loops. For example:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#af370bd919aa1688f585f3abd1f689ecc">Response</a>().with_header(<span class="stringliteral">&quot;my-header&quot;</span>, <span class="stringliteral">&quot;hello!&quot;</span>)};</div>
@@ -342,7 +342,7 @@ Setter methods</h1>
 <p >Append another <code><a class="el" href="classfastly_1_1http_1_1Body.html">Body</a></code> to the body of this response without reading or writing any body contents.</p>
 <p >If this response does not have a body, the appended body is set as the response's body.</p>
 <p >This method should be used when combining bodies that have not necessarily been read yet, such as a body returned from a backend response.</p>
-<h1><a class="anchor" id="autotoc_md44"></a>
+<h1><a class="anchor" id="autotoc_md45"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">Response::from_body</a>(<span class="stringliteral">&quot;hello! backend says: &quot;</span>)};</div>
 <div class="line"><span class="keyword">auto</span> backend_resp{</div>
@@ -538,7 +538,7 @@ Examples</h1>
       </table>
 </div><div class="memdoc">
 <p >Get the backend this response came from, or <code>std::nullopt</code> if the response is synthetic.</p>
-<h1><a class="anchor" id="autotoc_md47"></a>
+<h1><a class="anchor" id="autotoc_md48"></a>
 Examples</h1>
 <p >From a backend response:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> backend_resp{</div>
@@ -571,7 +571,7 @@ Examples</h1>
       </table>
 </div><div class="memdoc">
 <p >Get the address of the backend this response came from, or <code>std::nullopt</code> when the response is synthetic or cached.</p>
-<h1><a class="anchor" id="autotoc_md48"></a>
+<h1><a class="anchor" id="autotoc_md49"></a>
 Examples</h1>
 <p >From a backend response:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> backend_resp{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com/&quot;</span>)</div>
@@ -603,7 +603,7 @@ Examples</h1>
       </table>
 </div><div class="memdoc">
 <p >Get the name of the <code>Backend</code> this response came from, or <code>std::nullopt</code> if the response is synthetic.</p>
-<h1><a class="anchor" id="autotoc_md46"></a>
+<h1><a class="anchor" id="autotoc_md47"></a>
 Examples</h1>
 <p >From a backend response:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span></div>
@@ -851,7 +851,7 @@ Examples</h1>
 </table>
 </div><div class="memdoc">
 <p >Create a 308 Permanent Redirect response with the given value as the <code>Location</code> header.</p>
-<h1><a class="anchor" id="autotoc_md42"></a>
+<h1><a class="anchor" id="autotoc_md43"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a397f9cb67cbc7c83bf7ba8ba8adb7550">Response::redirect</a>(<span class="stringliteral">&quot;https://www.fastly.com&quot;</span>)};</div>
 <div class="line">assert(resp.get_status() == <a class="code hl_variable" href="classfastly_1_1http_1_1StatusCode.html#a69d58a7544bf2c028186d37df6a26db5">StatusCode::PERMANENT_REDIRECT</a>);</div>
@@ -904,7 +904,7 @@ Examples</h1>
 </table>
 </div><div class="memdoc">
 <p >Create a 303 See Other response with the given value as the <code>Location</code> header.</p>
-<h1><a class="anchor" id="autotoc_md41"></a>
+<h1><a class="anchor" id="autotoc_md42"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a5031078bd98ddcfc067c2999aa62d5aa">Response::see_other</a>(<span class="stringliteral">&quot;https://www.fastly.com&quot;</span>)};</div>
 <div class="line">assert(resp.get_status() == <a class="code hl_variable" href="classfastly_1_1http_1_1StatusCode.html#abc8859baec85539e5c4c95d826081ad1">StatusCode::SEE_OTHER</a>);</div>
@@ -931,10 +931,10 @@ Examples</h1>
 <p >Begin sending the response to the client.</p>
 <p >This method returns as soon as the response header begins sending to the client, and transmission of the response will continue in the background.</p>
 <p >Once this method is called, nothing else may be added to the response body. To stream additional data to a response body after it begins to send, use <code><a class="el" href="classfastly_1_1http_1_1Response.html#a1f76bc6ed588fb20239b5de0a8b8e589">Response::stream_to_client()</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md50"></a>
+<h1><a class="anchor" id="autotoc_md51"></a>
 Panics</h1>
 <p >This method panics if another response has already been sent to the client by this method, by <code><a class="el" href="classfastly_1_1http_1_1Response.html#a1f76bc6ed588fb20239b5de0a8b8e589">Response::stream_to_client()</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md51"></a>
+<h1><a class="anchor" id="autotoc_md52"></a>
 Examples</h1>
 <p >Sending a backend response without modification:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com/&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">send</a>(<span class="stringliteral">&quot;example_backend&quot;</span>).send_to_client();</div>
@@ -1115,10 +1115,10 @@ Examples</h1>
 <p >The client connection must be closed when finished writing the response by calling <code><a class="el" href="classfastly_1_1http_1_1StreamingBody.html#ac522f320335af6f28468ed0817588faa">StreamingBody::finish()</a></code>.</p>
 <p >This method is most useful for programs that do some sort of processing or inspection of a potentially-large backend response body. Streaming allows the program to operate on small parts of the body rather than having to read it all into memory at once.</p>
 <p >This method returns as soon as the response header begins sending to the client, and transmission of the response will continue in the background.</p>
-<h1><a class="anchor" id="autotoc_md52"></a>
+<h1><a class="anchor" id="autotoc_md53"></a>
 Panics</h1>
 <p >This method panics if another response has already been sent to the client by this method, by <code><a class="el" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">Response::send_to_client()</a></code>.</p>
-<h1><a class="anchor" id="autotoc_md53"></a>
+<h1><a class="anchor" id="autotoc_md54"></a>
 Examples</h1>
 <p >Count the number of lines in a UTF-8 backend response body while sending it to the client:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> backend_resp{</div>
@@ -1164,7 +1164,7 @@ Examples</h1>
 </div><div class="memdoc">
 <p >Take and return the request this response came from, or <code>std::nullopt</code> if the response is synthetic.</p>
 <p >Note that the returned request will only have the headers and metadata of the original request, as the body is consumed when sending the request.</p>
-<h1><a class="anchor" id="autotoc_md49"></a>
+<h1><a class="anchor" id="autotoc_md50"></a>
 Examples</h1>
 <p >From a backend response:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> backend_resp{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com/&quot;</span>)</div>
@@ -1264,7 +1264,7 @@ Examples</h1>
 </table>
 </div><div class="memdoc">
 <p >Create a 307 Temporary Redirect response with the given value as the <code>Location</code> header.</p>
-<h1><a class="anchor" id="autotoc_md43"></a>
+<h1><a class="anchor" id="autotoc_md44"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a1ae63a333b81ffe714d6111746ecd79e">Response::temporary_redirect</a>(<span class="stringliteral">&quot;https://www.fastly.com&quot;</span>)};</div>
 <div class="line">assert(resp.get_status() == <a class="code hl_variable" href="classfastly_1_1http_1_1StatusCode.html#adae478cb2dd8af7427ee68e1326f60d8">StatusCode::TEMPORARY_REDIRECT</a>);</div>
@@ -1448,7 +1448,7 @@ Examples</h1>
       </table>
 </div><div class="memdoc">
 <p >Set the HTTP status code of the response.</p>
-<h1><a class="anchor" id="autotoc_md45"></a>
+<h1><a class="anchor" id="autotoc_md46"></a>
 Examples</h1>
 <p >Using the constants from <code><a class="el" href="classfastly_1_1http_1_1StatusCode.html">StatusCode</a></code>:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> resp{<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(<span class="stringliteral">&quot;not found!&quot;</span>)};</div>

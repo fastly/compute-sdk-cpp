@@ -37,6 +37,7 @@ var NAVTREEINDEX3 =
 "md_CONTRIBUTING.html":[0],
 "md_CONTRIBUTING.html#autotoc_md10":[1,2,0],
 "md_CONTRIBUTING.html#autotoc_md11":[1,2,1],
+"md_CONTRIBUTING.html#autotoc_md12":[1,2,2],
 "md_CONTRIBUTING.html#autotoc_md7":[1,0],
 "md_CONTRIBUTING.html#autotoc_md8":[1,1],
 "md_CONTRIBUTING.html#autotoc_md9":[1,2],
