@@ -3,12 +3,16 @@
 #include "request.h"
 #include <iostream>
 
-using namespace std::string_literals;
+namespace log {
+using namespace fastly::log;
+}
 
 int main() {
   // We can't use a plain `select({req1, req2, ...})` because PendingRequests
   // are not copyable, so we have to push them when building up the
   // `std::vector`.
+  log::init_simple("logs");
+  log::info("Sending off two requests...");
   std::vector<fastly::http::request::PendingRequest> pending;
   pending.push_back(fastly::Request::get("https://www.fastly.com/")
                         .send_async("fastly")
@@ -16,6 +20,7 @@ int main() {
   pending.push_back(fastly::Request::get("https://en.wikipedia.org/wiki/Fastly")
                         .send_async("wikipedia")
                         .value());
+  log::info("using select() to race the two requests...");
   auto [resp, _other_pending] = fastly::http::request::select(pending);
   if (!resp) {
     std::cerr << resp.error().error_msg();
@@ -24,6 +29,8 @@ int main() {
         .send_to_client();
     return 1;
   }
+  log::info("Request from {} won. Printing it out.",
+            resp->get_backend_name().value());
   fastly::Body tail;
   tail << "\n\nThis was the request from " << resp->get_backend_name().value()
        << "\nLocation: " << resp->take_backend_request().value().get_url();

@@ -8,6 +8,7 @@ use geo::*;
 use http::{
     body::*, header::*, purge::*, request::request::*, request::*, response::*, status_code::*,
 };
+use log::*;
 use secret_store::*;
 
 mod backend;
@@ -16,6 +17,7 @@ mod device_detection;
 mod error;
 mod geo;
 mod http;
+mod log;
 mod secret_store;
 
 // Unfortunately, due to some limitations with cxx, the ENTIRE bridge basically
@@ -42,6 +44,7 @@ mod ffi {
         ConfigStoreLookupError,
         SecretStoreOpenError,
         SecretStoreLookupError,
+        LogError,
     }
 
     #[namespace = "fastly::sys::http"]
@@ -180,6 +183,27 @@ mod ffi {
         Transparent,
         Unknown,
         Other,
+    }
+
+    #[namespace = "fastly::sys::log"]
+    #[repr(usize)]
+    pub enum LogLevel {
+        Error = 1,
+        Warn = 2,
+        Info = 3,
+        Debug = 4,
+        Trace = 5,
+    }
+
+    #[namespace = "fastly::sys::log"]
+    #[repr(usize)]
+    pub enum LogLevelFilter {
+        Off = 0,
+        Error = 1,
+        Warn = 2,
+        Info = 3,
+        Debug = 4,
+        Trace = 5,
     }
 
     #[namespace = "fastly::sys::error"]
@@ -683,5 +707,34 @@ mod ffi {
         fn proxy_type(&self) -> ProxyType;
         fn region(&self, out: Pin<&mut CxxString>) -> bool;
         fn utc_offset(&self) -> *mut UtcOffset;
+    }
+
+    #[namespace = "fastly::sys::log"]
+    extern "Rust" {
+        type Endpoint;
+        fn name(&self, out: Pin<&mut CxxString>);
+        fn m_static_log_endpoint_try_from_name(
+            name: &CxxString,
+            out: Pin<&mut *mut Endpoint>,
+            err: Pin<&mut *mut FastlyError>,
+        );
+        fn f_log_log(level: LogLevel, msg: &CxxString);
+        fn f_log_log_to(target: &CxxString, level: LogLevel, msg: &CxxString);
+        fn f_log_max_level() -> LogLevelFilter;
+        fn f_log_set_max_level(level: LogLevelFilter);
+        fn f_log_init_simple(endpoint: Box<Endpoint>, level: LogLevelFilter);
+    }
+    #[namespace = "fastly::sys::log"]
+    extern "Rust" {
+        type LoggerBuilder;
+        fn m_static_log_logger_builder_new() -> Box<LoggerBuilder>;
+        fn endpoint(&mut self, endpoint: Box<Endpoint>);
+        fn endpoint_level(&mut self, endpoint: Box<Endpoint>, level: LogLevelFilter);
+        fn default_endpoint(&mut self, endpoint: Box<Endpoint>);
+        fn default_level_endpoint(&mut self, endpoint: Box<Endpoint>, level: LogLevel);
+        fn max_level(&mut self, level: LogLevelFilter);
+        fn echo_stdout(&mut self, enabled: bool);
+        fn echo_stderr(&mut self, enabled: bool);
+        fn init(&mut self);
     }
 }

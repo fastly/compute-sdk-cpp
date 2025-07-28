@@ -10,7 +10,7 @@ if(VERBOSE)
     set(VERBOSE_FLAG "--verbose")
 endif()
 
-set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD 20)
 
 set(TARGET_TRIPLE wasm32-wasip1)
 

@@ -51,7 +51,7 @@ endif ()
 
 project(quickstart)
 
-set (CMAKE_CXX_STANDARD 17)
+set (CMAKE_CXX_STANDARD 20)
 
 add_link_options(-L${WASI_SDK}/share/wasi-sysroot/lib/wasm32-wasi)
 
