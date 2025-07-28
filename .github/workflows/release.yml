@@ -48,7 +48,7 @@ jobs:
         run: tar rvf ${{ env.ARCHIVE_FILENAME_PREFIX }}-quickstart.tar docs LICENSE
 
       - name: Add quickstart files to quickstart dist
-        run: tar rvf ${{ env.ARCHIVE_FILENAME_PREFIX }}-quickstart.tar -C quickstart CMakeLists.txt fastly.toml main.cpp README.md
+        run: tar rvf ${{ env.ARCHIVE_FILENAME_PREFIX }}-quickstart.tar -C quickstart CMakeLists.txt fastly.toml main.cpp README.md .fastlyignore .gitignore
 
       - name: Copy quickstart dist tar to multiple platforms
         run: |
