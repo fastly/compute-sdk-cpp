@@ -14,4 +14,4 @@ backends.fastly.url = "https://www.fastly.com"
 backends.wikipedia.url = "https://en.wikipedia.org"
 
 [scripts]
-build = "cmake -S . -B build -DCMAKE_TOOLCHAIN_FILE=/opt/wasi-sdk/share/cmake/wasi-sdk-p1.cmake && cmake --build build && cp build/main.wasm bin/main.wasm"
+build = "cmake -S . -B build && cmake --build build && cp build/main.wasm bin/main.wasm"
