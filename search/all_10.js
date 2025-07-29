@@ -27,5 +27,6 @@ var searchData=
   ['tls_5fciphers_24',['tls_ciphers',['../classfastly_1_1backend_1_1BackendBuilder.html#a4ac0fd0be45e910898dc69e7921db651',1,'fastly::backend::BackendBuilder']]],
   ['too_5fearly_25',['TOO_EARLY',['../classfastly_1_1http_1_1StatusCode.html#ae1a0179e03e32464705388fc932ccaa9',1,'fastly::http::StatusCode']]],
   ['too_5fmany_5frequests_26',['TOO_MANY_REQUESTS',['../classfastly_1_1http_1_1StatusCode.html#acf885d2e6d1841b30ca2ad1fa07b3127',1,'fastly::http::StatusCode']]],
-  ['trace_27',['trace',['../classfastly_1_1http_1_1Request.html#a20f1d055eb7fd0cec3ba818bbd64ca79',1,'fastly::http::Request']]]
+  ['trace_27',['trace',['../classfastly_1_1http_1_1Request.html#a20f1d055eb7fd0cec3ba818bbd64ca79',1,'fastly::http::Request::trace()'],['../namespacefastly_1_1log.html#abcffeec38d2516e74e9f926b2a0d013e',1,'fastly::log::trace(std::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...args)']]],
+  ['trace_5fto_28',['trace_to',['../namespacefastly_1_1log.html#afc1bd051568f9bf52658df983794fff7',1,'fastly::log']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['geo_0',['Geo',['../classfastly_1_1geo_1_1Geo.html',1,'fastly::geo']]]
+  ['fastlyerror_0',['FastlyError',['../classfastly_1_1error_1_1FastlyError.html',1,'fastly::error']]]
 ];

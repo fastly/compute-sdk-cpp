@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['request_0',['Request',['../classfastly_1_1http_1_1Request.html',1,'fastly::http']]],
-  ['response_1',['Response',['../classfastly_1_1http_1_1Response.html',1,'fastly::http']]]
+  ['loggerbuilder_0',['LoggerBuilder',['../classfastly_1_1log_1_1LoggerBuilder.html',1,'fastly::log']]]
 ];

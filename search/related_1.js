@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lookup_0',['lookup',['../classfastly_1_1device__detection_1_1Device.html#a17882354a698c180ed8dc3e5917868cb',1,'fastly::device_detection::Device']]]
+  ['init_5fsimple_0',['init_simple',['../classfastly_1_1log_1_1Endpoint.html#a67e2b8b4ee100185181061cefc8c17c9',1,'fastly::log::Endpoint']]]
 ];

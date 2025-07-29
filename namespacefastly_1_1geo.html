@@ -169,7 +169,7 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 <p >Look up the geographic data associated with a particular IP address.</p>
 <p >Returns <code>std::nullopt</code> if no geographic data is available, such as when the IP address is reserved for private use.</p>
-<h1><a class="anchor" id="autotoc_md16"></a>
+<h1><a class="anchor" id="autotoc_md17"></a>
 Examples</h1>
 <p >To get geographic information for the downstream client:</p>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> client_ip{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#ac3f6d63177dca86b1cccf58bb662aa0d">get_client_ip_addr</a>().value()};</div>

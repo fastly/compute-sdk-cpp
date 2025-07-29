@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pendingrequest_0',['PendingRequest',['../classfastly_1_1http_1_1request_1_1PendingRequest.html',1,'fastly::http::request']]]
+  ['headervaluesiter_0',['HeaderValuesIter',['../classfastly_1_1http_1_1HeaderValuesIter.html',1,'fastly::http']]]
 ];

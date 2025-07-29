@@ -10,5 +10,6 @@ var searchData=
   ['tcp_5fkeepalive_5ftime_5fsecs_7',['tcp_keepalive_time_secs',['../classfastly_1_1backend_1_1BackendBuilder.html#a3d5059d641e9aaea89e6604c653db8b7',1,'fastly::backend::BackendBuilder']]],
   ['temporary_5fredirect_8',['temporary_redirect',['../classfastly_1_1http_1_1Response.html#a1ae63a333b81ffe714d6111746ecd79e',1,'fastly::http::Response']]],
   ['tls_5fciphers_9',['tls_ciphers',['../classfastly_1_1backend_1_1BackendBuilder.html#a4ac0fd0be45e910898dc69e7921db651',1,'fastly::backend::BackendBuilder']]],
-  ['trace_10',['trace',['../classfastly_1_1http_1_1Request.html#a20f1d055eb7fd0cec3ba818bbd64ca79',1,'fastly::http::Request']]]
+  ['trace_10',['trace',['../classfastly_1_1http_1_1Request.html#a20f1d055eb7fd0cec3ba818bbd64ca79',1,'fastly::http::Request::trace()'],['../namespacefastly_1_1log.html#abcffeec38d2516e74e9f926b2a0d013e',1,'fastly::log::trace(std::format_string&lt; Args... &gt; fmt, Args &amp;&amp;...args)']]],
+  ['trace_5fto_11',['trace_to',['../namespacefastly_1_1log.html#afc1bd051568f9bf52658df983794fff7',1,'fastly::log']]]
 ];

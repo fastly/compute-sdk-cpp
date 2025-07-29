@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['fastlyerror_0',['FastlyError',['../classfastly_1_1error_1_1FastlyError.html',1,'fastly::error']]]
+  ['endpoint_0',['Endpoint',['../classfastly_1_1log_1_1Endpoint.html',1,'fastly::log']]]
 ];

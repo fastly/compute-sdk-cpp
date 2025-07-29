@@ -29,6 +29,10 @@ var annotated_dup =
         [ "StatusCode", "classfastly_1_1http_1_1StatusCode.html", "classfastly_1_1http_1_1StatusCode" ],
         [ "StreamingBody", "classfastly_1_1http_1_1StreamingBody.html", "classfastly_1_1http_1_1StreamingBody" ]
       ] ],
+      [ "log", "namespacefastly_1_1log.html", [
+        [ "Endpoint", "classfastly_1_1log_1_1Endpoint.html", "classfastly_1_1log_1_1Endpoint" ],
+        [ "LoggerBuilder", "classfastly_1_1log_1_1LoggerBuilder.html", "classfastly_1_1log_1_1LoggerBuilder" ]
+      ] ],
       [ "secret_store", "namespacefastly_1_1secret__store.html", [
         [ "Secret", "classfastly_1_1secret__store_1_1Secret.html", "classfastly_1_1secret__store_1_1Secret" ],
         [ "SecretStore", "classfastly_1_1secret__store_1_1SecretStore.html", "classfastly_1_1secret__store_1_1SecretStore" ]

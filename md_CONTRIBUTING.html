@@ -138,16 +138,17 @@ $(document).ready(function(){initNavTree('md_CONTRIBUTING.html',''); initResizab
 <h2><a class="anchor" id="autotoc_md7"></a>
 Requirements</h2>
 <ul>
-<li><code>rustc</code> + <code>cargo</code> (use <a href="https://rustup.sh"><code>rustup</code></a> to install/manage) *</li>
-<li><a href="https://github.com/WebAssembly/wasi-sdk"><code>wasi-sdk</code></a>, version <code>25.0</code> ** ***</li>
+<li><code>rustc@1.86.0</code> + <code>cargo</code> (use <a href="https://rustup.sh"><code>rustup</code></a> to install/manage)</li>
+<li><a href="https://github.com/WebAssembly/wasi-sdk"><code>wasi-sdk</code></a>, version <code>25.0</code> \[note\]</li>
 <li><code>cmake</code> and <code>make</code> (likely installed through your package manager)</li>
 <li><code>doxygen</code> (optional. Only if you want to build documentation)</li>
 <li><code>just</code> (optional. See <code>justfile</code> for equivalent commands to the ones documented below.)</li>
-<li>Must be <code>1.86.0</code> or higher.</li>
 </ul>
-<p >** <code>wasi-sdk-25.0</code> is only compatible with <code>rustc</code> versions up to <code>1.86.0</code>. If you use <code>1.87.0</code> or later, you'll need to use a higher <code>wasi-sdk</code> version. If building this project manually, you must make sure that the version of <code>wasi-sdk</code> version you're using has an equal or greater LLVM version than the one used by your <code>rustc</code>.</p>
-<p >*** The build script assumes you're installing <code>wasi-sdk</code> to <code>/opt/wasi-sdk</code>. You can specify a custom path using <code>--set wasi-sdk /path/to/wasi-sdk-dist</code> in <code>just</code>, or <code>-DWASI_SDK=/path/to/wasi-sdk-dist</code> if using <code>cmake</code> along.</p>
-<h2><a class="anchor" id="autotoc_md8"></a>
+<h3><a class="anchor" id="autotoc_md8"></a>
+Notes on &lt;tt&gt;wasi-sdk&lt;/tt&gt;</h3>
+<p ><code>wasi-sdk-25.0</code> is only compatible with <code>rustc</code> versions up to <code>1.86.0</code>. If you use <code>1.87.0</code> or later, you'll need to use a higher <code>wasi-sdk</code> version. If building this project manually, you must make sure that the version of <code>wasi-sdk</code> version you're using has an equal or greater LLVM version than the one used by your <code>rustc</code>.</p>
+<p >The build script assumes you're installing <code>wasi-sdk</code> to <code>/opt/wasi-sdk</code>. You can specify a custom path using <code>--set wasi-sdk /path/to/wasi-sdk-dist</code> in <code>just</code>, or <code>-DWASI_SDK=/path/to/wasi-sdk-dist</code> if using <code>cmake</code> along.</p>
+<h2><a class="anchor" id="autotoc_md9"></a>
 Example(s)</h2>
 <p >You can run the examples directly using <code>just</code>, if you have all the above set up.</p>
 <p >To run the "hello world" example (see <code>./examples/echo.cpp</code>), you can use:</p>
@@ -155,16 +156,16 @@ Example(s)</h2>
 </div><!-- fragment --><p >To run any other examples, you can use:</p>
 <div class="fragment"><div class="line">just example example-name</div>
 </div><!-- fragment --><p >Where <code>example-name</code> will refer to a corresponding <code>example-name.cpp</code> in the <code>examples/</code> directory. Every example will have appropriate links and explanations to what it's doing.</p>
-<h2><a class="anchor" id="autotoc_md9"></a>
+<h2><a class="anchor" id="autotoc_md10"></a>
 Building Static library</h2>
 <div class="fragment"><div class="line">just</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md10"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md11"></a>
 Building in Debug mode</h3>
 <div class="fragment"><div class="line">just --set type Debug</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md11"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md12"></a>
 Using a different &lt;tt&gt;wasi-sdk&lt;/tt&gt;</h3>
 <div class="fragment"><div class="line">just --set wasi-sdk /path/to/your/wasi-sdk-XX.Y</div>
-</div><!-- fragment --><h3><a class="anchor" id="autotoc_md12"></a>
+</div><!-- fragment --><h3><a class="anchor" id="autotoc_md13"></a>
 Building the docs</h3>
 <div class="fragment"><div class="line">just docs</div>
 </div><!-- fragment --> </div></div><!-- contents -->

@@ -8,6 +8,6 @@ var searchData=
   ['from_5fbytes_5',['from_bytes',['../classfastly_1_1secret__store_1_1Secret.html#a57b049cf98a44eee5701b6f4a72e0833',1,'fastly::secret_store::Secret']]],
   ['from_5fclient_6',['from_client',['../classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88',1,'fastly::http::Request']]],
   ['from_5fcode_7',['from_code',['../classfastly_1_1http_1_1StatusCode.html#a180d88c56bfb1e9b6c932c4dfe4313ee',1,'fastly::http::StatusCode']]],
-  ['from_5fname_8',['from_name',['../classfastly_1_1backend_1_1Backend.html#aef26136a63a51ee9be04a7d52114f7f4',1,'fastly::backend::Backend']]],
+  ['from_5fname_8',['from_name',['../classfastly_1_1backend_1_1Backend.html#aef26136a63a51ee9be04a7d52114f7f4',1,'fastly::backend::Backend::from_name()'],['../classfastly_1_1log_1_1Endpoint.html#aece4c4a1eef8347ea262c2a762ec371a',1,'fastly::log::Endpoint::from_name()']]],
   ['from_5fstatus_9',['from_status',['../classfastly_1_1http_1_1Response.html#a3714a7cae78c624173a070ae8dca2bbd',1,'fastly::http::Response']]]
 ];

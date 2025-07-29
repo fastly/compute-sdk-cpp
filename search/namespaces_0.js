@@ -7,7 +7,8 @@ var searchData=
   ['fastly_4',['fastly',['../namespacefastly.html',1,'']]],
   ['geo_5',['geo',['../namespacefastly_1_1geo.html',1,'fastly']]],
   ['http_6',['http',['../namespacefastly_1_1http.html',1,'fastly']]],
-  ['purge_7',['purge',['../namespacefastly_1_1http_1_1purge.html',1,'fastly::http']]],
-  ['request_8',['request',['../namespacefastly_1_1http_1_1request.html',1,'fastly::http']]],
-  ['secret_5fstore_9',['secret_store',['../namespacefastly_1_1secret__store.html',1,'fastly']]]
+  ['log_7',['log',['../namespacefastly_1_1log.html',1,'fastly']]],
+  ['purge_8',['purge',['../namespacefastly_1_1http_1_1purge.html',1,'fastly::http']]],
+  ['request_9',['request',['../namespacefastly_1_1http_1_1request.html',1,'fastly::http']]],
+  ['secret_5fstore_10',['secret_store',['../namespacefastly_1_1secret__store.html',1,'fastly']]]
 ];

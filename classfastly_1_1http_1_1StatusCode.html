@@ -394,7 +394,7 @@ Static Public Attributes</h2></td></tr>
 <p >This is mostly here for servers writing responses, but could potentially have application at other times.</p>
 <p >The reason phrase is defined as being exclusively for human readers. You should avoid deriving any meaning from it at all costs.</p>
 <p >Bear in mind also that in HTTP/2.0 and HTTP/3.0 the reason phrase is abolished from transmission, and so this canonical reason phrase really is the only reason phrase you’ll find.</p>
-<h1><a class="anchor" id="autotoc_md55"></a>
+<h1><a class="anchor" id="autotoc_md56"></a>
 Example</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> status{<a class="code hl_variable" href="classfastly_1_1http_1_1StatusCode.html#a43639d24869da04cf8436b692baaecf7">fastly::http::StatusCode::OK</a>};</div>
 <div class="line">assert(status.canonical_reason() == std::optional(<span class="stringliteral">&quot;OK&quot;</span>s)));</div>
@@ -1006,7 +1006,7 @@ Example</h1>
 </table>
 </div><div class="memdoc">
 <p >500 Internal Server Error [<a href="https://datatracker.ietf.org/doc/html/rfc9110#section-15.6.1">RFC9110, Section 15.6.1</a>] </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="async_reqs_8cpp-example.html#a4">async_reqs.cpp</a>, and <a class="el" href="streaming_response_8cpp-example.html#a4">streaming_response.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="async_reqs_8cpp-example.html#a6">async_reqs.cpp</a>, and <a class="el" href="streaming_response_8cpp-example.html#a4">streaming_response.cpp</a>.</dd>
 </dl>
 
 </div>

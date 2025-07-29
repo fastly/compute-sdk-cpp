@@ -31,12 +31,14 @@ var NAVTREE =
         [ "Quickstart", "index.html#autotoc_md3", null ],
         [ "Just the SDK", "index.html#autotoc_md4", null ],
         [ "Building from source", "index.html#autotoc_md5", null ],
-        [ "Requirements", "md_CONTRIBUTING.html#autotoc_md7", null ],
-        [ "Example(s)", "md_CONTRIBUTING.html#autotoc_md8", null ],
-        [ "Building Static library", "md_CONTRIBUTING.html#autotoc_md9", [
-          [ "Building in Debug mode", "md_CONTRIBUTING.html#autotoc_md10", null ],
-          [ "Using a different <tt>wasi-sdk</tt>", "md_CONTRIBUTING.html#autotoc_md11", null ],
-          [ "Building the docs", "md_CONTRIBUTING.html#autotoc_md12", null ]
+        [ "Requirements", "md_CONTRIBUTING.html#autotoc_md7", [
+          [ "Notes on <tt>wasi-sdk</tt>", "md_CONTRIBUTING.html#autotoc_md8", null ]
+        ] ],
+        [ "Example(s)", "md_CONTRIBUTING.html#autotoc_md9", null ],
+        [ "Building Static library", "md_CONTRIBUTING.html#autotoc_md10", [
+          [ "Building in Debug mode", "md_CONTRIBUTING.html#autotoc_md11", null ],
+          [ "Using a different <tt>wasi-sdk</tt>", "md_CONTRIBUTING.html#autotoc_md12", null ],
+          [ "Building the docs", "md_CONTRIBUTING.html#autotoc_md13", null ]
         ] ]
       ] ]
     ] ],
@@ -76,7 +78,7 @@ var NAVTREEINDEX =
 "annotated.html",
 "classfastly_1_1http_1_1Request.html#a14c6e09cc0d55fe7d5dbcf7996edc5c6",
 "classfastly_1_1http_1_1StatusCode.html#a048d061c9bb56c7538227b5b17ba8385",
-"functions_func_t.html"
+"expected_8h.html#a4511187db10e0faafed6f63a216e01f8"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
