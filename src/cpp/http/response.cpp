@@ -30,7 +30,7 @@ Response Response::from_status(StatusCode status) {
   return res;
 }
 
-Response Response::with_body(Body body) {
+Response Response::with_body(Body body) && {
   this->set_body(std::move(body));
   return std::move(*this);
 }
@@ -79,7 +79,7 @@ fastly::expected<void> Response::set_body_text_plain(std::string_view body) {
 }
 
 fastly::expected<Response>
-Response::with_body_text_html(std::string_view body) {
+Response::with_body_text_html(std::string_view body) && {
   return this->set_body_text_html(body).map(
       [this]() { return std::move(*this); });
 }
@@ -95,7 +95,7 @@ fastly::expected<void> Response::set_body_text_html(std::string_view body) {
 }
 
 fastly::expected<Response>
-Response::with_body_text_plain(std::string_view body) {
+Response::with_body_text_plain(std::string_view body) && {
   return this->set_body_text_plain(body).map(
       [this]() { return std::move(*this); });
 }
@@ -106,7 +106,7 @@ std::string Response::take_body_string() {
                      std::istreambuf_iterator<char>());
 }
 
-Response Response::with_body_octet_stream(std::vector<uint8_t> body) {
+Response Response::with_body_octet_stream(std::vector<uint8_t> body) && {
   this->set_body_octet_stream(body);
   return std::move(*this);
 }
@@ -131,7 +131,7 @@ std::optional<std::string> Response::get_content_type() {
   }
 }
 
-Response Response::with_content_type(std::string_view mime) {
+Response Response::with_content_type(std::string_view mime) && {
   this->set_content_type(mime);
   return std::move(*this);
 }
@@ -161,14 +161,14 @@ fastly::expected<bool> Response::contains_header(std::string_view name) {
 }
 
 fastly::expected<Response> Response::with_header(std::string_view name,
-                                                 std::string_view value) {
+                                                 std::string_view value) && {
   return this->append_header(name, value).map([this]() {
     return std::move(*this);
   });
 }
 
 fastly::expected<Response> Response::with_set_header(std::string_view name,
-                                                     std::string_view value) {
+                                                     std::string_view value) && {
   return this->set_header(name, value).map([this]() {
     return std::move(*this);
   });
@@ -249,7 +249,7 @@ void Response::set_status(StatusCode status) {
   this->res->set_status(status.as_code());
 }
 
-Response Response::with_status(StatusCode status) {
+Response Response::with_status(StatusCode status) && {
   this->set_status(status);
   return std::move(*this);
 }

@@ -86,118 +86,114 @@ bool Backend::is_ssl() { return this->backend->is_ssl(); }
 // SslVersion get_ssl_min_version();
 // SslVersion get_ssl_max_version();
 
-BackendBuilder BackendBuilder::override_host(std::string_view name) {
+BackendBuilder BackendBuilder::override_host(std::string_view name) && {
   this->builder = fastly::sys::backend::m_backend_backend_builder_override_host(
       std::move(this->builder), static_cast<std::string>(name));
   return std::move(*this);
 }
 
-BackendBuilder
-BackendBuilder::connect_timeout(std::chrono::milliseconds timeout) {
+BackendBuilder BackendBuilder::connect_timeout(std::chrono::milliseconds timeout) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_connect_timeout(
           std::move(this->builder), timeout.count());
   return std::move(*this);
 }
 
-BackendBuilder
-BackendBuilder::first_byte_timeout(std::chrono::milliseconds timeout) {
+BackendBuilder BackendBuilder::first_byte_timeout(std::chrono::milliseconds timeout) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_first_byte_timeout(
           std::move(this->builder), timeout.count());
   return std::move(*this);
 }
 
-BackendBuilder
-BackendBuilder::between_bytes_timeout(std::chrono::milliseconds timeout) {
+BackendBuilder BackendBuilder::between_bytes_timeout(std::chrono::milliseconds timeout) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_between_bytes_timeout(
           std::move(this->builder), timeout.count());
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::enable_ssl() {
+BackendBuilder BackendBuilder::enable_ssl() && {
   this->builder = fastly::sys::backend::m_backend_backend_builder_enable_ssl(
       std::move(this->builder));
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::disable_ssl() {
+BackendBuilder BackendBuilder::disable_ssl() && {
   this->builder = fastly::sys::backend::m_backend_backend_builder_disable_ssl(
       std::move(this->builder));
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::check_certificate(std::string_view cert) {
+BackendBuilder BackendBuilder::check_certificate(std::string_view cert) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_check_certificate(
           std::move(this->builder), static_cast<std::string>(cert));
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::ca_certificate(std::string_view cert) {
+BackendBuilder BackendBuilder::ca_certificate(std::string_view cert) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_ca_certificate(
           std::move(this->builder), static_cast<std::string>(cert));
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::tls_ciphers(std::string_view ciphers) {
+BackendBuilder BackendBuilder::tls_ciphers(std::string_view ciphers) && {
   this->builder = fastly::sys::backend::m_backend_backend_builder_tls_ciphers(
       std::move(this->builder), static_cast<std::string>(ciphers));
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::sni_hostname(std::string_view host) {
+BackendBuilder BackendBuilder::sni_hostname(std::string_view host) && {
   this->builder = fastly::sys::backend::m_backend_backend_builder_sni_hostname(
       std::move(this->builder), static_cast<std::string>(host));
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::enable_pooling(bool enable) {
+BackendBuilder BackendBuilder::enable_pooling(bool enable) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_enable_pooling(
           std::move(this->builder), enable);
   return std::move(*this);
 }
 
-BackendBuilder
-BackendBuilder::http_keepalive_time(std::chrono::milliseconds time) {
+BackendBuilder BackendBuilder::http_keepalive_time(std::chrono::milliseconds time) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_http_keepalive_time(
           std::move(this->builder), time.count());
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::tcp_keepalive_enable(bool enable) {
+BackendBuilder BackendBuilder::tcp_keepalive_enable(bool enable) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_tcp_keepalive_enable(
           std::move(this->builder), enable);
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::tcp_keepalive_interval_secs(uint32_t secs) {
+BackendBuilder BackendBuilder::tcp_keepalive_interval_secs(uint32_t secs) && {
   this->builder = fastly::sys::backend::
       m_backend_backend_builder_tcp_keepalive_interval_secs(
           std::move(this->builder), secs);
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::tcp_keepalive_probes(uint32_t probes) {
+BackendBuilder BackendBuilder::tcp_keepalive_probes(uint32_t probes) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_tcp_keepalive_probes(
           std::move(this->builder), probes);
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::tcp_keepalive_time_secs(uint32_t secs) {
+BackendBuilder BackendBuilder::tcp_keepalive_time_secs(uint32_t secs) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_tcp_keepalive_time_secs(
           std::move(this->builder), secs);
   return std::move(*this);
 }
 
-fastly::expected<Backend> BackendBuilder::finish() {
+fastly::expected<Backend> BackendBuilder::finish() && {
   fastly::sys::backend::Backend *out;
   fastly::sys::error::FastlyError *err;
   fastly::sys::backend::m_backend_backend_builder_finish(

@@ -211,7 +211,7 @@ void Request::set_body(Body body) {
   this->req->set_body(std::move(body.bod));
 }
 
-Request Request::with_body(Body body) {
+Request Request::with_body(Body body) && {
   this->set_body(std::move(body));
   return std::move(*this);
 }
@@ -249,7 +249,7 @@ fastly::expected<void> Request::set_body_text_plain(std::string_view body) {
   }
 }
 
-fastly::expected<Request> Request::with_body_text_html(std::string_view body) {
+fastly::expected<Request> Request::with_body_text_html(std::string_view body) && {
   return this->set_body_text_html(body).map(
       [this]() { return std::move(*this); });
 }
@@ -264,7 +264,7 @@ fastly::expected<void> Request::set_body_text_html(std::string_view body) {
   }
 }
 
-fastly::expected<Request> Request::with_body_text_plain(std::string_view body) {
+fastly::expected<Request> Request::with_body_text_plain(std::string_view body) && {
   return this->set_body_text_plain(body).map(
       [this]() { return std::move(*this); });
 }
@@ -275,7 +275,7 @@ std::string Request::take_body_string() {
                      std::istreambuf_iterator<char>());
 }
 
-Request Request::with_body_octet_stream(std::vector<uint8_t> body) {
+Request Request::with_body_octet_stream(std::vector<uint8_t> body) && {
   this->set_body_octet_stream(body);
   return std::move(*this);
 }
@@ -300,7 +300,7 @@ std::optional<std::string> Request::get_content_type() {
   }
 }
 
-Request Request::with_content_type(std::string_view mime) {
+Request Request::with_content_type(std::string_view mime) && {
   this->set_content_type(mime);
   return std::move(*this);
 }
@@ -330,14 +330,14 @@ fastly::expected<bool> Request::contains_header(std::string_view name) {
 }
 
 fastly::expected<Request> Request::with_header(std::string_view name,
-                                               std::string_view value) {
+                                               std::string_view value) && {
   return this->append_header(name, value).map([this]() {
     return std::move(*this);
   });
 }
 
 fastly::expected<Request> Request::with_set_header(std::string_view name,
-                                                   std::string_view value) {
+                                                   std::string_view value) && {
   return this->set_header(name, value).map([this]() {
     return std::move(*this);
   });
@@ -414,7 +414,7 @@ Request::remove_header(std::string_view name) {
   }
 }
 
-Request Request::with_method(Method method) {
+Request Request::with_method(Method method) && {
   this->set_method(method);
   return std::move(*this);
 }
@@ -423,7 +423,7 @@ Method Request::get_method() { return this->req->get_method(); }
 
 void Request::set_method(Method method) { this->req->set_method(method); }
 
-fastly::expected<Request> Request::with_url(std::string_view url) {
+fastly::expected<Request> Request::with_url(std::string_view url) && {
   return this->set_url(url).map([this]() { return std::move(*this); });
 }
 
@@ -449,7 +449,7 @@ std::string Request::get_path() {
   return out;
 }
 
-fastly::expected<Request> Request::with_path(std::string_view path) {
+fastly::expected<Request> Request::with_path(std::string_view path) && {
   return this->set_path(path).map([this]() { return std::move(*this); });
 }
 
@@ -482,7 +482,7 @@ Request::get_query_parameter(std::string_view param) {
   }
 }
 
-fastly::expected<Request> Request::with_query_string(std::string_view query) {
+fastly::expected<Request> Request::with_query_string(std::string_view query) && {
   return this->set_query_string(query).map(
       [this]() { return std::move(*this); });
 }
@@ -514,21 +514,21 @@ std::optional<bool> Request::get_client_ddos_detected() {
 // // Version get_version();
 // // void set_version(Version version);
 
-Request Request::with_pass(bool pass) {
+Request Request::with_pass(bool pass) && {
   this->set_pass(pass);
   return std::move(*this);
 }
 
 void Request::set_pass(bool pass) { this->req->set_pass(pass); }
 
-Request Request::with_ttl(uint32_t ttl) {
+Request Request::with_ttl(uint32_t ttl) && {
   this->set_pass(ttl);
   return std::move(*this);
 }
 
 void Request::set_ttl(uint32_t ttl) { this->req->set_ttl(ttl); }
 
-Request Request::with_stale_while_revalidate(uint32_t swr) {
+Request Request::with_stale_while_revalidate(uint32_t swr) && {
   this->set_stale_while_revalidate(swr);
   return std::move(*this);
 }
@@ -537,14 +537,14 @@ void Request::set_stale_while_revalidate(uint32_t swr) {
   this->req->set_stale_while_revalidate(swr);
 }
 
-Request Request::with_pci(bool pci) {
+Request Request::with_pci(bool pci) && {
   this->set_pci(pci);
   return std::move(*this);
 }
 
 void Request::set_pci(bool pci) { this->req->set_pci(pci); }
 
-fastly::expected<Request> Request::with_surrogate_key(std::string_view sk) {
+fastly::expected<Request> Request::with_surrogate_key(std::string_view sk) && {
   return this->set_surrogate_key(sk).map([this]() { return std::move(*this); });
 }
 
@@ -594,7 +594,7 @@ void Request::set_auto_decompress_gzip(bool gzip) {
   this->req->set_auto_decompress_gzip(gzip);
 }
 
-Request Request::with_auto_decompress_gzip(bool gzip) {
+Request Request::with_auto_decompress_gzip(bool gzip) && {
   this->set_auto_decompress_gzip(gzip);
   return std::move(*this);
 }
@@ -617,12 +617,12 @@ void Request::set_cache_key(std::vector<uint8_t> key) {
   this->req->set_cache_key(key);
 }
 
-Request Request::with_cache_key(std::string_view key) {
+Request Request::with_cache_key(std::string_view key) && {
   this->set_cache_key(key);
   return std::move(*this);
 }
 
-Request Request::with_cache_key(std::vector<uint8_t> key) {
+Request Request::with_cache_key(std::vector<uint8_t> key) && {
   this->set_cache_key(key);
   return std::move(*this);
 }

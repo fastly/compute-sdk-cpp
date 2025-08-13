@@ -64,23 +64,23 @@ public:
       : builder(fastly::sys::backend::m_static_backend_backend_builder_new(
             static_cast<std::string>(name), static_cast<std::string>(target))) {
         };
-  BackendBuilder override_host(std::string_view name);
-  BackendBuilder connect_timeout(std::chrono::milliseconds timeout);
-  BackendBuilder first_byte_timeout(std::chrono::milliseconds timeout);
-  BackendBuilder between_bytes_timeout(std::chrono::milliseconds timeout);
-  BackendBuilder enable_ssl();
-  BackendBuilder disable_ssl();
-  BackendBuilder check_certificate(std::string_view cert);
-  BackendBuilder ca_certificate(std::string_view cert);
-  BackendBuilder tls_ciphers(std::string_view ciphers);
-  BackendBuilder sni_hostname(std::string_view host);
-  BackendBuilder enable_pooling(bool enable);
-  BackendBuilder http_keepalive_time(std::chrono::milliseconds timeout);
-  BackendBuilder tcp_keepalive_enable(bool enable);
-  BackendBuilder tcp_keepalive_interval_secs(uint32_t secs);
-  BackendBuilder tcp_keepalive_probes(uint32_t probes);
-  BackendBuilder tcp_keepalive_time_secs(uint32_t secs);
-  fastly::expected<Backend> finish();
+  BackendBuilder override_host(std::string_view name) &&;
+  BackendBuilder connect_timeout(std::chrono::milliseconds timeout) &&;
+  BackendBuilder first_byte_timeout(std::chrono::milliseconds timeout) &&;
+  BackendBuilder between_bytes_timeout(std::chrono::milliseconds timeout) &&;
+  BackendBuilder enable_ssl() &&;
+  BackendBuilder disable_ssl() &&;
+  BackendBuilder check_certificate(std::string_view cert) &&;
+  BackendBuilder ca_certificate(std::string_view cert) &&;
+  BackendBuilder tls_ciphers(std::string_view ciphers) &&;
+  BackendBuilder sni_hostname(std::string_view host) &&;
+  BackendBuilder enable_pooling(bool enable) &&;
+  BackendBuilder http_keepalive_time(std::chrono::milliseconds timeout) &&;
+  BackendBuilder tcp_keepalive_enable(bool enable) &&;
+  BackendBuilder tcp_keepalive_interval_secs(uint32_t secs) &&;
+  BackendBuilder tcp_keepalive_probes(uint32_t probes) &&;
+  BackendBuilder tcp_keepalive_time_secs(uint32_t secs) &&;
+  fastly::expected<Backend> finish() &&;
 
 private:
   BackendBuilder(rust::Box<fastly::sys::backend::BackendBuilder> b)
