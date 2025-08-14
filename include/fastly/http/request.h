@@ -1,14 +1,13 @@
 #ifndef FASTLY_HTTP_REQUEST_H
 #define FASTLY_HTTP_REQUEST_H
 
-#include "../backend.h"
-#include "../error.h"
-#include "../sdk-sys.h"
-#include "../util.h"
-#include "body.h"
-#include "header.h"
-#include "method.h"
-#include "response.h"
+#include <fastly/backend.h>
+#include <fastly/error.h>
+#include <fastly/sdk-sys.h>
+#include <fastly/http/body.h>
+#include <fastly/http/header.h>
+#include <fastly/http/method.h>
+#include <fastly/http/response.h>
 #include <algorithm>
 #include <iostream>
 #include <iterator>

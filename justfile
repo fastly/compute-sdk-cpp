@@ -22,7 +22,7 @@ build-example name=default-example: (cmake-example name)
     cmake --build {{ build-dir }}/examples
 
 cmake-example name=default-example:
-    cmake -S ./examples -B {{ build-dir }}/examples -DWASI_SDK={{ wasi-sdk }} -DEXAMPLE_NAME={{ name }} -DENABLE_LTO={{ lto }} -DCMAKE_BUILD_TYPE={{ type }} -DCMAKE_TOOLCHAIN_FILE={{ wasi-sdk }}/share/cmake/wasi-sdk-p1.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    cmake -S ./examples -B {{ build-dir }}/examples -DEXAMPLE_NAME={{ name }} -DENABLE_LTO={{ lto }} -DCMAKE_BUILD_TYPE={{ type }} -DCMAKE_TOOLCHAIN_FILE={{ wasi-sdk }}/share/cmake/wasi-sdk-p1.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
 
 docs: build
     doxygen
@@ -31,4 +31,4 @@ build: cmake
     cmake --build {{ build-dir }}
 
 cmake:
-    cmake -S . -B {{ build-dir }} -DWASI_SDK={{ wasi-sdk }} -DENABLE_LTO={{ lto }} -DCMAKE_BUILD_TYPE={{ type }} -DCMAKE_TOOLCHAIN_FILE={{ wasi-sdk }}/share/cmake/wasi-sdk-p1.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+    cmake -S . -B {{ build-dir }} -DENABLE_LTO={{ lto }} -DCMAKE_BUILD_TYPE={{ type }} -DCMAKE_TOOLCHAIN_FILE={{ wasi-sdk }}/share/cmake/wasi-sdk-p1.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1

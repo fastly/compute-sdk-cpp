@@ -23,7 +23,7 @@ one used by your `rustc`.
 
 The build script assumes you're installing `wasi-sdk` to `/opt/wasi-sdk`. You
 can specify a custom path using `--set wasi-sdk /path/to/wasi-sdk-dist` in
-`just`, or `-DWASI_SDK=/path/to/wasi-sdk-dist` if using `cmake` along.
+`just`, or by supplying the relevant `wasi-sdk-p1.cmake` file with `-DCMAKE_TOOLCHAIN_FILE` if using CMake directly.
 
 ### Example(s)
 

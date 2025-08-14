@@ -56,7 +56,7 @@ simply reference the `quickstart` project for a working example configuration.
 
 All header files are included in the `fastly/` folder. You can choose to import
 individual headers only for the things you need, or to import the entire Fastly
-SDK using `#include "fastly/sdk.h"`.
+SDK using `#include <fastly/sdk.h>`.
 
 #### Building from source
 

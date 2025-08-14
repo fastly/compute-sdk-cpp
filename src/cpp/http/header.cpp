@@ -1,7 +1,7 @@
 #include <memory>
 #include <vector>
 
-#include "header.h"
+#include <fastly/http/header.h>
 
 namespace fastly::http {
 

@@ -1,5 +1,6 @@
-#include "device_detection.h"
-#include "sdk-sys.h"
+#include <fastly/device_detection.h>
+#include <fastly/sdk-sys.h>
+#include "util.h"
 
 namespace fastly::device_detection {
 

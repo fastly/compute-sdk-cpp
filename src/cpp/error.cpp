@@ -1,4 +1,4 @@
-#include "error.h"
+#include <fastly/error.h>
 
 namespace fastly::error {
 

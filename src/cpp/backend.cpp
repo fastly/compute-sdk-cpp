@@ -1,5 +1,6 @@
-#include "backend.h"
-#include "sdk-sys.h"
+#include <fastly/backend.h>
+#include <fastly/sdk-sys.h>
+#include "util.h"
 
 namespace fastly::backend {
 

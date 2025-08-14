@@ -1,8 +1,8 @@
 #ifndef FASTLY_ERROR_H
 #define FASTLY_ERROR_H
 
-#include "expected.h"
-#include "sdk-sys.h"
+#include <fastly/expected.h>
+#include <fastly/sdk-sys.h>
 #include <string>
 
 namespace fastly::error {

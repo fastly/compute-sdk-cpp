@@ -1,8 +1,8 @@
 #ifndef FASTLY_HTTP_PURGE_H
 #define FASTLY_HTTP_PURGE_H
 
-#include "../error.h"
-#include "../sdk-sys.h"
+#include <fastly/error.h>
+#include <fastly/sdk-sys.h>
 #include <string>
 #include <string_view>
 

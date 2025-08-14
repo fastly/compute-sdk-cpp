@@ -1,9 +1,8 @@
-#ifndef FASTLY_SECRET_STORE_H
-#define FASTLY_SECRET_STORE_H
+#ifndef FASTLY_LOG_H
+#define FASTLY_LOG_H
 
-#include "error.h"
-#include "sdk-sys.h"
-#include "util.h"
+#include <fastly/error.h>
+#include <fastly/sdk-sys.h>
 #include <format>
 #include <string>
 #include <string_view>

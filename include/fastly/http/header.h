@@ -5,7 +5,7 @@
 #include <string>
 #include <vector>
 
-#include "../sdk-sys.h"
+#include <fastly/sdk-sys.h>
 
 namespace fastly::http {
 

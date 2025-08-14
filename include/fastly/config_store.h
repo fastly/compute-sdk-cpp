@@ -1,9 +1,8 @@
 #ifndef FASTLY_CONFIG_STORE_H
 #define FASTLY_CONFIG_STORE_H
 
-#include "error.h"
-#include "sdk-sys.h"
-#include "util.h"
+#include <fastly/error.h>
+#include <fastly/sdk-sys.h>
 #include <optional>
 #include <string>
 #include <string_view>

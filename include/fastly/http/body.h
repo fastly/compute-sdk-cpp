@@ -1,9 +1,10 @@
 #ifndef FASTLY_HTTP_BODY_H
 #define FASTLY_HTTP_BODY_H
 
-#include "../error.h"
-#include "request.h"
-#include "response.h"
+#include <fastly/error.h>
+#include <fastly/http/request.h>
+#include <fastly/http/response.h>
+#include <fastly/sdk-sys.h>
 
 #include <array>
 #include <cstdint>
@@ -13,8 +14,6 @@
 #include <string>
 #include <string_view>
 #include <vector>
-
-#include "../sdk-sys.h"
 
 namespace fastly::http {
 

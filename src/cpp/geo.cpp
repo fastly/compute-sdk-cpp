@@ -1,4 +1,5 @@
-#include "geo.h"
+#include <fastly/geo.h>
+#include "util.h"
 
 namespace fastly::geo {
 

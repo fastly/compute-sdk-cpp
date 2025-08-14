@@ -1,6 +1,6 @@
-#include "body.h"
-#include "expected.h"
-#include "sdk-sys.h"
+#include <fastly/http/body.h>
+#include <fastly/expected.h>
+#include <fastly/sdk-sys.h>
 
 namespace fastly::http {
 

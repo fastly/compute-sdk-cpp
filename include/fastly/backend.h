@@ -1,10 +1,9 @@
 #ifndef FASTLY_BACKEND_H
 #define FASTLY_BACKEND_H
 
-#include "error.h"
-#include "http/request.h"
-#include "sdk-sys.h"
-#include "util.h"
+#include <fastly/error.h>
+#include <fastly/http/request.h>
+#include <fastly/sdk-sys.h>
 #include <chrono>
 #include <string>
 #include <string_view>

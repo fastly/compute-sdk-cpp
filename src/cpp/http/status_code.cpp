@@ -1,4 +1,4 @@
-#include "status_code.h"
+#include <fastly/http/status_code.h>
 
 namespace fastly::http {
 

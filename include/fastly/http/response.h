@@ -1,14 +1,13 @@
 #ifndef FASTLY_HTTP_RESPONSE_H
 #define FASTLY_HTTP_RESPONSE_H
 
-#include "../backend.h"
-#include "../error.h"
-#include "../sdk-sys.h"
-#include "../util.h"
-#include "body.h"
-#include "header.h"
-#include "request.h"
-#include "status_code.h"
+#include <fastly/backend.h>
+#include <fastly/error.h>
+#include <fastly/sdk-sys.h>
+#include <fastly/http/body.h>
+#include <fastly/http/header.h>
+#include <fastly/http/request.h>
+#include <fastly/http/status_code.h>
 #include <chrono>
 #include <string>
 #include <string_view>

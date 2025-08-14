@@ -1,5 +1,5 @@
-#include "purge.h"
-#include "sdk-sys.h"
+#include <fastly/http/purge.h>
+#include <fastly/sdk-sys.h>
 
 namespace fastly::http::purge {
 
