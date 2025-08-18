@@ -1,5 +1,5 @@
-#include <fastly/http/body.h>
 #include <fastly/expected.h>
+#include <fastly/http/body.h>
 #include <fastly/sdk-sys.h>
 
 namespace fastly::http {

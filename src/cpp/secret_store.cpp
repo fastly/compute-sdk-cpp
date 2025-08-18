@@ -1,7 +1,7 @@
-#include <fastly/secret_store.h>
+#include "util.h"
 #include <fastly/error.h>
 #include <fastly/sdk-sys.h>
-#include "util.h"
+#include <fastly/secret_store.h>
 
 namespace fastly::secret_store {
 

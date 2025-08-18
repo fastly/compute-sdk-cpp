@@ -1,6 +1,6 @@
+#include "util.h"
 #include <fastly/config_store.h>
 #include <fastly/sdk-sys.h>
-#include "util.h"
 
 namespace fastly::config_store {
 
