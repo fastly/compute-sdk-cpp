@@ -10,6 +10,12 @@
 #include "../util.h"
 
 namespace fastly::detail {
+  // A CRTP class that adapts a Rust-style iterator to a C++ range.
+  // CppRng is the C++ class that implements the iterator interface,
+  // and RustIt is the Rust iterator type that we are wrapping.
+  // The C++ class should implement a `next()` method that returns an
+  // `std::optional<value_type>`, where `value_type` is the type of the values
+  // being iterated over.
   template <class CppRng, class RustIt>
   class RustIteratorRange {
   public:
