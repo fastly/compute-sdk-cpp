@@ -347,7 +347,7 @@ impl Request {
         let iter = self
             .0
             .get_header_all(try_fe!(err, HeaderName::try_from(name.as_bytes())))
-            .map(|hv| hv.clone())
+            .cloned()
             .collect::<Vec<HeaderValue>>();
         out.set(Box::into_raw(Box::new(HeaderValuesIter(Box::new(
             iter.into_iter(),
@@ -369,7 +369,7 @@ impl Request {
         let iter = self
             .0
             .get_header_names()
-            .map(|hn| hn.clone())
+            .cloned()
             .collect::<Vec<_>>();
         out.set(Box::into_raw(Box::new(HeaderNamesIter(Box::new(
             iter.into_iter(),

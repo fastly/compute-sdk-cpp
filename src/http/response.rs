@@ -149,31 +149,32 @@ impl Response {
         mut out: Pin<&mut *mut HeaderValuesIter>,
         mut err: ErrPtr,
     ) {
-        // Yeah. Sorry. Lifetimes :/
         let iter = self
             .0
             .get_header_all(try_fe!(err, HeaderName::try_from(name.as_bytes())))
-            .map(|hv| hv.clone())
+            .cloned()
             .collect::<Vec<HeaderValue>>();
         out.set(Box::into_raw(Box::new(HeaderValuesIter(Box::new(
             iter.into_iter(),
         )))))
     }
 
-    pub fn get_headers(
-        &self,
-        mut out: Pin<&mut *mut HeadersIter>
-    ) {
-        let iter = self.0.get_headers().map(|(n,v)| (n.clone(), v.clone())).collect::<Vec<_>>();
-        out.set(Box::into_raw(Box::new(HeadersIter(Box::new(iter.into_iter())))));
+    pub fn get_headers(&self, mut out: Pin<&mut *mut HeadersIter>) {
+        let iter = self
+            .0
+            .get_headers()
+            .map(|(n, v)| (n.clone(), v.clone()))
+            .collect::<Vec<_>>();
+        out.set(Box::into_raw(Box::new(HeadersIter(Box::new(
+            iter.into_iter(),
+        )))));
     }
 
-    pub fn get_header_names(
-        &self,
-        mut out: Pin<&mut *mut HeaderNamesIter>
-    ) {
-        let iter = self.0.get_header_names().map(|hn| hn.clone()).collect::<Vec<_>>();
-        out.set(Box::into_raw(Box::new(HeaderNamesIter(Box::new(iter.into_iter())))));
+    pub fn get_header_names(&self, mut out: Pin<&mut *mut HeaderNamesIter>) {
+        let iter = self.0.get_header_names().cloned().collect::<Vec<_>>();
+        out.set(Box::into_raw(Box::new(HeaderNamesIter(Box::new(
+            iter.into_iter(),
+        )))));
     }
 
     pub fn set_header(&mut self, name: &CxxString, value: &CxxString, mut err: ErrPtr) {

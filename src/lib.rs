@@ -325,7 +325,11 @@ mod ffi {
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
         type HeaderValuesIter;
-        fn next(&mut self, mut value_out: Pin<&mut CxxVector<u8>>, mut is_sensitive_out: Pin<&mut bool>) -> bool;
+        fn next(
+            &mut self,
+            mut value_out: Pin<&mut CxxVector<u8>>,
+            mut is_sensitive_out: Pin<&mut bool>,
+        ) -> bool;
         fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter>;
     }
 
@@ -411,14 +415,8 @@ mod ffi {
             out: Pin<&mut *mut HeaderValuesIter>,
             mut err: Pin<&mut *mut FastlyError>,
         );
-        fn get_headers(
-            &self,
-            out: Pin<&mut *mut HeadersIter>
-        );
-        fn get_header_names(
-            &self,
-            out: Pin<&mut *mut HeaderNamesIter>
-        );
+        fn get_headers(&self, out: Pin<&mut *mut HeadersIter>);
+        fn get_header_names(&self, out: Pin<&mut *mut HeaderNamesIter>);
         fn set_header(
             &mut self,
             name: &CxxString,
@@ -556,14 +554,8 @@ mod ffi {
             out: Pin<&mut *mut HeaderValuesIter>,
             mut err: Pin<&mut *mut FastlyError>,
         );
-        fn get_headers(
-            &self,
-            out: Pin<&mut *mut HeadersIter>
-        );
-        fn get_header_names(
-            &self,
-            out: Pin<&mut *mut HeaderNamesIter>
-        );
+        fn get_headers(&self, out: Pin<&mut *mut HeadersIter>);
+        fn get_header_names(&self, out: Pin<&mut *mut HeaderNamesIter>);
         fn set_header(
             &mut self,
             name: &CxxString,
