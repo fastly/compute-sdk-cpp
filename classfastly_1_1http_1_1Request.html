@@ -163,9 +163,9 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aced2600c8b42f779c323a60a38178a7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0c118ee3dec3d178d5f5e865d15927b3"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; std::pair&lt; <a class="el" href="classfastly_1_1http_1_1StreamingBody.html">StreamingBody</a>, <a class="el" href="classfastly_1_1http_1_1request_1_1PendingRequest.html">request::PendingRequest</a> &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a0c118ee3dec3d178d5f5e865d15927b3">send_async_streaming</a> (std::string_view backend_name)</td></tr>
 <tr class="separator:a0c118ee3dec3d178d5f5e865d15927b3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad5724ea0cfd42bb3e188bf1e2a5a7d47"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ad5724ea0cfd42bb3e188bf1e2a5a7d47">with_body</a> (<a class="el" href="classfastly_1_1http_1_1Body.html">Body</a> body)</td></tr>
-<tr class="memdesc:ad5724ea0cfd42bb3e188bf1e2a5a7d47"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aa6c23aca8847b20269f740d4f6f71f30" title="Set the given value as the request&#39;s body.">Request::set_body()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#ad5724ea0cfd42bb3e188bf1e2a5a7d47">More...</a><br /></td></tr>
-<tr class="separator:ad5724ea0cfd42bb3e188bf1e2a5a7d47"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac076183e7d7dfc18ac99b7f1c2630bae"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ac076183e7d7dfc18ac99b7f1c2630bae">with_body</a> (<a class="el" href="classfastly_1_1http_1_1Body.html">Body</a> body) &amp;&amp;</td></tr>
+<tr class="memdesc:ac076183e7d7dfc18ac99b7f1c2630bae"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aa6c23aca8847b20269f740d4f6f71f30" title="Set the given value as the request&#39;s body.">Request::set_body()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#ac076183e7d7dfc18ac99b7f1c2630bae">More...</a><br /></td></tr>
+<tr class="separator:ac076183e7d7dfc18ac99b7f1c2630bae"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38bd8b681b15d72a2b46a3f6abeaf194"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a38bd8b681b15d72a2b46a3f6abeaf194">has_body</a> ()</td></tr>
 <tr class="memdesc:a38bd8b681b15d72a2b46a3f6abeaf194"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns <code>true</code> if this request has a body.  <a href="classfastly_1_1http_1_1Request.html#a38bd8b681b15d72a2b46a3f6abeaf194">More...</a><br /></td></tr>
 <tr class="separator:a38bd8b681b15d72a2b46a3f6abeaf194"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -185,26 +185,26 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a4ff82cec2759ffdb1c8b28b4de7e3f95"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Body.html">Body</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a4ff82cec2759ffdb1c8b28b4de7e3f95">into_body</a> ()</td></tr>
 <tr class="memdesc:a4ff82cec2759ffdb1c8b28b4de7e3f95"><td class="mdescLeft">&#160;</td><td class="mdescRight">Consume the request and return its body as a <code><a class="el" href="classfastly_1_1http_1_1Body.html">Body</a></code> instance.  <a href="classfastly_1_1http_1_1Request.html#a4ff82cec2759ffdb1c8b28b4de7e3f95">More...</a><br /></td></tr>
 <tr class="separator:a4ff82cec2759ffdb1c8b28b4de7e3f95"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab548df5125e6da57ef146fc07b2d4387"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ab548df5125e6da57ef146fc07b2d4387">with_body_text_plain</a> (std::string_view body)</td></tr>
-<tr class="separator:ab548df5125e6da57ef146fc07b2d4387"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a972ca3c5de4a06a15112bfdd1228a76c"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a972ca3c5de4a06a15112bfdd1228a76c">with_body_text_plain</a> (std::string_view body) &amp;&amp;</td></tr>
+<tr class="separator:a972ca3c5de4a06a15112bfdd1228a76c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d403514ac8ca9b164b872027bcd91e1"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a8d403514ac8ca9b164b872027bcd91e1">set_body_text_plain</a> (std::string_view body)</td></tr>
 <tr class="separator:a8d403514ac8ca9b164b872027bcd91e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:adce4e70286a111c6e54ee252d644143e"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#adce4e70286a111c6e54ee252d644143e">with_body_text_html</a> (std::string_view body)</td></tr>
-<tr class="separator:adce4e70286a111c6e54ee252d644143e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a26016be218a8ac6e0a4611e9c36d2a17"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a26016be218a8ac6e0a4611e9c36d2a17">with_body_text_html</a> (std::string_view body) &amp;&amp;</td></tr>
+<tr class="separator:a26016be218a8ac6e0a4611e9c36d2a17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79a37f29cf533b82798c95744685aef0"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a79a37f29cf533b82798c95744685aef0">set_body_text_html</a> (std::string_view body)</td></tr>
 <tr class="separator:a79a37f29cf533b82798c95744685aef0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa458270d5431adfc21d5111f64ab1e1d"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aa458270d5431adfc21d5111f64ab1e1d">take_body_string</a> ()</td></tr>
 <tr class="separator:aa458270d5431adfc21d5111f64ab1e1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a14c6e09cc0d55fe7d5dbcf7996edc5c6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a14c6e09cc0d55fe7d5dbcf7996edc5c6">with_body_octet_stream</a> (std::vector&lt; uint8_t &gt; body)</td></tr>
-<tr class="separator:a14c6e09cc0d55fe7d5dbcf7996edc5c6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a858c6e3733f811a658fa90306aee66fc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a858c6e3733f811a658fa90306aee66fc">with_body_octet_stream</a> (std::vector&lt; uint8_t &gt; body) &amp;&amp;</td></tr>
+<tr class="separator:a858c6e3733f811a658fa90306aee66fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ace88ef1591d4e965f2c462b05ffbd113"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ace88ef1591d4e965f2c462b05ffbd113">set_body_octet_stream</a> (std::vector&lt; uint8_t &gt; body)</td></tr>
 <tr class="separator:ace88ef1591d4e965f2c462b05ffbd113"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d8c82f548da4566253cf29e72d5828f"><td class="memItemLeft" align="right" valign="top">std::vector&lt; uint8_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a8d8c82f548da4566253cf29e72d5828f">take_body_bytes</a> ()</td></tr>
 <tr class="separator:a8d8c82f548da4566253cf29e72d5828f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a962a4df74769d3d7944df145f2db6d28"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a962a4df74769d3d7944df145f2db6d28">get_content_type</a> ()</td></tr>
 <tr class="separator:a962a4df74769d3d7944df145f2db6d28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4e28411c33c5daae0831ce24b2c97dbb"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a4e28411c33c5daae0831ce24b2c97dbb">with_content_type</a> (std::string_view mime)</td></tr>
-<tr class="separator:a4e28411c33c5daae0831ce24b2c97dbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a92ce417a183a2a8736ee037e1e6b318d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a92ce417a183a2a8736ee037e1e6b318d">with_content_type</a> (std::string_view mime) &amp;&amp;</td></tr>
+<tr class="separator:a92ce417a183a2a8736ee037e1e6b318d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a38248be35dfc8ad1c6c1fad1e0ff55ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a38248be35dfc8ad1c6c1fad1e0ff55ee">set_content_type</a> (std::string_view mime)</td></tr>
 <tr class="separator:a38248be35dfc8ad1c6c1fad1e0ff55ee"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a891c17e2abab068f48297422cf0161e6"><td class="memItemLeft" align="right" valign="top">std::optional&lt; size_t &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a891c17e2abab068f48297422cf0161e6">get_content_length</a> ()</td></tr>
@@ -212,12 +212,12 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a454cff9b991c3862638ff505f678a07d"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; bool &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a454cff9b991c3862638ff505f678a07d">contains_header</a> (std::string_view name)</td></tr>
 <tr class="memdesc:a454cff9b991c3862638ff505f678a07d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Returns whether the given header name is present in the request.  <a href="classfastly_1_1http_1_1Request.html#a454cff9b991c3862638ff505f678a07d">More...</a><br /></td></tr>
 <tr class="separator:a454cff9b991c3862638ff505f678a07d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a75df25144332d5458b3243f3bccd9ab6"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">with_header</a> (std::string_view name, std::string_view value)</td></tr>
-<tr class="memdesc:a75df25144332d5458b3243f3bccd9ab6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#ab0d9683b4b54aab6d5c1664eee1305e2">Request::append_header()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">More...</a><br /></td></tr>
-<tr class="separator:a75df25144332d5458b3243f3bccd9ab6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9396db46443130f59da74b428d7e4e36"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a9396db46443130f59da74b428d7e4e36">with_set_header</a> (std::string_view name, std::string_view value)</td></tr>
-<tr class="memdesc:a9396db46443130f59da74b428d7e4e36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#af85ecaa099a855e5cc704983a61cfa23">Request::set_header()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a9396db46443130f59da74b428d7e4e36">More...</a><br /></td></tr>
-<tr class="separator:a9396db46443130f59da74b428d7e4e36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42b84bb5a2cd52744c66fa5d42f5e442"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442">with_header</a> (std::string_view name, std::string_view value) &amp;&amp;</td></tr>
+<tr class="memdesc:a42b84bb5a2cd52744c66fa5d42f5e442"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#ab0d9683b4b54aab6d5c1664eee1305e2">Request::append_header()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442">More...</a><br /></td></tr>
+<tr class="separator:a42b84bb5a2cd52744c66fa5d42f5e442"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a72f306ca5cb635e6b43459582ccf4fc5"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a72f306ca5cb635e6b43459582ccf4fc5">with_set_header</a> (std::string_view name, std::string_view value) &amp;&amp;</td></tr>
+<tr class="memdesc:a72f306ca5cb635e6b43459582ccf4fc5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#af85ecaa099a855e5cc704983a61cfa23">Request::set_header()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a72f306ca5cb635e6b43459582ccf4fc5">More...</a><br /></td></tr>
+<tr class="separator:a72f306ca5cb635e6b43459582ccf4fc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a522bb2b13abbecb4fb2c01a3076b57f3"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; std::optional&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a522bb2b13abbecb4fb2c01a3076b57f3">get_header</a> (std::string_view name)</td></tr>
 <tr class="separator:a522bb2b13abbecb4fb2c01a3076b57f3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa986c91a534b8ff7ccbb63d97a727c10"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1HeaderValuesIter.html">HeaderValuesIter</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aa986c91a534b8ff7ccbb63d97a727c10">get_header_all</a> (std::string_view name)</td></tr>
@@ -229,18 +229,18 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab0d9683b4b54aab6d5c1664eee1305e2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13bda04a95b82fd6aab2099f97d32278"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; std::optional&lt; std::string &gt; &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a13bda04a95b82fd6aab2099f97d32278">remove_header</a> (std::string_view name)</td></tr>
 <tr class="separator:a13bda04a95b82fd6aab2099f97d32278"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a21a10d5172368c12baf047a2debfde26"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a21a10d5172368c12baf047a2debfde26">with_method</a> (Method method)</td></tr>
-<tr class="memdesc:a21a10d5172368c12baf047a2debfde26"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aa59f643e6aea793a801aa49d184af660" title="Set the request method.">Request::set_method()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a21a10d5172368c12baf047a2debfde26">More...</a><br /></td></tr>
-<tr class="separator:a21a10d5172368c12baf047a2debfde26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a90dd52234d5c4aa06110f764b3d528c5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a90dd52234d5c4aa06110f764b3d528c5">with_method</a> (Method method) &amp;&amp;</td></tr>
+<tr class="memdesc:a90dd52234d5c4aa06110f764b3d528c5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aa59f643e6aea793a801aa49d184af660" title="Set the request method.">Request::set_method()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a90dd52234d5c4aa06110f764b3d528c5">More...</a><br /></td></tr>
+<tr class="separator:a90dd52234d5c4aa06110f764b3d528c5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9eb3c08f1f2323da39a3b721b07f6571"><td class="memItemLeft" align="right" valign="top">Method&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a9eb3c08f1f2323da39a3b721b07f6571">get_method</a> ()</td></tr>
 <tr class="memdesc:a9eb3c08f1f2323da39a3b721b07f6571"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the request method.  <a href="classfastly_1_1http_1_1Request.html#a9eb3c08f1f2323da39a3b721b07f6571">More...</a><br /></td></tr>
 <tr class="separator:a9eb3c08f1f2323da39a3b721b07f6571"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa59f643e6aea793a801aa49d184af660"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aa59f643e6aea793a801aa49d184af660">set_method</a> (Method method)</td></tr>
 <tr class="memdesc:aa59f643e6aea793a801aa49d184af660"><td class="mdescLeft">&#160;</td><td class="mdescRight">Set the request method.  <a href="classfastly_1_1http_1_1Request.html#aa59f643e6aea793a801aa49d184af660">More...</a><br /></td></tr>
 <tr class="separator:aa59f643e6aea793a801aa49d184af660"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ad6942d598ca2af74f9f6b500f6da4a5b"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ad6942d598ca2af74f9f6b500f6da4a5b">with_url</a> (std::string_view url)</td></tr>
-<tr class="memdesc:ad6942d598ca2af74f9f6b500f6da4a5b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a5b9b64421e2281f3fab3fbac864fc520" title="Set the request URL.">Request::set_url()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#ad6942d598ca2af74f9f6b500f6da4a5b">More...</a><br /></td></tr>
-<tr class="separator:ad6942d598ca2af74f9f6b500f6da4a5b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aca5b239e52538c172e931bb0dc0afd05"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aca5b239e52538c172e931bb0dc0afd05">with_url</a> (std::string_view url) &amp;&amp;</td></tr>
+<tr class="memdesc:aca5b239e52538c172e931bb0dc0afd05"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a5b9b64421e2281f3fab3fbac864fc520" title="Set the request URL.">Request::set_url()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#aca5b239e52538c172e931bb0dc0afd05">More...</a><br /></td></tr>
+<tr class="separator:aca5b239e52538c172e931bb0dc0afd05"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a45d2168567b596349a36048931219197"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a45d2168567b596349a36048931219197">get_url</a> ()</td></tr>
 <tr class="memdesc:a45d2168567b596349a36048931219197"><td class="mdescLeft">&#160;</td><td class="mdescRight">Get the request URL as a string.  <a href="classfastly_1_1http_1_1Request.html#a45d2168567b596349a36048931219197">More...</a><br /></td></tr>
 <tr class="separator:a45d2168567b596349a36048931219197"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -249,44 +249,44 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a5b9b64421e2281f3fab3fbac864fc520"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9700fa0ea3b1225fc7b47606b51a24d8"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a9700fa0ea3b1225fc7b47606b51a24d8">get_path</a> ()</td></tr>
 <tr class="separator:a9700fa0ea3b1225fc7b47606b51a24d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a46d932bc200a791c11b909dba4760cff"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a46d932bc200a791c11b909dba4760cff">with_path</a> (std::string_view path)</td></tr>
-<tr class="memdesc:a46d932bc200a791c11b909dba4760cff"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a99c313a53347bba986d70142071a7838">Request::set_path()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a46d932bc200a791c11b909dba4760cff">More...</a><br /></td></tr>
-<tr class="separator:a46d932bc200a791c11b909dba4760cff"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7185b8aec671eef94466bfdf2450e265"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a7185b8aec671eef94466bfdf2450e265">with_path</a> (std::string_view path) &amp;&amp;</td></tr>
+<tr class="memdesc:a7185b8aec671eef94466bfdf2450e265"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a99c313a53347bba986d70142071a7838">Request::set_path()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a7185b8aec671eef94466bfdf2450e265">More...</a><br /></td></tr>
+<tr class="separator:a7185b8aec671eef94466bfdf2450e265"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99c313a53347bba986d70142071a7838"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a99c313a53347bba986d70142071a7838">set_path</a> (std::string_view path)</td></tr>
 <tr class="separator:a99c313a53347bba986d70142071a7838"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad4cfba93963858e1ff5fc763013be1cc"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ad4cfba93963858e1ff5fc763013be1cc">get_query_string</a> ()</td></tr>
 <tr class="separator:ad4cfba93963858e1ff5fc763013be1cc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac24dc6ca90d44d6ef2da58582ba738fa"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ac24dc6ca90d44d6ef2da58582ba738fa">get_query_parameter</a> (std::string_view param)</td></tr>
 <tr class="separator:ac24dc6ca90d44d6ef2da58582ba738fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9ad5cc55282171a33a497660c889dc0c"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a9ad5cc55282171a33a497660c889dc0c">with_query_string</a> (std::string_view query)</td></tr>
-<tr class="memdesc:a9ad5cc55282171a33a497660c889dc0c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code>Request::set_query()</code>.  <a href="classfastly_1_1http_1_1Request.html#a9ad5cc55282171a33a497660c889dc0c">More...</a><br /></td></tr>
-<tr class="separator:a9ad5cc55282171a33a497660c889dc0c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa4217db386a247f3b1c7ebd4c6ff8c40"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aa4217db386a247f3b1c7ebd4c6ff8c40">with_query_string</a> (std::string_view query) &amp;&amp;</td></tr>
+<tr class="memdesc:aa4217db386a247f3b1c7ebd4c6ff8c40"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code>Request::set_query()</code>.  <a href="classfastly_1_1http_1_1Request.html#aa4217db386a247f3b1c7ebd4c6ff8c40">More...</a><br /></td></tr>
+<tr class="separator:aa4217db386a247f3b1c7ebd4c6ff8c40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a628a227ca2604da5de96ce3186a4f865"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a628a227ca2604da5de96ce3186a4f865">set_query_string</a> (std::string_view query)</td></tr>
 <tr class="separator:a628a227ca2604da5de96ce3186a4f865"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad639de6aa823ea8b5db0c0a314804108"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ad639de6aa823ea8b5db0c0a314804108">remove_query</a> ()</td></tr>
 <tr class="memdesc:ad639de6aa823ea8b5db0c0a314804108"><td class="mdescLeft">&#160;</td><td class="mdescRight">Remove the query component from the request URL, if one exists.  <a href="classfastly_1_1http_1_1Request.html#ad639de6aa823ea8b5db0c0a314804108">More...</a><br /></td></tr>
 <tr class="separator:ad639de6aa823ea8b5db0c0a314804108"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2b8cc7217a99adec1f62bbd5facb242f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a2b8cc7217a99adec1f62bbd5facb242f">with_pass</a> (bool pass)</td></tr>
-<tr class="memdesc:a2b8cc7217a99adec1f62bbd5facb242f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">Request::set_pass()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a2b8cc7217a99adec1f62bbd5facb242f">More...</a><br /></td></tr>
-<tr class="separator:a2b8cc7217a99adec1f62bbd5facb242f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af51bf5043554000397a34585e9649922"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#af51bf5043554000397a34585e9649922">with_pass</a> (bool pass) &amp;&amp;</td></tr>
+<tr class="memdesc:af51bf5043554000397a34585e9649922"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">Request::set_pass()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#af51bf5043554000397a34585e9649922">More...</a><br /></td></tr>
+<tr class="separator:af51bf5043554000397a34585e9649922"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a20580d1987d296297147891257b1a0a1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a20580d1987d296297147891257b1a0a1">set_pass</a> (bool pass)</td></tr>
 <tr class="separator:a20580d1987d296297147891257b1a0a1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a209f7f6b0fc66d2fd1af1acb9419ad85"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a209f7f6b0fc66d2fd1af1acb9419ad85">with_ttl</a> (uint32_t ttl)</td></tr>
-<tr class="memdesc:a209f7f6b0fc66d2fd1af1acb9419ad85"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#af6e4e9a778f3d43c431a6d010bde30a0">Request::set_ttl()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a209f7f6b0fc66d2fd1af1acb9419ad85">More...</a><br /></td></tr>
-<tr class="separator:a209f7f6b0fc66d2fd1af1acb9419ad85"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa384cadc4a8abaa3d46599e38186dccc"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aa384cadc4a8abaa3d46599e38186dccc">with_ttl</a> (uint32_t ttl) &amp;&amp;</td></tr>
+<tr class="memdesc:aa384cadc4a8abaa3d46599e38186dccc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#af6e4e9a778f3d43c431a6d010bde30a0">Request::set_ttl()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#aa384cadc4a8abaa3d46599e38186dccc">More...</a><br /></td></tr>
+<tr class="separator:aa384cadc4a8abaa3d46599e38186dccc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af6e4e9a778f3d43c431a6d010bde30a0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#af6e4e9a778f3d43c431a6d010bde30a0">set_ttl</a> (uint32_t ttl)</td></tr>
 <tr class="separator:af6e4e9a778f3d43c431a6d010bde30a0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6d81449521d39f73fb059b41b4582a24"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a6d81449521d39f73fb059b41b4582a24">with_stale_while_revalidate</a> (uint32_t swr)</td></tr>
-<tr class="separator:a6d81449521d39f73fb059b41b4582a24"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbd875db45d6829b7e245654b9c07826"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#acbd875db45d6829b7e245654b9c07826">with_stale_while_revalidate</a> (uint32_t swr) &amp;&amp;</td></tr>
+<tr class="separator:acbd875db45d6829b7e245654b9c07826"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeda4e5c2d629272f30202e16a7c26f9f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aeda4e5c2d629272f30202e16a7c26f9f">set_stale_while_revalidate</a> (uint32_t swr)</td></tr>
 <tr class="separator:aeda4e5c2d629272f30202e16a7c26f9f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a93572744211c7cee39948672cbbc5936"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a93572744211c7cee39948672cbbc5936">with_pci</a> (bool pci)</td></tr>
-<tr class="memdesc:a93572744211c7cee39948672cbbc5936"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a2bf3389756c3f84791d6f33a5658e958">Request::set_pci()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a93572744211c7cee39948672cbbc5936">More...</a><br /></td></tr>
-<tr class="separator:a93572744211c7cee39948672cbbc5936"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae03a238a377565787f3307c270bc9892"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ae03a238a377565787f3307c270bc9892">with_pci</a> (bool pci) &amp;&amp;</td></tr>
+<tr class="memdesc:ae03a238a377565787f3307c270bc9892"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a2bf3389756c3f84791d6f33a5658e958">Request::set_pci()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#ae03a238a377565787f3307c270bc9892">More...</a><br /></td></tr>
+<tr class="separator:ae03a238a377565787f3307c270bc9892"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2bf3389756c3f84791d6f33a5658e958"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a2bf3389756c3f84791d6f33a5658e958">set_pci</a> (bool pci)</td></tr>
 <tr class="separator:a2bf3389756c3f84791d6f33a5658e958"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0036953e445d8795a73a519d18f0df4b"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a0036953e445d8795a73a519d18f0df4b">with_surrogate_key</a> (std::string_view sk)</td></tr>
-<tr class="separator:a0036953e445d8795a73a519d18f0df4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6386ba54a0ef282aefae312b4c8834c1"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; <a class="el" href="classfastly_1_1http_1_1Request.html">Request</a> &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a6386ba54a0ef282aefae312b4c8834c1">with_surrogate_key</a> (std::string_view sk) &amp;&amp;</td></tr>
+<tr class="separator:a6386ba54a0ef282aefae312b4c8834c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73b2d6236e4f0281278eebba7b4ab197"><td class="memItemLeft" align="right" valign="top">fastly::expected&lt; void &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a73b2d6236e4f0281278eebba7b4ab197">set_surrogate_key</a> (std::string_view sk)</td></tr>
 <tr class="separator:a73b2d6236e4f0281278eebba7b4ab197"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3f6d63177dca86b1cccf58bb662aa0d"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ac3f6d63177dca86b1cccf58bb662aa0d">get_client_ip_addr</a> ()</td></tr>
@@ -297,20 +297,20 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ad51a74cc90a9cdf8e9580d0fe8fb9b40"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a84f13ddd4f9cf46699232fa38a3d3be7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a84f13ddd4f9cf46699232fa38a3d3be7">set_auto_decompress_gzip</a> (bool gzip)</td></tr>
 <tr class="separator:a84f13ddd4f9cf46699232fa38a3d3be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a232eddc8db49b9f9a61e44cbe4680ea4"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a232eddc8db49b9f9a61e44cbe4680ea4">with_auto_decompress_gzip</a> (bool gzip)</td></tr>
-<tr class="separator:a232eddc8db49b9f9a61e44cbe4680ea4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9fdb2cef9f6160107fd51cd1f27d634f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a9fdb2cef9f6160107fd51cd1f27d634f">with_auto_decompress_gzip</a> (bool gzip) &amp;&amp;</td></tr>
+<tr class="separator:a9fdb2cef9f6160107fd51cd1f27d634f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0ca2781d200857c80c18984b96009e57"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a0ca2781d200857c80c18984b96009e57">fastly_key_is_valid</a> ()</td></tr>
 <tr class="separator:a0ca2781d200857c80c18984b96009e57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aaebf372df12a6757023df78142771957"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#aaebf372df12a6757023df78142771957">set_cache_key</a> (std::string_view key)</td></tr>
 <tr class="separator:aaebf372df12a6757023df78142771957"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a97f2cc7b8ca40274834148449fc8c57f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a97f2cc7b8ca40274834148449fc8c57f">set_cache_key</a> (std::vector&lt; uint8_t &gt; key)</td></tr>
 <tr class="separator:a97f2cc7b8ca40274834148449fc8c57f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae9a310b6d3c17d82cf67101b37b22eda"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#ae9a310b6d3c17d82cf67101b37b22eda">with_cache_key</a> (std::string_view key)</td></tr>
-<tr class="memdesc:ae9a310b6d3c17d82cf67101b37b22eda"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aaebf372df12a6757023df78142771957">Request::set_cache_key()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#ae9a310b6d3c17d82cf67101b37b22eda">More...</a><br /></td></tr>
-<tr class="separator:ae9a310b6d3c17d82cf67101b37b22eda"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ece634d204ec208afb1dc01c50ea962"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a3ece634d204ec208afb1dc01c50ea962">with_cache_key</a> (std::vector&lt; uint8_t &gt; key)</td></tr>
-<tr class="memdesc:a3ece634d204ec208afb1dc01c50ea962"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aaebf372df12a6757023df78142771957">Request::set_cache_key()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#a3ece634d204ec208afb1dc01c50ea962">More...</a><br /></td></tr>
-<tr class="separator:a3ece634d204ec208afb1dc01c50ea962"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7716a8bc992e7a69912a184f3bfc7a6"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#af7716a8bc992e7a69912a184f3bfc7a6">with_cache_key</a> (std::string_view key) &amp;&amp;</td></tr>
+<tr class="memdesc:af7716a8bc992e7a69912a184f3bfc7a6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aaebf372df12a6757023df78142771957">Request::set_cache_key()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#af7716a8bc992e7a69912a184f3bfc7a6">More...</a><br /></td></tr>
+<tr class="separator:af7716a8bc992e7a69912a184f3bfc7a6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af9c921b0af5e4f8e7c5de56952b4a631"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#af9c921b0af5e4f8e7c5de56952b4a631">with_cache_key</a> (std::vector&lt; uint8_t &gt; key) &amp;&amp;</td></tr>
+<tr class="memdesc:af9c921b0af5e4f8e7c5de56952b4a631"><td class="mdescLeft">&#160;</td><td class="mdescRight">Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#aaebf372df12a6757023df78142771957">Request::set_cache_key()</a></code>.  <a href="classfastly_1_1http_1_1Request.html#af9c921b0af5e4f8e7c5de56952b4a631">More...</a><br /></td></tr>
+<tr class="separator:af9c921b0af5e4f8e7c5de56952b4a631"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a453d36234ed9747dc1f6f9bde84ba5ce"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1Request.html#a453d36234ed9747dc1f6f9bde84ba5ce">is_cacheable</a> ()</td></tr>
 <tr class="memdesc:a453d36234ed9747dc1f6f9bde84ba5ce"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets whether the request is potentially cacheable.  <a href="classfastly_1_1http_1_1Request.html#a453d36234ed9747dc1f6f9bde84ba5ce">More...</a><br /></td></tr>
 <tr class="separator:a453d36234ed9747dc1f6f9bde84ba5ce"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -351,19 +351,19 @@ Sending backend requests</h1>
 <p >Requests can be sent to a backend in blocking or asynchronous fashion using <code><a class="el" href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">Request::send()</a></code>, <code><a class="el" href="classfastly_1_1http_1_1Request.html#a538af8485d5e528dd6aab37f0f403b54">Request::send_async()</a></code>, or <code><a class="el" href="classfastly_1_1http_1_1Request.html#aced2600c8b42f779c323a60a38178a7f">Request::send_async_streaming()</a></code>.</p>
 <h1><a class="anchor" id="autotoc_md22"></a>
 Builder-style methods</h1>
-<p ><code><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a></code> can be used as a builder allowing requests to be constructed and used through method chaining. Methods with the <code>with_</code> name prefix, such as <code><a class="el" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6" title="Builder-style equivalent of Request::append_header().">Request::with_header()</a></code>, return a moved <code><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a></code> to allow chaining. The builder style is typically most useful when constructing and using a request in a single expression.</p>
+<p ><code><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a></code> can be used as a builder allowing requests to be constructed and used through method chaining. Methods with the <code>with_</code> name prefix, such as <code><a class="el" href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442" title="Builder-style equivalent of Request::append_header().">Request::with_header()</a></code>, return a moved <code><a class="el" href="classfastly_1_1http_1_1Request.html">Request</a></code> to allow chaining. The builder style is typically most useful when constructing and using a request in a single expression.</p>
 <p >For example:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>)</div>
-<div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">with_header</a>(<span class="stringliteral">&quot;my-header&quot;</span>, <span class="stringliteral">&quot;hello!&quot;</span>)</div>
+<div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442">with_header</a>(<span class="stringliteral">&quot;my-header&quot;</span>, <span class="stringliteral">&quot;hello!&quot;</span>)</div>
 <div class="line">    .with_header(<span class="stringliteral">&quot;my-other-header&quot;</span>, <span class="stringliteral">&quot;Здравствуйте!&quot;</span>)</div>
 <div class="line">    .send(<span class="stringliteral">&quot;example_backend&quot;</span>);</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a237df390b687857c9a0384762716342f"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">fastly::http::Request::get</a></div><div class="ttdeci">static Request get(std::string_view url)</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a75df25144332d5458b3243f3bccd9ab6"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">fastly::http::Request::with_header</a></div><div class="ttdeci">fastly::expected&lt; Request &gt; with_header(std::string_view name, std::string_view value)</div><div class="ttdoc">Builder-style equivalent of Request::append_header().</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a42b84bb5a2cd52744c66fa5d42f5e442"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442">fastly::http::Request::with_header</a></div><div class="ttdeci">fastly::expected&lt; Request &gt; with_header(std::string_view name, std::string_view value) &amp;&amp;</div><div class="ttdoc">Builder-style equivalent of Request::append_header().</div></div>
 </div><!-- fragment --><h1><a class="anchor" id="autotoc_md23"></a>
 Setter methods</h1>
 <p >Setter methods, such as <code><a class="el" href="classfastly_1_1http_1_1Request.html#af85ecaa099a855e5cc704983a61cfa23">Request::set_header()</a></code>, are prefixed by <code>set_</code>, and can be used interchangeably with the builder-style methods, allowing you to mix and match styles based on what is most convenient for your program. Setter methods tend to work better than builder-style methods when constructing a request involves conditional branches or loops.</p>
 <p >For example:</p>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">with_header</a>(<span class="stringliteral">&quot;my-header&quot;</span>,</div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442">with_header</a>(<span class="stringliteral">&quot;my-header&quot;</span>,</div>
 <div class="line"><span class="stringliteral">&quot;hello!&quot;</span>)};</div>
 <div class="line"><span class="keywordflow">if</span> (needs_translation) {</div>
 <div class="line">    req.set_header(<span class="stringliteral">&quot;my-other-header&quot;</span>, <span class="stringliteral">&quot;Здравствуйте!&quot;</span>);</div>
@@ -420,13 +420,13 @@ Setter methods</h1>
 <p >This method should be used when combining bodies that have not necessarily been read yet, such as the body of the client. To append contents that are already in memory as strings or bytes, you should instead use [<code>get_body_mut()</code>][<code>Self::get_body_mut()</code>] to write the contents to the end of the body.</p>
 <h1><a class="anchor" id="autotoc_md30"></a>
 Examples</h1>
-<div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#ad5724ea0cfd42bb3e188bf1e2a5a7d47">with_body</a>(<span class="stringliteral">&quot;hello! client</span></div>
+<div class="fragment"><div class="line"><span class="keyword">auto</span> req{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#ac076183e7d7dfc18ac99b7f1c2630bae">with_body</a>(<span class="stringliteral">&quot;hello! client</span></div>
 <div class="line"><span class="stringliteral">says: &quot;</span>)}; req.append_body(<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">Request::from_client</a>().<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a4ff82cec2759ffdb1c8b28b4de7e3f95">into_body</a>());</div>
 <div class="line">req.send(<span class="stringliteral">&quot;example_backend&quot;</span>);</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a008de1b7b69832f3928b3f0f4fc7ca88"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::http::Request::from_client</a></div><div class="ttdeci">static Request from_client()</div></div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a222e1fb71935400f5c2da49dc2baf985"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">fastly::http::Request::post</a></div><div class="ttdeci">static Request post(std::string_view url)</div></div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a4ff82cec2759ffdb1c8b28b4de7e3f95"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a4ff82cec2759ffdb1c8b28b4de7e3f95">fastly::http::Request::into_body</a></div><div class="ttdeci">Body into_body()</div><div class="ttdoc">Consume the request and return its body as a Body instance.</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_ad5724ea0cfd42bb3e188bf1e2a5a7d47"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#ad5724ea0cfd42bb3e188bf1e2a5a7d47">fastly::http::Request::with_body</a></div><div class="ttdeci">Request with_body(Body body)</div><div class="ttdoc">Builder-style equivalent of Request::set_body().</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_ac076183e7d7dfc18ac99b7f1c2630bae"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#ac076183e7d7dfc18ac99b7f1c2630bae">fastly::http::Request::with_body</a></div><div class="ttdeci">Request with_body(Body body) &amp;&amp;</div><div class="ttdoc">Builder-style equivalent of Request::set_body().</div></div>
 </div><!-- fragment --> 
 </div>
 </div>
@@ -498,7 +498,7 @@ Examples</h1>
 <h1><a class="anchor" id="autotoc_md26"></a>
 Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span> original = <a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>)</div>
-<div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a75df25144332d5458b3243f3bccd9ab6">with_header</a>(<span class="stringliteral">&quot;hello&quot;</span>, <span class="stringliteral">&quot;world!&quot;</span>)</div>
+<div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a42b84bb5a2cd52744c66fa5d42f5e442">with_header</a>(<span class="stringliteral">&quot;hello&quot;</span>, <span class="stringliteral">&quot;world!&quot;</span>)</div>
 <div class="line">    .with_body(<span class="stringliteral">&quot;hello&quot;</span>);</div>
 <div class="line"><span class="keyword">auto</span> new_req = original.clone_without_body();</div>
 <div class="line">assert(original.get_method() == <span class="keyword">new</span>.get_method());</div>
@@ -1260,7 +1260,7 @@ Examples</h1>
 <div class="ttc" id="anamespacefastly_1_1http_1_1request_html_a51ca1c5739c98242822e5303dd0907c0"><div class="ttname"><a href="namespacefastly_1_1http_1_1request.html#a51ca1c5739c98242822e5303dd0907c0">fastly::http::request::select</a></div><div class="ttdeci">std::pair&lt; fastly::expected&lt; fastly::http::Response &gt;, std::vector&lt; PendingRequest &gt; &gt; select(std::vector&lt; PendingRequest &gt; &amp;reqs)</div></div>
 </div><!-- fragment --><p >Sending a long-running request and ignoring its result so that the program can exit before it completes:</p>
 <div class="fragment"><div class="line"><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a222e1fb71935400f5c2da49dc2baf985">Request::post</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>)</div>
-<div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#ad5724ea0cfd42bb3e188bf1e2a5a7d47">with_body</a>(some_large_file)</div>
+<div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#ac076183e7d7dfc18ac99b7f1c2630bae">with_body</a>(some_large_file)</div>
 <div class="line">    .<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a538af8485d5e528dd6aab37f0f403b54">send_async</a>(<span class="stringliteral">&quot;example_backend&quot;</span>);</div>
 </div><!-- fragment --> 
 </div>
@@ -1822,8 +1822,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a232eddc8db49b9f9a61e44cbe4680ea4" name="a232eddc8db49b9f9a61e44cbe4680ea4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a232eddc8db49b9f9a61e44cbe4680ea4">&#9670;&#160;</a></span>with_auto_decompress_gzip()</h2>
+<a id="a9fdb2cef9f6160107fd51cd1f27d634f" name="a9fdb2cef9f6160107fd51cd1f27d634f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9fdb2cef9f6160107fd51cd1f27d634f">&#9670;&#160;</a></span>with_auto_decompress_gzip()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1833,7 +1833,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>gzip</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1841,8 +1841,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="ad5724ea0cfd42bb3e188bf1e2a5a7d47" name="ad5724ea0cfd42bb3e188bf1e2a5a7d47"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad5724ea0cfd42bb3e188bf1e2a5a7d47">&#9670;&#160;</a></span>with_body()</h2>
+<a id="ac076183e7d7dfc18ac99b7f1c2630bae" name="ac076183e7d7dfc18ac99b7f1c2630bae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac076183e7d7dfc18ac99b7f1c2630bae">&#9670;&#160;</a></span>with_body()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1852,7 +1852,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classfastly_1_1http_1_1Body.html">Body</a>&#160;</td>
           <td class="paramname"><em>body</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1861,8 +1861,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a14c6e09cc0d55fe7d5dbcf7996edc5c6" name="a14c6e09cc0d55fe7d5dbcf7996edc5c6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a14c6e09cc0d55fe7d5dbcf7996edc5c6">&#9670;&#160;</a></span>with_body_octet_stream()</h2>
+<a id="a858c6e3733f811a658fa90306aee66fc" name="a858c6e3733f811a658fa90306aee66fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a858c6e3733f811a658fa90306aee66fc">&#9670;&#160;</a></span>with_body_octet_stream()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1872,7 +1872,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::vector&lt; uint8_t &gt;&#160;</td>
           <td class="paramname"><em>body</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1880,8 +1880,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="adce4e70286a111c6e54ee252d644143e" name="adce4e70286a111c6e54ee252d644143e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#adce4e70286a111c6e54ee252d644143e">&#9670;&#160;</a></span>with_body_text_html()</h2>
+<a id="a26016be218a8ac6e0a4611e9c36d2a17" name="a26016be218a8ac6e0a4611e9c36d2a17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26016be218a8ac6e0a4611e9c36d2a17">&#9670;&#160;</a></span>with_body_text_html()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1891,7 +1891,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>body</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1899,8 +1899,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="ab548df5125e6da57ef146fc07b2d4387" name="ab548df5125e6da57ef146fc07b2d4387"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab548df5125e6da57ef146fc07b2d4387">&#9670;&#160;</a></span>with_body_text_plain()</h2>
+<a id="a972ca3c5de4a06a15112bfdd1228a76c" name="a972ca3c5de4a06a15112bfdd1228a76c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a972ca3c5de4a06a15112bfdd1228a76c">&#9670;&#160;</a></span>with_body_text_plain()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1910,7 +1910,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>body</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1918,8 +1918,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="ae9a310b6d3c17d82cf67101b37b22eda" name="ae9a310b6d3c17d82cf67101b37b22eda"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae9a310b6d3c17d82cf67101b37b22eda">&#9670;&#160;</a></span>with_cache_key() <span class="overload">[1/2]</span></h2>
+<a id="af7716a8bc992e7a69912a184f3bfc7a6" name="af7716a8bc992e7a69912a184f3bfc7a6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7716a8bc992e7a69912a184f3bfc7a6">&#9670;&#160;</a></span>with_cache_key() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1929,7 +1929,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1938,8 +1938,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a3ece634d204ec208afb1dc01c50ea962" name="a3ece634d204ec208afb1dc01c50ea962"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3ece634d204ec208afb1dc01c50ea962">&#9670;&#160;</a></span>with_cache_key() <span class="overload">[2/2]</span></h2>
+<a id="af9c921b0af5e4f8e7c5de56952b4a631" name="af9c921b0af5e4f8e7c5de56952b4a631"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af9c921b0af5e4f8e7c5de56952b4a631">&#9670;&#160;</a></span>with_cache_key() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1949,7 +1949,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::vector&lt; uint8_t &gt;&#160;</td>
           <td class="paramname"><em>key</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1958,8 +1958,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a4e28411c33c5daae0831ce24b2c97dbb" name="a4e28411c33c5daae0831ce24b2c97dbb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4e28411c33c5daae0831ce24b2c97dbb">&#9670;&#160;</a></span>with_content_type()</h2>
+<a id="a92ce417a183a2a8736ee037e1e6b318d" name="a92ce417a183a2a8736ee037e1e6b318d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a92ce417a183a2a8736ee037e1e6b318d">&#9670;&#160;</a></span>with_content_type()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1969,7 +1969,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>mime</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -1977,8 +1977,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a75df25144332d5458b3243f3bccd9ab6" name="a75df25144332d5458b3243f3bccd9ab6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a75df25144332d5458b3243f3bccd9ab6">&#9670;&#160;</a></span>with_header()</h2>
+<a id="a42b84bb5a2cd52744c66fa5d42f5e442" name="a42b84bb5a2cd52744c66fa5d42f5e442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42b84bb5a2cd52744c66fa5d42f5e442">&#9670;&#160;</a></span>with_header()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1998,7 +1998,7 @@ Overrides</h1>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2007,8 +2007,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a21a10d5172368c12baf047a2debfde26" name="a21a10d5172368c12baf047a2debfde26"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a21a10d5172368c12baf047a2debfde26">&#9670;&#160;</a></span>with_method()</h2>
+<a id="a90dd52234d5c4aa06110f764b3d528c5" name="a90dd52234d5c4aa06110f764b3d528c5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90dd52234d5c4aa06110f764b3d528c5">&#9670;&#160;</a></span>with_method()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2018,7 +2018,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">Method&#160;</td>
           <td class="paramname"><em>method</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2027,8 +2027,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a2b8cc7217a99adec1f62bbd5facb242f" name="a2b8cc7217a99adec1f62bbd5facb242f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2b8cc7217a99adec1f62bbd5facb242f">&#9670;&#160;</a></span>with_pass()</h2>
+<a id="af51bf5043554000397a34585e9649922" name="af51bf5043554000397a34585e9649922"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af51bf5043554000397a34585e9649922">&#9670;&#160;</a></span>with_pass()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2038,7 +2038,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>pass</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2047,8 +2047,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a46d932bc200a791c11b909dba4760cff" name="a46d932bc200a791c11b909dba4760cff"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a46d932bc200a791c11b909dba4760cff">&#9670;&#160;</a></span>with_path()</h2>
+<a id="a7185b8aec671eef94466bfdf2450e265" name="a7185b8aec671eef94466bfdf2450e265"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7185b8aec671eef94466bfdf2450e265">&#9670;&#160;</a></span>with_path()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2058,7 +2058,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>path</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2067,8 +2067,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a93572744211c7cee39948672cbbc5936" name="a93572744211c7cee39948672cbbc5936"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a93572744211c7cee39948672cbbc5936">&#9670;&#160;</a></span>with_pci()</h2>
+<a id="ae03a238a377565787f3307c270bc9892" name="ae03a238a377565787f3307c270bc9892"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae03a238a377565787f3307c270bc9892">&#9670;&#160;</a></span>with_pci()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2078,7 +2078,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">bool&#160;</td>
           <td class="paramname"><em>pci</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2087,8 +2087,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a9ad5cc55282171a33a497660c889dc0c" name="a9ad5cc55282171a33a497660c889dc0c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9ad5cc55282171a33a497660c889dc0c">&#9670;&#160;</a></span>with_query_string()</h2>
+<a id="aa4217db386a247f3b1c7ebd4c6ff8c40" name="aa4217db386a247f3b1c7ebd4c6ff8c40"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa4217db386a247f3b1c7ebd4c6ff8c40">&#9670;&#160;</a></span>with_query_string()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2098,7 +2098,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>query</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2107,8 +2107,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a9396db46443130f59da74b428d7e4e36" name="a9396db46443130f59da74b428d7e4e36"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9396db46443130f59da74b428d7e4e36">&#9670;&#160;</a></span>with_set_header()</h2>
+<a id="a72f306ca5cb635e6b43459582ccf4fc5" name="a72f306ca5cb635e6b43459582ccf4fc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a72f306ca5cb635e6b43459582ccf4fc5">&#9670;&#160;</a></span>with_set_header()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2128,7 +2128,7 @@ Overrides</h1>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td></td>
+          <td></td><td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2137,8 +2137,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a6d81449521d39f73fb059b41b4582a24" name="a6d81449521d39f73fb059b41b4582a24"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6d81449521d39f73fb059b41b4582a24">&#9670;&#160;</a></span>with_stale_while_revalidate()</h2>
+<a id="acbd875db45d6829b7e245654b9c07826" name="acbd875db45d6829b7e245654b9c07826"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbd875db45d6829b7e245654b9c07826">&#9670;&#160;</a></span>with_stale_while_revalidate()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2148,7 +2148,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>swr</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2156,8 +2156,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a0036953e445d8795a73a519d18f0df4b" name="a0036953e445d8795a73a519d18f0df4b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0036953e445d8795a73a519d18f0df4b">&#9670;&#160;</a></span>with_surrogate_key()</h2>
+<a id="a6386ba54a0ef282aefae312b4c8834c1" name="a6386ba54a0ef282aefae312b4c8834c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6386ba54a0ef282aefae312b4c8834c1">&#9670;&#160;</a></span>with_surrogate_key()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2167,7 +2167,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>sk</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2175,8 +2175,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="a209f7f6b0fc66d2fd1af1acb9419ad85" name="a209f7f6b0fc66d2fd1af1acb9419ad85"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a209f7f6b0fc66d2fd1af1acb9419ad85">&#9670;&#160;</a></span>with_ttl()</h2>
+<a id="aa384cadc4a8abaa3d46599e38186dccc" name="aa384cadc4a8abaa3d46599e38186dccc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa384cadc4a8abaa3d46599e38186dccc">&#9670;&#160;</a></span>with_ttl()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2186,7 +2186,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">uint32_t&#160;</td>
           <td class="paramname"><em>ttl</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -2195,8 +2195,8 @@ Overrides</h1>
 
 </div>
 </div>
-<a id="ad6942d598ca2af74f9f6b500f6da4a5b" name="ad6942d598ca2af74f9f6b500f6da4a5b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ad6942d598ca2af74f9f6b500f6da4a5b">&#9670;&#160;</a></span>with_url()</h2>
+<a id="aca5b239e52538c172e931bb0dc0afd05" name="aca5b239e52538c172e931bb0dc0afd05"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aca5b239e52538c172e931bb0dc0afd05">&#9670;&#160;</a></span>with_url()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -2206,7 +2206,7 @@ Overrides</h1>
           <td>(</td>
           <td class="paramtype">std::string_view&#160;</td>
           <td class="paramname"><em>url</em></td><td>)</td>
-          <td></td>
+          <td> &amp;&amp;</td>
         </tr>
       </table>
 </div><div class="memdoc">

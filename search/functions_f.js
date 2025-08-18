@@ -26,7 +26,7 @@ var searchData=
   ['set_5fsurrogate_5fkey_23',['set_surrogate_key',['../classfastly_1_1http_1_1Request.html#a73b2d6236e4f0281278eebba7b4ab197',1,'fastly::http::Request']]],
   ['set_5fttl_24',['set_ttl',['../classfastly_1_1http_1_1Request.html#af6e4e9a778f3d43c431a6d010bde30a0',1,'fastly::http::Request']]],
   ['set_5furl_25',['set_url',['../classfastly_1_1http_1_1Request.html#a5b9b64421e2281f3fab3fbac864fc520',1,'fastly::http::Request']]],
-  ['sni_5fhostname_26',['sni_hostname',['../classfastly_1_1backend_1_1BackendBuilder.html#afcfc29c60e92ca6ae74cbf786e943642',1,'fastly::backend::BackendBuilder']]],
+  ['sni_5fhostname_26',['sni_hostname',['../classfastly_1_1backend_1_1BackendBuilder.html#a82826c6432f49ad5ce6d6e4af6fee9e0',1,'fastly::backend::BackendBuilder']]],
   ['soft_5fpurge_5fsurrogate_5fkey_27',['soft_purge_surrogate_key',['../namespacefastly_1_1http_1_1purge.html#adc34607891e7bcd21ad67c33ea09f158',1,'fastly::http::purge']]],
   ['statuscode_28',['StatusCode',['../classfastly_1_1http_1_1StatusCode.html#afbe0b1c8ac4587bffaa20432974d8ee1',1,'fastly::http::StatusCode::StatusCode(uint16_t code)'],['../classfastly_1_1http_1_1StatusCode.html#a73abc51446360c3cb7b06e469880f2b2',1,'fastly::http::StatusCode::StatusCode()=default']]],
   ['stream_5fto_5fclient_29',['stream_to_client',['../classfastly_1_1http_1_1Response.html#a1f76bc6ed588fb20239b5de0a8b8e589',1,'fastly::http::Response']]],

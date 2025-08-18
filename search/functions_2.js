@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['ca_5fcertificate_0',['ca_certificate',['../classfastly_1_1backend_1_1BackendBuilder.html#abd87dcdab58128c5194def462bb74948',1,'fastly::backend::BackendBuilder']]],
+  ['ca_5fcertificate_0',['ca_certificate',['../classfastly_1_1backend_1_1BackendBuilder.html#a0ea57c8eb1e3604b7f555faaf855d1c8',1,'fastly::backend::BackendBuilder']]],
   ['canonical_5freason_1',['canonical_reason',['../classfastly_1_1http_1_1StatusCode.html#a7cbaee5ed31733a7caf215041193fe3b',1,'fastly::http::StatusCode']]],
-  ['check_5fcertificate_2',['check_certificate',['../classfastly_1_1backend_1_1BackendBuilder.html#a12efdbd1ec5d54394e0db3d1a2751ac3',1,'fastly::backend::BackendBuilder']]],
+  ['check_5fcertificate_2',['check_certificate',['../classfastly_1_1backend_1_1BackendBuilder.html#aac9e8f659ea37821472fc3c44df899cd',1,'fastly::backend::BackendBuilder']]],
   ['city_3',['city',['../classfastly_1_1geo_1_1Geo.html#a72362a045c21ad97c170b27e5781d404',1,'fastly::geo::Geo']]],
   ['clone_4',['clone',['../classfastly_1_1backend_1_1Backend.html#ae26bfbb4180827e3ab0d9d0b2c96bebb',1,'fastly::backend::Backend']]],
   ['clone_5fwith_5fbody_5',['clone_with_body',['../classfastly_1_1http_1_1Request.html#a783a4924ec165ea57c9023e4d0871c02',1,'fastly::http::Request::clone_with_body()'],['../classfastly_1_1http_1_1Response.html#aa53efca82ae70cbcf2c57acd150cbf6f',1,'fastly::http::Response::clone_with_body()']]],
@@ -10,7 +10,7 @@ var searchData=
   ['conn_5fspeed_7',['conn_speed',['../classfastly_1_1geo_1_1Geo.html#a1cbb5259572e3a983cefc072447223e2',1,'fastly::geo::Geo']]],
   ['conn_5ftype_8',['conn_type',['../classfastly_1_1geo_1_1Geo.html#a6f4bfd71bb6d3f070cc6b0cdb4d26327',1,'fastly::geo::Geo']]],
   ['connect_9',['connect',['../classfastly_1_1http_1_1Request.html#a85239ba85345a2fe9f101259532fc4bf',1,'fastly::http::Request']]],
-  ['connect_5ftimeout_10',['connect_timeout',['../classfastly_1_1backend_1_1BackendBuilder.html#a2fdd2316c4fc1c0490fd9f9625dfb035',1,'fastly::backend::BackendBuilder']]],
+  ['connect_5ftimeout_10',['connect_timeout',['../classfastly_1_1backend_1_1BackendBuilder.html#a8124a0ac0c159d6261d57dbd7c5c2c16',1,'fastly::backend::BackendBuilder']]],
   ['contains_11',['contains',['../classfastly_1_1config__store_1_1ConfigStore.html#ab408c1970a8cee171a9824f88c247c3c',1,'fastly::config_store::ConfigStore::contains()'],['../classfastly_1_1secret__store_1_1SecretStore.html#ada6f32c8eea5c1c06a551c6864f21052',1,'fastly::secret_store::SecretStore::contains()']]],
   ['contains_5fheader_12',['contains_header',['../classfastly_1_1http_1_1Request.html#a454cff9b991c3862638ff505f678a07d',1,'fastly::http::Request::contains_header()'],['../classfastly_1_1http_1_1Response.html#a7357157c410ef97ec004f331e80db8ff',1,'fastly::http::Response::contains_header()']]],
   ['continent_13',['continent',['../classfastly_1_1geo_1_1Geo.html#a9d8652185e44ea5d70b25f75232fb6ca',1,'fastly::geo::Geo']]],

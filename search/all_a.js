@@ -1,7 +1,7 @@
 var searchData=
 [
   ['main_0',['main',['../streaming__response_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;streaming_response.cpp'],['../router_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;router.cpp'],['../robots_8txt_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;robots.txt.cpp'],['../random_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;random.cpp'],['../echo_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;echo.cpp'],['../device__detection_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;device_detection.cpp'],['../clock_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;clock.cpp'],['../async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'main():&#160;async_reqs.cpp']]],
-  ['max_5flevel_1',['max_level',['../classfastly_1_1log_1_1LoggerBuilder.html#a07b3e5ca092b568431bc8274ac90d2ee',1,'fastly::log::LoggerBuilder::max_level()'],['../namespacefastly_1_1log.html#ab19304a6f30cf268aa69f3556d33a713',1,'fastly::log::max_level()']]],
+  ['max_5flevel_1',['max_level',['../classfastly_1_1log_1_1LoggerBuilder.html#a7ac1bb1ae818f49ee692de2dccc856db',1,'fastly::log::LoggerBuilder::max_level()'],['../namespacefastly_1_1log.html#ab19304a6f30cf268aa69f3556d33a713',1,'fastly::log::max_level()']]],
   ['method_2eh_2',['method.h',['../method_8h.html',1,'']]],
   ['method_5fnot_5fallowed_3',['METHOD_NOT_ALLOWED',['../classfastly_1_1http_1_1StatusCode.html#ab50216d71bcbae41c619a8b56757df55',1,'fastly::http::StatusCode']]],
   ['metro_5fcode_4',['metro_code',['../classfastly_1_1geo_1_1Geo.html#ab4c3356070f88a6ebc58b05cfd620684',1,'fastly::geo::Geo']]],
