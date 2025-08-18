@@ -505,7 +505,8 @@ public:
   /// );
   /// ```
   LoggerBuilder endpoint_level(Endpoint endpoint, LogLevelFilter level) &&;
-  LoggerBuilder endpoint_level(std::string_view endpoint, LogLevelFilter level) &&;
+  LoggerBuilder endpoint_level(std::string_view endpoint,
+                               LogLevelFilter level) &&;
 
   /// Set the default endpoint for all messages.
   ///
