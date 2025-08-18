@@ -366,11 +366,7 @@ impl Request {
     }
 
     pub fn get_header_names(&self, mut out: Pin<&mut *mut HeaderNamesIter>) {
-        let iter = self
-            .0
-            .get_header_names()
-            .cloned()
-            .collect::<Vec<_>>();
+        let iter = self.0.get_header_names().cloned().collect::<Vec<_>>();
         out.set(Box::into_raw(Box::new(HeaderNamesIter(Box::new(
             iter.into_iter(),
         )))));
