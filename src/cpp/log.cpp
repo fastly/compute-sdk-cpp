@@ -52,15 +52,16 @@ LoggerBuilder LoggerBuilder::endpoint(std::string_view ep) && {
   return std::move(*this).endpoint(Endpoint::from_name(std::move(ep)).value());
 }
 
-LoggerBuilder LoggerBuilder::endpoint_level(Endpoint ep, LogLevelFilter level) && {
+LoggerBuilder LoggerBuilder::endpoint_level(Endpoint ep,
+                                            LogLevelFilter level) && {
   this->lb->endpoint_level(std::move(ep.ep), level);
   return std::move(*this);
 }
 
 LoggerBuilder LoggerBuilder::endpoint_level(std::string_view ep,
                                             LogLevelFilter level) && {
-  return std::move(*this).endpoint_level(Endpoint::from_name(std::move(ep)).value(),
-                              level);
+  return std::move(*this).endpoint_level(
+      Endpoint::from_name(std::move(ep)).value(), level);
 }
 
 LoggerBuilder LoggerBuilder::default_endpoint(Endpoint ep) && {
@@ -69,7 +70,8 @@ LoggerBuilder LoggerBuilder::default_endpoint(Endpoint ep) && {
 }
 
 LoggerBuilder LoggerBuilder::default_endpoint(std::string_view ep) && {
-  return std::move(*this).default_endpoint(Endpoint::from_name(std::move(ep)).value());
+  return std::move(*this).default_endpoint(
+      Endpoint::from_name(std::move(ep)).value());
 }
 
 LoggerBuilder LoggerBuilder::default_level_endpoint(Endpoint ep,

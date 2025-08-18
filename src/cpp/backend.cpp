@@ -92,21 +92,24 @@ BackendBuilder BackendBuilder::override_host(std::string_view name) && {
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::connect_timeout(std::chrono::milliseconds timeout) && {
+BackendBuilder
+BackendBuilder::connect_timeout(std::chrono::milliseconds timeout) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_connect_timeout(
           std::move(this->builder), timeout.count());
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::first_byte_timeout(std::chrono::milliseconds timeout) && {
+BackendBuilder
+BackendBuilder::first_byte_timeout(std::chrono::milliseconds timeout) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_first_byte_timeout(
           std::move(this->builder), timeout.count());
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::between_bytes_timeout(std::chrono::milliseconds timeout) && {
+BackendBuilder
+BackendBuilder::between_bytes_timeout(std::chrono::milliseconds timeout) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_between_bytes_timeout(
           std::move(this->builder), timeout.count());
@@ -158,7 +161,8 @@ BackendBuilder BackendBuilder::enable_pooling(bool enable) && {
   return std::move(*this);
 }
 
-BackendBuilder BackendBuilder::http_keepalive_time(std::chrono::milliseconds time) && {
+BackendBuilder
+BackendBuilder::http_keepalive_time(std::chrono::milliseconds time) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_http_keepalive_time(
           std::move(this->builder), time.count());
