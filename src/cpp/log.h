@@ -210,7 +210,7 @@ using LogLevelFilter = fastly::sys::log::LogLevelFilter;
 template <typename... Args>
 void error(std::format_string<Args...> fmt, Args &&...args) {
   fastly::sys::log::f_log_log(fastly::sys::log::LogLevel::Error,
-                              std::format(fmt, args...));
+                              std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send an Error-level message to a specified configured endpoint.
@@ -336,7 +336,7 @@ void info_to(std::string_view dest, std::format_string<Args...> fmt,
 template <typename... Args>
 void debug(std::format_string<Args...> fmt, Args &&...args) {
   fastly::sys::log::f_log_log(fastly::sys::log::LogLevel::Debug,
-                              std::format(fmt, args...));
+                              std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Debug-level message to a specified configured endpoint.

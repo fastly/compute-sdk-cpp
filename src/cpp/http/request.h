@@ -475,16 +475,13 @@ public:
   /// may be any of the values. See
   /// `Request::get_header_all()`
   /// all of the values.
-  // TODO(@zkat): do a proper HeaderValue situation here?
-  fastly::expected<std::optional<std::string>>
+  fastly::expected<std::optional<HeaderValue>>
   get_header(std::string_view name);
 
   /// Get an iterator of all the values of a header.
-  fastly::expected<HeaderValuesIter> get_header_all(std::string_view name);
-
-  // TODO(@zkat): sigh. IDK
-  // ??? get_headers();
-  // HeaderNamesIter get_header_names();
+  fastly::expected<HeaderValuesRange> get_header_all(std::string_view name);
+  fastly::expected<HeadersRange> get_headers();
+  fastly::expected<HeaderNamesRange> get_header_names();
 
   /// Set a request header to the given value, discarding any previous values
   /// for the given header name.

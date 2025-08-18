@@ -174,23 +174,23 @@ fastly::expected<Response> Response::with_set_header(std::string_view name,
   });
 }
 
-// TODO(@zkat): do a proper HeaderValue situation here?
-fastly::expected<std::optional<std::string>>
+fastly::expected<std::optional<HeaderValue>>
 Response::get_header(std::string_view name) {
+  std::vector<uint8_t> value;
+  bool is_sensitive{false};
   fastly::sys::error::FastlyError *err;
-  std::string out;
   bool has_header{
-      this->res->get_header(static_cast<std::string>(name), out, err)};
+      this->res->get_header(static_cast<std::string>(name), value, is_sensitive, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
   } else if (has_header) {
-    return std::optional<std::string>(std::move(out));
+    return std::optional<HeaderValue>(std::in_place, std::string(value.begin(), value.end()), is_sensitive);
   } else {
     return std::nullopt;
   }
 }
 
-fastly::expected<HeaderValuesIter>
+fastly::expected<HeaderValuesRange>
 Response::get_header_all(std::string_view name) {
   fastly::sys::http::HeaderValuesIter *out;
   fastly::sys::error::FastlyError *err;
@@ -198,13 +198,26 @@ Response::get_header_all(std::string_view name) {
   if (err != nullptr) {
     return fastly::unexpected(err);
   } else {
-    return FSLY_BOX(http, HeaderValuesIter, out);
+    return HeaderValuesRange(
+        rust::Box<fastly::sys::http::HeaderValuesIter>::from_raw(out));
   }
 }
 
-// TODO(@zkat): sigh. IDK
-// ??? get_headers();
-// HeaderNamesIter get_header_names();
+fastly::expected<HeadersRange>
+Response::get_headers() {
+  fastly::sys::http::HeadersIter *out;
+  this->res->get_headers(out);
+  return HeadersRange(
+      rust::Box<fastly::sys::http::HeadersIter>::from_raw(out));
+}
+
+fastly::expected<HeaderNamesRange>
+Response::get_header_names() {
+  fastly::sys::http::HeaderNamesIter *out;
+  this->res->get_header_names(out);
+  return HeaderNamesRange(
+      rust::Box<fastly::sys::http::HeaderNamesIter>::from_raw(out));
+}
 
 fastly::expected<void> Response::set_header(std::string_view name,
                                             std::string_view value) {

@@ -322,11 +322,30 @@ mod ffi {
             mut err: Pin<&mut *mut FastlyError>,
         );
     }
-
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
         type HeaderValuesIter;
-        fn next(&mut self) -> UniquePtr<CxxVector<u8>>;
+        fn next(&mut self, mut value_out: Pin<&mut CxxVector<u8>>, mut is_sensitive_out: Pin<&mut bool>) -> bool;
+        fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter>;
+    }
+
+    #[namespace = "fastly::sys::http"]
+    extern "Rust" {
+        type HeaderNamesIter;
+        fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
+        fn f_header_names_iter_noop(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter>;
+    }
+
+    #[namespace = "fastly::sys::http"]
+    extern "Rust" {
+        type HeadersIter;
+        fn next(
+            &mut self,
+            mut name_out: Pin<&mut CxxString>,
+            mut value_out: Pin<&mut CxxVector<u8>>,
+            mut is_sensitive_out: Pin<&mut bool>,
+        ) -> bool;
+        fn f_headers_iter_noop(val: Box<HeadersIter>) -> Box<HeadersIter>;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -382,7 +401,8 @@ mod ffi {
         fn get_header(
             &self,
             name: &CxxString,
-            out: Pin<&mut CxxString>,
+            value_out: Pin<&mut CxxVector<u8>>,
+            is_sensitive_out: Pin<&mut bool>,
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
         fn get_header_all(
@@ -390,6 +410,14 @@ mod ffi {
             name: &CxxString,
             out: Pin<&mut *mut HeaderValuesIter>,
             mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn get_headers(
+            &self,
+            out: Pin<&mut *mut HeadersIter>
+        );
+        fn get_header_names(
+            &self,
+            out: Pin<&mut *mut HeaderNamesIter>
         );
         fn set_header(
             &mut self,
@@ -518,7 +546,8 @@ mod ffi {
         fn get_header(
             &self,
             name: &CxxString,
-            out: Pin<&mut CxxString>,
+            value_out: Pin<&mut CxxVector<u8>>,
+            is_sensitive_out: Pin<&mut bool>,
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
         fn get_header_all(
@@ -526,6 +555,14 @@ mod ffi {
             name: &CxxString,
             out: Pin<&mut *mut HeaderValuesIter>,
             mut err: Pin<&mut *mut FastlyError>,
+        );
+        fn get_headers(
+            &self,
+            out: Pin<&mut *mut HeadersIter>
+        );
+        fn get_header_names(
+            &self,
+            out: Pin<&mut *mut HeaderNamesIter>
         );
         fn set_header(
             &mut self,
