@@ -5,10 +5,9 @@
 #include "../error.h"
 #include "../sdk-sys.h"
 #include "../util.h"
-#include "http.h"
 #include "body.h"
 #include "header.h"
-#include "method.h"
+#include "http.h"
 #include "response.h"
 #include <algorithm>
 #include <iostream>
