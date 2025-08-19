@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['method_2eh_0',['method.h',['../method_8h.html',1,'']]]
+  ['purge_2eh_0',['purge.h',['../purge_8h.html',1,'']]]
 ];

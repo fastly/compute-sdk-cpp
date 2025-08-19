@@ -8,6 +8,9 @@ var annotated_dup =
       [ "config_store", "namespacefastly_1_1config__store.html", [
         [ "ConfigStore", "classfastly_1_1config__store_1_1ConfigStore.html", "classfastly_1_1config__store_1_1ConfigStore" ]
       ] ],
+      [ "detail", "namespacefastly_1_1detail.html", [
+        [ "RustIteratorRange", "classfastly_1_1detail_1_1RustIteratorRange.html", "classfastly_1_1detail_1_1RustIteratorRange" ]
+      ] ],
       [ "device_detection", "namespacefastly_1_1device__detection.html", [
         [ "Device", "classfastly_1_1device__detection_1_1Device.html", "classfastly_1_1device__detection_1_1Device" ]
       ] ],
@@ -23,7 +26,11 @@ var annotated_dup =
           [ "PendingRequest", "classfastly_1_1http_1_1request_1_1PendingRequest.html", "classfastly_1_1http_1_1request_1_1PendingRequest" ]
         ] ],
         [ "Body", "classfastly_1_1http_1_1Body.html", "classfastly_1_1http_1_1Body" ],
-        [ "HeaderValuesIter", "classfastly_1_1http_1_1HeaderValuesIter.html", "classfastly_1_1http_1_1HeaderValuesIter" ],
+        [ "HeaderNamesRange", "classfastly_1_1http_1_1HeaderNamesRange.html", "classfastly_1_1http_1_1HeaderNamesRange" ],
+        [ "HeadersRange", "classfastly_1_1http_1_1HeadersRange.html", "classfastly_1_1http_1_1HeadersRange" ],
+        [ "HeaderValue", "classfastly_1_1http_1_1HeaderValue.html", "classfastly_1_1http_1_1HeaderValue" ],
+        [ "HeaderValuesRange", "classfastly_1_1http_1_1HeaderValuesRange.html", "classfastly_1_1http_1_1HeaderValuesRange" ],
+        [ "OriginalHeaderNamesRange", "classfastly_1_1http_1_1OriginalHeaderNamesRange.html", "classfastly_1_1http_1_1OriginalHeaderNamesRange" ],
         [ "Request", "classfastly_1_1http_1_1Request.html", "classfastly_1_1http_1_1Request" ],
         [ "Response", "classfastly_1_1http_1_1Response.html", "classfastly_1_1http_1_1Response" ],
         [ "StatusCode", "classfastly_1_1http_1_1StatusCode.html", "classfastly_1_1http_1_1StatusCode" ],

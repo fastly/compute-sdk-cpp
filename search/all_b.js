@@ -2,7 +2,7 @@ var searchData=
 [
   ['name_0',['name',['../classfastly_1_1backend_1_1Backend.html#ad603a6744382f11cba1d0dd78fe0a883',1,'fastly::backend::Backend::name()'],['../classfastly_1_1log_1_1Endpoint.html#a27d22575b8d5e8f0384cc63a310de9d4',1,'fastly::log::Endpoint::name()']]],
   ['network_5fauthentication_5frequired_1',['NETWORK_AUTHENTICATION_REQUIRED',['../classfastly_1_1http_1_1StatusCode.html#a44f627566d6edfe162384c06fb6aeaee',1,'fastly::http::StatusCode']]],
-  ['next_2',['next',['../classfastly_1_1http_1_1HeaderValuesIter.html#a355a3febe3b1830bc57e6d8dc50e3f96',1,'fastly::http::HeaderValuesIter']]],
+  ['next_2',['next',['../classfastly_1_1http_1_1HeaderValuesRange.html#ac9e53449c5ada8e1851a499ce0f4282e',1,'fastly::http::HeaderValuesRange::next()'],['../classfastly_1_1http_1_1HeadersRange.html#a6803ae9015e03ca205d66d1a5da6e063',1,'fastly::http::HeadersRange::next()'],['../classfastly_1_1http_1_1HeaderNamesRange.html#a46ce20e7eed6afcbcf467a6d8ce3b895',1,'fastly::http::HeaderNamesRange::next()'],['../classfastly_1_1http_1_1OriginalHeaderNamesRange.html#a5ccd62b93c1113d2cd7ae7bb17998858',1,'fastly::http::OriginalHeaderNamesRange::next()']]],
   ['no_5fcontent_3',['NO_CONTENT',['../classfastly_1_1http_1_1StatusCode.html#af316db8f88ff3a16c927b224b7805d05',1,'fastly::http::StatusCode']]],
   ['non_5fauthoritative_5finformation_4',['NON_AUTHORITATIVE_INFORMATION',['../classfastly_1_1http_1_1StatusCode.html#a13a28a8c11b8feee6fdcc11030ea7e92',1,'fastly::http::StatusCode']]],
   ['not_5facceptable_5',['NOT_ACCEPTABLE',['../classfastly_1_1http_1_1StatusCode.html#adf3e7684c40e05f4b6642c43cf1c1ad1',1,'fastly::http::StatusCode']]],

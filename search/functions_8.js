@@ -22,12 +22,14 @@ var searchData=
   ['is_5fnegative_19',['is_negative',['../classfastly_1_1geo_1_1UtcOffset.html#a54dfc7e99df284519ac0810bc3d10bc1',1,'fastly::geo::UtcOffset']]],
   ['is_5fpositive_20',['is_positive',['../classfastly_1_1geo_1_1UtcOffset.html#a3c254fe07ac6f03b936d0c5405f1e9e2',1,'fastly::geo::UtcOffset']]],
   ['is_5fredirection_21',['is_redirection',['../classfastly_1_1http_1_1StatusCode.html#aaefe9a9b73d60c6a4df65932355f3d12',1,'fastly::http::StatusCode']]],
-  ['is_5fserver_5ferror_22',['is_server_error',['../classfastly_1_1http_1_1StatusCode.html#aac1ebaaf60603b13b2969c6aba7c04f0',1,'fastly::http::StatusCode']]],
-  ['is_5fsmarttv_23',['is_smarttv',['../classfastly_1_1device__detection_1_1Device.html#a9c249945482734a985aea39d3f778720',1,'fastly::device_detection::Device']]],
-  ['is_5fssl_24',['is_ssl',['../classfastly_1_1backend_1_1Backend.html#a01f2c898e23ebe3d7694c5c59a394c26',1,'fastly::backend::Backend']]],
-  ['is_5fsuccess_25',['is_success',['../classfastly_1_1http_1_1StatusCode.html#a7f2dbd9deb3a939b5e75afca817734dc',1,'fastly::http::StatusCode']]],
-  ['is_5ftablet_26',['is_tablet',['../classfastly_1_1device__detection_1_1Device.html#aeacb0fb06f4c9fb1d6189caef342db97',1,'fastly::device_detection::Device']]],
-  ['is_5ftouchscreen_27',['is_touchscreen',['../classfastly_1_1device__detection_1_1Device.html#ae4c21474714b7b611f7de65c91085edd',1,'fastly::device_detection::Device']]],
-  ['is_5ftvplayer_28',['is_tvplayer',['../classfastly_1_1device__detection_1_1Device.html#a1fdf614103097c962c701ccea0df1490',1,'fastly::device_detection::Device']]],
-  ['is_5futc_29',['is_utc',['../classfastly_1_1geo_1_1UtcOffset.html#a754e9a66a72d7a252552f140b4133405',1,'fastly::geo::UtcOffset']]]
+  ['is_5fsensitive_22',['is_sensitive',['../classfastly_1_1http_1_1HeaderValue.html#ad0657619e713e508699bc88473fef78c',1,'fastly::http::HeaderValue']]],
+  ['is_5fserver_5ferror_23',['is_server_error',['../classfastly_1_1http_1_1StatusCode.html#aac1ebaaf60603b13b2969c6aba7c04f0',1,'fastly::http::StatusCode']]],
+  ['is_5fsmarttv_24',['is_smarttv',['../classfastly_1_1device__detection_1_1Device.html#a9c249945482734a985aea39d3f778720',1,'fastly::device_detection::Device']]],
+  ['is_5fssl_25',['is_ssl',['../classfastly_1_1backend_1_1Backend.html#a01f2c898e23ebe3d7694c5c59a394c26',1,'fastly::backend::Backend']]],
+  ['is_5fsuccess_26',['is_success',['../classfastly_1_1http_1_1StatusCode.html#a7f2dbd9deb3a939b5e75afca817734dc',1,'fastly::http::StatusCode']]],
+  ['is_5ftablet_27',['is_tablet',['../classfastly_1_1device__detection_1_1Device.html#aeacb0fb06f4c9fb1d6189caef342db97',1,'fastly::device_detection::Device']]],
+  ['is_5ftouchscreen_28',['is_touchscreen',['../classfastly_1_1device__detection_1_1Device.html#ae4c21474714b7b611f7de65c91085edd',1,'fastly::device_detection::Device']]],
+  ['is_5ftvplayer_29',['is_tvplayer',['../classfastly_1_1device__detection_1_1Device.html#a1fdf614103097c962c701ccea0df1490',1,'fastly::device_detection::Device']]],
+  ['is_5futc_30',['is_utc',['../classfastly_1_1geo_1_1UtcOffset.html#a754e9a66a72d7a252552f140b4133405',1,'fastly::geo::UtcOffset']]],
+  ['iterator_31',['iterator',['../classfastly_1_1detail_1_1RustIteratorRange_1_1iterator.html#a88fce80854054b2b79452db6ead87bd0',1,'fastly::detail::RustIteratorRange::iterator::iterator()'],['../classfastly_1_1detail_1_1RustIteratorRange_1_1iterator.html#a30274266ea1f5632b44225dcbd444ee5',1,'fastly::detail::RustIteratorRange::iterator::iterator(RustIteratorRange *range)']]]
 ];

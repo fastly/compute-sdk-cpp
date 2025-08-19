@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['unexpected_0',['unexpected',['../namespacefastly_1_1error.html#a4beddab6c6ded01818af14f595c55eee',1,'fastly::error']]]
+  ['iterator_5fcategory_0',['iterator_category',['../classfastly_1_1detail_1_1RustIteratorRange_1_1iterator.html#ab42da3586bd4ea5efdd3e05eff9da954',1,'fastly::detail::RustIteratorRange::iterator']]]
 ];

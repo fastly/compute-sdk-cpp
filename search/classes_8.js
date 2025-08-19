@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pendingrequest_0',['PendingRequest',['../classfastly_1_1http_1_1request_1_1PendingRequest.html',1,'fastly::http::request']]]
+  ['loggerbuilder_0',['LoggerBuilder',['../classfastly_1_1log_1_1LoggerBuilder.html',1,'fastly::log']]]
 ];

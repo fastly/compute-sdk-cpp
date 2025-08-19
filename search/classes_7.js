@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['loggerbuilder_0',['LoggerBuilder',['../classfastly_1_1log_1_1LoggerBuilder.html',1,'fastly::log']]]
+  ['iterator_0',['iterator',['../classfastly_1_1detail_1_1RustIteratorRange_1_1iterator.html',1,'fastly::detail::RustIteratorRange']]]
 ];

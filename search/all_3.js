@@ -9,5 +9,6 @@ var searchData=
   ['device_5fdetection_2ecpp_6',['device_detection.cpp',['../device__detection_8cpp.html',1,'']]],
   ['device_5fdetection_2eh_7',['device_detection.h',['../device__detection_8h.html',1,'']]],
   ['device_5fname_8',['device_name',['../classfastly_1_1device__detection_1_1Device.html#adb8837d1b415101ba0fe213597418808',1,'fastly::device_detection::Device']]],
-  ['disable_5fssl_9',['disable_ssl',['../classfastly_1_1backend_1_1BackendBuilder.html#a475f9c6fb0d0cbcde1528867dd4b673c',1,'fastly::backend::BackendBuilder']]]
+  ['difference_5ftype_9',['difference_type',['../classfastly_1_1detail_1_1RustIteratorRange_1_1iterator.html#a98fe8aa7c2641e929b320dd4e5ca2c86',1,'fastly::detail::RustIteratorRange::iterator']]],
+  ['disable_5fssl_10',['disable_ssl',['../classfastly_1_1backend_1_1BackendBuilder.html#a475f9c6fb0d0cbcde1528867dd4b673c',1,'fastly::backend::BackendBuilder']]]
 ];

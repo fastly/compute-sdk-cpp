@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=11" />
         <meta name="generator" content="Doxygen 1.9.5" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Fastly Compute C++ SDK: target/release/dist/fastly/http/method.h File Reference</title>
+        <title>Fastly Compute C++ SDK: fastly::http::HeaderNamesRange Class Reference</title>
         <!--BEGIN PROJECT_ICON-->
         <link rel="icon" href="$projecticon" type="image/x-icon" />
         <!--END PROJECT_ICON-->
@@ -105,7 +105,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('method_8h.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('classfastly_1_1http_1_1HeaderNamesRange.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -132,27 +132,100 @@ $(document).ready(function(){initNavTree('method_8h.html',''); initResizable(); 
 
 <div class="header">
   <div class="summary">
-<a href="#namespaces">Namespaces</a>  </div>
-  <div class="headertitle"><div class="title">method.h File Reference</div></div>
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="classfastly_1_1http_1_1HeaderNamesRange-members.html">List of all members</a>  </div>
+  <div class="headertitle"><div class="title">fastly::http::HeaderNamesRange Class Reference</div></div>
 </div><!--header-->
 <div class="contents">
-<div class="textblock"><code>#include &quot;<a class="el" href="sdk-sys_8h_source.html">../sdk-sys.h</a>&quot;</code><br />
-</div>
-<p><a href="method_8h_source.html">Go to the source code of this file.</a></p>
+
+<p>Iterates over all header names in a request or response.  
+ <a href="classfastly_1_1http_1_1HeaderNamesRange.html#details">More...</a></p>
+
+<p><code>#include &lt;<a class="el" href="header_8h_source.html">header.h</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for fastly::http::HeaderNamesRange:</div>
+<div class="dyncontent">
+ <div class="center">
+  <img src="classfastly_1_1http_1_1HeaderNamesRange.png" usemap="#fastly::http::HeaderNamesRange_map" alt=""/>
+  <map id="fastly::http::HeaderNamesRange_map" name="fastly::http::HeaderNamesRange_map">
+<area href="classfastly_1_1detail_1_1RustIteratorRange.html" alt="fastly::detail::RustIteratorRange&lt; HeaderNamesRange, fastly::sys::http::HeaderNamesIter &gt;" shape="rect" coords="0,0,518,24"/>
+  </map>
+</div></div>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="namespaces" name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacefastly"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefastly.html">fastly</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:namespacefastly_1_1http"><td class="memItemLeft" align="right" valign="top">namespace &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacefastly_1_1http.html">fastly::http</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="pub-methods" name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:aff9749ceddee9085d75ac3efec42bb71"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1HeaderNamesRange.html#aff9749ceddee9085d75ac3efec42bb71">HeaderNamesRange</a> (rust::Box&lt; fastly::sys::http::HeaderNamesIter &gt; iter)</td></tr>
+<tr class="separator:aff9749ceddee9085d75ac3efec42bb71"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a46ce20e7eed6afcbcf467a6d8ce3b895"><td class="memItemLeft" align="right" valign="top">std::optional&lt; std::string &gt;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classfastly_1_1http_1_1HeaderNamesRange.html#a46ce20e7eed6afcbcf467a6d8ce3b895">next</a> ()</td></tr>
+<tr class="memdesc:a46ce20e7eed6afcbcf467a6d8ce3b895"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the next header name.  <a href="classfastly_1_1http_1_1HeaderNamesRange.html#a46ce20e7eed6afcbcf467a6d8ce3b895">More...</a><br /></td></tr>
+<tr class="separator:a46ce20e7eed6afcbcf467a6d8ce3b895"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p >Iterates over all header names in a request or response. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="aff9749ceddee9085d75ac3efec42bb71" name="aff9749ceddee9085d75ac3efec42bb71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aff9749ceddee9085d75ac3efec42bb71">&#9670;&#160;</a></span>HeaderNamesRange()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">fastly::http::HeaderNamesRange::HeaderNamesRange </td>
+          <td>(</td>
+          <td class="paramtype">rust::Box&lt; fastly::sys::http::HeaderNamesIter &gt;&#160;</td>
+          <td class="paramname"><em>iter</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="a46ce20e7eed6afcbcf467a6d8ce3b895" name="a46ce20e7eed6afcbcf467a6d8ce3b895"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a46ce20e7eed6afcbcf467a6d8ce3b895">&#9670;&#160;</a></span>next()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">std::optional&lt; std::string &gt; fastly::http::HeaderNamesRange::next </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Gets the next header name. </p>
+
+</div>
+</div>
+<hr/>The documentation for this class was generated from the following file:<ul>
+<li>target/release/dist/fastly/http/<a class="el" href="header_8h_source.html">header.h</a></li>
+</ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_1bbcb9615bce09de8292fb64e7b04403.html">target</a></li><li class="navelem"><a class="el" href="dir_3198e6fc1d78a47913cd6da7d6e47747.html">release</a></li><li class="navelem"><a class="el" href="dir_c6aab37272f359100d1bb3e4adccfef1.html">dist</a></li><li class="navelem"><a class="el" href="dir_055716460c3a9d47c9b883aa840eceeb.html">fastly</a></li><li class="navelem"><a class="el" href="dir_3f8aaf53e1005e83516f0f89dc817ecf.html">http</a></li><li class="navelem"><a class="el" href="method_8h.html">method.h</a></li>
+    <li class="navelem"><a class="el" href="namespacefastly.html">fastly</a></li><li class="navelem"><a class="el" href="namespacefastly_1_1http.html">http</a></li><li class="navelem"><a class="el" href="classfastly_1_1http_1_1HeaderNamesRange.html">HeaderNamesRange</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>

@@ -2,6 +2,7 @@ var namespacefastly =
 [
     [ "backend", "namespacefastly_1_1backend.html", "namespacefastly_1_1backend" ],
     [ "config_store", "namespacefastly_1_1config__store.html", "namespacefastly_1_1config__store" ],
+    [ "detail", "namespacefastly_1_1detail.html", "namespacefastly_1_1detail" ],
     [ "device_detection", "namespacefastly_1_1device__detection.html", "namespacefastly_1_1device__detection" ],
     [ "error", "namespacefastly_1_1error.html", "namespacefastly_1_1error" ],
     [ "geo", "namespacefastly_1_1geo.html", "namespacefastly_1_1geo" ],

@@ -7,5 +7,6 @@ var searchData=
   ['remove_5fheader_4',['remove_header',['../classfastly_1_1http_1_1Request.html#a13bda04a95b82fd6aab2099f97d32278',1,'fastly::http::Request::remove_header()'],['../classfastly_1_1http_1_1Response.html#acd1ec612951108c9c4329db9a4487b87',1,'fastly::http::Response::remove_header()']]],
   ['remove_5fquery_5',['remove_query',['../classfastly_1_1http_1_1Request.html#ad639de6aa823ea8b5db0c0a314804108',1,'fastly::http::Request']]],
   ['request_6',['Request',['../classfastly_1_1http_1_1Request.html#a51ecf1b3f3146cd2e7478125ca7b92ac',1,'fastly::http::Request']]],
-  ['response_7',['Response',['../classfastly_1_1http_1_1Response.html#af370bd919aa1688f585f3abd1f689ecc',1,'fastly::http::Response']]]
+  ['response_7',['Response',['../classfastly_1_1http_1_1Response.html#af370bd919aa1688f585f3abd1f689ecc',1,'fastly::http::Response']]],
+  ['rustiteratorrange_8',['RustIteratorRange',['../classfastly_1_1detail_1_1RustIteratorRange.html#abf579fce963684b21cb41b7ef31bdfcf',1,'fastly::detail::RustIteratorRange']]]
 ];
