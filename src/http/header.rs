@@ -36,6 +36,20 @@ impl HeaderNamesIter {
     }
 }
 
+pub struct OriginalHeaderNamesIter(pub Box<dyn Iterator<Item = String>>);
+
+impl OriginalHeaderNamesIter {
+    pub fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool {
+        self.0
+            .next()
+            .map(|name| {
+                out.as_mut().push_str(&name);
+                true
+            })
+            .is_some()
+    }
+}
+
 pub struct HeadersIter(pub Box<dyn Iterator<Item = (http::HeaderName, http::HeaderValue)>>);
 
 impl HeadersIter {
@@ -66,5 +80,10 @@ pub fn f_header_names_iter_noop(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIte
     val
 }
 pub fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter> {
+    val
+}
+pub fn f_original_header_names_iter_noop(
+    val: Box<OriginalHeaderNamesIter>,
+) -> Box<OriginalHeaderNamesIter> {
     val
 }

@@ -348,12 +348,13 @@ Request::get_header(std::string_view name) {
   std::vector<uint8_t> value;
   bool is_sensitive{false};
   fastly::sys::error::FastlyError *err;
-  bool has_header{
-      this->req->get_header(static_cast<std::string>(name), value, is_sensitive, err)};
+  bool has_header{this->req->get_header(static_cast<std::string>(name), value,
+                                        is_sensitive, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
   } else if (has_header) {
-    return std::optional<HeaderValue>(std::in_place, std::string(value.begin(), value.end()), is_sensitive);
+    return std::optional<HeaderValue>(
+        std::in_place, std::string(value.begin(), value.end()), is_sensitive);
   } else {
     return std::nullopt;
   }
@@ -372,16 +373,13 @@ Request::get_header_all(std::string_view name) {
   }
 }
 
-fastly::expected<HeadersRange>
-Request::get_headers() {
+fastly::expected<HeadersRange> Request::get_headers() {
   fastly::sys::http::HeadersIter *out;
   this->req->get_headers(out);
-  return HeadersRange(
-      rust::Box<fastly::sys::http::HeadersIter>::from_raw(out));
+  return HeadersRange(rust::Box<fastly::sys::http::HeadersIter>::from_raw(out));
 }
 
-fastly::expected<HeaderNamesRange>
-Request::get_header_names() {
+fastly::expected<HeaderNamesRange> Request::get_header_names() {
   fastly::sys::http::HeaderNamesIter *out;
   this->req->get_header_names(out);
   return fastly::expected<HeaderNamesRange>(
@@ -589,9 +587,24 @@ std::optional<std::string> Request::get_server_ip_addr() {
   }
 }
 
-// // TODO(@zkat): needs iterator
-// // std::optional<HeaderNameIter> get_original_header_names();
-// std::optional<uint32_t> get_original_header_count();
+std::optional<OriginalHeaderNamesRange> Request::get_original_header_names() {
+  fastly::sys::http::OriginalHeaderNamesIter *out;
+  this->req->get_original_header_names(out);
+  if (out == nullptr) {
+    return std::nullopt;
+  } else {
+    return OriginalHeaderNamesRange(
+        rust::Box<fastly::sys::http::OriginalHeaderNamesIter>::from_raw(out));
+  }
+}
+std::optional<uint32_t> Request::get_original_header_count() {
+  uint32_t count;
+  if (this->req->get_original_header_count(count)) {
+    return {count};
+  } else {
+    return std::nullopt;
+  }
+}
 // std::optional<std::vector<uint8_t>> get_tls_client_hello();
 // std::optional<std::array<uint8_t, 16>> get_tls_ja3_md5();
 // std::optional<std::string> get_tls_ja4();

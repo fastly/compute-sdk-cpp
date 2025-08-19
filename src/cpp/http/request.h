@@ -662,10 +662,8 @@ public:
   std::optional<std::string> get_client_ip_addr();
   std::optional<std::string> get_server_ip_addr();
 
-  // TODO(@zkat): needs iterator
-  // std::optional<HeaderNameIter> get_original_header_names();
-
-  // std::optional<uint32_t> get_original_header_count();
+  std::optional<OriginalHeaderNamesRange> get_original_header_names();
+  std::optional<uint32_t> get_original_header_count();
 
   /// Returns whether the request was tagged as contributing to a DDoS attack
   ///

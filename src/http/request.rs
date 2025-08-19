@@ -7,7 +7,9 @@ use crate::backend::Backend;
 use crate::error::ErrPtr;
 use crate::ffi::Method;
 use crate::http::body::{Body, StreamingBody};
-use crate::http::header::{HeaderNamesIter, HeaderValuesIter, HeadersIter};
+use crate::http::header::{
+    HeaderNamesIter, HeaderValuesIter, HeadersIter, OriginalHeaderNamesIter,
+};
 use crate::http::request::request::{AsyncStreamRes, PendingRequest};
 use crate::http::response::Response;
 use crate::try_fe;
@@ -368,6 +370,27 @@ impl Request {
         out.set(Box::into_raw(Box::new(HeaderNamesIter(Box::new(
             iter.into_iter(),
         )))));
+    }
+
+    pub fn get_original_header_names(
+        &self,
+        mut out: Pin<&mut *mut OriginalHeaderNamesIter>,
+    ) -> bool {
+        let names = self.0.get_original_header_names();
+        names
+            .map(|iter| {
+                out.set(Box::into_raw(Box::new(OriginalHeaderNamesIter(Box::new(
+                    iter.into_iter(),
+                )))));
+            })
+            .is_some()
+    }
+
+    pub fn get_original_header_count(&self, mut out: Pin<&mut u32>) -> bool {
+        self.0
+            .get_original_header_count()
+            .map(|count| out.set(count))
+            .is_some()
     }
 
     pub fn set_header(&mut self, name: &CxxString, value: &CxxString, mut err: ErrPtr) {

@@ -344,6 +344,16 @@ mod ffi {
 
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
+        type OriginalHeaderNamesIter;
+        fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
+        // Needed to force generation of `drop`.
+        fn f_original_header_names_iter_noop(
+            val: Box<OriginalHeaderNamesIter>,
+        ) -> Box<OriginalHeaderNamesIter>;
+    }
+
+    #[namespace = "fastly::sys::http"]
+    extern "Rust" {
         type HeadersIter;
         fn next(
             &mut self,
@@ -420,6 +430,8 @@ mod ffi {
         );
         fn get_headers(&self, out: Pin<&mut *mut HeadersIter>);
         fn get_header_names(&self, out: Pin<&mut *mut HeaderNamesIter>);
+        fn get_original_header_names(&self, out: Pin<&mut *mut OriginalHeaderNamesIter>) -> bool;
+        fn get_original_header_count(&self, mut out: Pin<&mut u32>) -> bool;
         fn set_header(
             &mut self,
             name: &CxxString,
