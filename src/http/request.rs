@@ -325,11 +325,9 @@ impl Request {
         mut is_sensitive_out: Pin<&mut bool>,
         mut err: ErrPtr,
     ) -> bool {
-        println!("get_header: {}", name);
         self.0
             .get_header(try_fe!(err, HeaderName::try_from(name.as_bytes())))
             .map(|value| {
-                println!("get_header: value: {:?}", value);
                 for byte in value.as_bytes() {
                     value_out.as_mut().push(*byte);
                 }
