@@ -4,11 +4,15 @@ use cxx::{CxxString, CxxVector, UniquePtr};
 use http::{HeaderName, HeaderValue};
 
 use crate::{
-    backend::Backend, error::ErrPtr, ffi::Version, http::{
+    backend::Backend,
+    error::ErrPtr,
+    ffi::Version,
+    http::{
         body::{Body, StreamingBody},
         header::HeaderValuesIter,
         request::Request,
-    }, try_fe
+    },
+    try_fe,
 };
 
 pub struct Response(pub(crate) fastly::Response);
@@ -239,7 +243,7 @@ impl Response {
     pub fn get_version(&self) -> Version {
         self.0.get_version().into()
     }
-    
+
     pub fn set_version(&mut self, version: Version) {
         self.0.set_version(version.into());
     }
