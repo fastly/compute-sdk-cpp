@@ -330,4 +330,17 @@ Response::get_stale_while_revalidate() {
   }
 }
 
+Version Response::get_version() {
+  return this->res->get_version();
+}
+
+void Response::set_version(Version version) {
+  this->res->set_version(version);
+}
+
+Response Response::with_version(Version version) && {
+  this->set_version(version);
+  return std::move(*this);
+}
+
 } // namespace fastly::http

@@ -5,6 +5,7 @@
 #include "../error.h"
 #include "../sdk-sys.h"
 #include "../util.h"
+#include "http.h"
 #include "body.h"
 #include "header.h"
 #include "method.h"
@@ -574,10 +575,14 @@ public:
   /// Remove the query component from the request URL, if one exists.
   void remove_query();
 
-  // TODO(@zkat): need Version enum
-  // Request with_version(Version version);
-  // Version get_version();
-  // void set_version(Version version);
+  /// Builder-style equivalent of `Request::set_version()`.
+  Request with_version(Version version) &&;
+
+  /// Get the HTTP version of this request.
+  Version get_version();
+
+  /// Set the HTTP version of this request.
+  void set_version(Version version);
 
   /// Builder-style equivalent of `Request::set_pass()`.
   Request with_pass(bool pass) &&;

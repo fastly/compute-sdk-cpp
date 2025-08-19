@@ -627,6 +627,19 @@ Request Request::with_cache_key(std::vector<uint8_t> key) && {
   return std::move(*this);
 }
 
+Version Request::get_version() {
+  return this->req->get_version();
+}
+
+void Request::set_version(Version version) {
+  this->req->set_version(version);
+}
+
+Request Request::with_version(Version version) && {
+  this->set_version(version);
+  return std::move(*this);
+}
+
 bool is_cacheable();
 
 } // namespace fastly::http

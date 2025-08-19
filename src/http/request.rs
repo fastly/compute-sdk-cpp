@@ -5,7 +5,7 @@ use http::{HeaderName, HeaderValue};
 
 use crate::backend::Backend;
 use crate::error::ErrPtr;
-use crate::ffi::Method;
+use crate::ffi::{Method, Version};
 use crate::http::body::{Body, StreamingBody};
 use crate::http::header::HeaderValuesIter;
 use crate::http::request::request::{AsyncStreamRes, PendingRequest};
@@ -473,5 +473,13 @@ impl Request {
             .get_server_ip_addr()
             .map(|ip| buf.push_str(ip.to_string().as_ref()))
             .is_some()
+    }
+
+    pub fn get_version(&self) -> Version {
+        self.0.get_version().into()
+    }
+
+    pub fn set_version(&mut self, version: Version) {
+        self.0.set_version(version.into());
     }
 }

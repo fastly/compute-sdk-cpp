@@ -6,6 +6,7 @@
 #include "../sdk-sys.h"
 #include "../util.h"
 #include "body.h"
+#include "http.h"
 #include "header.h"
 #include "request.h"
 #include "status_code.h"
@@ -333,10 +334,14 @@ public:
   /// ```
   void set_status(StatusCode status);
 
-  // TODO(@zkat): need Version enum
-  // Response with_version(Version version);
-  // Version get_version();
-  // void set_version(Version version);
+  /// Builder-style equivalent of `Response::set_version()`.
+  Response with_version(Version version) &&;
+
+  /// Get the HTTP version of this response.
+  Version get_version();
+
+  /// Set the HTTP version of this response.
+  void set_version(Version version);
 
   // TODO(@zkat): needs enum
   // void set_framing_headers_mode(FramingHeadersMode mode);

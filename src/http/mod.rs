@@ -6,6 +6,7 @@ pub mod response;
 pub mod status_code;
 
 use crate::ffi::Method;
+use crate::ffi::Version;
 
 impl From<Method> for fastly::http::Method {
     fn from(val: Method) -> Self {
@@ -37,6 +38,32 @@ impl From<fastly::http::Method> for Method {
             fastly::http::Method::PATCH => Method::PATCH,
             fastly::http::Method::TRACE => Method::TRACE,
             _ => panic!("Unsupported method."),
+        }
+    }
+}
+
+impl From<Version> for fastly::http::Version {
+    fn from(val: Version) -> Self {
+        match val {
+            Version::HTTP_09 => fastly::http::Version::HTTP_09,
+            Version::HTTP_10 => fastly::http::Version::HTTP_10,
+            Version::HTTP_11 => fastly::http::Version::HTTP_11,
+            Version::HTTP_2 => fastly::http::Version::HTTP_2,
+            Version::HTTP_3 => fastly::http::Version::HTTP_3,
+            _ => panic!("Unsupported HTTP version."),
+        }
+    }
+}
+
+impl From<fastly::http::Version> for Version {
+    fn from(val: fastly::http::Version) -> Self {
+        match val {
+            fastly::http::Version::HTTP_09 => Version::HTTP_09,
+            fastly::http::Version::HTTP_10 => Version::HTTP_10,
+            fastly::http::Version::HTTP_11 => Version::HTTP_11,
+            fastly::http::Version::HTTP_2 => Version::HTTP_2,
+            fastly::http::Version::HTTP_3 => Version::HTTP_3,
+            _ => panic!("Unsupported HTTP version."),
         }
     }
 }
