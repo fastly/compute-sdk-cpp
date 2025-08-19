@@ -330,6 +330,7 @@ mod ffi {
             mut value_out: Pin<&mut CxxVector<u8>>,
             mut is_sensitive_out: Pin<&mut bool>,
         ) -> bool;
+        // Needed to force generation of `drop`.
         fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter>;
     }
 
@@ -337,6 +338,7 @@ mod ffi {
     extern "Rust" {
         type HeaderNamesIter;
         fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
+        // Needed to force generation of `drop`.
         fn f_header_names_iter_noop(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter>;
     }
 
@@ -349,6 +351,7 @@ mod ffi {
             mut value_out: Pin<&mut CxxVector<u8>>,
             mut is_sensitive_out: Pin<&mut bool>,
         ) -> bool;
+        // Needed to force generation of `drop`.
         fn f_headers_iter_noop(val: Box<HeadersIter>) -> Box<HeadersIter>;
     }
 

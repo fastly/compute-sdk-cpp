@@ -58,6 +58,7 @@ impl HeadersIter {
     }
 }
 
+// Needed to force generation of `drop` functions for the iterators.
 pub fn f_headers_iter_noop(val: Box<HeadersIter>) -> Box<HeadersIter> {
     val
 }
