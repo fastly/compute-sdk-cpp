@@ -354,7 +354,7 @@ public:
   send_async_streaming(std::string_view backend_name);
 
   /// Builder-style equivalent of `Request::set_body()`.
-  Request with_body(Body body);
+  Request with_body(Body body) &&;
 
   /// Returns `true` if this request has a body.
   bool has_body();
@@ -400,7 +400,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_body_text_plain()`.
-  fastly::expected<Request> with_body_text_plain(std::string_view body);
+  fastly::expected<Request> with_body_text_plain(std::string_view body) &&;
 
   /// Set the given string as the request's body with content type
   /// `text/plain; charset=UTF-8`.
@@ -408,7 +408,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_body_text_html()`.
-  fastly::expected<Request> with_body_text_html(std::string_view body);
+  fastly::expected<Request> with_body_text_html(std::string_view body) &&;
 
   /// Set the given string as the request's body with content type `text/html;
   /// charset=UTF-8`.
@@ -421,7 +421,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_body_octet_stream()`.
-  Request with_body_octet_stream(std::vector<uint8_t> body);
+  Request with_body_octet_stream(std::vector<uint8_t> body) &&;
 
   /// Set the given bytes as the request's body with content type
   /// `application/octet-stream`.
@@ -442,7 +442,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_content_type()`.
-  Request with_content_type(std::string_view mime);
+  Request with_content_type(std::string_view mime) &&;
 
   /// Set the MIME type described by the request's
   /// [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
@@ -461,11 +461,11 @@ public:
 
   /// Builder-style equivalent of `Request::append_header()`.
   fastly::expected<Request> with_header(std::string_view name,
-                                        std::string_view value);
+                                        std::string_view value) &&;
 
   /// Builder-style equivalent of `Request::set_header()`.
   fastly::expected<Request> with_set_header(std::string_view name,
-                                            std::string_view value);
+                                            std::string_view value) &&;
 
   /// Get the value of a header as a string, or `std::nullopt` if the header
   /// is not present.
@@ -503,7 +503,7 @@ public:
   remove_header(std::string_view name);
 
   /// Builder-style equivalent of `Request::set_method()`.
-  Request with_method(Method method);
+  Request with_method(Method method) &&;
 
   /// Get the request method.
   Method get_method();
@@ -512,7 +512,7 @@ public:
   void set_method(Method method);
 
   /// Builder-style equivalent of `Request::set_url()`.
-  fastly::expected<Request> with_url(std::string_view url);
+  fastly::expected<Request> with_url(std::string_view url) &&;
 
   /// Get the request URL as a string.
   std::string get_url();
@@ -531,7 +531,7 @@ public:
   std::string get_path();
 
   /// Builder-style equivalent of `Request::set_path()`.
-  fastly::expected<Request> with_path(std::string_view path);
+  fastly::expected<Request> with_path(std::string_view path) &&;
 
   /// Set the path component of the request URL.
   /// # Examples
@@ -555,7 +555,7 @@ public:
   std::optional<std::string> get_query_parameter(std::string_view param);
 
   /// Builder-style equivalent of `Request::set_query()`.
-  fastly::expected<Request> with_query_string(std::string_view query);
+  fastly::expected<Request> with_query_string(std::string_view query) &&;
 
   /// Set the query string of the request URL query component to the given
   /// string, performing percent-encoding if necessary.
@@ -579,7 +579,7 @@ public:
   // void set_version(Version version);
 
   /// Builder-style equivalent of `Request::set_pass()`.
-  Request with_pass(bool pass);
+  Request with_pass(bool pass) &&;
 
   /// Set whether this request should be cached if sent to a backend.
   ///
@@ -595,7 +595,7 @@ public:
   void set_pass(bool pass);
 
   /// Builder-style equivalent of `Request::set_ttl()`.
-  Request with_ttl(uint32_t ttl);
+  Request with_ttl(uint32_t ttl) &&;
 
   /// Override the caching behavior of this request to use the given Time to
   /// Live (TTL), in seconds.
@@ -608,7 +608,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_stale_while_revalidate()`.
-  Request with_stale_while_revalidate(uint32_t swr);
+  Request with_stale_while_revalidate(uint32_t swr) &&;
 
   /// Override the caching behavior of this request to use the given
   /// `stale-while-revalidate` time, in seconds.
@@ -620,7 +620,7 @@ public:
   void set_stale_while_revalidate(uint32_t swr);
 
   /// Builder-style equivalent of `Request::set_pci()`.
-  Request with_pci(bool pci);
+  Request with_pci(bool pci) &&;
 
   /// Override the caching behavior of this request to enable or disable
   /// PCI/HIPAA-compliant non-volatile caching.
@@ -639,7 +639,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_surrogate_key()`.
-  fastly::expected<Request> with_surrogate_key(std::string_view sk);
+  fastly::expected<Request> with_surrogate_key(std::string_view sk) &&;
 
   /// Override the caching behavior of this request to include the given
   /// surrogate key(s), provided as a header value.
@@ -703,7 +703,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Request::set_auto_decompress_gzip()`.
-  Request with_auto_decompress_gzip(bool gzip);
+  Request with_auto_decompress_gzip(bool gzip) &&;
 
   // TODO(@zkat): needs enum
   // void set_framing_headers_mode(FramingHeadersMode mode);
@@ -729,10 +729,10 @@ public:
   void set_cache_key(std::vector<uint8_t> key);
 
   /// Builder-style equivalent of `Request::set_cache_key()`.
-  Request with_cache_key(std::string_view key);
+  Request with_cache_key(std::string_view key) &&;
 
   /// Builder-style equivalent of `Request::set_cache_key()`.
-  Request with_cache_key(std::vector<uint8_t> key);
+  Request with_cache_key(std::vector<uint8_t> key) &&;
 
   /// Gets whether the request is potentially cacheable.
   bool is_cacheable();

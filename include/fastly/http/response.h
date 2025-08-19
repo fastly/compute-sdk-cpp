@@ -163,7 +163,7 @@ public:
   static Response temporary_redirect(std::string_view destination);
 
   /// Builder-style equivalent of `Response::set_body()`.
-  Response with_body(Body body);
+  Response with_body(Body body) &&;
 
   /// Returns `true` if this response has a body.
   bool has_body();
@@ -208,7 +208,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Response::set_body_text_plain()`.
-  fastly::expected<Response> with_body_text_plain(std::string_view body);
+  fastly::expected<Response> with_body_text_plain(std::string_view body) &&;
 
   /// Set the given string as the response's body with content type `text/plain;
   /// charset=UTF-8`.
@@ -216,7 +216,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Response::set_body_text_html()`.
-  fastly::expected<Response> with_body_text_html(std::string_view body);
+  fastly::expected<Response> with_body_text_html(std::string_view body) &&;
 
   /// Set the given string as the response's body with content type `text/html;
   /// charset=UTF-8`.
@@ -229,7 +229,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Response::set_body_octet_stream()`.
-  Response with_body_octet_stream(std::vector<uint8_t> body);
+  Response with_body_octet_stream(std::vector<uint8_t> body) &&;
 
   /// Set the given bytes as the response's body with content type
   /// `application/octet-stream`.
@@ -248,7 +248,7 @@ public:
 
   /// Builder-style equivalent of
   /// `Response::set_content_type()`.
-  Response with_content_type(std::string_view mime);
+  Response with_content_type(std::string_view mime) &&;
 
   /// Set the MIME type described by the response's
   /// [`Content-Type`](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Type)
@@ -267,11 +267,11 @@ public:
 
   /// Builder-style equivalent of `Response::append_header()`.
   fastly::expected<Response> with_header(std::string_view name,
-                                         std::string_view value);
+                                         std::string_view value) &&;
 
   /// Builder-style equivalent of `Response::set_header()`.
   fastly::expected<Response> with_set_header(std::string_view name,
-                                             std::string_view value);
+                                             std::string_view value) &&;
 
   /// Get the value of a header as a string, or `std::nullopt` if the header is
   /// not present.
@@ -309,7 +309,7 @@ public:
   remove_header(std::string_view name);
 
   /// Builder-style equivalent of `Response::set_status()`.
-  void set_status(StatusCode status);
+  Response with_status(StatusCode status) &&;
 
   /// Set the HTTP status code of the response.
   ///
@@ -330,7 +330,7 @@ public:
   /// resp.set_status(404);
   /// resp.send_to_client();
   /// ```
-  Response with_status(StatusCode status);
+  void set_status(StatusCode status);
 
   // TODO(@zkat): need Version enum
   // Response with_version(Version version);

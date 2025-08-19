@@ -209,7 +209,7 @@ using LogLevelFilter = fastly::sys::log::LogLevelFilter;
 template <typename... Args>
 void error(std::format_string<Args...> fmt, Args &&...args) {
   fastly::sys::log::f_log_log(fastly::sys::log::LogLevel::Error,
-                              std::format(fmt, args...));
+                              std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send an Error-level message to a specified configured endpoint.
@@ -233,7 +233,7 @@ void error_to(std::string_view dest, std::format_string<Args...> fmt,
               Args &&...args) {
   fastly::sys::log::f_log_log_to(static_cast<std::string>(dest),
                                  fastly::sys::log::LogLevel::Error,
-                                 std::format(fmt, args...));
+                                 std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Warn-level message to the configured default endpoint.
@@ -251,7 +251,7 @@ void error_to(std::string_view dest, std::format_string<Args...> fmt,
 template <typename... Args>
 void warn(std::format_string<Args...> fmt, Args &&...args) {
   fastly::sys::log::f_log_log(fastly::sys::log::LogLevel::Warn,
-                              std::format(fmt, args...));
+                              std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Warn-level message to a specified configured endpoint.
@@ -275,7 +275,7 @@ void warn_to(std::string_view dest, std::format_string<Args...> fmt,
              Args &&...args) {
   fastly::sys::log::f_log_log_to(static_cast<std::string>(dest),
                                  fastly::sys::log::LogLevel::Warn,
-                                 std::format(fmt, args...));
+                                 std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send an Info-level message to the configured default endpoint.
@@ -317,7 +317,7 @@ void info_to(std::string_view dest, std::format_string<Args...> fmt,
              Args &&...args) {
   fastly::sys::log::f_log_log_to(static_cast<std::string>(dest),
                                  fastly::sys::log::LogLevel::Info,
-                                 std::format(fmt, args...));
+                                 std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Debug-level message to the configured default endpoint.
@@ -335,7 +335,7 @@ void info_to(std::string_view dest, std::format_string<Args...> fmt,
 template <typename... Args>
 void debug(std::format_string<Args...> fmt, Args &&...args) {
   fastly::sys::log::f_log_log(fastly::sys::log::LogLevel::Debug,
-                              std::format(fmt, args...));
+                              std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Debug-level message to a specified configured endpoint.
@@ -359,7 +359,7 @@ void debug_to(std::string_view dest, std::format_string<Args...> fmt,
               Args &&...args) {
   fastly::sys::log::f_log_log_to(static_cast<std::string>(dest),
                                  fastly::sys::log::LogLevel::Debug,
-                                 std::format(fmt, args...));
+                                 std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Trace-level message to the configured default endpoint.
@@ -377,7 +377,7 @@ void debug_to(std::string_view dest, std::format_string<Args...> fmt,
 template <typename... Args>
 void trace(std::format_string<Args...> fmt, Args &&...args) {
   fastly::sys::log::f_log_log(fastly::sys::log::LogLevel::Trace,
-                              std::format(fmt, args...));
+                              std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Send a Trace-level message to a specified configured endpoint.
@@ -401,7 +401,7 @@ void trace_to(std::string_view dest, std::format_string<Args...> fmt,
               Args &&...args) {
   fastly::sys::log::f_log_log_to(static_cast<std::string>(dest),
                                  fastly::sys::log::LogLevel::Trace,
-                                 std::format(fmt, args...));
+                                 std::format(fmt, std::forward<Args>(args)...));
 }
 
 /// Set the global maximum log level
@@ -484,8 +484,8 @@ public:
   ///     .init();
   /// fastly::log::info_to("my_endpoint", "Hello");
   /// ```
-  LoggerBuilder endpoint(Endpoint endpoint);
-  LoggerBuilder endpoint(std::string_view endpoint);
+  LoggerBuilder endpoint(Endpoint endpoint) &&;
+  LoggerBuilder endpoint(std::string_view endpoint) &&;
 
   /// Register an endpoint and set the maximum logging level for its messages.
   ///
@@ -503,8 +503,9 @@ public:
   ///   "...but this won't be..."
   /// );
   /// ```
-  LoggerBuilder endpoint_level(Endpoint endpoint, LogLevelFilter level);
-  LoggerBuilder endpoint_level(std::string_view endpoint, LogLevelFilter level);
+  LoggerBuilder endpoint_level(Endpoint endpoint, LogLevelFilter level) &&;
+  LoggerBuilder endpoint_level(std::string_view endpoint,
+                               LogLevelFilter level) &&;
 
   /// Set the default endpoint for all messages.
   ///
@@ -529,8 +530,8 @@ public:
   ///   "This will go to other_endpoint, though"
   /// );
   /// ```
-  LoggerBuilder default_endpoint(Endpoint endpoint);
-  LoggerBuilder default_endpoint(std::string_view endpoint);
+  LoggerBuilder default_endpoint(Endpoint endpoint) &&;
+  LoggerBuilder default_endpoint(std::string_view endpoint) &&;
 
   /// Set the default endpoint for all messages of the given level.
   ///
@@ -560,9 +561,9 @@ public:
   ///   "This will go to other_endpoint, though"
   /// );
   /// ```
-  LoggerBuilder default_level_endpoint(Endpoint endpoint, LogLevel level);
+  LoggerBuilder default_level_endpoint(Endpoint endpoint, LogLevel level) &&;
   LoggerBuilder default_level_endpoint(std::string_view endpoint,
-                                       LogLevel level);
+                                       LogLevel level) &&;
 
   /// Set the maximum logging level for all messages.
   ///
@@ -583,7 +584,7 @@ public:
   /// );
   /// fastly::log::info_to("my_endpoint", "...but this won't");
   /// ```
-  LoggerBuilder max_level(LogLevelFilter level);
+  LoggerBuilder max_level(LogLevelFilter level) &&;
 
   /// Set whether all log messages should be echoed to `stdout` (`false` by
   /// default).
@@ -594,7 +595,7 @@ public:
   ///
   /// [log-tailing]:
   /// https://www.fastly.com/blog/introducing-compute-edge-log-tailing-for-better-observability-and-easier-debugging
-  LoggerBuilder echo_stdout(bool enabled);
+  LoggerBuilder echo_stdout(bool enabled) &&;
 
   /// Set whether all log messages should be echoed to `stderr` (`false` by
   /// default).
@@ -605,7 +606,7 @@ public:
   ///
   /// [log-tailing]:
   /// https://www.fastly.com/blog/introducing-compute-edge-log-tailing-for-better-observability-and-easier-debugging
-  LoggerBuilder echo_stderr(bool enabled);
+  LoggerBuilder echo_stderr(bool enabled) &&;
 
   /// Build the logger and initialize it as the global logger.
   ///
