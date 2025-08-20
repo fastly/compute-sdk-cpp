@@ -8,6 +8,7 @@ use geo::*;
 use http::{
     body::*, header::*, purge::*, request::request::*, request::*, response::*, status_code::*,
 };
+use kv_store::*;
 use log::*;
 use secret_store::*;
 
@@ -17,6 +18,7 @@ mod device_detection;
 mod error;
 mod geo;
 mod http;
+mod kv_store;
 mod log;
 mod secret_store;
 
@@ -736,5 +738,104 @@ mod ffi {
         fn echo_stdout(&mut self, enabled: bool);
         fn echo_stderr(&mut self, enabled: bool);
         fn init(&mut self);
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    #[derive(Copy, Clone, Debug)]
+    #[repr(usize)]
+    pub enum KVStoreErrorCode {
+        InvalidKey,
+        InvalidStoreHandle,
+        InvalidStoreOptions,
+        ItemBadRequest,
+        ItemNotFound,
+        ItemPreconditionFailed,
+        ItemPayloadTooLarge,
+        StoreNotFound,
+        TooManyRequests,
+        Unexpected,
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type KVStoreError;
+        fn error_msg(&self, mut out: Pin<&mut CxxString>);
+        fn error_code(&self) -> KVStoreErrorCode;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum InsertMode {
+        Overwrite,
+        Add,
+        Append,
+        Prepend,
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type InsertBuilder<'a>;
+        fn m_kv_store_insert_builder_mode(
+            mut builder: Box<InsertBuilder>,
+            mode: InsertMode,
+        ) -> Box<InsertBuilder>;
+        fn m_kv_store_insert_builder_background_fetch(
+            mut builder: Box<InsertBuilder>,
+        ) -> Box<InsertBuilder>;
+        fn m_kv_store_insert_builder_if_generation_match(
+            mut builder: Box<InsertBuilder>,
+            generation: u64,
+        ) -> Box<InsertBuilder>;
+        unsafe fn m_kv_store_insert_builder_metadata<'a>(
+            mut builder: Box<InsertBuilder<'a>>,
+            data: &CxxString,
+        ) -> Box<InsertBuilder<'a>>;
+        fn m_kv_store_insert_builder_time_to_live(
+            mut builder: Box<InsertBuilder>,
+            ttl: u32,
+        ) -> Box<InsertBuilder>;
+        fn m_kv_store_insert_builder_execute(
+            builder: Box<InsertBuilder>,
+            key: &CxxString,
+            body: Box<Body>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn m_kv_store_insert_builder_execute_async(
+            builder: Box<InsertBuilder>,
+            key: &CxxString,
+            body: Box<Body>,
+            mut out: Pin<&mut u32>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type LookupResponse;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type LookupBuilder<'a>;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type EraseBuilder<'a>;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type ListPage;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type ListBuilder<'a>;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type KVStore;
     }
 }

@@ -15,6 +15,10 @@
 #include <string_view>
 #include <vector>
 
+namespace fastly::kv_store {
+class InsertBuilder;
+}
+
 namespace fastly::http {
 
 class Response;
@@ -38,6 +42,7 @@ class Body : public std::iostream, public std::streambuf {
   friend StreamingBody;
   friend Response;
   friend Request;
+  friend kv_store::InsertBuilder;
 
 protected:
   int underflow();
