@@ -135,18 +135,18 @@ $(document).ready(function(){initNavTree('streaming_response_8cpp-example.html',
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="sdk_8h.html">fastly/sdk.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;fastly/sdk.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a id="a0" name="a0"></a><a class="code hl_function" href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
 <div class="line">  <span class="keyword">auto</span> backend_resp{</div>
-<div class="line">      <a id="a1" name="a1"></a><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">fastly::Request::get</a>(<span class="stringliteral">&quot;https://www.wikipedia.org/&quot;</span>).<a id="a2" name="a2"></a><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">send</a>(<span class="stringliteral">&quot;wikipedia&quot;</span>)};</div>
+<div class="line">      fastly::Request::get(<span class="stringliteral">&quot;https://www.wikipedia.org/&quot;</span>).send(<span class="stringliteral">&quot;wikipedia&quot;</span>)};</div>
 <div class="line"> </div>
 <div class="line">  <span class="keywordflow">if</span> (!backend_resp) {</div>
 <div class="line">    std::cerr &lt;&lt; backend_resp.error().error_msg();</div>
-<div class="line">    <a id="a3" name="a3"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a3714a7cae78c624173a070ae8dca2bbd">fastly::Response::from_status</a>(</div>
-<div class="line">        <a id="a4" name="a4"></a><a class="code hl_variable" href="classfastly_1_1http_1_1StatusCode.html#aa87ef552bd7213147cc86cb70b8f15b2">fastly::http::StatusCode::INTERNAL_SERVER_ERROR</a>)</div>
-<div class="line">        .<a id="a5" name="a5"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">send_to_client</a>();</div>
+<div class="line">    fastly::Response::from_status(</div>
+<div class="line">        fastly::http::StatusCode::INTERNAL_SERVER_ERROR)</div>
+<div class="line">        .send_to_client();</div>
 <div class="line">    <span class="keywordflow">return</span> 1;</div>
 <div class="line">  }</div>
 <div class="line"> </div>
@@ -185,12 +185,6 @@ $(document).ready(function(){initNavTree('streaming_response_8cpp-example.html',
 <div class="line">  }</div>
 <div class="line">}</div>
 <div class="ttc" id="aasync__reqs_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> async_reqs.cpp:10</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a1792ccbad03aab10806f4b35aadc4eba"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">fastly::http::Request::send</a></div><div class="ttdeci">fastly::expected&lt; Response &gt; send(fastly::backend::Backend &amp;backend)</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a237df390b687857c9a0384762716342f"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">fastly::http::Request::get</a></div><div class="ttdeci">static Request get(std::string_view url)</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a3714a7cae78c624173a070ae8dca2bbd"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a3714a7cae78c624173a070ae8dca2bbd">fastly::http::Response::from_status</a></div><div class="ttdeci">static Response from_status(StatusCode status)</div><div class="ttdoc">Create a new response with the given status code.</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a74bf3303db3ff132f5e1912f05e80d64"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">fastly::http::Response::send_to_client</a></div><div class="ttdeci">void send_to_client()</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1StatusCode_html_aa87ef552bd7213147cc86cb70b8f15b2"><div class="ttname"><a href="classfastly_1_1http_1_1StatusCode.html#aa87ef552bd7213147cc86cb70b8f15b2">fastly::http::StatusCode::INTERNAL_SERVER_ERROR</a></div><div class="ttdeci">static const StatusCode INTERNAL_SERVER_ERROR</div><div class="ttdef"><b>Definition:</b> status_code.h:227</div></div>
-<div class="ttc" id="asdk_8h_html"><div class="ttname"><a href="sdk_8h.html">sdk.h</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

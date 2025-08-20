@@ -136,28 +136,22 @@ $(document).ready(function(){initNavTree('robots_8txt_8cpp-example.html',''); in
 <div class="contents">
 <div class="fragment"><div class="line"> </div>
 <div class="line"><span class="comment">// Based on https://www.fastly.com/documentation/solutions/examples/serve-robots-txt-from-the-edge/</span></div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="sdk_8h.html">fastly/sdk.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;fastly/sdk.h&quot;</span></div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a id="a0" name="a0"></a><a class="code hl_function" href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
-<div class="line">  <span class="keyword">auto</span> req{<a id="a1" name="a1"></a><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a>()};</div>
+<div class="line">  <span class="keyword">auto</span> req{fastly::Request::from_client()};</div>
 <div class="line">  <span class="keywordflow">if</span> (req.get_method() == fastly::http::Method::GET &amp;&amp;</div>
 <div class="line">      req.get_path() == <span class="stringliteral">&quot;/robots.txt&quot;</span>) {</div>
-<div class="line">    <a id="a2" name="a2"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(<span class="stringliteral">&quot;User-agent: BadBot\nDisallow: /\n&quot;</span>)</div>
-<div class="line">        .<a id="a3" name="a3"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">send_to_client</a>();</div>
+<div class="line">    fastly::Response::from_body(<span class="stringliteral">&quot;User-agent: BadBot\nDisallow: /\n&quot;</span>)</div>
+<div class="line">        .send_to_client();</div>
 <div class="line">  } <span class="keywordflow">else</span> {</div>
-<div class="line">    <a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(<span class="stringliteral">&quot;The page you requested could not be found&quot;</span>)</div>
-<div class="line">        .<a id="a4" name="a4"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a70a15b5f8018e3fbdc963e17698e27fe">with_status</a>(<a id="a5" name="a5"></a><a class="code hl_variable" href="classfastly_1_1http_1_1StatusCode.html#a736fbd919131a5febd9a14f100778d87">fastly::http::StatusCode::NOT_FOUND</a>)</div>
-<div class="line">        .<a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">send_to_client</a>();</div>
+<div class="line">    fastly::Response::from_body(<span class="stringliteral">&quot;The page you requested could not be found&quot;</span>)</div>
+<div class="line">        .with_status(fastly::http::StatusCode::NOT_FOUND)</div>
+<div class="line">        .send_to_client();</div>
 <div class="line">  }</div>
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="ttc" id="aasync__reqs_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> async_reqs.cpp:10</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a008de1b7b69832f3928b3f0f4fc7ca88"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::http::Request::from_client</a></div><div class="ttdeci">static Request from_client()</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a6cd79ae4d99f6c68d3df5c944ef6a5b4"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::http::Response::from_body</a></div><div class="ttdeci">static Response from_body(Body body)</div><div class="ttdoc">Create a new Response with the given value as the body.</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a70a15b5f8018e3fbdc963e17698e27fe"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a70a15b5f8018e3fbdc963e17698e27fe">fastly::http::Response::with_status</a></div><div class="ttdeci">Response with_status(StatusCode status) &amp;&amp;</div><div class="ttdoc">Builder-style equivalent of Response::set_status().</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a74bf3303db3ff132f5e1912f05e80d64"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">fastly::http::Response::send_to_client</a></div><div class="ttdeci">void send_to_client()</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1StatusCode_html_a736fbd919131a5febd9a14f100778d87"><div class="ttname"><a href="classfastly_1_1http_1_1StatusCode.html#a736fbd919131a5febd9a14f100778d87">fastly::http::StatusCode::NOT_FOUND</a></div><div class="ttdeci">static const StatusCode NOT_FOUND</div><div class="ttdef"><b>Definition:</b> status_code.h:129</div></div>
-<div class="ttc" id="asdk_8h_html"><div class="ttname"><a href="sdk_8h.html">sdk.h</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('random_8cpp-example.html',''); initRes
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="sdk_8h.html">fastly/sdk.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;fastly/sdk.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;random&gt;</span></div>
 <div class="line"> </div>
@@ -150,16 +150,12 @@ $(document).ready(function(){initNavTree('random_8cpp-example.html',''); initRes
 <div class="line">}</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a id="a1" name="a1"></a><a class="code hl_function" href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
-<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_class" href="classfastly_1_1http_1_1Body.html">fastly::Body</a> body{<span class="stringliteral">&quot;Have a random number: &quot;</span>};</div>
+<div class="line">  fastly::Body body{<span class="stringliteral">&quot;Have a random number: &quot;</span>};</div>
 <div class="line">  body &lt;&lt; <a class="code hl_function" href="random_8cpp.html#ae1346ee68e9dc7a0c7ad879556941ff4">random_get</a>() &lt;&lt; std::endl;</div>
-<div class="line">  <a id="a3" name="a3"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(std::move(body)).<a id="a4" name="a4"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">send_to_client</a>();</div>
+<div class="line">  fastly::Response::from_body(std::move(body)).send_to_client();</div>
 <div class="line">}</div>
 <div class="ttc" id="aasync__reqs_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> async_reqs.cpp:10</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Body_html"><div class="ttname"><a href="classfastly_1_1http_1_1Body.html">fastly::http::Body</a></div><div class="ttdef"><b>Definition:</b> body.h:37</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a6cd79ae4d99f6c68d3df5c944ef6a5b4"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::http::Response::from_body</a></div><div class="ttdeci">static Response from_body(Body body)</div><div class="ttdoc">Create a new Response with the given value as the body.</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a74bf3303db3ff132f5e1912f05e80d64"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">fastly::http::Response::send_to_client</a></div><div class="ttdeci">void send_to_client()</div></div>
 <div class="ttc" id="arandom_8cpp_html_ae1346ee68e9dc7a0c7ad879556941ff4"><div class="ttname"><a href="random_8cpp.html#ae1346ee68e9dc7a0c7ad879556941ff4">random_get</a></div><div class="ttdeci">int random_get()</div><div class="ttdef"><b>Definition:</b> random.cpp:9</div></div>
-<div class="ttc" id="asdk_8h_html"><div class="ttname"><a href="sdk_8h.html">sdk.h</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

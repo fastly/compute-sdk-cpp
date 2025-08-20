@@ -147,7 +147,7 @@ Requirements</h2>
 <h3><a class="anchor" id="autotoc_md8"></a>
 Notes on &lt;tt&gt;wasi-sdk&lt;/tt&gt;</h3>
 <p ><code>wasi-sdk-25.0</code> is only compatible with <code>rustc</code> versions up to <code>1.86.0</code>. If you use <code>1.87.0</code> or later, you'll need to use a higher <code>wasi-sdk</code> version. If building this project manually, you must make sure that the version of <code>wasi-sdk</code> version you're using has an equal or greater LLVM version than the one used by your <code>rustc</code>.</p>
-<p >The build script assumes you're installing <code>wasi-sdk</code> to <code>/opt/wasi-sdk</code>. You can specify a custom path using <code>--set wasi-sdk /path/to/wasi-sdk-dist</code> in <code>just</code>, or <code>-DWASI_SDK=/path/to/wasi-sdk-dist</code> if using <code>cmake</code> along.</p>
+<p >The build script assumes you're installing <code>wasi-sdk</code> to <code>/opt/wasi-sdk</code>. You can specify a custom path using <code>--set wasi-sdk /path/to/wasi-sdk-dist</code> in <code>just</code>, or by supplying the relevant <code>wasi-sdk-p1.cmake</code> file with <code>-DCMAKE_TOOLCHAIN_FILE</code> if using CMake directly.</p>
 <h2><a class="anchor" id="autotoc_md9"></a>
 Example(s)</h2>
 <p >You can run the examples directly using <code>just</code>, if you have all the above set up.</p>

@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('device_detection_8cpp-example.html',''
 </div><!--header-->
 <div class="contents">
 <div class="fragment"><div class="line"> </div>
-<div class="line"><span class="preprocessor">#include &quot;<a class="code" href="sdk_8h.html">fastly/sdk.h</a>&quot;</span></div>
+<div class="line"><span class="preprocessor">#include &quot;fastly/sdk.h&quot;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;iostream&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;optional&gt;</span></div>
 <div class="line"><span class="preprocessor">#include &lt;string&gt;</span></div>
@@ -143,8 +143,8 @@ $(document).ready(function(){initNavTree('device_detection_8cpp-example.html',''
 <div class="line"><span class="keyword">using namespace </span>std::string_literals;</div>
 <div class="line"> </div>
 <div class="line"><span class="keywordtype">int</span> <a id="a0" name="a0"></a><a class="code hl_function" href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
-<div class="line">  <span class="keyword">auto</span> req{<a id="a1" name="a1"></a><a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::Request::from_client</a>()};</div>
-<div class="line">  <a id="_a2" name="_a2"></a><a class="code hl_class" href="classfastly_1_1http_1_1Body.html">fastly::Body</a> body;</div>
+<div class="line">  <span class="keyword">auto</span> req{fastly::Request::from_client()};</div>
+<div class="line">  fastly::Body body;</div>
 <div class="line">  <span class="keyword">auto</span> ua{req.get_header(<span class="stringliteral">&quot;User-Agent&quot;</span>)};</div>
 <div class="line">  <span class="keywordflow">if</span> (!ua.has_value()) {</div>
 <div class="line">    body &lt;&lt; <span class="stringliteral">&quot;Failed to get User-Agent header: &quot;</span> &lt;&lt; ua.error().error_msg()</div>
@@ -153,7 +153,7 @@ $(document).ready(function(){initNavTree('device_detection_8cpp-example.html',''
 <div class="line">    body &lt;&lt; <span class="stringliteral">&quot;No user agent. Can&#39;t detect device.&quot;</span> &lt;&lt; std::endl;</div>
 <div class="line">  } <span class="keywordflow">else</span> {</div>
 <div class="line">    body &lt;&lt; <span class="stringliteral">&quot;Trying to detect device using UA `&quot;</span> &lt;&lt; **ua &lt;&lt; <span class="stringliteral">&quot;`...&quot;</span> &lt;&lt; std::endl;</div>
-<div class="line">    <span class="keyword">auto</span> maybe_dev{<a id="a3" name="a3"></a><a class="code hl_function" href="namespacefastly_1_1device__detection.html#a963348758b3806eb80f24a329fc64479">fastly::device_detection::lookup</a>(**ua)};</div>
+<div class="line">    <span class="keyword">auto</span> maybe_dev{fastly::device_detection::lookup(**ua)};</div>
 <div class="line">    <span class="keywordflow">if</span> (!maybe_dev.has_value()) {</div>
 <div class="line">      body &lt;&lt; <span class="stringliteral">&quot;Error while looking up device: &quot;</span> &lt;&lt; maybe_dev.error().error_msg()</div>
 <div class="line">           &lt;&lt; std::endl;</div>
@@ -182,15 +182,9 @@ $(document).ready(function(){initNavTree('device_detection_8cpp-example.html',''
 <div class="line">           &lt;&lt; std::endl;</div>
 <div class="line">    }</div>
 <div class="line">  }</div>
-<div class="line">  <a id="a4" name="a4"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(std::move(body)).<a id="a5" name="a5"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">send_to_client</a>();</div>
+<div class="line">  fastly::Response::from_body(std::move(body)).send_to_client();</div>
 <div class="line">}</div>
 <div class="ttc" id="aasync__reqs_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> async_reqs.cpp:10</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Body_html"><div class="ttname"><a href="classfastly_1_1http_1_1Body.html">fastly::http::Body</a></div><div class="ttdef"><b>Definition:</b> body.h:37</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a008de1b7b69832f3928b3f0f4fc7ca88"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a008de1b7b69832f3928b3f0f4fc7ca88">fastly::http::Request::from_client</a></div><div class="ttdeci">static Request from_client()</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a6cd79ae4d99f6c68d3df5c944ef6a5b4"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::http::Response::from_body</a></div><div class="ttdeci">static Response from_body(Body body)</div><div class="ttdoc">Create a new Response with the given value as the body.</div></div>
-<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a74bf3303db3ff132f5e1912f05e80d64"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">fastly::http::Response::send_to_client</a></div><div class="ttdeci">void send_to_client()</div></div>
-<div class="ttc" id="anamespacefastly_1_1device__detection_html_a963348758b3806eb80f24a329fc64479"><div class="ttname"><a href="namespacefastly_1_1device__detection.html#a963348758b3806eb80f24a329fc64479">fastly::device_detection::lookup</a></div><div class="ttdeci">fastly::expected&lt; std::optional&lt; Device &gt; &gt; lookup(std::string_view user_agent)</div><div class="ttdoc">Look up the data associated with a particular User-Agent string.</div></div>
-<div class="ttc" id="asdk_8h_html"><div class="ttname"><a href="sdk_8h.html">sdk.h</a></div></div>
 </div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
