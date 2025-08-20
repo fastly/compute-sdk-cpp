@@ -6,6 +6,7 @@
 #include <fastly/error.h>
 #include <fastly/http/body.h>
 #include <fastly/http/header.h>
+#include <fastly/http/http.h>
 #include <fastly/http/request.h>
 #include <fastly/http/status_code.h>
 #include <fastly/sdk-sys.h>

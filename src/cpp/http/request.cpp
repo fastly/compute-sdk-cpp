@@ -250,7 +250,8 @@ fastly::expected<void> Request::set_body_text_plain(std::string_view body) {
   }
 }
 
-fastly::expected<Request> Request::with_body_text_html(std::string_view body) && {
+fastly::expected<Request>
+Request::with_body_text_html(std::string_view body) && {
   return this->set_body_text_html(body).map(
       [this]() { return std::move(*this); });
 }
@@ -265,7 +266,8 @@ fastly::expected<void> Request::set_body_text_html(std::string_view body) {
   }
 }
 
-fastly::expected<Request> Request::with_body_text_plain(std::string_view body) && {
+fastly::expected<Request>
+Request::with_body_text_plain(std::string_view body) && {
   return this->set_body_text_plain(body).map(
       [this]() { return std::move(*this); });
 }
@@ -494,7 +496,8 @@ Request::get_query_parameter(std::string_view param) {
   }
 }
 
-fastly::expected<Request> Request::with_query_string(std::string_view query) && {
+fastly::expected<Request>
+Request::with_query_string(std::string_view query) && {
   return this->set_query_string(query).map(
       [this]() { return std::move(*this); });
 }
@@ -519,12 +522,6 @@ std::optional<bool> Request::get_client_ddos_detected() {
     return std::nullopt;
   }
 }
-
-// TODO(@zkat): Do these later, I think they're lower-pri.
-// // TODO(@zkat): need Version enum
-// // Request *with_version(Version version);
-// // Version get_version();
-// // void set_version(Version version);
 
 Request Request::with_pass(bool pass) && {
   this->set_pass(pass);
@@ -654,13 +651,9 @@ Request Request::with_cache_key(std::vector<uint8_t> key) && {
   return std::move(*this);
 }
 
-Version Request::get_version() {
-  return this->req->get_version();
-}
+Version Request::get_version() { return this->req->get_version(); }
 
-void Request::set_version(Version version) {
-  this->req->set_version(version);
-}
+void Request::set_version(Version version) { this->req->set_version(version); }
 
 Request Request::with_version(Version version) && {
   this->set_version(version);

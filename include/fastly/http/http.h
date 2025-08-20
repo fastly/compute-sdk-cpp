@@ -6,6 +6,6 @@
 namespace fastly::http {
 using fastly::sys::http::Method;
 using fastly::sys::http::Version;
-}
+} // namespace fastly::http
 
 #endif
