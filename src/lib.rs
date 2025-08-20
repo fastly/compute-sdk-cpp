@@ -61,6 +61,16 @@ mod ffi {
         TRACE,
     }
 
+    #[namespace = "fastly::sys::http"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum Version {
+        HTTP_09,
+        HTTP_10,
+        HTTP_11,
+        HTTP_2,
+        HTTP_3,
+    }
+
     /// Connection speed.
     ///
     /// These connection speeds imply different latencies, as well as throughput.
@@ -322,11 +332,47 @@ mod ffi {
             mut err: Pin<&mut *mut FastlyError>,
         );
     }
-
     #[namespace = "fastly::sys::http"]
     extern "Rust" {
         type HeaderValuesIter;
-        fn next(&mut self) -> UniquePtr<CxxVector<u8>>;
+        fn next(
+            &mut self,
+            mut value_out: Pin<&mut CxxVector<u8>>,
+            mut is_sensitive_out: Pin<&mut bool>,
+        ) -> bool;
+        // Needed to force generation of `drop`.
+        fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter>;
+    }
+
+    #[namespace = "fastly::sys::http"]
+    extern "Rust" {
+        type HeaderNamesIter;
+        fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
+        // Needed to force generation of `drop`.
+        fn f_header_names_iter_noop(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter>;
+    }
+
+    #[namespace = "fastly::sys::http"]
+    extern "Rust" {
+        type OriginalHeaderNamesIter;
+        fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
+        // Needed to force generation of `drop`.
+        fn f_original_header_names_iter_noop(
+            val: Box<OriginalHeaderNamesIter>,
+        ) -> Box<OriginalHeaderNamesIter>;
+    }
+
+    #[namespace = "fastly::sys::http"]
+    extern "Rust" {
+        type HeadersIter;
+        fn next(
+            &mut self,
+            mut name_out: Pin<&mut CxxString>,
+            mut value_out: Pin<&mut CxxVector<u8>>,
+            mut is_sensitive_out: Pin<&mut bool>,
+        ) -> bool;
+        // Needed to force generation of `drop`.
+        fn f_headers_iter_noop(val: Box<HeadersIter>) -> Box<HeadersIter>;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -382,7 +428,8 @@ mod ffi {
         fn get_header(
             &self,
             name: &CxxString,
-            out: Pin<&mut CxxString>,
+            value_out: Pin<&mut CxxVector<u8>>,
+            is_sensitive_out: Pin<&mut bool>,
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
         fn get_header_all(
@@ -391,6 +438,10 @@ mod ffi {
             out: Pin<&mut *mut HeaderValuesIter>,
             mut err: Pin<&mut *mut FastlyError>,
         );
+        fn get_headers(&self, out: Pin<&mut *mut HeadersIter>);
+        fn get_header_names(&self, out: Pin<&mut *mut HeaderNamesIter>);
+        fn get_original_header_names(&self, out: Pin<&mut *mut OriginalHeaderNamesIter>) -> bool;
+        fn get_original_header_count(&self, mut out: Pin<&mut u32>) -> bool;
         fn set_header(
             &mut self,
             name: &CxxString,
@@ -431,6 +482,8 @@ mod ffi {
         fn fastly_key_is_valid(&self) -> bool;
         fn set_cache_key(&mut self, key: &CxxVector<u8>);
         fn is_cacheable(&mut self) -> bool;
+        fn get_version(&self) -> Version;
+        fn set_version(&mut self, version: Version);
     }
 
     #[namespace = "fastly::sys::http::request"]
@@ -518,7 +571,8 @@ mod ffi {
         fn get_header(
             &self,
             name: &CxxString,
-            out: Pin<&mut CxxString>,
+            value_out: Pin<&mut CxxVector<u8>>,
+            is_sensitive_out: Pin<&mut bool>,
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
         fn get_header_all(
@@ -527,6 +581,8 @@ mod ffi {
             out: Pin<&mut *mut HeaderValuesIter>,
             mut err: Pin<&mut *mut FastlyError>,
         );
+        fn get_headers(&self, out: Pin<&mut *mut HeadersIter>);
+        fn get_header_names(&self, out: Pin<&mut *mut HeaderNamesIter>);
         fn set_header(
             &mut self,
             name: &CxxString,
@@ -555,6 +611,8 @@ mod ffi {
         fn get_ttl(&self, mut out: Pin<&mut u32>) -> bool;
         fn get_age(&self, mut out: Pin<&mut u32>) -> bool;
         fn get_stale_while_revalidate(&self, mut out: Pin<&mut u32>) -> bool;
+        fn get_version(&self) -> Version;
+        fn set_version(&mut self, version: Version);
     }
 
     #[namespace = "fastly::sys::http"]

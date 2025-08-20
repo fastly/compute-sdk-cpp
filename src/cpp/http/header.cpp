@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 #include <memory>
 #include <vector>
 
@@ -11,3 +12,5 @@ std::string HeaderValuesIter::next() {
 }
 
 } // namespace fastly::http
+=======
+>>>>>>> main
