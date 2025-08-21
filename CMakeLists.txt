@@ -1,7 +1,7 @@
 # From https://github.com/XiangpengHao/cxx-cmake-example/blob/master/fastly/CMakeLists.txt
 cmake_minimum_required(VERSION 3.15)
 
-project(compute-sdk-cpp VERSION 0.2.0 LANGUAGES CXX)
+project(compute-sdk-cpp VERSION 0.3.0 LANGUAGES CXX)
 
 if(VERBOSE)
     set(VERBOSE_FLAG "--verbose")
