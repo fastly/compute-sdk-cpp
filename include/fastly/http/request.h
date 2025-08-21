@@ -1,14 +1,14 @@
 #ifndef FASTLY_HTTP_REQUEST_H
 #define FASTLY_HTTP_REQUEST_H
 
+#include <algorithm>
 #include <fastly/backend.h>
 #include <fastly/error.h>
-#include <fastly/sdk-sys.h>
 #include <fastly/http/body.h>
 #include <fastly/http/header.h>
-#include <fastly/http/method.h>
+#include <fastly/http/http.h>
 #include <fastly/http/response.h>
-#include <algorithm>
+#include <fastly/sdk-sys.h>
 #include <iostream>
 #include <iterator>
 #include <optional>
@@ -474,16 +474,13 @@ public:
   /// may be any of the values. See
   /// `Request::get_header_all()`
   /// all of the values.
-  // TODO(@zkat): do a proper HeaderValue situation here?
-  fastly::expected<std::optional<std::string>>
+  fastly::expected<std::optional<HeaderValue>>
   get_header(std::string_view name);
 
   /// Get an iterator of all the values of a header.
-  fastly::expected<HeaderValuesIter> get_header_all(std::string_view name);
-
-  // TODO(@zkat): sigh. IDK
-  // ??? get_headers();
-  // HeaderNamesIter get_header_names();
+  fastly::expected<HeaderValuesRange> get_header_all(std::string_view name);
+  fastly::expected<HeadersRange> get_headers();
+  fastly::expected<HeaderNamesRange> get_header_names();
 
   /// Set a request header to the given value, discarding any previous values
   /// for the given header name.
@@ -573,10 +570,14 @@ public:
   /// Remove the query component from the request URL, if one exists.
   void remove_query();
 
-  // TODO(@zkat): need Version enum
-  // Request with_version(Version version);
-  // Version get_version();
-  // void set_version(Version version);
+  /// Builder-style equivalent of `Request::set_version()`.
+  Request with_version(Version version) &&;
+
+  /// Get the HTTP version of this request.
+  Version get_version();
+
+  /// Set the HTTP version of this request.
+  void set_version(Version version);
 
   /// Builder-style equivalent of `Request::set_pass()`.
   Request with_pass(bool pass) &&;
@@ -664,10 +665,8 @@ public:
   std::optional<std::string> get_client_ip_addr();
   std::optional<std::string> get_server_ip_addr();
 
-  // TODO(@zkat): needs iterator
-  // std::optional<HeaderNameIter> get_original_header_names();
-
-  // std::optional<uint32_t> get_original_header_count();
+  std::optional<OriginalHeaderNamesRange> get_original_header_names();
+  std::optional<uint32_t> get_original_header_count();
 
   /// Returns whether the request was tagged as contributing to a DDoS attack
   ///

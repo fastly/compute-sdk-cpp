@@ -1,14 +1,15 @@
 #ifndef FASTLY_HTTP_RESPONSE_H
 #define FASTLY_HTTP_RESPONSE_H
 
+#include <chrono>
 #include <fastly/backend.h>
 #include <fastly/error.h>
-#include <fastly/sdk-sys.h>
 #include <fastly/http/body.h>
 #include <fastly/http/header.h>
+#include <fastly/http/http.h>
 #include <fastly/http/request.h>
 #include <fastly/http/status_code.h>
-#include <chrono>
+#include <fastly/sdk-sys.h>
 #include <string>
 #include <string_view>
 #include <utility>
@@ -273,23 +274,20 @@ public:
   fastly::expected<Response> with_set_header(std::string_view name,
                                              std::string_view value) &&;
 
-  /// Get the value of a header as a string, or `std::nullopt` if the header is
+  /// Get the value of a header, or `std::nullopt` if the header is
   /// not present.
   ///
   /// If there are multiple values for the header, only one is returned, which
   /// may be any of the values. See
   /// `Response::get_header_all()`
   /// all of the values.
-  // TODO(@zkat): do a proper HeaderValue situation here?
-  fastly::expected<std::optional<std::string>>
+  fastly::expected<std::optional<HeaderValue>>
   get_header(std::string_view name);
 
   /// Get an iterator of all the values of a header.
-  fastly::expected<HeaderValuesIter> get_header_all(std::string_view name);
-
-  // TODO(@zkat): sigh. IDK
-  // ??? get_headers();
-  // HeaderNamesIter get_header_names();
+  fastly::expected<HeaderValuesRange> get_header_all(std::string_view name);
+  fastly::expected<HeadersRange> get_headers();
+  fastly::expected<HeaderNamesRange> get_header_names();
 
   /// Set a response header to the given value, discarding any previous values
   /// for the given header name.
@@ -332,10 +330,14 @@ public:
   /// ```
   void set_status(StatusCode status);
 
-  // TODO(@zkat): need Version enum
-  // Response with_version(Version version);
-  // Version get_version();
-  // void set_version(Version version);
+  /// Builder-style equivalent of `Response::set_version()`.
+  Response with_version(Version version) &&;
+
+  /// Get the HTTP version of this response.
+  Version get_version();
+
+  /// Set the HTTP version of this response.
+  void set_version(Version version);
 
   // TODO(@zkat): needs enum
   // void set_framing_headers_mode(FramingHeadersMode mode);
