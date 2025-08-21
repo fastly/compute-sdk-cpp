@@ -4,11 +4,25 @@
 #include <fastly/error.h>
 #include <fastly/http/body.h>
 #include <fastly/sdk-sys.h>
+#include <functional>
 #include <optional>
 
 namespace fastly::kv_store {
-class Error {};
-template <class T = void> using expected = tl::expected<T, Error>;
+using fastly::sys::kv_store::KVStoreErrorCode;
+class KVStoreError {
+public:
+  KVStoreError(fastly::sys::kv_store::KVStoreError *e)
+      : err(rust::Box<fastly::sys::kv_store::KVStoreError>::from_raw(e)) {};
+  KVStoreError(rust::Box<fastly::sys::kv_store::KVStoreError> e)
+      : err(std::move(e)) {};
+  fastly::sys::kv_store::KVStoreErrorCode error_code();
+  std::string error_msg();
+
+private:
+  rust::Box<fastly::sys::kv_store::KVStoreError> err;
+};
+template <class T = void> using expected = tl::expected<T, KVStoreError>;
+template <class T = void> using unexpected = tl::unexpected<T>;
 
 namespace detail {
 template <class HandleType> class KVPendingHandle {
@@ -69,7 +83,10 @@ struct PendingListHandle : public detail::KVPendingHandle<PendingListHandle> {
   using detail::KVPendingHandle<PendingListHandle>::KVPendingHandle;
 };
 
+class LookupBuilder;
 class LookupResponse {
+  friend LookupBuilder;
+
 public:
   /// Returns the body, making the `LookupResponse` bodyless.
   Body take_body();
@@ -167,34 +184,38 @@ private:
   rust::Box<fastly::sys::kv_store::InsertBuilder> builder_;
 };
 
+struct ListModeStrong {};
+struct ListModeEventual {};
+struct ListModeOther {
+  std::string other;
+};
+using ListMode = std::variant<ListModeStrong, ListModeEventual, ListModeOther>;
+
 class ListPage {
 public:
-  /// Returns a view of the listed keys in the current page.
-  std::span<std::string_view> keys() const;
   /// Returns a vector of the listed keys in the current page.
-  std::vector<std::string> into_keys() const;
+  std::vector<std::string> keys() const;
+  /// Returns a vector of the listed keys in the current page, consuming the
+  /// page.
+  std::vector<std::string> into_keys();
 
   /// Returns the next cursor of the List operation.
   std::optional<std::string> next_cursor() const;
 
   /// Returns the prefix used in the List operation.
-  std::optional<std::string_view> prefix() const;
+  std::optional<std::string> prefix() const;
 
   /// Returns the limit used in the List operation.
   std::uint32_t limit() const;
 
   /// Returns the mode used in the List operation.
-  fastly::sys::kv_store::ListMode mode() const;
+  ListMode mode() const;
 
 private:
   friend class ListBuilder;
   ListPage(rust::Box<fastly::sys::kv_store::ListPage> page)
       : page_(std::move(page)) {}
   rust::Box<fastly::sys::kv_store::ListPage> page_;
-};
-
-class ListResponse {
-  // TODO(@tartanllama)
 };
 
 class ListBuilder {
@@ -229,6 +250,15 @@ private:
   ListBuilder(rust::Box<fastly::sys::kv_store::ListBuilder> builder)
       : builder_(std::move(builder)) {}
   rust::Box<fastly::sys::kv_store::ListBuilder> builder_;
+};
+
+class ListResponse {
+public:
+private:
+  friend ListBuilder;
+  ListResponse(rust::Box<fastly::sys::kv_store::ListResponse> response)
+      : response_(std::move(response)) {}
+  rust::Box<fastly::sys::kv_store::ListResponse> response_;
 };
 
 class KVStore {

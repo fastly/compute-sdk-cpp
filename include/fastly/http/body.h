@@ -17,7 +17,8 @@
 
 namespace fastly::kv_store {
 class InsertBuilder;
-}
+class LookupResponse;
+} // namespace fastly::kv_store
 
 namespace fastly::http {
 
@@ -43,6 +44,7 @@ class Body : public std::iostream, public std::streambuf {
   friend Response;
   friend Request;
   friend kv_store::InsertBuilder;
+  friend kv_store::LookupResponse;
 
 protected:
   int underflow();

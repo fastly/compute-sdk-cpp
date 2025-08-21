@@ -773,6 +773,14 @@ mod ffi {
     }
 
     #[namespace = "fastly::sys::kv_store"]
+    #[derive(Copy, Clone, Debug)]
+    pub enum ListModeType {
+        Strong,
+        Eventual,
+        Other,
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type InsertBuilder<'a>;
         fn m_kv_store_insert_builder_mode(
@@ -812,30 +820,102 @@ mod ffi {
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type LookupResponse;
+        fn take_body(&mut self) -> Box<Body>;
+        fn try_take_body(&mut self, mut out: Pin<&mut *mut Body>) -> bool;
+        fn take_body_bytes(&mut self, mut out: Pin<&mut CxxVector<u8>>);
+        fn metadata(&self, mut out: Pin<&mut CxxVector<u8>>) -> bool;
+        fn current_generation(&self) -> u64;
     }
 
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type LookupBuilder<'a>;
+        fn execute(
+            &self,
+            key: &str,
+            mut out: Pin<&mut *mut LookupResponse>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn execute_async(
+            &self,
+            key: &str,
+            mut out: Pin<&mut u32>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
     }
 
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type EraseBuilder<'a>;
+        fn execute(&self, key: &str, mut err: Pin<&mut *mut KVStoreError>);
+        fn execute_async(
+            &self,
+            key: &str,
+            mut out: Pin<&mut u32>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
     }
 
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type ListPage;
+        fn keys(&self) -> &[String];
+        fn next_cursor(&self, out: Pin<&mut CxxString>) -> bool;
+        fn prefix(&self, out: Pin<&mut CxxString>) -> bool;
+        fn limit(&self) -> u32;
+        fn mode(&self, mut out: Pin<&mut *mut ListMode>);
+        fn m_kv_store_list_page_into_keys(page: Box<ListPage>) -> Vec<String>;
     }
 
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type ListBuilder<'a>;
+        fn execute_async(&self, mut out: Pin<&mut u32>, mut err: Pin<&mut *mut KVStoreError>);
+        fn m_kv_store_list_builder_execute(
+            builder: Box<ListBuilder>,
+            mut out: Pin<&mut *mut ListPage>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn m_kv_store_list_builder_eventual_consistency(
+            mut builder: Box<ListBuilder>,
+        ) -> Box<ListBuilder>;
+        unsafe fn m_kv_store_list_builder_cursor<'a>(
+            mut builder: Box<ListBuilder<'a>>,
+            cursor: &str,
+        ) -> Box<ListBuilder<'a>>;
+        fn m_kv_store_list_builder_limit(
+            mut builder: Box<ListBuilder>,
+            limit: u32,
+        ) -> Box<ListBuilder>;
+        unsafe fn m_kv_store_list_builder_prefix<'a>(
+            mut builder: Box<ListBuilder<'a>>,
+            prefix: &str,
+        ) -> Box<ListBuilder<'a>>;
+        unsafe fn m_kv_store_list_builder_iter<'a>(
+            builder: Box<ListBuilder<'a>>,
+            mut out: Pin<&mut *mut ListResponse<'a>>,
+        );
     }
 
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type KVStore;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type ListMode;
+        fn code(&self) -> ListModeType;
+        fn other_string(&self, out: Pin<&mut CxxString>) -> bool;
+    }
+
+    #[namespace = "fastly::sys::kv_store"]
+    extern "Rust" {
+        type ListResponse<'a>;
+        fn next(
+            &mut self,
+            mut out: Pin<&mut *mut ListPage>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        ) -> bool;
     }
 }
