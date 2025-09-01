@@ -61,8 +61,11 @@ jobs:
       - uses: extractions/setup-just@v3
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-
+      
       - name: Build WebAssembly module
+        run: just
+
+      - name: Run tests
         run: just
 
       - name: Build docs
