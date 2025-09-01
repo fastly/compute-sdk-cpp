@@ -64,6 +64,9 @@ jobs:
         with:
           version: "25"
 
+      - name: Install Viceroy
+        run: cargo install viceroy
+
       - uses: extractions/setup-just@v3
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
