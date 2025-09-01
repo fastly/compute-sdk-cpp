@@ -841,7 +841,6 @@ mod ffi {
         Other,
     }
 
-    
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type InsertBuilder<'a>;
