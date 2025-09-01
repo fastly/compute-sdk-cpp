@@ -44,7 +44,7 @@ jobs:
       - name: Check C++ Format
         run: /opt/wasi-sdk/bin/clang-format --dry-run --Werror src/**/*.h src/**/*.cpp
 
-  build:
+  test:
     runs-on: ubuntu-latest
     permissions:
       contents: write
