@@ -1,4 +1,6 @@
-#![allow(clippy::boxed_local)]
+// Clippy has a few false positives in this crate for lifetimes and boxing
+// due to the way cxx works.
+#![allow(clippy::boxed_local, clippy::needless_lifetimes)]
 
 use backend::*;
 use config_store::*;
@@ -839,6 +841,7 @@ mod ffi {
         Other,
     }
 
+    
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type InsertBuilder<'a>;
