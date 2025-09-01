@@ -951,9 +951,7 @@ mod ffi {
             mut builder: Box<ListBuilder<'a>>,
             prefix: &str,
         ) -> Box<ListBuilder<'a>>;
-        fn m_kv_store_list_builder_iter(
-            builder: Box<ListBuilder<'_>>,
-        ) -> Box<ListResponse<'_>>;
+        fn m_kv_store_list_builder_iter(builder: Box<ListBuilder<'_>>) -> Box<ListResponse<'_>>;
     }
 
     #[namespace = "fastly::sys::kv_store"]
