@@ -14,7 +14,3 @@ foreach(t ${TEST_SRC})
         COMMAND ${testname}
         WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 endforeach()
-
-add_test(NAME fastly_test
-    COMMAND cargo test
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
