@@ -72,7 +72,7 @@ jobs:
         run: just
 
       - name: Run tests
-        run: just
+        run: just test
 
       - name: Build docs
         uses: mattnotmitt/doxygen-action@v1.9.5
