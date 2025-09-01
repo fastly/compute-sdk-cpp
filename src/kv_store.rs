@@ -55,8 +55,6 @@ macro_rules! try_kve {
     };
 }
 
-pub struct KvStore(pub(crate) fastly::KVStore);
-
 pub struct InsertBuilder<'a>(pub(crate) fastly::kv_store::InsertBuilder<'a>);
 
 pub fn m_kv_store_insert_builder_mode(
@@ -146,7 +144,7 @@ impl ListMode {
         }
     }
 
-    pub fn other_string(&self, mut out: Pin<&mut CxxString>) -> bool {
+    pub fn other_string(&self, out: Pin<&mut CxxString>) -> bool {
         if let fastly::kv_store::ListMode::Other(ref s) = self.0 {
             out.push_str(s);
             true
@@ -249,6 +247,8 @@ pub fn m_kv_store_list_builder_execute(
     mut err: Pin<&mut *mut KVStoreError>,
 ) {
     let page = try_kve!(err, builder.0.execute());
+    println!("Got page with {} keys", page.keys().len());
+    println!("Prefix: {:?}", page.prefix());
     out.set(Box::into_raw(Box::new(ListPage(page))));
 }
 
@@ -305,11 +305,8 @@ impl ListResponse<'_> {
     }
 }
 
-pub fn m_kv_store_list_builder_iter<'a>(
-    builder: Box<ListBuilder<'a>>,
-    mut out: Pin<&mut *mut ListResponse<'a>>,
-) {
-    out.set(Box::into_raw(Box::new(ListResponse(builder.0.iter()))));
+pub fn m_kv_store_list_builder_iter<'a>(builder: Box<ListBuilder<'a>>) -> Box<ListResponse<'a>> {
+    Box::new(ListResponse(builder.0.iter()))
 }
 
 pub struct ListPage(pub(crate) fastly::kv_store::ListPage);
@@ -337,8 +334,8 @@ impl ListPage {
     pub fn limit(&self) -> u32 {
         self.0.limit()
     }
-    pub fn mode(&self, mut out: Pin<&mut *mut ListMode>) {
-        out.set(Box::into_raw(Box::new(ListMode(self.0.mode()))));
+    pub fn mode(&self) -> Box<ListMode> {
+        Box::new(ListMode(self.0.mode()))
     }
 }
 
@@ -347,3 +344,119 @@ pub fn m_kv_store_list_page_into_keys(page: Box<ListPage>) -> Vec<String> {
 }
 
 pub struct KVStore(pub(crate) fastly::kv_store::KVStore);
+
+impl KVStore {
+    pub fn lookup(
+        &self,
+        key: &str,
+        mut out: Pin<&mut *mut LookupResponse>,
+        mut err: Pin<&mut *mut KVStoreError>,
+    ) {
+        let response = try_kve!(err, self.0.lookup(key));
+        out.set(Box::into_raw(Box::new(LookupResponse(response))));
+    }
+
+    pub fn build_lookup<'a>(&'a self) -> Box<LookupBuilder<'a>> {
+        Box::new(LookupBuilder(self.0.build_lookup()))
+    }
+
+    pub fn pending_lookup_wait(
+        &self,
+        pending_request_handle: u32,
+        mut out: Pin<&mut *mut LookupResponse>,
+        mut err: Pin<&mut *mut KVStoreError>,
+    ) {
+        // Safe because C++ should only pass back handles that were created by us.
+        let handle =
+            unsafe { fastly::kv_store::PendingLookupHandle::from_u32(pending_request_handle) };
+        let response = try_kve!(err, self.0.pending_lookup_wait(handle));
+        out.set(Box::into_raw(Box::new(LookupResponse(response))));
+    }
+
+    pub fn insert(&self, key: &str, value: Box<Body>, mut err: Pin<&mut *mut KVStoreError>) {
+        try_kve!(err, self.0.insert(key, value.0,));
+    }
+
+    pub fn build_insert<'a>(&'a self) -> Box<InsertBuilder<'a>> {
+        Box::new(InsertBuilder(self.0.build_insert()))
+    }
+    pub fn pending_insert_wait(
+        &self,
+        pending_insert_handle: u32,
+        mut err: Pin<&mut *mut KVStoreError>,
+    ) {
+        // Safe because C++ should only pass back handles that were created by us.
+        let handle =
+            unsafe { fastly::kv_store::PendingInsertHandle::from_u32(pending_insert_handle) };
+        try_kve!(err, self.0.pending_insert_wait(handle));
+    }
+
+    pub fn erase(&self, key: &str, mut err: Pin<&mut *mut KVStoreError>) {
+        try_kve!(err, self.0.delete(key));
+    }
+
+    pub fn build_erase<'a>(&'a self) -> Box<EraseBuilder<'a>> {
+        Box::new(EraseBuilder(self.0.build_delete()))
+    }
+
+    pub fn pending_erase_wait(
+        &self,
+        pending_delete_handle: u32,
+        mut err: Pin<&mut *mut KVStoreError>,
+    ) {
+        // Safe because C++ should only pass back handles that were created by us.
+        let handle =
+            unsafe { fastly::kv_store::PendingDeleteHandle::from_u32(pending_delete_handle) };
+        try_kve!(err, self.0.pending_delete_wait(handle));
+    }
+
+    pub fn list(&self, mut out: Pin<&mut *mut ListPage>, mut err: Pin<&mut *mut KVStoreError>) {
+        let page = try_kve!(err, self.0.list());
+        out.set(Box::into_raw(Box::new(ListPage(page))));
+    }
+
+    pub fn build_list<'a>(&'a self) -> Box<ListBuilder<'a>> {
+        Box::new(ListBuilder(self.0.build_list()))
+    }
+
+    pub fn pending_list_wait(
+        &self,
+        pending_request_handle: u32,
+        mut out: Pin<&mut *mut ListPage>,
+        mut err: Pin<&mut *mut KVStoreError>,
+    ) {
+        // Safe because C++ should only pass back handles that were created by us.
+        let handle =
+            unsafe { fastly::kv_store::PendingListHandle::from_u32(pending_request_handle) };
+        let page = try_kve!(err, self.0.pending_list_wait(handle));
+        out.set(Box::into_raw(Box::new(ListPage(page))));
+    }
+}
+
+pub fn m_static_kv_store_kv_store_open(
+    name: &str,
+    mut out: Pin<&mut *mut KVStore>,
+    mut err: Pin<&mut *mut KVStoreError>,
+) -> bool {
+    match fastly::kv_store::KVStore::open(name) {
+        Ok(store) => store
+            .map(|s| {
+                out.set(Box::into_raw(Box::new(KVStore(s))));
+            })
+            .is_some(),
+        Err(e) => {
+            err.set(Box::into_raw(Box::new(KVStoreError(e))));
+            false
+        }
+    }
+}
+
+pub fn f_kv_store_kv_store_force_symbols(x: Box<KVStore>) -> Box<KVStore> {
+    x
+}
+pub fn f_kv_store_kv_store_error_force_symbols(x: Box<KVStoreError>) -> Box<KVStoreError> {
+    x
+}
+pub fn f_kv_store_lookup_response_force_symbols(x: Box<LookupResponse>) -> Box<LookupResponse> {
+    x
+}

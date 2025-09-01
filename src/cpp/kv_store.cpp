@@ -2,40 +2,48 @@
 #include <iostream>
 
 namespace fastly::kv_store {
+KVStoreErrorCode KVStoreError::error_code() { return err_->error_code(); }
+std::string KVStoreError::error_msg() {
+  std::string msg;
+  err_->error_msg(msg);
+  return msg;
+}
+
 InsertBuilder InsertBuilder::mode(InsertMode mode) && {
-  fastly::sys::kv_store::m_kv_store_insert_builder_mode(
-      std::move(this->builder_), mode);
+  builder_ = fastly::sys::kv_store::m_kv_store_insert_builder_mode(
+      std::move(builder_), mode);
   return std::move(*this);
 }
 
 InsertBuilder InsertBuilder::background_fetch() && {
-  fastly::sys::kv_store::m_kv_store_insert_builder_background_fetch(
-      std::move(this->builder_));
+  builder_ = fastly::sys::kv_store::m_kv_store_insert_builder_background_fetch(
+      std::move(builder_));
   return std::move(*this);
 }
 
 InsertBuilder InsertBuilder::if_generation_match(std::uint64_t gen) && {
-  fastly::sys::kv_store::m_kv_store_insert_builder_if_generation_match(
-      std::move(this->builder_), gen);
+  builder_ =
+      fastly::sys::kv_store::m_kv_store_insert_builder_if_generation_match(
+          std::move(builder_), gen);
   return std::move(*this);
 }
 
 InsertBuilder InsertBuilder::metadata(const std::string &data) && {
-  fastly::sys::kv_store::m_kv_store_insert_builder_metadata(
-      std::move(this->builder_), data);
+  builder_ = fastly::sys::kv_store::m_kv_store_insert_builder_metadata(
+      std::move(builder_), data);
   return std::move(*this);
 }
 
 InsertBuilder InsertBuilder::time_to_live(std::chrono::milliseconds ttl) && {
-  fastly::sys::kv_store::m_kv_store_insert_builder_time_to_live(
-      std::move(this->builder_), ttl.count());
+  builder_ = fastly::sys::kv_store::m_kv_store_insert_builder_time_to_live(
+      std::move(builder_), ttl.count());
   return std::move(*this);
 }
 
 expected<> InsertBuilder::execute(const std::string &key, Body body) && {
   fastly::sys::kv_store::KVStoreError *err;
   fastly::sys::kv_store::m_kv_store_insert_builder_execute(
-      std::move(this->builder_), key, std::move(body.bod), err);
+      std::move(builder_), key, std::move(body.bod), err);
   if (err != nullptr) {
     return unexpected(err);
   }
@@ -48,7 +56,7 @@ InsertBuilder::execute_async(const std::string &key, Body body) && {
   std::uint32_t handle;
   fastly::sys::kv_store::KVStoreError *err;
   fastly::sys::kv_store::m_kv_store_insert_builder_execute_async(
-      std::move(this->builder_), key, std::move(body.bod), handle, err);
+      std::move(builder_), key, std::move(body.bod), handle, err);
   if (err != nullptr) {
     return unexpected(err);
   }
@@ -66,8 +74,8 @@ std::vector<std::string> ListPage::keys() const {
 }
 
 std::vector<std::string> ListPage::into_keys() {
-  auto keys = fastly::sys::kv_store::m_kv_store_list_page_into_keys(
-      std::move(this->page_));
+  auto keys =
+      fastly::sys::kv_store::m_kv_store_list_page_into_keys(std::move(page_));
   std::vector<std::string> result;
   result.reserve(keys.size());
   for (const auto &key : keys) {
@@ -95,8 +103,7 @@ std::optional<std::string> ListPage::prefix() const {
 std::uint32_t ListPage::limit() const { return page_->limit(); }
 
 ListMode ListPage::mode() const {
-  fastly::sys::kv_store::ListMode *mode;
-  page_->mode(mode);
+  auto mode = page_->mode();
   switch (mode->code()) {
   case fastly::sys::kv_store::ListModeType::Strong:
     return ListModeStrong{};
@@ -185,33 +192,34 @@ EraseBuilder::execute_async(std::string_view key) const {
 }
 
 ListBuilder ListBuilder::eventual_consistency() && {
-  fastly::sys::kv_store::m_kv_store_list_builder_eventual_consistency(
-      std::move(this->builder_));
+  builder_ =
+      fastly::sys::kv_store::m_kv_store_list_builder_eventual_consistency(
+          std::move(builder_));
   return std::move(*this);
 }
 
-ListBuilder ListBuilder::cursor(std::string_view cursor) && {
-  fastly::sys::kv_store::m_kv_store_list_builder_cursor(
-      std::move(this->builder_), {cursor.data(), cursor.size()});
+ListBuilder ListBuilder::cursor(const std::string &cursor) && {
+  builder_ = fastly::sys::kv_store::m_kv_store_list_builder_cursor(
+      std::move(builder_), cursor);
   return std::move(*this);
 }
 
 ListBuilder ListBuilder::limit(std::uint32_t limit) && {
-  fastly::sys::kv_store::m_kv_store_list_builder_limit(
-      std::move(this->builder_), limit);
+  builder_ = fastly::sys::kv_store::m_kv_store_list_builder_limit(
+      std::move(builder_), limit);
   return std::move(*this);
 }
 
-ListBuilder ListBuilder::prefix(std::string_view prefix) && {
-  fastly::sys::kv_store::m_kv_store_list_builder_prefix(
-      std::move(this->builder_), {prefix.data(), prefix.size()});
+ListBuilder ListBuilder::prefix(const std::string &prefix) && {
+  builder_ = fastly::sys::kv_store::m_kv_store_list_builder_prefix(
+      std::move(builder_), prefix);
   return std::move(*this);
 }
 expected<ListPage> ListBuilder::execute() && {
   fastly::sys::kv_store::ListPage *page;
   fastly::sys::kv_store::KVStoreError *err;
-  fastly::sys::kv_store::m_kv_store_list_builder_execute(
-      std::move(this->builder_), page, err);
+  fastly::sys::kv_store::m_kv_store_list_builder_execute(std::move(builder_),
+                                                         page, err);
   if (err != nullptr) {
     return unexpected(err);
   }
@@ -219,11 +227,8 @@ expected<ListPage> ListBuilder::execute() && {
 }
 
 ListResponse ListBuilder::iter() && {
-  fastly::sys::kv_store::ListResponse *response;
-  fastly::sys::kv_store::m_kv_store_list_builder_iter(std::move(this->builder_),
-                                                      response);
-  return ListResponse{
-      rust::Box<fastly::sys::kv_store::ListResponse>::from_raw(response)};
+  return {
+      fastly::sys::kv_store::m_kv_store_list_builder_iter(std::move(builder_))};
 }
 
 expected<PendingListHandle> ListBuilder::execute_async() const {
@@ -234,6 +239,112 @@ expected<PendingListHandle> ListBuilder::execute_async() const {
     return unexpected(err);
   }
   return PendingListHandle::from_u32(handle);
+}
+
+expected<std::optional<KVStore>> KVStore::open(std::string_view name) {
+  fastly::sys::kv_store::KVStore *store;
+  fastly::sys::kv_store::KVStoreError *err;
+  if (fastly::sys::kv_store::m_static_kv_store_kv_store_open(
+          {name.data(), name.size()}, store, err)) {
+    return KVStore{rust::Box<fastly::sys::kv_store::KVStore>::from_raw(store)};
+  } else {
+    if (err != nullptr) {
+      return unexpected(KVStoreError(
+          rust::Box<fastly::sys::kv_store::KVStoreError>::from_raw(err)));
+    } else {
+      return std::nullopt;
+    }
+  }
+}
+
+expected<LookupResponse> KVStore::lookup(std::string_view key) const {
+  fastly::sys::kv_store::LookupResponse *response;
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->lookup({key.data(), key.size()}, response, err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return LookupResponse{
+      rust::Box<fastly::sys::kv_store::LookupResponse>::from_raw(response)};
+}
+
+LookupBuilder KVStore::build_lookup() const { return {store_->build_lookup()}; }
+
+expected<LookupResponse>
+KVStore::pending_lookup_wait(PendingLookupHandle pending_request_handle) const {
+  fastly::sys::kv_store::LookupResponse *response;
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->pending_lookup_wait(pending_request_handle.as_u32(), response, err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return LookupResponse{
+      rust::Box<fastly::sys::kv_store::LookupResponse>::from_raw(response)};
+}
+
+expected<> KVStore::insert(std::string_view key, Body value) const {
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->insert({key.data(), key.size()}, std::move(value.bod), err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return {};
+}
+
+InsertBuilder KVStore::build_insert() const { return {store_->build_insert()}; }
+
+expected<>
+KVStore::pending_insert_wait(PendingInsertHandle pending_insert_handle) const {
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->pending_insert_wait(pending_insert_handle.as_u32(), err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return {};
+}
+
+expected<> KVStore::erase(std::string_view key) const {
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->erase({key.data(), key.size()}, err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return {};
+}
+
+EraseBuilder KVStore::build_erase() const { return {store_->build_erase()}; }
+
+expected<>
+KVStore::pending_erase_wait(PendingEraseHandle pending_erase_handle) const {
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->pending_erase_wait(pending_erase_handle.as_u32(), err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return {};
+}
+
+expected<ListPage> KVStore::list() const {
+  fastly::sys::kv_store::ListPage *page;
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->list(page, err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return ListPage{rust::Box<fastly::sys::kv_store::ListPage>::from_raw(page)};
+}
+
+ListBuilder KVStore::build_list() const { return {store_->build_list()}; }
+
+expected<ListPage>
+KVStore::pending_list_wait(PendingListHandle pending_request_handle) const {
+  fastly::sys::kv_store::ListPage *page;
+  fastly::sys::kv_store::KVStoreError *err;
+  store_->pending_list_wait(pending_request_handle.as_u32(), page, err);
+  if (err != nullptr) {
+    return unexpected(err);
+  }
+  return ListPage{rust::Box<fastly::sys::kv_store::ListPage>::from_raw(page)};
 }
 
 } // namespace fastly::kv_store

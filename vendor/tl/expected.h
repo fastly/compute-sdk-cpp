@@ -17,7 +17,7 @@
 #define TL_EXPECTED_HPP
 
 #define TL_EXPECTED_VERSION_MAJOR 1
-#define TL_EXPECTED_VERSION_MINOR 2
+#define TL_EXPECTED_VERSION_MINOR 3
 #define TL_EXPECTED_VERSION_PATCH 0
 
 #include <exception>
@@ -51,12 +51,18 @@
 #define TL_EXPECTED_GCC55
 #endif
 
+#ifdef _MSVC_LANG
+#define TL_CPLUSPLUS _MSVC_LANG
+#else
+#define TL_CPLUSPLUS __cplusplus
+#endif
+
 #if !defined(TL_ASSERT)
-// can't have assert in constexpr in C++11 and GCC 4.9 has a compiler bug
+//can't have assert in constexpr in C++11 and GCC 4.9 has a compiler bug
 #if (TL_CPLUSPLUS > 201103L) && !defined(TL_EXPECTED_GCC49)
 #include <cassert>
 #define TL_ASSERT(x) assert(x)
-#else
+#else 
 #define TL_ASSERT(x)
 #endif
 #endif
@@ -109,12 +115,6 @@ struct is_trivially_copy_constructible<std::vector<T, A>> : std::false_type {};
   std::is_trivially_destructible<T>
 #endif
 
-#ifdef _MSVC_LANG
-#define TL_CPLUSPLUS _MSVC_LANG
-#else
-#define TL_CPLUSPLUS __cplusplus
-#endif
-
 #if TL_CPLUSPLUS > 201103L
 #define TL_EXPECTED_CXX14
 #endif
@@ -125,14 +125,14 @@ struct is_trivially_copy_constructible<std::vector<T, A>> : std::false_type {};
 #define TL_EXPECTED_GCC49_CONSTEXPR constexpr
 #endif
 
-#if (TL_CPLUSPLUS == 201103L || defined(TL_EXPECTED_MSVC2015) ||               \
+#if (TL_CPLUSPLUS == 201103L || defined(TL_EXPECTED_MSVC2015) ||                \
      defined(TL_EXPECTED_GCC49))
 #define TL_EXPECTED_11_CONSTEXPR
 #else
 #define TL_EXPECTED_11_CONSTEXPR constexpr
 #endif
 
-#if TL_CPLUSPLUS >= 201703L
+#if TL_CPLUSPLUS >= 201703L 
 #define TL_EXPECTED_NODISCARD [[nodiscard]]
 #else
 #define TL_EXPECTED_NODISCARD
@@ -219,21 +219,13 @@ struct unexpect_t {
 };
 static constexpr unexpect_t unexpect{};
 
-namespace detail {
-template <typename E>
-[[noreturn]] TL_EXPECTED_11_CONSTEXPR void throw_exception(E &&e) {
 #ifdef TL_EXPECTED_EXCEPTIONS_ENABLED
-  throw std::forward<E>(e);
-#else
-  (void)e;
-#ifdef _MSC_VER
-  __assume(0);
-#else
-  __builtin_unreachable();
+#define TL_EXPECTED_THROW_EXCEPTION(e) throw((e));
+#elif defined(_MSC_VER)
+#define TL_EXPECTED_THROW_EXCEPTION(e) std::terminate();
 #endif
-#endif
-}
 
+namespace detail {
 #ifndef TL_TRAITS_MUTEX
 #define TL_TRAITS_MUTEX
 // C++14-style aliases for brevity
@@ -534,7 +526,7 @@ template <class T, class E> struct expected_storage_base<T, E, true, true> {
                                            Args &&...args)
       : m_unexpect(il, std::forward<Args>(args)...), m_has_val(false) {}
 
-  expected_storage_base(const expected_storage_base &) = default;
+  expected_storage_base(const expected_storage_base &) = default;     
   expected_storage_base(expected_storage_base &&) = default;
   expected_storage_base &operator=(const expected_storage_base &) = default;
   expected_storage_base &operator=(expected_storage_base &&) = default;
@@ -647,13 +639,13 @@ template <class T, class E> struct expected_storage_base<T, E, false, true> {
 
 // `T` is `void`, `E` is trivially-destructible
 template <class E> struct expected_storage_base<void, E, false, true> {
-#if __GNUC__ <= 5
-// no constexpr for GCC 4/5 bug
-#else
+  #if __GNUC__ <= 5
+  //no constexpr for GCC 4/5 bug
+  #else
   TL_EXPECTED_MSVC2015_CONSTEXPR
-#endif
+  #endif 
   expected_storage_base() : m_has_val(true) {}
-
+     
   constexpr expected_storage_base(no_init_t) : m_val(), m_has_val(false) {}
 
   constexpr expected_storage_base(in_place_t) : m_has_val(true) {}
@@ -967,9 +959,8 @@ struct expected_operations_base<void, E> : expected_storage_base<void, E> {
 // This class manages conditionally having a trivial copy constructor
 // This specialization is for when T and E are trivially copy constructible
 template <class T, class E,
-          bool = is_void_or<T, TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(
-                                   T)>::value &&
-                 TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(E)::value,
+          bool = is_void_or<T, TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(T)>::
+              value &&TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(E)::value,
           bool = (is_copy_constructible_or_void<T>::value &&
                   std::is_copy_constructible<E>::value)>
 struct expected_copy_base : expected_operations_base<T, E> {
@@ -1003,9 +994,8 @@ struct expected_copy_base<T, E, false, true> : expected_operations_base<T, E> {
 // move constructible
 #ifndef TL_EXPECTED_GCC49
 template <class T, class E,
-          bool =
-              is_void_or<T, std::is_trivially_move_constructible<T>>::value &&
-              std::is_trivially_move_constructible<E>::value>
+          bool = is_void_or<T, std::is_trivially_move_constructible<T>>::value
+              &&std::is_trivially_move_constructible<E>::value>
 struct expected_move_base : expected_copy_base<T, E> {
   using expected_copy_base<T, E>::expected_copy_base;
 };
@@ -1033,20 +1023,18 @@ struct expected_move_base<T, E, false> : expected_copy_base<T, E> {
 };
 
 // This class manages conditionally having a trivial copy assignment operator
-template <
-    class T, class E,
-    bool =
-        is_void_or<
-            T, conjunction<TL_EXPECTED_IS_TRIVIALLY_COPY_ASSIGNABLE(T),
-                           TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(T),
-                           TL_EXPECTED_IS_TRIVIALLY_DESTRUCTIBLE(T)>>::value &&
-        TL_EXPECTED_IS_TRIVIALLY_COPY_ASSIGNABLE(E)::value &&
-        TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(E)::value &&
-        TL_EXPECTED_IS_TRIVIALLY_DESTRUCTIBLE(E)::value,
-    bool = (is_copy_constructible_or_void<T>::value &&
-            std::is_copy_constructible<E>::value &&
-            is_copy_assignable_or_void<T>::value &&
-            std::is_copy_assignable<E>::value)>
+template <class T, class E,
+          bool = is_void_or<
+              T, conjunction<TL_EXPECTED_IS_TRIVIALLY_COPY_ASSIGNABLE(T),
+                             TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(T),
+                             TL_EXPECTED_IS_TRIVIALLY_DESTRUCTIBLE(T)>>::value
+              &&TL_EXPECTED_IS_TRIVIALLY_COPY_ASSIGNABLE(E)::value
+                  &&TL_EXPECTED_IS_TRIVIALLY_COPY_CONSTRUCTIBLE(E)::value
+                      &&TL_EXPECTED_IS_TRIVIALLY_DESTRUCTIBLE(E)::value,
+          bool = (is_copy_constructible_or_void<T>::value &&
+             std::is_copy_constructible<E>::value &&
+             is_copy_assignable_or_void<T>::value &&
+             std::is_copy_assignable<E>::value)>
 struct expected_copy_assign_base : expected_move_base<T, E> {
   using expected_move_base<T, E>::expected_move_base;
 };
@@ -1073,15 +1061,14 @@ struct expected_copy_assign_base<T, E, false, true> : expected_move_base<T, E> {
 // to make do with a non-trivial move assignment operator even if T is trivially
 // move assignable
 #ifndef TL_EXPECTED_GCC49
-template <
-    class T, class E,
-    bool = is_void_or<
-               T, conjunction<std::is_trivially_destructible<T>,
-                              std::is_trivially_move_constructible<T>,
-                              std::is_trivially_move_assignable<T>>>::value &&
-           std::is_trivially_destructible<E>::value &&
-           std::is_trivially_move_constructible<E>::value &&
-           std::is_trivially_move_assignable<E>::value>
+template <class T, class E,
+          bool =
+              is_void_or<T, conjunction<std::is_trivially_destructible<T>,
+                                        std::is_trivially_move_constructible<T>,
+                                        std::is_trivially_move_assignable<T>>>::
+                  value &&std::is_trivially_destructible<E>::value
+                      &&std::is_trivially_move_constructible<E>::value
+                          &&std::is_trivially_move_assignable<E>::value>
 struct expected_move_assign_base : expected_copy_assign_base<T, E> {
   using expected_copy_assign_base<T, E>::expected_copy_assign_base;
 };
@@ -1104,8 +1091,8 @@ struct expected_move_assign_base<T, E, false>
 
   expected_move_assign_base &
   operator=(expected_move_assign_base &&rhs) noexcept(
-      std::is_nothrow_move_constructible<T>::value &&
-      std::is_nothrow_move_assignable<T>::value) {
+      std::is_nothrow_move_constructible<T>::value
+          &&std::is_nothrow_move_assignable<T>::value) {
     this->assign(std::move(rhs));
     return *this;
   }
@@ -1287,11 +1274,11 @@ private:
 /// has been destroyed. The initialization state of the contained object is
 /// tracked by the expected object.
 template <class T, class E>
-class TL_EXPECTED_NODISCARD expected
-    : private detail::expected_move_assign_base<T, E>,
-      private detail::expected_delete_ctor_base<T, E>,
-      private detail::expected_delete_assign_base<T, E>,
-      private detail::expected_default_ctor_base<T, E> {
+class TL_EXPECTED_NODISCARD expected :
+                 private detail::expected_move_assign_base<T, E>,
+                 private detail::expected_delete_ctor_base<T, E>,
+                 private detail::expected_delete_assign_base<T, E>,
+                 private detail::expected_default_ctor_base<T, E> {
   static_assert(!std::is_reference<T>::value, "T must not be a reference");
   static_assert(!std::is_same<T, std::remove_cv<in_place_t>::type>::value,
                 "T must not be in_place_t");
@@ -1971,10 +1958,11 @@ public:
                       detail::is_swappable<OE>::value &&
                       (std::is_nothrow_move_constructible<OT>::value ||
                        std::is_nothrow_move_constructible<OE>::value)>
-  swap(expected &rhs) noexcept(std::is_nothrow_move_constructible<T>::value &&
-                               detail::is_nothrow_swappable<T>::value &&
-                               std::is_nothrow_move_constructible<E>::value &&
-                               detail::is_nothrow_swappable<E>::value) {
+  swap(expected &rhs) noexcept(
+      std::is_nothrow_move_constructible<T>::value
+          &&detail::is_nothrow_swappable<T>::value
+              &&std::is_nothrow_move_constructible<E>::value
+                  &&detail::is_nothrow_swappable<E>::value) {
     if (has_value() && rhs.has_value()) {
       swap_where_both_have_value(rhs, typename std::is_void<T>::type{});
     } else if (!has_value() && rhs.has_value()) {
@@ -2028,28 +2016,28 @@ public:
             detail::enable_if_t<!std::is_void<U>::value> * = nullptr>
   TL_EXPECTED_11_CONSTEXPR const U &value() const & {
     if (!has_value())
-      detail::throw_exception(bad_expected_access<E>(err().value()));
+      TL_EXPECTED_THROW_EXCEPTION(bad_expected_access<E>(err().value()));
     return val();
   }
   template <class U = T,
             detail::enable_if_t<!std::is_void<U>::value> * = nullptr>
   TL_EXPECTED_11_CONSTEXPR U &value() & {
     if (!has_value())
-      detail::throw_exception(bad_expected_access<E>(err().value()));
+      TL_EXPECTED_THROW_EXCEPTION(bad_expected_access<E>(err().value()));
     return val();
   }
   template <class U = T,
             detail::enable_if_t<!std::is_void<U>::value> * = nullptr>
   TL_EXPECTED_11_CONSTEXPR const U &&value() const && {
     if (!has_value())
-      detail::throw_exception(bad_expected_access<E>(std::move(err()).value()));
+      TL_EXPECTED_THROW_EXCEPTION(bad_expected_access<E>(std::move(err()).value()));
     return std::move(val());
   }
   template <class U = T,
             detail::enable_if_t<!std::is_void<U>::value> * = nullptr>
   TL_EXPECTED_11_CONSTEXPR U &&value() && {
     if (!has_value())
-      detail::throw_exception(bad_expected_access<E>(std::move(err()).value()));
+      TL_EXPECTED_THROW_EXCEPTION(bad_expected_access<E>(std::move(err()).value()));
     return std::move(val());
   }
 

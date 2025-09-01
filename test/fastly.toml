@@ -1,0 +1,16 @@
+# This file describes a Fastly Compute package. To learn more visit:
+# https://www.fastly.com/documentation/reference/compute/fastly-toml
+
+authors = ["sy.brand@fastly.com"]
+description = "C++ SDK tests"
+language = "other"
+manifest_version = 3
+name = "cpp-tests"
+service_id = ""
+
+[local_server]
+backends.fastly.url = "https://www.fastly.com"
+backends.wikipedia.url = "https://en.wikipedia.org"
+
+[local_server.kv_stores]
+test-store = { file = 'kv_store.json', format = 'json' }

@@ -73,16 +73,16 @@ impl HeadersIter {
 }
 
 // Needed to force generation of `drop` functions for the iterators.
-pub fn f_headers_iter_noop(val: Box<HeadersIter>) -> Box<HeadersIter> {
+pub fn f_headers_iter_force_symbols(val: Box<HeadersIter>) -> Box<HeadersIter> {
     val
 }
-pub fn f_header_names_iter_noop(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter> {
+pub fn f_header_names_iter_force_symbols(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter> {
     val
 }
-pub fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter> {
+pub fn f_header_values_iter_force_symbols(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter> {
     val
 }
-pub fn f_original_header_names_iter_noop(
+pub fn f_original_header_names_iter_force_symbols(
     val: Box<OriginalHeaderNamesIter>,
 ) -> Box<OriginalHeaderNamesIter> {
     val

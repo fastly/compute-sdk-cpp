@@ -1,6 +1,7 @@
 #ifndef FASTLY_KV_STORE_H
 #define FASTLY_KV_STORE_H
 #include <chrono>
+#include <fastly/detail/rust_iterator_range.h>
 #include <fastly/error.h>
 #include <fastly/http/body.h>
 #include <fastly/sdk-sys.h>
@@ -12,14 +13,14 @@ using fastly::sys::kv_store::KVStoreErrorCode;
 class KVStoreError {
 public:
   KVStoreError(fastly::sys::kv_store::KVStoreError *e)
-      : err(rust::Box<fastly::sys::kv_store::KVStoreError>::from_raw(e)) {};
+      : err_(rust::Box<fastly::sys::kv_store::KVStoreError>::from_raw(e)) {};
   KVStoreError(rust::Box<fastly::sys::kv_store::KVStoreError> e)
-      : err(std::move(e)) {};
-  fastly::sys::kv_store::KVStoreErrorCode error_code();
+      : err_(std::move(e)) {};
+  KVStoreErrorCode error_code();
   std::string error_msg();
 
 private:
-  rust::Box<fastly::sys::kv_store::KVStoreError> err;
+  rust::Box<fastly::sys::kv_store::KVStoreError> err_;
 };
 template <class T = void> using expected = tl::expected<T, KVStoreError>;
 template <class T = void> using unexpected = tl::unexpected<T>;
@@ -191,7 +192,12 @@ struct ListModeOther {
 };
 using ListMode = std::variant<ListModeStrong, ListModeEventual, ListModeOther>;
 
+class ListResponse;
+class KVStore;
 class ListPage {
+  friend ListResponse;
+  friend KVStore;
+
 public:
   /// Returns a vector of the listed keys in the current page.
   std::vector<std::string> keys() const;
@@ -218,6 +224,30 @@ private:
   rust::Box<fastly::sys::kv_store::ListPage> page_;
 };
 
+class ListResponse : public fastly::detail::RustIteratorRange<
+                         ListResponse, fastly::sys::kv_store::ListResponse> {
+public:
+  using fastly::detail::RustIteratorRange<
+      ListResponse, fastly::sys::kv_store::ListResponse>::RustIteratorRange;
+
+  /// Gets the next page of results.
+  std::optional<expected<ListPage>> next() {
+    fastly::sys::kv_store::ListPage *page;
+    fastly::sys::kv_store::KVStoreError *err;
+    if (this->iter_->next(page, err)) {
+      if (err == nullptr) {
+        return ListPage(
+            rust::Box<fastly::sys::kv_store::ListPage>::from_raw(page));
+      } else {
+        return unexpected(KVStoreError(
+            rust::Box<fastly::sys::kv_store::KVStoreError>::from_raw(err)));
+      }
+    } else {
+      return std::nullopt;
+    }
+  }
+};
+
 class ListBuilder {
 public:
   /// Rather than read data from the primary data source, which is slower
@@ -227,13 +257,13 @@ public:
   ListBuilder eventual_consistency() &&;
 
   /// Change the cursor of the request.
-  ListBuilder cursor(std::string_view cursor) &&;
+  ListBuilder cursor(const std::string &cursor) &&;
 
   /// Set the maximum number of items included in the response.
   ListBuilder limit(std::uint32_t limit) &&;
 
   /// Set the prefix match for items to include in the resultset.
-  ListBuilder prefix(std::string_view prefix) &&;
+  ListBuilder prefix(const std::string &prefix) &&;
 
   /// Initiate and wait on a list of values in the KV Store.
   expected<ListPage> execute() &&;
@@ -250,15 +280,6 @@ private:
   ListBuilder(rust::Box<fastly::sys::kv_store::ListBuilder> builder)
       : builder_(std::move(builder)) {}
   rust::Box<fastly::sys::kv_store::ListBuilder> builder_;
-};
-
-class ListResponse {
-public:
-private:
-  friend ListBuilder;
-  ListResponse(rust::Box<fastly::sys::kv_store::ListResponse> response)
-      : response_(std::move(response)) {}
-  rust::Box<fastly::sys::kv_store::ListResponse> response_;
 };
 
 class KVStore {

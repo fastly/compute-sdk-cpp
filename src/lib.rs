@@ -343,7 +343,7 @@ mod ffi {
             mut is_sensitive_out: Pin<&mut bool>,
         ) -> bool;
         // Needed to force generation of `drop`.
-        fn f_header_values_iter_noop(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter>;
+        fn f_header_values_iter_force_symbols(val: Box<HeaderValuesIter>) -> Box<HeaderValuesIter>;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -351,7 +351,7 @@ mod ffi {
         type HeaderNamesIter;
         fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
         // Needed to force generation of `drop`.
-        fn f_header_names_iter_noop(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter>;
+        fn f_header_names_iter_force_symbols(val: Box<HeaderNamesIter>) -> Box<HeaderNamesIter>;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -359,7 +359,7 @@ mod ffi {
         type OriginalHeaderNamesIter;
         fn next(&mut self, mut out: Pin<&mut CxxString>) -> bool;
         // Needed to force generation of `drop`.
-        fn f_original_header_names_iter_noop(
+        fn f_original_header_names_iter_force_symbols(
             val: Box<OriginalHeaderNamesIter>,
         ) -> Box<OriginalHeaderNamesIter>;
     }
@@ -374,7 +374,7 @@ mod ffi {
             mut is_sensitive_out: Pin<&mut bool>,
         ) -> bool;
         // Needed to force generation of `drop`.
-        fn f_headers_iter_noop(val: Box<HeadersIter>) -> Box<HeadersIter>;
+        fn f_headers_iter_force_symbols(val: Box<HeadersIter>) -> Box<HeadersIter>;
     }
 
     #[namespace = "fastly::sys::http"]
@@ -680,7 +680,7 @@ mod ffi {
         fn is_desktop(&self) -> *const bool;
         fn is_touchscreen(&self) -> *const bool;
         // Get it to generate the appropriate symbols like ::drop() etc.
-        fn f_device_detection_noop(dev: Box<Device>) -> Box<Device>;
+        fn f_device_detection_force_symbols(dev: Box<Device>) -> Box<Device>;
     }
 
     #[namespace = "fastly::sys::config_store"]
@@ -819,6 +819,7 @@ mod ffi {
         type KVStoreError;
         fn error_msg(&self, mut out: Pin<&mut CxxString>);
         fn error_code(&self) -> KVStoreErrorCode;
+        fn f_kv_store_kv_store_error_force_symbols(x: Box<KVStoreError>) -> Box<KVStoreError>;
     }
 
     #[namespace = "fastly::sys::kv_store"]
@@ -883,6 +884,7 @@ mod ffi {
         fn take_body_bytes(&mut self, mut out: Pin<&mut CxxVector<u8>>);
         fn metadata(&self, mut out: Pin<&mut CxxVector<u8>>) -> bool;
         fn current_generation(&self) -> u64;
+        fn f_kv_store_lookup_response_force_symbols(x: Box<LookupResponse>) -> Box<LookupResponse>;
     }
 
     #[namespace = "fastly::sys::kv_store"]
@@ -921,7 +923,7 @@ mod ffi {
         fn next_cursor(&self, out: Pin<&mut CxxString>) -> bool;
         fn prefix(&self, out: Pin<&mut CxxString>) -> bool;
         fn limit(&self) -> u32;
-        fn mode(&self, mut out: Pin<&mut *mut ListMode>);
+        fn mode(&self) -> Box<ListMode>;
         fn m_kv_store_list_page_into_keys(page: Box<ListPage>) -> Vec<String>;
     }
 
@@ -951,13 +953,53 @@ mod ffi {
         ) -> Box<ListBuilder<'a>>;
         unsafe fn m_kv_store_list_builder_iter<'a>(
             builder: Box<ListBuilder<'a>>,
-            mut out: Pin<&mut *mut ListResponse<'a>>,
-        );
+        ) -> Box<ListResponse<'a>>;
     }
 
     #[namespace = "fastly::sys::kv_store"]
     extern "Rust" {
         type KVStore;
+        fn lookup(
+            &self,
+            key: &str,
+            mut out: Pin<&mut *mut LookupResponse>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        unsafe fn build_lookup<'a>(&'a self) -> Box<LookupBuilder<'a>>;
+        fn pending_lookup_wait(
+            &self,
+            pending_request_handle: u32,
+            mut out: Pin<&mut *mut LookupResponse>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn insert(&self, key: &str, value: Box<Body>, mut err: Pin<&mut *mut KVStoreError>);
+        unsafe fn build_insert<'a>(&'a self) -> Box<InsertBuilder<'a>>;
+        fn pending_insert_wait(
+            &self,
+            pending_insert_handle: u32,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn erase(&self, key: &str, mut err: Pin<&mut *mut KVStoreError>);
+        unsafe fn build_erase<'a>(&'a self) -> Box<EraseBuilder<'a>>;
+        fn pending_erase_wait(
+            &self,
+            pending_delete_handle: u32,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn list(&self, mut out: Pin<&mut *mut ListPage>, mut err: Pin<&mut *mut KVStoreError>);
+        unsafe fn build_list<'a>(&'a self) -> Box<ListBuilder<'a>>;
+        fn pending_list_wait(
+            &self,
+            pending_request_handle: u32,
+            mut out: Pin<&mut *mut ListPage>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        );
+        fn m_static_kv_store_kv_store_open(
+            name: &str,
+            mut out: Pin<&mut *mut KVStore>,
+            mut err: Pin<&mut *mut KVStoreError>,
+        ) -> bool;
+        fn f_kv_store_kv_store_force_symbols(kv_store: Box<KVStore>) -> Box<KVStore>;
     }
 
     #[namespace = "fastly::sys::kv_store"]

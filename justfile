@@ -30,5 +30,8 @@ docs: build
 build: cmake
     cmake --build {{ build-dir }}
 
+test: build
+    ctest --test-dir {{ build-dir }} --output-on-failure
+
 cmake:
     cmake -S . -B {{ build-dir }} -DENABLE_LTO={{ lto }} -DCMAKE_BUILD_TYPE={{ type }} -DCMAKE_TOOLCHAIN_FILE={{ wasi-sdk }}/share/cmake/wasi-sdk-p1.cmake -DCMAKE_EXPORT_COMPILE_COMMANDS=1

@@ -7,7 +7,7 @@ use crate::{error::ErrPtr, try_fe};
 pub struct Device(pub(crate) fastly::device_detection::Device);
 
 // Just used to force generation of symbols, since we're otherwise doing raw pointers.
-pub fn f_device_detection_noop(dev: Box<Device>) -> Box<Device> {
+pub fn f_device_detection_force_symbols(dev: Box<Device>) -> Box<Device> {
     dev
 }
 

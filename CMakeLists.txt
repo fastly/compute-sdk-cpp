@@ -1,5 +1,5 @@
 # From https://github.com/XiangpengHao/cxx-cmake-example/blob/master/fastly/CMakeLists.txt
-cmake_minimum_required(VERSION 3.15)
+cmake_minimum_required(VERSION 3.29)
 
 project(compute-sdk-cpp VERSION 0.2.0 LANGUAGES CXX)
 
@@ -181,9 +181,20 @@ if(CMAKE_PROJECT_NAME STREQUAL PROJECT_NAME)
     include(CTest)
 endif()
 if (BUILD_TESTING)
-    add_test(NAME fastly_test
-        COMMAND cargo test
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+Include(FetchContent)
+
+FetchContent_Declare(
+  Catch2
+  GIT_REPOSITORY https://github.com/catchorg/Catch2.git
+  GIT_TAG        v3.8.1 # or a later release
+)
+set(CATCH_CONFIG_NO_POSIX_SIGNALS ON CACHE INTERNAL "")
+set(CATCH_CONFIG_DISABLE_EXCEPTIONS ON CACHE INTERNAL "")
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fno-exceptions")
+FetchContent_MakeAvailable(Catch2)
+add_subdirectory(test)
+
+
 endif()
 
 
