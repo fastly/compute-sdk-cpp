@@ -47,7 +47,6 @@ expected<> InsertBuilder::execute(const std::string &key, Body body) && {
   if (err != nullptr) {
     return unexpected(err);
   }
-  // If the insert was successful, we return an empty expected.
   return {};
 }
 
