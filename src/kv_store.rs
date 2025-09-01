@@ -305,7 +305,7 @@ impl ListResponse<'_> {
     }
 }
 
-pub fn m_kv_store_list_builder_iter<'a>(builder: Box<ListBuilder<'a>>) -> Box<ListResponse<'a>> {
+pub fn m_kv_store_list_builder_iter(builder: Box<ListBuilder<'_>>) -> Box<ListResponse<'_>> {
     Box::new(ListResponse(builder.0.iter()))
 }
 
@@ -356,7 +356,7 @@ impl KVStore {
         out.set(Box::into_raw(Box::new(LookupResponse(response))));
     }
 
-    pub fn build_lookup<'a>(&'a self) -> Box<LookupBuilder<'a>> {
+    pub fn build_lookup(&self) -> Box<LookupBuilder<'_>> {
         Box::new(LookupBuilder(self.0.build_lookup()))
     }
 
@@ -377,7 +377,7 @@ impl KVStore {
         try_kve!(err, self.0.insert(key, value.0,));
     }
 
-    pub fn build_insert<'a>(&'a self) -> Box<InsertBuilder<'a>> {
+    pub fn build_insert(&self) -> Box<InsertBuilder<'_>> {
         Box::new(InsertBuilder(self.0.build_insert()))
     }
     pub fn pending_insert_wait(
@@ -395,7 +395,7 @@ impl KVStore {
         try_kve!(err, self.0.delete(key));
     }
 
-    pub fn build_erase<'a>(&'a self) -> Box<EraseBuilder<'a>> {
+    pub fn build_erase(&self) -> Box<EraseBuilder<'_>> {
         Box::new(EraseBuilder(self.0.build_delete()))
     }
 
@@ -415,7 +415,7 @@ impl KVStore {
         out.set(Box::into_raw(Box::new(ListPage(page))));
     }
 
-    pub fn build_list<'a>(&'a self) -> Box<ListBuilder<'a>> {
+    pub fn build_list(&self) -> Box<ListBuilder<'_>> {
         Box::new(ListBuilder(self.0.build_list()))
     }
 

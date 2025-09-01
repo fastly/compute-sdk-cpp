@@ -951,9 +951,9 @@ mod ffi {
             mut builder: Box<ListBuilder<'a>>,
             prefix: &str,
         ) -> Box<ListBuilder<'a>>;
-        unsafe fn m_kv_store_list_builder_iter<'a>(
-            builder: Box<ListBuilder<'a>>,
-        ) -> Box<ListResponse<'a>>;
+        fn m_kv_store_list_builder_iter(
+            builder: Box<ListBuilder<'_>>,
+        ) -> Box<ListResponse<'_>>;
     }
 
     #[namespace = "fastly::sys::kv_store"]
@@ -965,7 +965,7 @@ mod ffi {
             mut out: Pin<&mut *mut LookupResponse>,
             mut err: Pin<&mut *mut KVStoreError>,
         );
-        unsafe fn build_lookup<'a>(&'a self) -> Box<LookupBuilder<'a>>;
+        unsafe fn build_lookup(&self) -> Box<LookupBuilder<'_>>;
         fn pending_lookup_wait(
             &self,
             pending_request_handle: u32,
@@ -973,21 +973,21 @@ mod ffi {
             mut err: Pin<&mut *mut KVStoreError>,
         );
         fn insert(&self, key: &str, value: Box<Body>, mut err: Pin<&mut *mut KVStoreError>);
-        unsafe fn build_insert<'a>(&'a self) -> Box<InsertBuilder<'a>>;
+        unsafe fn build_insert(&self) -> Box<InsertBuilder<'_>>;
         fn pending_insert_wait(
             &self,
             pending_insert_handle: u32,
             mut err: Pin<&mut *mut KVStoreError>,
         );
         fn erase(&self, key: &str, mut err: Pin<&mut *mut KVStoreError>);
-        unsafe fn build_erase<'a>(&'a self) -> Box<EraseBuilder<'a>>;
+        fn build_erase(&self) -> Box<EraseBuilder<'_>>;
         fn pending_erase_wait(
             &self,
             pending_delete_handle: u32,
             mut err: Pin<&mut *mut KVStoreError>,
         );
         fn list(&self, mut out: Pin<&mut *mut ListPage>, mut err: Pin<&mut *mut KVStoreError>);
-        unsafe fn build_list<'a>(&'a self) -> Box<ListBuilder<'a>>;
+        fn build_list(&self) -> Box<ListBuilder<'_>>;
         fn pending_list_wait(
             &self,
             pending_request_handle: u32,
