@@ -6,6 +6,7 @@ use backend::*;
 use config_store::*;
 use device_detection::*;
 use error::*;
+use esi::*;
 use geo::*;
 use http::{
     body::*, header::*, purge::*, request::request::*, request::*, response::*, status_code::*,
@@ -13,7 +14,6 @@ use http::{
 use kv_store::*;
 use log::*;
 use secret_store::*;
-use esi::*;
 
 mod backend;
 mod config_store;
@@ -1022,12 +1022,25 @@ mod ffi {
     }
 
     #[namespace = "fastly::sys::esi"]
+    unsafe extern "C++" {
+        include!("fastly/esi.h");
+        type DispatchFragmentRequestFn;
+    }
+
+    #[namespace = "fastly::sys::esi"]
     extern "Rust" {
         type Processor;
+        pub fn m_esi_processor_process_response(
+            processor: Box<Processor>,
+            src_document: &mut Response,
+            client_response_metadata: *mut Box<Response>,
+            dispatch_fragment_request: DispatchFragmentRequestFn,
+            process_fragment_response: ProcessFragmentResponseFn,
+        ) -> Result<()>;
         pub unsafe fn m_static_esi_processor_new(
-    original_request_metadata: *mut Box<Request>,
-    namespace: &CxxString,
-    is_escaped_content: bool
-) -> Box<Processor>;
+            original_request_metadata: *mut Box<Request>,
+            namespace: &CxxString,
+            is_escaped_content: bool,
+        ) -> Box<Processor>;
     }
 }

@@ -2,6 +2,13 @@
 #define FASTLY_ESI_H
 
 #include <string>
+#include <optional>
+#include <functional>
+#include <fastly/error.h>
+#include <fastly/http/request.h>
+#include <fastly/http/response.h>
+#include <fastly/expected.h>
+#include <fastly/sdk-sys.h>
 
 namespace fastly::esi
 {
@@ -31,6 +38,20 @@ namespace fastly::esi
                            Configuration config = Configuration())
         {
         }
-    }
+    };
 
+    class DispatchFragmentRequestFn
+    {
+    public:
+        DispatchFragmentRequestFn(std::function<expected<PendingFragmentContent>(Request &)> fn)
+            : fn_(std::move(fn)) {}
+        expected<PendingFragmentContent> call(Request &req) const noexcept
+        {
+            return fn_(req);
+        }
+
+    private:
+        std::function<expected<PendingFragmentContent>(Request &)> fn_;
+    };
+}
 #endif
