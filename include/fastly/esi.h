@@ -34,24 +34,30 @@ namespace fastly::esi
     {
     public:
         /// Create a new ESI processor with the given configuration.
-        explicit Processor(std::optional<Request> original_request_metadata = std::nullopt,
-                           Configuration config = Configuration())
-        {
-        }
+        Processor(std::optional<Request> original_request_metadata = std::nullopt,
+                  Configuration config = Configuration());
+
+    tl::expected<void, ExecutionError> process_response(
+        Response &src_document,
+        std::optional<Response> client_response_metadata = std::nullopt,
+        std::optional<DispatchFragmentRequestFn> dispatch_fragment_request = std::nullopt,
+        std::function<tl::expected<void, ExecutionError>(Request &, Response &)>
+            process_fragment_response = nullptr)
+
+        private : rust::Box<fastly::sys::esi::Processor> processor_;
     };
+
+    using PendingFragmentContent = std::variant<PendingRequest, Request, std::monostate>;
 
     class DispatchFragmentRequestFn
     {
     public:
-        DispatchFragmentRequestFn(std::function<expected<PendingFragmentContent>(Request &)> fn)
+        DispatchFragmentRequestFn(std::function<expected<PendingFragmentContent>(Request)> fn)
             : fn_(std::move(fn)) {}
-        expected<PendingFragmentContent> call(Request &req) const noexcept
-        {
-            return fn_(req);
-        }
+        uint32_t call(Request req, PendingResponse *&out_pending, Response *&out_complete, ExecutionError *&out_error) const noexcept;
 
     private:
-        std::function<expected<PendingFragmentContent>(Request &)> fn_;
+        std::function<expected<PendingFragmentContent>(Request)> fn_;
     };
 }
 #endif

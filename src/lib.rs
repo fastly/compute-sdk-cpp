@@ -1022,21 +1022,45 @@ mod ffi {
     }
 
     #[namespace = "fastly::sys::esi"]
+    extern "Rust" {
+        type ExecutionError;
+    }
+
+    #[namespace = "fastly::sys::esi"]
     unsafe extern "C++" {
         include!("fastly/esi.h");
         type DispatchFragmentRequestFn;
+        // The return value is:
+        //  0 on pending
+        //  1 on completed
+        //  2 on no content
+        //  3 on error
+        fn call(
+            &self,
+            req: Box<Request>,
+            out_pending: &mut *mut PendingRequest,
+            out_completed: &mut *mut Response,
+            err: &mut *mut ExecutionError,
+        ) -> u32;
+    }
+
+    #[namespace = "fastly::sys::esi"]
+    unsafe extern "C++" {
+        include!("fastly/esi.h");
+        type ProcessFragmentResponseFn;
     }
 
     #[namespace = "fastly::sys::esi"]
     extern "Rust" {
         type Processor;
-        pub fn m_esi_processor_process_response(
+        pub unsafe fn m_esi_processor_process_response(
             processor: Box<Processor>,
             src_document: &mut Response,
             client_response_metadata: *mut Box<Response>,
-            dispatch_fragment_request: DispatchFragmentRequestFn,
-            process_fragment_response: ProcessFragmentResponseFn,
-        ) -> Result<()>;
+            dispatch_fragment_request: *const DispatchFragmentRequestFn,
+            process_fragment_response: *const ProcessFragmentResponseFn,
+            mut err: Pin<&mut *mut ExecutionError>,
+        ) -> bool;
         pub unsafe fn m_static_esi_processor_new(
             original_request_metadata: *mut Box<Request>,
             namespace: &CxxString,
