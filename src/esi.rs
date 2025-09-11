@@ -9,7 +9,6 @@ use esi::Configuration;
 
 use crate::{
     error::FastlyError,
-    ffi::{DispatchFragmentRequestFn, ProcessFragmentResponseFn},
     http::{request::Request, response::Response},
     try_fe,
 };
@@ -17,6 +16,9 @@ use crate::{
 pub(crate) struct ExecutionError(esi::ExecutionError);
 
 pub(crate) struct Processor(esi::Processor);
+
+pub(crate) struct DispatchFragmentRequestFn;
+pub(crate) struct ProcessFragmentResponseFn;
 
 pub fn m_esi_processor_process_response(
     processor: Box<Processor>,
@@ -42,21 +44,24 @@ pub fn m_esi_processor_process_response(
                 let mut out_pending = ptr::null_mut();
                 let mut out_completed = ptr::null_mut();
                 let mut err = ptr::null_mut();
-                let result = func.call(
-                    Box::new(Request(req)),
-                    &mut out_pending,
-                    &mut out_completed,
-                    &mut err,
-                );
+                let result = unsafe {
+                    crate::manual_ffi::fastly_esi_manualbridge_DispatchFragmentRequestFn_call(
+                        &func,
+                        Box::into_raw(Box::new(Request(req))),
+                        &mut out_pending,
+                        &mut out_completed,
+                        &mut err,
+                    )
+                };
                 match result {
-                    0 => Ok(unsafe {
+                    1 => Ok(unsafe {
                         esi::PendingFragmentContent::PendingRequest(out_pending.read().0)
                     }),
-                    1 => Ok(unsafe {
+                    2 => Ok(unsafe {
                         esi::PendingFragmentContent::CompletedRequest(out_completed.read().0)
                     }),
-                    2 => Ok(esi::PendingFragmentContent::NoContent),
-                    3 => Err(unsafe { err.read().0 }),
+                    3 => Ok(esi::PendingFragmentContent::NoContent),
+                    0 => Err(unsafe { err.read().0 }),
                     _ => unreachable!(),
                 }
             });
@@ -65,18 +70,36 @@ pub fn m_esi_processor_process_response(
     let process_fragment_response = if process_fragment_response.is_null() {
         None
     } else {
-        let shim: &dyn Fn(
-            &mut fastly::Request,
-            fastly::Response,
-        ) -> Result<fastly::Response, esi::ExecutionError> =
-            &|req, resp| Err(esi::ExecutionError::UnexpectedEndOfDocument);
+        let func = unsafe { process_fragment_response.read() };
+        let shim: Box<
+            dyn Fn(
+                &mut fastly::Request,
+                fastly::Response,
+            ) -> Result<fastly::Response, esi::ExecutionError>,
+        > = Box::new(move |req, resp| {
+            let mut out_resp = ptr::null_mut();
+            let mut err = ptr::null_mut();
+            let result = unsafe {
+                crate::manual_ffi::fastly_esi_manualbridge_ProcessFragmentResponseFn_call(
+                    &func,
+                    Box::into_raw(Box::new(Request(req.clone_with_body()))), //TODO this leaks currently
+                    Box::into_raw(Box::new(Response(resp))),
+                    &mut out_resp,
+                    &mut err,
+                )
+            };
+            match result {
+                true => Ok(unsafe { out_resp.read().0 }),
+                false => Err(unsafe { err.read().0 }),
+            }
+        });
         Some(shim)
     };
     match processor.0.process_response(
         &mut src_document.0,
         client_response_metadata,
         dispatch_fragment_request.as_deref(),
-        process_fragment_response,
+        process_fragment_response.as_deref(),
     ) {
         Ok(_) => {
             err.set(ptr::null_mut());

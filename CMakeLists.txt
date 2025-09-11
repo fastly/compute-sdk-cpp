@@ -85,6 +85,9 @@ add_custom_command(
 target_include_directories(fastly-thin PUBLIC
     ${CMAKE_CURRENT_SOURCE_DIR}/include
     ${CMAKE_CURRENT_BINARY_DIR}/include)
+target_include_directories(fastly-sys PUBLIC
+    ${CMAKE_CURRENT_SOURCE_DIR}/include
+    ${CMAKE_CURRENT_BINARY_DIR}/include)
 
 target_link_libraries(fastly-thin PUBLIC fastly-sys-orig fastly::sys)
 

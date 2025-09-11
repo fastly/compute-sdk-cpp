@@ -11,3 +11,9 @@ service_id = ""
 [local_server]
 backends.fastly.url = "https://www.fastly.com"
 backends.wikipedia.url = "https://en.wikipedia.org"
+
+[setup]
+[setup.backends]
+[setup.backends.mock-s3]
+address = "mock-s3.edgecompute.app"
+port = 443
