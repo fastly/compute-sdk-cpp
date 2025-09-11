@@ -13,11 +13,13 @@ use http::{
 use kv_store::*;
 use log::*;
 use secret_store::*;
+use esi::*;
 
 mod backend;
 mod config_store;
 mod device_detection;
 mod error;
+mod esi;
 mod geo;
 mod http;
 mod kv_store;
@@ -1017,5 +1019,15 @@ mod ffi {
             mut out: Pin<&mut *mut ListPage>,
             mut err: Pin<&mut *mut KVStoreError>,
         ) -> bool;
+    }
+
+    #[namespace = "fastly::sys::esi"]
+    extern "Rust" {
+        type Processor;
+        pub unsafe fn m_static_esi_processor_new(
+    original_request_metadata: *mut Box<Request>,
+    namespace: &CxxString,
+    is_escaped_content: bool
+) -> Box<Processor>;
     }
 }
