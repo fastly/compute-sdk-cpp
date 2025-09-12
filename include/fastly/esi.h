@@ -43,7 +43,10 @@ public:
   using function_type =
       std::function<std::optional<PendingFragmentContent>(Request)>;
   template <std::convertible_to<function_type> F>
-  DispatchFragmentRequestFn(F &&fn) : fn_(std::forward<F>(fn)) {}
+  DispatchFragmentRequestFn(F &&fn)
+      : detail::rust_bridge_tags::esi::DispatchFragmentRequestFnTag(
+            detail::rust_bridge_tags::IConfirmIHaveInheritedFromThisTag{}),
+        fn_(std::forward<F>(fn)) {}
 
 private:
   friend detail::AccessBridgeInternals;
@@ -57,7 +60,10 @@ public:
   using function_type =
       std::function<std::optional<Response>(Request &, Response)>;
   template <std::convertible_to<function_type> F>
-  ProcessFragmentResponseFn(F &&fn) : fn_(std::forward<F>(fn)) {}
+  ProcessFragmentResponseFn(F &&fn)
+      : detail::rust_bridge_tags::esi::ProcessFragmentResponseFnTag(
+            detail::rust_bridge_tags::IConfirmIHaveInheritedFromThisTag{}),
+        fn_(std::forward<F>(fn)) {}
 
 private:
   friend detail::AccessBridgeInternals;
