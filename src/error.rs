@@ -59,6 +59,8 @@ pub enum FastlyError {
     SecretStoreLookupError(#[from] fastly::secret_store::LookupError),
     #[error(transparent)]
     LogError(#[from] fastly::log::LogError),
+    #[error(transparent)]
+    ESIError(#[from] esi::ExecutionError),
     // Make sure to add any new variants to the `FastlyErrorCode` enum in `lib.rs` _and_ to the match below!
 }
 
@@ -111,6 +113,7 @@ impl FastlyError {
             FastlyError::SecretStoreOpenError(_) => FastlyErrorCode::SecretStoreOpenError,
             FastlyError::SecretStoreLookupError(_) => FastlyErrorCode::SecretStoreLookupError,
             FastlyError::LogError(_) => FastlyErrorCode::LogError,
+            FastlyError::ESIError(_) => FastlyErrorCode::ESIError,
         }
     }
 }
