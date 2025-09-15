@@ -12,10 +12,11 @@ use crate::{
 
 pub(crate) struct Processor(esi::Processor);
 
+type DispatchFragmentRequestFnType =
+    dyn Fn(fastly::Request) -> Result<esi::PendingFragmentContent, esi::ExecutionError>;
 fn shim_dispatch_fragment_request_fn(
     func: *const DispatchFragmentRequestFnTag,
-) -> Option<Box<dyn Fn(fastly::Request) -> Result<esi::PendingFragmentContent, esi::ExecutionError>>>
-{
+) -> Option<Box<DispatchFragmentRequestFnType>> {
     if func.is_null() {
         return None;
     }
@@ -49,16 +50,11 @@ fn shim_dispatch_fragment_request_fn(
     Some(shim)
 }
 
+type ProcessFragmentResponseFnType =
+    dyn Fn(&mut fastly::Request, fastly::Response) -> Result<fastly::Response, esi::ExecutionError>;
 fn shim_process_fragment_response_fn(
     func: *const ProcessFragmentResponseFnTag,
-) -> Option<
-    Box<
-        dyn Fn(
-            &mut fastly::Request,
-            fastly::Response,
-        ) -> Result<fastly::Response, esi::ExecutionError>,
-    >,
-> {
+) -> Option<Box<ProcessFragmentResponseFnType>> {
     if func.is_null() {
         return None;
     }
@@ -107,7 +103,7 @@ pub fn m_esi_processor_process_response(
                 shim_dispatch_fragment_request_fn(dispatch_fragment_request).as_deref(),
                 shim_process_fragment_response_fn(process_fragment_response).as_deref(),
             )
-            .map_err(|e| FastlyError::ESIError(e))
+            .map_err(FastlyError::ESIError)
     );
     true
 }
@@ -120,10 +116,7 @@ pub fn m_esi_processor_process_document(
     out: Pin<&mut CxxString>,
     mut err: Pin<&mut *mut FastlyError>,
 ) -> bool {
-    let doc_str = try_fe!(
-        err,
-        src_document.to_str().map_err(|e| FastlyError::Utf8Error(e))
-    );
+    let doc_str = try_fe!(err, src_document.to_str().map_err(FastlyError::Utf8Error));
     let reader = quick_xml::reader::Reader::from_str(doc_str);
     let mut writer = quick_xml::Writer::new(out);
     try_fe!(
@@ -136,7 +129,7 @@ pub fn m_esi_processor_process_document(
                 shim_dispatch_fragment_request_fn(dispatch_fragment_request).as_deref(),
                 shim_process_fragment_response_fn(process_fragment_response).as_deref(),
             )
-            .map_err(|e| FastlyError::ESIError(e))
+            .map_err(FastlyError::ESIError)
     );
     true
 }
