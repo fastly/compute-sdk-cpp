@@ -124,8 +124,6 @@ tl::expected<std::string, FastlyError> Processor::process_document(
           process_fragment_response.has_value() ? &*process_fragment_response
                                                 : nullptr;
 
-  fastly::log::info("Processing ESI document: {}", src_document);
-
   std::string out;
   bool success = fastly::sys::esi::m_esi_processor_process_document(
       std::move(processor_), src_document, dispatch_fragment_tag,

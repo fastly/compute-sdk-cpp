@@ -124,7 +124,6 @@ pub fn m_esi_processor_process_document(
         err,
         src_document.to_str().map_err(|e| FastlyError::Utf8Error(e))
     );
-    println!("Processing ESI document: {}", doc_str);
     let reader = quick_xml::reader::Reader::from_str(doc_str);
     let mut writer = quick_xml::Writer::new(out);
     try_fe!(

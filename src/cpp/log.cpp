@@ -21,7 +21,7 @@ fastly::expected<Endpoint> Endpoint::from_name(std::string_view name) {
   fastly::sys::error::FastlyError *err;
   fastly::sys::log::m_static_log_endpoint_try_from_name(
       static_cast<std::string>(name), out, err);
-  if (err != nullptr) {
+  if (err == nullptr) {
     return FSLY_BOX(log, Endpoint, out);
   } else {
     return fastly::unexpected(err);
