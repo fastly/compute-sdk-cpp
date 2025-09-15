@@ -1,4 +1,7 @@
-use std::{pin::Pin, ptr};
+use std::{
+    pin::{Pin, pin},
+    ptr,
+};
 
 use cxx::CxxString;
 use esi::Configuration;
@@ -21,8 +24,8 @@ fn shim_dispatch_fragment_request_fn(
         return None;
     }
     let shim = Box::new(move |req| {
-        let mut out_pending = ptr::null_mut();
-        let mut out_completed = ptr::null_mut();
+        let mut out_pending = pin!(ptr::null_mut());
+        let mut out_completed = pin!(ptr::null_mut());
         let result = unsafe {
             crate::manual_ffi::fastly_esi_manualbridge_DispatchFragmentRequestFn_call(
                 func,
@@ -59,7 +62,7 @@ fn shim_process_fragment_response_fn(
         return None;
     }
     let shim = Box::new(move |req: &mut fastly::Request, resp| {
-        let mut out_resp = ptr::null_mut();
+        let mut out_resp = pin!(ptr::null_mut());
         let result = unsafe {
             crate::manual_ffi::fastly_esi_manualbridge_ProcessFragmentResponseFn_call(
                 func,
