@@ -31,7 +31,7 @@ std::string_view html = R"(<!DOCTYPE html>
     </header>
     <div class="layout" style="display: flex">
       <esi:include src="https://esi-cpp-demo.edgecompute.app/_fragments/sidebar.html" onerror="continue"/>
-      <esi:include src="/_fragments/content.html" onerror="continue"/>
+      <esi:include src="https://esi-cpp-demo.edgecompute.app/_fragments/content.html" onerror="continue"/>
       <esi:include src="/_fragments/doesnotexist.html" alt="https://esi-cpp-demo.edgecompute.app/_fragments/content.html"/>
       <esi:include src="/_fragments/doesnotexist.html" onerror="continue"/>
     </div>
@@ -39,6 +39,7 @@ std::string_view html = R"(<!DOCTYPE html>
 </html>
 )";
 
+#include <fastly/log.h>
 TEST_CASE("Dispatch fragment callback works") {
   fastly::esi::Processor processor;
 

@@ -11,17 +11,18 @@
 #define FASTLY_DETAIL_RUST_BRIDGE_TAGS_H
 
 namespace fastly::detail::rust_bridge_tags {
-// Used to make it harder to accidentally create instances of the tag types.
-struct IConfirmIHaveInheritedFromThisTag {};
-
 namespace esi {
 // esi.h:DispatchFragmentRequestFn
 struct DispatchFragmentRequestFnTag {
-  DispatchFragmentRequestFnTag(IConfirmIHaveInheritedFromThisTag) {}
+  // Ensure that only classes that inherit from this tag can be used as
+  // DispatchFragmentRequestFn.
+protected:
+  DispatchFragmentRequestFnTag() = default;
 };
 // esi.h:ProcessFragmentResponseFn
 struct ProcessFragmentResponseFnTag {
-  ProcessFragmentResponseFnTag(IConfirmIHaveInheritedFromThisTag) {}
+protected:
+  ProcessFragmentResponseFnTag() = default;
 };
 } // namespace esi
 } // namespace fastly::detail::rust_bridge_tags
