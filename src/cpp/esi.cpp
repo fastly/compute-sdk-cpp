@@ -106,4 +106,34 @@ tl::expected<void, FastlyError> Processor::process_response(
     return tl::unexpected(error::FastlyError(err));
   }
 }
+
+tl::expected<std::string, FastlyError> Processor::process_document(
+    const std::string &src_document,
+    std::optional<DispatchFragmentRequestFn> dispatch_fragment_request,
+    std::optional<ProcessFragmentResponseFn> process_fragment_response) {
+  fastly::sys::error::FastlyError *err;
+  // We convert the callbacks to their tag types here, or pass null if not
+  // present. They will be converted back to their real types when the C++
+  // callback bindings are invoked from Rust.
+  detail::rust_bridge_tags::esi::DispatchFragmentRequestFnTag
+      *dispatch_fragment_tag =
+          dispatch_fragment_request.has_value() ? &*dispatch_fragment_request
+                                                : nullptr;
+  detail::rust_bridge_tags::esi::ProcessFragmentResponseFnTag
+      *process_fragment_tag =
+          process_fragment_response.has_value() ? &*process_fragment_response
+                                                : nullptr;
+
+  fastly::log::info("Processing ESI document: {}", src_document);
+
+  std::string out;
+  bool success = fastly::sys::esi::m_esi_processor_process_document(
+      std::move(processor_), src_document, dispatch_fragment_tag,
+      process_fragment_tag, out, err);
+  if (success) {
+    return out;
+  } else {
+    return tl::unexpected(error::FastlyError(err));
+  }
+}
 } // namespace fastly::esi

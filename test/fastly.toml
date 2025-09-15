@@ -11,6 +11,7 @@ service_id = ""
 [local_server]
 backends.fastly.url = "https://www.fastly.com"
 backends.wikipedia.url = "https://en.wikipedia.org"
+backends.esi-cpp-demo.url = "https://esi-cpp-demo.edgecompute.app"
 
 [local_server.kv_stores]
 test-store = { file = 'kv_store.json', format = 'json' }

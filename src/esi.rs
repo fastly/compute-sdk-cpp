@@ -1,8 +1,4 @@
-use std::{
-    pin::{self, Pin},
-    ptr,
-    str::ParseBoolError,
-};
+use std::{pin::Pin, ptr};
 
 use cxx::CxxString;
 use esi::Configuration;
@@ -101,21 +97,49 @@ pub fn m_esi_processor_process_response(
         // Make sure to take ownership, as this pointer is modelling an Optional<Box<_>>
         Some(unsafe { Box::from_raw(client_response_metadata) })
     };
-    match processor.0.process_response(
-        &mut src_document.0,
-        client_response_metadata.map(|r| r.0),
-        shim_dispatch_fragment_request_fn(dispatch_fragment_request).as_deref(),
-        shim_process_fragment_response_fn(process_fragment_response).as_deref(),
-    ) {
-        Ok(_) => {
-            err.set(ptr::null_mut());
-            true
-        }
-        Err(e) => {
-            err.set(Box::into_raw(Box::new(FastlyError::ESIError(e))));
-            false
-        }
-    }
+    try_fe!(
+        err,
+        processor
+            .0
+            .process_response(
+                &mut src_document.0,
+                client_response_metadata.map(|r| r.0),
+                shim_dispatch_fragment_request_fn(dispatch_fragment_request).as_deref(),
+                shim_process_fragment_response_fn(process_fragment_response).as_deref(),
+            )
+            .map_err(|e| FastlyError::ESIError(e))
+    );
+    true
+}
+
+pub fn m_esi_processor_process_document(
+    processor: Box<Processor>,
+    src_document: &CxxString,
+    dispatch_fragment_request: *const DispatchFragmentRequestFnTag,
+    process_fragment_response: *const ProcessFragmentResponseFnTag,
+    out: Pin<&mut CxxString>,
+    mut err: Pin<&mut *mut FastlyError>,
+) -> bool {
+    let doc_str = try_fe!(
+        err,
+        src_document.to_str().map_err(|e| FastlyError::Utf8Error(e))
+    );
+    println!("Processing ESI document: {}", doc_str);
+    let reader = quick_xml::reader::Reader::from_str(doc_str);
+    let mut writer = quick_xml::Writer::new(out);
+    try_fe!(
+        err,
+        processor
+            .0
+            .process_document(
+                reader,
+                &mut writer,
+                shim_dispatch_fragment_request_fn(dispatch_fragment_request).as_deref(),
+                shim_process_fragment_response_fn(process_fragment_response).as_deref(),
+            )
+            .map_err(|e| FastlyError::ESIError(e))
+    );
+    true
 }
 
 pub fn m_static_esi_processor_new(
@@ -123,22 +147,12 @@ pub fn m_static_esi_processor_new(
     namespace: &CxxString,
     is_escaped_content: bool,
 ) -> Box<Processor> {
-    println!(
-        "Original request metadata ptr: {:p}",
-        original_request_metadata
-    );
     let original_request_metadata = if original_request_metadata.is_null() {
         None
     } else {
         // Make sure to take ownership, as this pointer is modelling an Optional<Box<_>>
         Some(unsafe { Box::from_raw(original_request_metadata) })
     };
-    println!(
-        "Original request metadata: {:?}",
-        original_request_metadata
-            .as_ref()
-            .map_or("None".into(), |r| r.0.get_url().to_string())
-    );
     Box::new(Processor(esi::Processor::new(
         original_request_metadata.map(|r| r.0),
         Configuration::default()

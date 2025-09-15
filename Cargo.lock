@@ -304,6 +304,7 @@ dependencies = [
  "link-cplusplus",
  "log",
  "log-fastly",
+ "quick-xml",
  "thiserror 2.0.12",
 ]
 

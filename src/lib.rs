@@ -1045,6 +1045,14 @@ mod ffi {
             process_fragment_response: *const ProcessFragmentResponseFnTag,
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
+        pub unsafe fn m_esi_processor_process_document(
+            processor: Box<Processor>,
+            src_document: &CxxString,
+            dispatch_fragment_request: *const DispatchFragmentRequestFnTag,
+            process_fragment_response: *const ProcessFragmentResponseFnTag,
+            out: Pin<&mut CxxString>,
+            mut err: Pin<&mut *mut FastlyError>,
+        ) -> bool;
         pub unsafe fn m_static_esi_processor_new(
             // SAFETY: this parameter models an Option<Box<Request>>, but CXX does not
             // support this type directly. Care must be taken to take ownership of the pointer

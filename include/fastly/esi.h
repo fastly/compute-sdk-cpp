@@ -19,9 +19,8 @@ namespace fastly::esi {
 struct Configuration {
 public:
   /// Create a new configuration object.
-  /// \param namespc The namespace to use for ESI tags. Defaults to "esi".
-  /// \param is_escaped_content Whether to escape content by default. Defaults
-  /// to true.
+  /// \param namespc The namespace to use for ESI tags.
+  /// \param is_escaped_content Whether to escape content by default.
   Configuration(std::string namespc = "esi", bool is_escaped_content = true)
       : namespace_(std::move(namespc)),
         is_escaped_content_(is_escaped_content) {}
@@ -34,14 +33,20 @@ private:
   bool is_escaped_content_;
 };
 
+/// Content that can be returned from a fragment request dispatcher. This can
+/// either be a pending request, a response, or an empty value to indicate that
+/// no content is available.
 using PendingFragmentContent =
     std::variant<http::request::PendingRequest, http::Response, std::monostate>;
 
+/// A callback type used to dispatch requests for ESI fragments.
 class DispatchFragmentRequestFn
     : public detail::rust_bridge_tags::esi::DispatchFragmentRequestFnTag {
 public:
+  /// The type of the dispatch function.
   using function_type =
       std::function<std::optional<PendingFragmentContent>(Request)>;
+
   template <std::convertible_to<function_type> F>
   DispatchFragmentRequestFn(F &&fn)
       : detail::rust_bridge_tags::esi::DispatchFragmentRequestFnTag(
@@ -54,11 +59,14 @@ private:
   function_type fn_;
 };
 
+/// A callback type used to process responses from ESI fragment requests.
 class ProcessFragmentResponseFn
     : public detail::rust_bridge_tags::esi::ProcessFragmentResponseFnTag {
 public:
+  /// The type of the processing function.
   using function_type =
       std::function<std::optional<Response>(Request &, Response)>;
+
   template <std::convertible_to<function_type> F>
   ProcessFragmentResponseFn(F &&fn)
       : detail::rust_bridge_tags::esi::ProcessFragmentResponseFnTag(
@@ -71,15 +79,43 @@ private:
   function_type fn_;
 };
 
+/// An ESI processor that can process a response containing ESI tags, dispatch
+/// requests for fragments, and process the fragment responses.
 class Processor {
 public:
   /// Create a new ESI processor with the given configuration.
   Processor(std::optional<Request> original_request_metadata = std::nullopt,
             Configuration config = Configuration());
 
-  tl::expected<void, FastlyError> process_response(
+  /// Process a response containing ESI tags, optionally using the given
+  /// callbacks to dispatch requests for fragments and process the fragment
+  /// responses.
+  ///
+  /// \param src_document The response containing ESI tags to process.
+  /// \param client_response_metadata Optional original client request data used
+  /// for fragment requests.
+  /// \param dispatch_fragment_request Optional callback to dispatch requests
+  /// for fragments.
+  /// \param process_fragment_response Optional callback to process fragment
+  /// responses.
+  fastly::expected<void> process_response(
       Response &src_document,
       std::optional<Response> client_response_metadata = std::nullopt,
+      std::optional<DispatchFragmentRequestFn> dispatch_fragment_request =
+          std::nullopt,
+      std::optional<ProcessFragmentResponseFn> process_fragment_response =
+          std::nullopt);
+
+  /// Process a string containing ESI tags, optionally using the given
+  /// callbacks to dispatch requests for fragments and process the fragment
+  /// responses.
+  /// \param src_document The string containing ESI tags to process.
+  /// \param dispatch_fragment_request Optional callback to dispatch requests
+  /// for fragments.
+  /// \param process_fragment_response Optional callback to process fragment
+  /// responses.
+  fastly::expected<std::string> process_document(
+      const std::string &src_document,
       std::optional<DispatchFragmentRequestFn> dispatch_fragment_request =
           std::nullopt,
       std::optional<ProcessFragmentResponseFn> process_fragment_response =
