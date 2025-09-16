@@ -43,7 +43,24 @@ var NAVTREE =
       ] ]
     ] ],
     [ "Namespaces", "namespaces.html", [
-      [ "Namespace List", "namespaces.html", "namespaces_dup" ]
+      [ "Namespace List", "namespaces.html", "namespaces_dup" ],
+      [ "Namespace Members", "namespacemembers.html", [
+        [ "All", "namespacemembers.html", null ],
+        [ "Functions", "namespacemembers_func.html", null ],
+        [ "Typedefs", "namespacemembers_type.html", null ]
+      ] ]
+    ] ],
+    [ "Classes", "annotated.html", [
+      [ "Class List", "annotated.html", "annotated_dup" ],
+      [ "Class Index", "classes.html", null ],
+      [ "Class Hierarchy", "hierarchy.html", "hierarchy" ],
+      [ "Class Members", "functions.html", [
+        [ "All", "functions.html", "functions_dup" ],
+        [ "Functions", "functions_func.html", "functions_func" ],
+        [ "Variables", "functions_vars.html", null ],
+        [ "Typedefs", "functions_type.html", null ],
+        [ "Related Functions", "functions_rela.html", null ]
+      ] ]
     ] ],
     [ "Files", "files.html", [
       [ "File List", "files.html", "files_dup" ],
@@ -58,7 +75,11 @@ var NAVTREE =
 
 var NAVTREEINDEX =
 [
-"async__reqs_8cpp.html"
+"access__bridge__internals_8h.html",
+"classfastly_1_1geo_1_1UtcOffset.html#addea0554882ebe003deeeaafbdb6f817",
+"classfastly_1_1http_1_1Response.html#a0a199a7c1b8174653b4330c0a98434ad",
+"classfastly_1_1http_1_1StatusCode.html#afb9858684411f5b178728690c401b0a7",
+"functions_f.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

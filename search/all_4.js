@@ -1,4 +1,27 @@
 var searchData=
 [
-  ['echo_2ecpp_0',['echo.cpp',['../echo_8cpp.html',1,'']]]
+  ['echo_2ecpp_0',['echo.cpp',['../echo_8cpp.html',1,'']]],
+  ['echo_5fstderr_1',['echo_stderr',['../classfastly_1_1log_1_1LoggerBuilder.html#ada79d6f3909287fa8654f64e893da63f',1,'fastly::log::LoggerBuilder']]],
+  ['echo_5fstdout_2',['echo_stdout',['../classfastly_1_1log_1_1LoggerBuilder.html#a6a0f5562d9c957ab7595046deb17573b',1,'fastly::log::LoggerBuilder']]],
+  ['enable_5fpooling_3',['enable_pooling',['../classfastly_1_1backend_1_1BackendBuilder.html#a2afd58388dfa5e3c9f9dbd79b241aeb9',1,'fastly::backend::BackendBuilder']]],
+  ['enable_5fssl_4',['enable_ssl',['../classfastly_1_1backend_1_1BackendBuilder.html#a464568b67f7408d9a804dce4cdc96c90',1,'fastly::backend::BackendBuilder']]],
+  ['end_5',['end',['../classfastly_1_1detail_1_1RustIteratorRange.html#a6e8682e1e5454bb5d9e35139923785d4',1,'fastly::detail::RustIteratorRange']]],
+  ['endpoint_6',['endpoint',['../classfastly_1_1log_1_1LoggerBuilder.html#a3696fa89dc03ed9bc42b476bca8f9cfb',1,'fastly::log::LoggerBuilder::endpoint(Endpoint endpoint) &amp;&amp;'],['../classfastly_1_1log_1_1LoggerBuilder.html#a3c3aff86c1b572b85e11652689d708b5',1,'fastly::log::LoggerBuilder::endpoint(std::string_view endpoint) &amp;&amp;']]],
+  ['endpoint_7',['Endpoint',['../classfastly_1_1log_1_1Endpoint.html',1,'fastly::log']]],
+  ['endpoint_5flevel_8',['endpoint_level',['../classfastly_1_1log_1_1LoggerBuilder.html#a0802b9a2f75f01aa80496987db75279e',1,'fastly::log::LoggerBuilder::endpoint_level(Endpoint endpoint, LogLevelFilter level) &amp;&amp;'],['../classfastly_1_1log_1_1LoggerBuilder.html#adcc334793412b64532dc01b991dc1eb5',1,'fastly::log::LoggerBuilder::endpoint_level(std::string_view endpoint, LogLevelFilter level) &amp;&amp;']]],
+  ['erase_9',['erase',['../classfastly_1_1kv__store_1_1KVStore.html#ac3dbc81cb18ef2b35268552b9201cca7',1,'fastly::kv_store::KVStore']]],
+  ['erasebuilder_10',['EraseBuilder',['../classfastly_1_1kv__store_1_1EraseBuilder.html',1,'fastly::kv_store']]],
+  ['error_11',['error',['../namespacefastly_1_1log.html#a946ecdcfb0d04e82828615137e68223b',1,'fastly::log']]],
+  ['error_2eh_12',['error.h',['../error_8h.html',1,'']]],
+  ['error_5fcode_13',['error_code',['../classfastly_1_1kv__store_1_1KVStoreError.html#af32c0c66a125522885741143ec7947d5',1,'fastly::kv_store::KVStoreError::error_code()'],['../classfastly_1_1error_1_1FastlyError.html#abab37bf1c41c7d3603e48ad945426295',1,'fastly::error::FastlyError::error_code()']]],
+  ['error_5fmsg_14',['error_msg',['../classfastly_1_1error_1_1FastlyError.html#a148757387bfe822197ccc13a423cb584',1,'fastly::error::FastlyError::error_msg()'],['../classfastly_1_1kv__store_1_1KVStoreError.html#ab68a9c9f58dc96612b2eb410254b69bf',1,'fastly::kv_store::KVStoreError::error_msg()']]],
+  ['error_5fto_15',['error_to',['../namespacefastly_1_1log.html#a3ddfcd5090a5c5e190b55a272edc09d3',1,'fastly::log']]],
+  ['esi_2ecpp_16',['esi.cpp',['../esi_8cpp.html',1,'']]],
+  ['esi_2eh_17',['esi.h',['../esi_8h.html',1,'']]],
+  ['eventual_5fconsistency_18',['eventual_consistency',['../classfastly_1_1kv__store_1_1ListBuilder.html#aef4efd627658b3ad6c2a7644edc03570',1,'fastly::kv_store::ListBuilder']]],
+  ['execute_19',['execute',['../classfastly_1_1kv__store_1_1LookupBuilder.html#a2caee45a4b9c3531058f13082db4a71b',1,'fastly::kv_store::LookupBuilder::execute()'],['../classfastly_1_1kv__store_1_1EraseBuilder.html#a3a3329b036834a3c16ca6c4975c64a1c',1,'fastly::kv_store::EraseBuilder::execute()'],['../classfastly_1_1kv__store_1_1InsertBuilder.html#a0c278d247bab32891138d31cdf963aa3',1,'fastly::kv_store::InsertBuilder::execute()'],['../classfastly_1_1kv__store_1_1ListBuilder.html#a2da17a46bbc034a76ca39eed28f449f5',1,'fastly::kv_store::ListBuilder::execute()']]],
+  ['execute_5fasync_20',['execute_async',['../classfastly_1_1kv__store_1_1LookupBuilder.html#a761e58b542d167f783979b66981d0add',1,'fastly::kv_store::LookupBuilder::execute_async()'],['../classfastly_1_1kv__store_1_1ListBuilder.html#a104301ed21dba540627c7802d5a35348',1,'fastly::kv_store::ListBuilder::execute_async()'],['../classfastly_1_1kv__store_1_1InsertBuilder.html#a603df47c1dce4316e235b173115441b4',1,'fastly::kv_store::InsertBuilder::execute_async()'],['../classfastly_1_1kv__store_1_1EraseBuilder.html#a3feb84767a147bd85e9550863f57cf76',1,'fastly::kv_store::EraseBuilder::execute_async()']]],
+  ['exists_21',['exists',['../classfastly_1_1backend_1_1Backend.html#adbe3525b4d22c42e2fb56e90183bc57c',1,'fastly::backend::Backend']]],
+  ['expectation_5ffailed_22',['EXPECTATION_FAILED',['../classfastly_1_1http_1_1StatusCode.html#afccf2b27eaa5d36014cad9995c6157db',1,'fastly::http::StatusCode']]],
+  ['expected_23',['expected',['../namespacefastly_1_1error.html#a5490e038d45e1feb4f649907bb406471',1,'fastly::error::expected()'],['../namespacefastly_1_1kv__store.html#a3c32d3caff5433e937fcd20804630092',1,'fastly::kv_store::expected()']]]
 ];
