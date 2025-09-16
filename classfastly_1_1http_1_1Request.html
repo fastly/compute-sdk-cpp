@@ -386,7 +386,9 @@ Setter methods</h1>
 <div class="line">    req.set_header(<span class="stringliteral">&quot;my-other-header&quot;</span>, <span class="stringliteral">&quot;Здравствуйте!&quot;</span>);</div>
 <div class="line">}</div>
 <div class="line">req.send(<span class="stringliteral">&quot;example_backend&quot;</span>);</div>
-</div><!-- fragment --> </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="esi_8cpp-example.html#_a3">esi.cpp</a>.</dd>
+</dl>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a51ecf1b3f3146cd2e7478125ca7b92ac" name="a51ecf1b3f3146cd2e7478125ca7b92ac"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a51ecf1b3f3146cd2e7478125ca7b92ac">&#9670;&#160;</a></span>Request()</h2>
 
@@ -524,7 +526,9 @@ Examples</h1>
 <div class="line">assert(original.has_body());</div>
 <div class="line">assert(!<span class="keyword">new</span>.<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a38bd8b681b15d72a2b46a3f6abeaf194">has_body</a>());</div>
 <div class="ttc" id="aclassfastly_1_1http_1_1Request_html_a38bd8b681b15d72a2b46a3f6abeaf194"><div class="ttname"><a href="classfastly_1_1http_1_1Request.html#a38bd8b681b15d72a2b46a3f6abeaf194">fastly::http::Request::has_body</a></div><div class="ttdeci">bool has_body()</div><div class="ttdoc">Returns true if this request has a body.</div></div>
-</div><!-- fragment --> 
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="esi_8cpp-example.html#a5">esi.cpp</a>.</dd>
+</dl>
+
 </div>
 </div>
 <a id="a85239ba85345a2fe9f101259532fc4bf" name="a85239ba85345a2fe9f101259532fc4bf"></a>
@@ -646,7 +650,7 @@ Examples</h1>
 <h1><a class="anchor" id="autotoc_md25"></a>
 Panics</h1>
 <p >This method panics if the client request has already been retrieved by this method or by the low-level handle API. </p>
-<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="device_detection_8cpp-example.html#a1">device_detection.cpp</a>, <a class="el" href="echo_8cpp-example.html#a2">echo.cpp</a>, <a class="el" href="robots_8txt_8cpp-example.html#a1">robots.txt.cpp</a>, and <a class="el" href="router_8cpp-example.html#a4">router.cpp</a>.</dd>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="device_detection_8cpp-example.html#a1">device_detection.cpp</a>, <a class="el" href="echo_8cpp-example.html#a2">echo.cpp</a>, <a class="el" href="esi_8cpp-example.html#a2">esi.cpp</a>, <a class="el" href="robots_8txt_8cpp-example.html#a1">robots.txt.cpp</a>, and <a class="el" href="router_8cpp-example.html#a4">router.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -1308,7 +1312,7 @@ Examples</h1>
 <div class="fragment"><div class="line"><span class="keyword">auto</span></div>
 <div class="line">backend_resp{<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a237df390b687857c9a0384762716342f">Request::get</a>(<span class="stringliteral">&quot;https://example.com&quot;</span>).<a class="code hl_function" href="classfastly_1_1http_1_1Request.html#a1792ccbad03aab10806f4b35aadc4eba">send</a>(<span class="stringliteral">&quot;example_backend&quot;</span>)};</div>
 <div class="line">assert(backend_resp.get_status().is_success());</div>
-</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="streaming_response_8cpp-example.html#a2">streaming_response.cpp</a>.</dd>
+</div><!-- fragment --> <dl class="section examples"><dt>Examples</dt><dd><a class="el" href="esi_8cpp-example.html#a6">esi.cpp</a>, and <a class="el" href="streaming_response_8cpp-example.html#a2">streaming_response.cpp</a>.</dd>
 </dl>
 
 </div>
@@ -1962,6 +1966,8 @@ Overrides</h1>
       </table>
 </div><div class="memdoc">
 <p >Builder-style equivalent of <code><a class="el" href="classfastly_1_1http_1_1Request.html#a84f13ddd4f9cf46699232fa38a3d3be7">Request::set_auto_decompress_gzip()</a></code>. </p>
+<dl class="section examples"><dt>Examples</dt><dd><a class="el" href="esi_8cpp-example.html#a4">esi.cpp</a>.</dd>
+</dl>
 
 </div>
 </div>
