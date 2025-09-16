@@ -8,7 +8,9 @@ use esi::Configuration;
 
 use crate::{
     error::FastlyError,
-    ffi::{DispatchFragmentRequestFnTag, ProcessFragmentResponseFnTag},
+    ffi::{
+        DispatchFragmentRequestFnResult, DispatchFragmentRequestFnTag, ProcessFragmentResponseFnTag,
+    },
     http::{request::Request, response::Response},
     try_fe,
 };
@@ -35,16 +37,20 @@ fn shim_dispatch_fragment_request_fn(
             )
         };
         match result {
-            1 => Ok(unsafe { esi::PendingFragmentContent::PendingRequest(out_pending.read().0) }),
-            2 => {
+            DispatchFragmentRequestFnResult::PendingRequest => {
+                Ok(unsafe { esi::PendingFragmentContent::PendingRequest(out_pending.read().0) })
+            }
+            DispatchFragmentRequestFnResult::CompletedRequest => {
                 Ok(
                     unsafe {
                         esi::PendingFragmentContent::CompletedRequest(out_completed.read().0)
                     },
                 )
             }
-            3 => Ok(esi::PendingFragmentContent::NoContent),
-            0 => Err(esi::ExecutionError::FunctionError(
+            DispatchFragmentRequestFnResult::NoContent => {
+                Ok(esi::PendingFragmentContent::NoContent)
+            }
+            DispatchFragmentRequestFnResult::Error => Err(esi::ExecutionError::FunctionError(
                 "dispatch_fragment_request".into(),
             )),
             _ => unreachable!(),

@@ -223,6 +223,15 @@ mod ffi {
         Trace = 5,
     }
 
+    #[namespace = "fastly::sys::esi"]
+    #[repr(usize)]
+    pub enum DispatchFragmentRequestFnResult {
+        Error = 0,
+        PendingRequest = 1,
+        CompletedRequest = 2,
+        NoContent = 3,
+    }
+
     #[namespace = "fastly::sys::error"]
     extern "Rust" {
         type FastlyError;
@@ -1067,7 +1076,9 @@ mod ffi {
 // Some types (notably callback functions) are not supported by CXX at all, so we
 // define manual FFI bindings for them here.
 mod manual_ffi {
-    use crate::ffi::{DispatchFragmentRequestFnTag, ProcessFragmentResponseFnTag};
+    use crate::ffi::{
+        DispatchFragmentRequestFnResult, DispatchFragmentRequestFnTag, ProcessFragmentResponseFnTag,
+    };
 
     // We never rely on the layout of Rust types passed to these functions,
     // so we can ignore the improper_ctypes warning.
@@ -1080,7 +1091,7 @@ mod manual_ffi {
             req: *mut crate::Request,
             out_pending: &mut *mut crate::PendingRequest,
             out_complete: &mut *mut crate::Response,
-        ) -> u32;
+        ) -> DispatchFragmentRequestFnResult;
 
         #[link_name = "fastly$esi$manualbridge$ProcessFragmentResponseFn$call"]
         pub(crate) fn fastly_esi_manualbridge_ProcessFragmentResponseFn_call(

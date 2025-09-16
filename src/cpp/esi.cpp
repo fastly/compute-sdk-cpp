@@ -7,7 +7,8 @@
 
 namespace fastly::esi {
 // These functions are called by Rust to invoke the C++ callbacks.
-extern "C" uint32_t fastly$esi$manualbridge$DispatchFragmentRequestFn$call(
+extern "C" fastly::sys::esi::DispatchFragmentRequestFnResult
+fastly$esi$manualbridge$DispatchFragmentRequestFn$call(
     const detail::rust_bridge_tags::esi::DispatchFragmentRequestFnTag &fn_tag,
     fastly::sys::http::Request *raw_req,
     fastly::sys::http::request::PendingRequest *&out_pending,
@@ -21,20 +22,20 @@ extern "C" uint32_t fastly$esi$manualbridge$DispatchFragmentRequestFn$call(
 
   auto res = detail::AccessBridgeInternals::get(fn)(std::move(req));
   if (!res) {
-    return 0; // Error
+    return fastly::sys::esi::DispatchFragmentRequestFnResult::Error;
   }
   if (std::holds_alternative<http::request::PendingRequest>(*res)) {
     out_pending = detail::AccessBridgeInternals::get(
                       std::get<http::request::PendingRequest>(*res))
                       .into_raw();
-    return 1; // Pending response
+    return fastly::sys::esi::DispatchFragmentRequestFnResult::PendingRequest;
   } else if (std::holds_alternative<http::Response>(*res)) {
     out_complete =
         detail::AccessBridgeInternals::get(std::get<http::Response>(*res))
             .into_raw();
-    return 2; // Complete Response
+    return fastly::sys::esi::DispatchFragmentRequestFnResult::CompletedRequest;
   } else {
-    return 3; // No content
+    return fastly::sys::esi::DispatchFragmentRequestFnResult::NoContent;
   }
 }
 
