@@ -6,7 +6,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=11" />
         <meta name="generator" content="Doxygen 1.9.5" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <title>Fastly Compute C++ SDK: examples Directory Reference</title>
+        <title>Fastly Compute C++ SDK: config_store.cpp</title>
         <!--BEGIN PROJECT_ICON-->
         <link rel="icon" href="$projecticon" type="image/x-icon" />
         <!--END PROJECT_ICON-->
@@ -105,7 +105,7 @@ $(function() {
 </div>
 <script type="text/javascript">
 /* @license magnet:?xt=urn:btih:d3d9a9a6595521f9666a5e94cc830dab83b65699&amp;dn=expat.txt MIT */
-$(document).ready(function(){initNavTree('dir_d28a4824dc47e487b107a5db32ef43c4.html',''); initResizable(); });
+$(document).ready(function(){initNavTree('config_store_8cpp-example.html',''); initResizable(); });
 /* @license-end */
 </script>
 <div id="doc-content">
@@ -131,39 +131,27 @@ $(document).ready(function(){initNavTree('dir_d28a4824dc47e487b107a5db32ef43c4.h
 </div>
 
 <div class="header">
-  <div class="headertitle"><div class="title">examples Directory Reference</div></div>
+  <div class="headertitle"><div class="title">config_store.cpp</div></div>
 </div><!--header-->
 <div class="contents">
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="files" name="files"></a>
-Files</h2></td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="async__reqs_8cpp.html">async_reqs.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clock_8cpp.html">clock.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="config__store_8cpp.html">config_store.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="device__detection_8cpp.html">device_detection.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="echo_8cpp.html">echo.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="esi_8cpp.html">esi.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="random_8cpp.html">random.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="robots_8txt_8cpp.html">robots.txt.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="router_8cpp.html">router.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">file &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="streaming__response_8cpp.html">streaming_response.cpp</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
-</div><!-- contents -->
+<div class="fragment"><div class="line"> </div>
+<div class="line"><span class="preprocessor">#include &quot;fastly/sdk.h&quot;</span></div>
+<div class="line"> </div>
+<div class="line"><span class="keywordtype">int</span> <a id="a0" name="a0"></a><a class="code hl_function" href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a>() {</div>
+<div class="line">  <a id="a1" name="a1"></a><a class="code hl_function" href="namespacefastly_1_1log.html#a4c3d888c63911fcdbf9fc6d32f4df054">fastly::log::init_simple</a>(<span class="stringliteral">&quot;logs&quot;</span>);</div>
+<div class="line">  <span class="keyword">auto</span> store = <a id="a2" name="a2"></a><a class="code hl_function" href="classfastly_1_1config__store_1_1ConfigStore.html#abcb747127291994145fe4a3ae2cc381d">fastly::ConfigStore::open</a>(<span class="stringliteral">&quot;example-store&quot;</span>);</div>
+<div class="line">  <a id="a3" name="a3"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::Response::from_body</a>(store-&gt;get(<span class="stringliteral">&quot;hello&quot;</span>)-&gt;value()).<a id="a4" name="a4"></a><a class="code hl_function" href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">send_to_client</a>();</div>
+<div class="line">}</div>
+<div class="ttc" id="aasync__reqs_8cpp_html_ae66f6b31b5ad750f1fe042a706a4e3d4"><div class="ttname"><a href="async__reqs_8cpp.html#ae66f6b31b5ad750f1fe042a706a4e3d4">main</a></div><div class="ttdeci">int main()</div><div class="ttdef"><b>Definition:</b> async_reqs.cpp:10</div></div>
+<div class="ttc" id="aclassfastly_1_1config__store_1_1ConfigStore_html_abcb747127291994145fe4a3ae2cc381d"><div class="ttname"><a href="classfastly_1_1config__store_1_1ConfigStore.html#abcb747127291994145fe4a3ae2cc381d">fastly::config_store::ConfigStore::open</a></div><div class="ttdeci">static fastly::expected&lt; ConfigStore &gt; open(std::string_view name)</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a6cd79ae4d99f6c68d3df5c944ef6a5b4"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a6cd79ae4d99f6c68d3df5c944ef6a5b4">fastly::http::Response::from_body</a></div><div class="ttdeci">static Response from_body(Body body)</div><div class="ttdoc">Create a new Response with the given value as the body.</div></div>
+<div class="ttc" id="aclassfastly_1_1http_1_1Response_html_a74bf3303db3ff132f5e1912f05e80d64"><div class="ttname"><a href="classfastly_1_1http_1_1Response.html#a74bf3303db3ff132f5e1912f05e80d64">fastly::http::Response::send_to_client</a></div><div class="ttdeci">void send_to_client()</div></div>
+<div class="ttc" id="anamespacefastly_1_1log_html_a4c3d888c63911fcdbf9fc6d32f4df054"><div class="ttname"><a href="namespacefastly_1_1log.html#a4c3d888c63911fcdbf9fc6d32f4df054">fastly::log::init_simple</a></div><div class="ttdeci">void init_simple(Endpoint endpoint, LogLevelFilter level)</div></div>
+</div><!-- fragment --> </div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="dir_d28a4824dc47e487b107a5db32ef43c4.html">examples</a></li>
     <li class="footer">Generated by <a href="https://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.9.5 </li>
   </ul>
 </div>

@@ -79,7 +79,7 @@ var NAVTREEINDEX =
 "classfastly_1_1geo_1_1UtcOffset.html#addea0554882ebe003deeeaafbdb6f817",
 "classfastly_1_1http_1_1Response.html#a0a199a7c1b8174653b4330c0a98434ad",
 "classfastly_1_1http_1_1StatusCode.html#afb9858684411f5b178728690c401b0a7",
-"functions_e.html"
+"functions_b.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';
