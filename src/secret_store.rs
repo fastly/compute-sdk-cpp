@@ -56,3 +56,10 @@ impl SecretStore {
         try_fe!(err, self.0.contains(try_fe!(err, key.to_str())))
     }
 }
+
+pub fn f_secret_store_secret_force_symbols(x: Box<Secret>) -> Box<Secret> {
+    x
+}
+pub fn f_secret_store_secret_store_force_symbols(x: Box<SecretStore>) -> Box<SecretStore> {
+    x
+}

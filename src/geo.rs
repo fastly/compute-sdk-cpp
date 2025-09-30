@@ -223,3 +223,10 @@ impl UtcOffset {
         self.0.is_negative()
     }
 }
+
+pub fn f_geo_utc_offset_force_symbols(x: Box<UtcOffset>) -> Box<UtcOffset> {
+    x
+}
+pub fn f_geo_geo_force_symbols(x: Box<Geo>) -> Box<Geo> {
+    x
+}

@@ -712,6 +712,7 @@ mod ffi {
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
         fn contains(&self, key: &CxxString, mut err: Pin<&mut *mut FastlyError>) -> bool;
+        fn f_config_store_config_store_force_symbols(x: Box<ConfigStore>) -> Box<ConfigStore>;
     }
 
     #[namespace = "fastly::sys::secret_store"]
@@ -723,6 +724,7 @@ mod ffi {
             out: Pin<&mut *mut Secret>,
             err: Pin<&mut *mut FastlyError>,
         );
+        fn f_secret_store_secret_force_symbols(x: Box<Secret>) -> Box<Secret>;
     }
 
     #[namespace = "fastly::sys::secret_store"]
@@ -740,6 +742,7 @@ mod ffi {
             mut err: Pin<&mut *mut FastlyError>,
         );
         fn contains(&self, key: &CxxString, mut err: Pin<&mut *mut FastlyError>) -> bool;
+        fn f_secret_store_secret_store_force_symbols(x: Box<SecretStore>) -> Box<SecretStore>;
     }
 
     #[namespace = "fastly::sys::geo"]
@@ -753,6 +756,7 @@ mod ffi {
         fn is_utc(&self) -> bool;
         fn is_positive(&self) -> bool;
         fn is_negative(&self) -> bool;
+        fn f_geo_utc_offset_force_symbols(x: Box<UtcOffset>) -> Box<UtcOffset>;
     }
 
     #[namespace = "fastly::sys::geo"]
@@ -781,6 +785,7 @@ mod ffi {
         fn proxy_type(&self) -> ProxyType;
         fn region(&self, out: Pin<&mut CxxString>) -> bool;
         fn utc_offset(&self) -> *mut UtcOffset;
+        fn f_geo_geo_force_symbols(x: Box<Geo>) -> Box<Geo>;
     }
 
     #[namespace = "fastly::sys::log"]

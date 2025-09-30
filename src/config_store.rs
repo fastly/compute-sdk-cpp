@@ -28,3 +28,7 @@ impl ConfigStore {
         self.0.contains(try_fe!(err, key.to_str()))
     }
 }
+
+pub fn f_config_store_config_store_force_symbols(x: Box<ConfigStore>) -> Box<ConfigStore> {
+    x
+}

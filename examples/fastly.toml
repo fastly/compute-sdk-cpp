@@ -13,3 +13,9 @@ service_id = ""
 fastly.url = "https://www.fastly.com"
 wikipedia.url = "https://en.wikipedia.org"
 esi-cpp-demo.url = "https://esi-cpp-demo.edgecompute.app"
+
+[local_server.config_stores.example-store]
+format = "inline-toml"
+
+[local_server.config_stores.example-store.contents]
+hello = "world"
