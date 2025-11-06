@@ -13,10 +13,11 @@ var searchData=
   ['book_5fget_10',['BOOK_GET',['../router_8cpp.html#a5e37c39c88529f981cd25ed3f532a89f',1,'router.cpp']]],
   ['book_5flist_11',['BOOK_LIST',['../router_8cpp.html#a509d5b1567ba3d982019878136fd405a',1,'router.cpp']]],
   ['brand_12',['brand',['../classfastly_1_1device__detection_1_1Device.html#adba06cfc700fc5b7e385636dfcf1cb04',1,'fastly::device_detection::Device']]],
-  ['build_5ferase_13',['build_erase',['../classfastly_1_1kv__store_1_1KVStore.html#a89f9120681141b7a083ee7e1d9ddcf00',1,'fastly::kv_store::KVStore']]],
-  ['build_5finsert_14',['build_insert',['../classfastly_1_1kv__store_1_1KVStore.html#a7feb114701a68fa9509156e0764a0531',1,'fastly::kv_store::KVStore']]],
-  ['build_5flist_15',['build_list',['../classfastly_1_1kv__store_1_1KVStore.html#a72a76442d206770aedd00ddcd5300a5c',1,'fastly::kv_store::KVStore']]],
-  ['build_5flookup_16',['build_lookup',['../classfastly_1_1kv__store_1_1KVStore.html#ac230140e1c76b2037c902274be23225b',1,'fastly::kv_store::KVStore']]],
-  ['builder_17',['builder',['../classfastly_1_1backend_1_1Backend.html#a69c268400892bbd6de0d5f92cb7b41dd',1,'fastly::backend::Backend']]],
-  ['bytes_18',['bytes',['../classfastly_1_1http_1_1HeaderValue.html#addacc5bfe440e34e93b1c0ae2985f21c',1,'fastly::http::HeaderValue']]]
+  ['buffer_5fsize_13',['buffer_size',['../classfastly_1_1security_1_1InspectConfig.html#a41a9eb3f23c031ba258933cbbea1d2c4',1,'fastly::security::InspectConfig']]],
+  ['build_5ferase_14',['build_erase',['../classfastly_1_1kv__store_1_1KVStore.html#a89f9120681141b7a083ee7e1d9ddcf00',1,'fastly::kv_store::KVStore']]],
+  ['build_5finsert_15',['build_insert',['../classfastly_1_1kv__store_1_1KVStore.html#a7feb114701a68fa9509156e0764a0531',1,'fastly::kv_store::KVStore']]],
+  ['build_5flist_16',['build_list',['../classfastly_1_1kv__store_1_1KVStore.html#a72a76442d206770aedd00ddcd5300a5c',1,'fastly::kv_store::KVStore']]],
+  ['build_5flookup_17',['build_lookup',['../classfastly_1_1kv__store_1_1KVStore.html#ac230140e1c76b2037c902274be23225b',1,'fastly::kv_store::KVStore']]],
+  ['builder_18',['builder',['../classfastly_1_1backend_1_1Backend.html#a69c268400892bbd6de0d5f92cb7b41dd',1,'fastly::backend::Backend']]],
+  ['bytes_19',['bytes',['../classfastly_1_1http_1_1HeaderValue.html#addacc5bfe440e34e93b1c0ae2985f21c',1,'fastly::http::HeaderValue']]]
 ];

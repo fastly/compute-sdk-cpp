@@ -77,6 +77,11 @@ var annotated_dup =
       [ "secret_store", "namespacefastly_1_1secret__store.html", [
         [ "Secret", "classfastly_1_1secret__store_1_1Secret.html", "classfastly_1_1secret__store_1_1Secret" ],
         [ "SecretStore", "classfastly_1_1secret__store_1_1SecretStore.html", "classfastly_1_1secret__store_1_1SecretStore" ]
+      ] ],
+      [ "security", "namespacefastly_1_1security.html", [
+        [ "InspectConfig", "classfastly_1_1security_1_1InspectConfig.html", "classfastly_1_1security_1_1InspectConfig" ],
+        [ "InspectError", "classfastly_1_1security_1_1InspectError.html", "classfastly_1_1security_1_1InspectError" ],
+        [ "InspectResponse", "classfastly_1_1security_1_1InspectResponse.html", "classfastly_1_1security_1_1InspectResponse" ]
       ] ]
     ] ]
 ];

@@ -31,5 +31,6 @@ var searchData=
   ['purge_28',['purge',['../namespacefastly_1_1http_1_1purge.html',1,'fastly::http']]],
   ['request_29',['request',['../namespacefastly_1_1http_1_1request.html',1,'fastly::http']]],
   ['rust_5fbridge_5ftags_30',['rust_bridge_tags',['../namespacefastly_1_1detail_1_1rust__bridge__tags.html',1,'fastly::detail']]],
-  ['secret_5fstore_31',['secret_store',['../namespacefastly_1_1secret__store.html',1,'fastly']]]
+  ['secret_5fstore_31',['secret_store',['../namespacefastly_1_1secret__store.html',1,'fastly']]],
+  ['security_32',['security',['../namespacefastly_1_1security.html',1,'fastly']]]
 ];

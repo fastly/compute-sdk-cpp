@@ -30,9 +30,10 @@ var searchData=
   ['set_5fversion_27',['set_version',['../classfastly_1_1http_1_1Request.html#a1bc0dff5e2399bd0848847feb47f0bce',1,'fastly::http::Request::set_version()'],['../classfastly_1_1http_1_1Response.html#a569d7490421da7b99ebe48567eac9b2a',1,'fastly::http::Response::set_version()']]],
   ['sni_5fhostname_28',['sni_hostname',['../classfastly_1_1backend_1_1BackendBuilder.html#a82826c6432f49ad5ce6d6e4af6fee9e0',1,'fastly::backend::BackendBuilder']]],
   ['soft_5fpurge_5fsurrogate_5fkey_29',['soft_purge_surrogate_key',['../namespacefastly_1_1http_1_1purge.html#adc34607891e7bcd21ad67c33ea09f158',1,'fastly::http::purge']]],
-  ['statuscode_30',['StatusCode',['../classfastly_1_1http_1_1StatusCode.html#afbe0b1c8ac4587bffaa20432974d8ee1',1,'fastly::http::StatusCode::StatusCode(uint16_t code)'],['../classfastly_1_1http_1_1StatusCode.html#a73abc51446360c3cb7b06e469880f2b2',1,'fastly::http::StatusCode::StatusCode()=default']]],
-  ['stream_5fto_5fclient_31',['stream_to_client',['../classfastly_1_1http_1_1Response.html#a1f76bc6ed588fb20239b5de0a8b8e589',1,'fastly::http::Response']]],
-  ['streamingbody_32',['StreamingBody',['../classfastly_1_1http_1_1StreamingBody.html#afce5d659491a7db3a74cb6d47a6b47fd',1,'fastly::http::StreamingBody']]],
-  ['string_33',['string',['../classfastly_1_1http_1_1HeaderValue.html#ab562295b5a59fcb4768ca96c41506ee5',1,'fastly::http::HeaderValue']]],
-  ['sync_34',['sync',['../classfastly_1_1http_1_1Body.html#a53fb789b0dca94fd2c6b7d599f9a78c2',1,'fastly::http::Body::sync()'],['../classfastly_1_1http_1_1StreamingBody.html#ad89f356abb6b2bb1c028d7218869881e',1,'fastly::http::StreamingBody::sync()']]]
+  ['status_30',['status',['../classfastly_1_1security_1_1InspectResponse.html#aa78e39e88f8f80678f76f886733d2070',1,'fastly::security::InspectResponse']]],
+  ['statuscode_31',['StatusCode',['../classfastly_1_1http_1_1StatusCode.html#afbe0b1c8ac4587bffaa20432974d8ee1',1,'fastly::http::StatusCode::StatusCode(uint16_t code)'],['../classfastly_1_1http_1_1StatusCode.html#a73abc51446360c3cb7b06e469880f2b2',1,'fastly::http::StatusCode::StatusCode()=default']]],
+  ['stream_5fto_5fclient_32',['stream_to_client',['../classfastly_1_1http_1_1Response.html#a1f76bc6ed588fb20239b5de0a8b8e589',1,'fastly::http::Response']]],
+  ['streamingbody_33',['StreamingBody',['../classfastly_1_1http_1_1StreamingBody.html#afce5d659491a7db3a74cb6d47a6b47fd',1,'fastly::http::StreamingBody']]],
+  ['string_34',['string',['../classfastly_1_1http_1_1HeaderValue.html#ab562295b5a59fcb4768ca96c41506ee5',1,'fastly::http::HeaderValue']]],
+  ['sync_35',['sync',['../classfastly_1_1http_1_1Body.html#a53fb789b0dca94fd2c6b7d599f9a78c2',1,'fastly::http::Body::sync()'],['../classfastly_1_1http_1_1StreamingBody.html#ad89f356abb6b2bb1c028d7218869881e',1,'fastly::http::StreamingBody::sync()']]]
 ];

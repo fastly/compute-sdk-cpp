@@ -6,6 +6,7 @@ var dir_d28a4824dc47e487b107a5db32ef43c4 =
     [ "device_detection.cpp", "device__detection_8cpp.html", "device__detection_8cpp" ],
     [ "echo.cpp", "echo_8cpp.html", "echo_8cpp" ],
     [ "esi.cpp", "esi_8cpp.html", "esi_8cpp" ],
+    [ "ngwaf_inspect.cpp", "ngwaf__inspect_8cpp.html", "ngwaf__inspect_8cpp" ],
     [ "random.cpp", "random_8cpp.html", "random_8cpp" ],
     [ "robots.txt.cpp", "robots_8txt_8cpp.html", "robots_8txt_8cpp" ],
     [ "router.cpp", "router_8cpp.html", "router_8cpp" ],

@@ -15,6 +15,9 @@ var hierarchy =
     [ "fastly::geo::Geo", "classfastly_1_1geo_1_1Geo.html", null ],
     [ "fastly::http::HeaderValue", "classfastly_1_1http_1_1HeaderValue.html", null ],
     [ "fastly::kv_store::InsertBuilder", "classfastly_1_1kv__store_1_1InsertBuilder.html", null ],
+    [ "fastly::security::InspectConfig", "classfastly_1_1security_1_1InspectConfig.html", null ],
+    [ "fastly::security::InspectError", "classfastly_1_1security_1_1InspectError.html", null ],
+    [ "fastly::security::InspectResponse", "classfastly_1_1security_1_1InspectResponse.html", null ],
     [ "std::iostream", null, [
       [ "fastly::http::Body", "classfastly_1_1http_1_1Body.html", null ]
     ] ],

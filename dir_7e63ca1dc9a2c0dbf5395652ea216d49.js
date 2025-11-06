@@ -10,5 +10,6 @@ var dir_7e63ca1dc9a2c0dbf5395652ea216d49 =
     [ "geo.h", "geo_8h.html", "geo_8h" ],
     [ "kv_store.h", "kv__store_8h.html", "kv__store_8h" ],
     [ "log.h", "log_8h.html", "log_8h" ],
-    [ "secret_store.h", "secret__store_8h.html", "secret__store_8h" ]
+    [ "secret_store.h", "secret__store_8h.html", "secret__store_8h" ],
+    [ "security.h", "security_8h.html", "security_8h" ]
 ];

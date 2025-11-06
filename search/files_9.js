@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['purge_2eh_0',['purge.h',['../purge_8h.html',1,'']]]
+  ['ngwaf_5finspect_2ecpp_0',['ngwaf_inspect.cpp',['../ngwaf__inspect_8cpp.html',1,'']]]
 ];

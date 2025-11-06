@@ -79,7 +79,8 @@ var NAVTREEINDEX =
 "classfastly_1_1geo_1_1UtcOffset.html#addea0554882ebe003deeeaafbdb6f817",
 "classfastly_1_1http_1_1Response.html#a0a199a7c1b8174653b4330c0a98434ad",
 "classfastly_1_1http_1_1StatusCode.html#afb9858684411f5b178728690c401b0a7",
-"functions_b.html"
+"classfastly_1_1security_1_1InspectResponse.html#a532238a9258c8eda41826a9060a1fb13",
+"structfastly_1_1detail_1_1rust__bridge__tags_1_1esi_1_1DispatchFragmentRequestFnTag.html#a220581f4e3d247106dee54f3a82bee08"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

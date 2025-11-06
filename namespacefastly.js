@@ -10,5 +10,6 @@ var namespacefastly =
     [ "http", "namespacefastly_1_1http.html", "namespacefastly_1_1http" ],
     [ "kv_store", "namespacefastly_1_1kv__store.html", "namespacefastly_1_1kv__store" ],
     [ "log", "namespacefastly_1_1log.html", "namespacefastly_1_1log" ],
-    [ "secret_store", "namespacefastly_1_1secret__store.html", "namespacefastly_1_1secret__store" ]
+    [ "secret_store", "namespacefastly_1_1secret__store.html", "namespacefastly_1_1secret__store" ],
+    [ "security", "namespacefastly_1_1security.html", "namespacefastly_1_1security" ]
 ];
