@@ -1,11 +1,11 @@
 #ifndef FASTLY_HTTP_STATUS_CODE_H
 #define FASTLY_HTTP_STATUS_CODE_H
 
+#include <cstdint>
+#include <cstdlib>
 #include <fastly/error.h>
 #include <fastly/expected.h>
 #include <fastly/sdk-sys.h>
-#include <cstdint>
-#include <cstdlib>
 #include <iostream>
 #include <optional>
 

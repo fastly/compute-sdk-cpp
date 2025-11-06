@@ -9,18 +9,16 @@ std::string InspectError::error_msg() {
   err_->error_msg(msg);
   return msg;
 }
-std::optional<std::size_t> InspectError::required_buffer_size(){
-    std::size_t buf_size{0};
-    if (err_->required_buffer_size(buf_size)) {
-        return buf_size;
-    } else {
-        return std::nullopt;
-    }
+std::optional<std::size_t> InspectError::required_buffer_size() {
+  std::size_t buf_size{0};
+  if (err_->required_buffer_size(buf_size)) {
+    return buf_size;
+  } else {
+    return std::nullopt;
+  }
 }
 
-std::int16_t InspectResponse::status() const {
-  return ir_->status();
-}
+std::int16_t InspectResponse::status() const { return ir_->status(); }
 
 std::optional<std::string> InspectResponse::redirect_url() const {
   std::string ret;

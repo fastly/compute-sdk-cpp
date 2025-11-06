@@ -168,8 +168,8 @@ fastly::expected<Response> Response::with_header(std::string_view name,
   });
 }
 
-fastly::expected<Response> Response::with_set_header(std::string_view name,
-                                                     std::string_view value) && {
+fastly::expected<Response>
+Response::with_set_header(std::string_view name, std::string_view value) && {
   return this->set_header(name, value).map([this]() {
     return std::move(*this);
   });
@@ -180,12 +180,13 @@ Response::get_header(std::string_view name) {
   std::vector<uint8_t> value;
   bool is_sensitive{false};
   fastly::sys::error::FastlyError *err;
-  bool has_header{
-      this->res->get_header(static_cast<std::string>(name), value, is_sensitive, err)};
+  bool has_header{this->res->get_header(static_cast<std::string>(name), value,
+                                        is_sensitive, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
   } else if (has_header) {
-    return std::optional<HeaderValue>(std::in_place, std::string(value.begin(), value.end()), is_sensitive);
+    return std::optional<HeaderValue>(
+        std::in_place, std::string(value.begin(), value.end()), is_sensitive);
   } else {
     return std::nullopt;
   }
@@ -204,16 +205,13 @@ Response::get_header_all(std::string_view name) {
   }
 }
 
-fastly::expected<HeadersRange>
-Response::get_headers() {
+fastly::expected<HeadersRange> Response::get_headers() {
   fastly::sys::http::HeadersIter *out;
   this->res->get_headers(out);
-  return HeadersRange(
-      rust::Box<fastly::sys::http::HeadersIter>::from_raw(out));
+  return HeadersRange(rust::Box<fastly::sys::http::HeadersIter>::from_raw(out));
 }
 
-fastly::expected<HeaderNamesRange>
-Response::get_header_names() {
+fastly::expected<HeaderNamesRange> Response::get_header_names() {
   fastly::sys::http::HeaderNamesIter *out;
   this->res->get_header_names(out);
   return HeaderNamesRange(
@@ -344,13 +342,9 @@ Response::get_stale_while_revalidate() {
   }
 }
 
-Version Response::get_version() {
-  return this->res->get_version();
-}
+Version Response::get_version() { return this->res->get_version(); }
 
-void Response::set_version(Version version) {
-  this->res->set_version(version);
-}
+void Response::set_version(Version version) { this->res->set_version(version); }
 
 Response Response::with_version(Version version) && {
   this->set_version(version);

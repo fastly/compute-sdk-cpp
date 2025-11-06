@@ -48,7 +48,7 @@ jobs:
         with:
           version: "25"
       - name: Check C++ Format
-        run: /opt/wasi-sdk/bin/clang-format --dry-run --Werror src/**/*.h src/**/*.cpp
+        run: /opt/wasi-sdk/bin/clang-format --dry-run --Werror include/**/*.h src/**/*.h src/**/*.cpp
 
   test:
     runs-on: ubuntu-latest
