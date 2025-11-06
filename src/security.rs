@@ -1,4 +1,4 @@
-use std::{io::Write as _, net::IpAddr, pin::Pin};
+use std::{io::Write as _, net::IpAddr, pin::Pin, str::FromStr};
 
 use cxx::CxxString;
 
@@ -6,16 +6,9 @@ use crate::{
     error::FastlyError,
     ffi::{InspectErrorCode, InspectVerdict},
     http::request::Request,
+    http::response::Response,
     try_fe,
 };
-
-#[derive(Debug, Default)]
-pub struct InspectConfig {
-    client_ip: Option<IpAddr>,
-    workspace: Option<String>,
-    corp: Option<String>,
-    buffer_size: Option<usize>,
-}
 
 pub struct InspectResponse(pub(crate) fastly::security::InspectResponse);
 
@@ -57,22 +50,38 @@ macro_rules! try_ie {
 
 pub fn f_security_lookup(
     request: &Request,
-    config: Box<InspectConfig>,
+    client_ip: *const CxxString,
+    corp: *const CxxString,
+    workspace: *const CxxString,
+    buffer_size: *const usize,
     mut out: Pin<&mut *mut InspectResponse>,
     mut err: Pin<&mut *mut InspectError>,
 ) {
     let mut icfg = fastly::security::InspectConfig::from_request(&request.0);
-    if let Some(ip_addr) = config.client_ip {
-        icfg = icfg.client_ip(ip_addr);
-    }
-    if let Some(corp) = config.corp {
-        icfg = icfg.corp(corp);
-    }
-    if let Some(ws) = config.workspace {
-        icfg = icfg.workspace(ws);
-    }
-    if let Some(sz) = config.buffer_size {
-        icfg = icfg.buffer_size(sz);
+    unsafe {
+        if !client_ip.is_null() {
+            let ip = IpAddr::from_str(try_ie!(
+                err,
+                client_ip
+                    .read()
+                    .to_str()
+                    .map_err(|_| fastly::security::InspectError::InvalidConfig)
+            ));
+            let ip = try_ie!(
+                err,
+                ip.map_err(|_| fastly::security::InspectError::InvalidConfig)
+            );
+            icfg = icfg.client_ip(ip);
+        }
+        if !corp.is_null() {
+            icfg = icfg.corp(corp.read().to_string());
+        }
+        if !workspace.is_null() {
+            icfg = icfg.workspace(workspace.read().to_string());
+        }
+        if !buffer_size.is_null() {
+            icfg = icfg.buffer_size(*buffer_size);
+        }
     }
     out.set(try_ie!(
         err,
@@ -81,31 +90,6 @@ pub fn f_security_lookup(
             .map(Box::new)
             .map(Box::into_raw)
     ))
-}
-
-pub fn m_static_inspect_inspect_config_new() -> Box<InspectConfig> {
-    Box::default()
-}
-
-impl InspectConfig {
-    pub fn client_ip(&mut self, ip: &CxxString, mut err: Pin<&mut *mut FastlyError>) {
-        let s = try_fe!(err, ip.to_str());
-        self.client_ip = Some(try_fe!(err, s.parse()));
-    }
-
-    pub fn workspace(&mut self, workspace: &CxxString, mut err: Pin<&mut *mut FastlyError>) {
-        let s = try_fe!(err, workspace.to_str());
-        self.workspace = Some(s.into());
-    }
-
-    pub fn corp(&mut self, corp: &CxxString, mut err: Pin<&mut *mut FastlyError>) {
-        let s = try_fe!(err, corp.to_str());
-        self.corp = Some(s.into());
-    }
-
-    pub fn buffer_size(&mut self, buffer_size: usize) {
-        self.buffer_size = Some(buffer_size);
-    }
 }
 
 impl InspectResponse {
@@ -141,6 +125,27 @@ impl InspectResponse {
             fastly::security::InspectVerdict::Unauthorized => InspectVerdict::Unauthorized,
             fastly::security::InspectVerdict::Other(_) => InspectVerdict::Other,
         }
+    }
+
+    pub fn unrecognized_verdict_info(&self, out: Pin<&mut CxxString>) -> bool {
+        if let fastly::security::InspectVerdict::Other(s) = self.0.verdict() {
+            out.push_str(s);
+            true
+        } else {
+            false
+        }
+    }
+}
+
+pub fn m_security_inspect_response_into_redirect(
+    response: Box<InspectResponse>,
+    mut out: Pin<&mut *mut Response>,
+) -> bool {
+    if let Some(resp) = response.0.into_redirect() {
+        out.set(Box::into_raw(Box::new(Response(resp))));
+        true
+    } else {
+        false
     }
 }
 

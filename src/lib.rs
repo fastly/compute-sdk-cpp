@@ -831,16 +831,6 @@ mod ffi {
     }
 
     #[namespace = "fastly::sys::security"]
-    extern "Rust" {
-        type InspectConfig;
-        fn m_static_inspect_inspect_config_new() -> Box<InspectConfig>;
-        fn client_ip(&mut self, ip: &CxxString, err: Pin<&mut *mut FastlyError>);
-        fn workspace(&mut self, workspace: &CxxString, err: Pin<&mut *mut FastlyError>);
-        fn corp(&mut self, corp: &CxxString, err: Pin<&mut *mut FastlyError>);
-        fn buffer_size(&mut self, buffer_size: usize);
-    }
-
-    #[namespace = "fastly::sys::security"]
     #[derive(Copy, Clone, Debug)]
     pub enum InspectVerdict {
         /// Security indicated that this request is allowed.
@@ -868,13 +858,21 @@ mod ffi {
         fn redirect_url(&self, out: Pin<&mut CxxString>) -> bool;
         fn tags(&self) -> Vec<String>;
         fn verdict(&self) -> InspectVerdict;
+        fn unrecognized_verdict_info(&self, out: Pin<&mut CxxString>) -> bool;
     }
 
     #[namespace = "fastly::sys::security"]
     extern "Rust" {
-        fn f_security_lookup(
+        fn m_security_inspect_response_into_redirect(
+            response: Box<InspectResponse>,
+            mut out: Pin<&mut *mut Response>,
+        ) -> bool;
+        unsafe fn f_security_lookup(
             request: &Request,
-            config: Box<InspectConfig>,
+            client_ip: *const CxxString,
+            corp: *const CxxString,
+            workspace: *const CxxString,
+            buffer_size: *const usize,
             mut out: Pin<&mut *mut InspectResponse>,
             mut err: Pin<&mut *mut InspectError>,
         );
