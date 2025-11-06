@@ -3,11 +3,9 @@ use std::{io::Write as _, net::IpAddr, pin::Pin, str::FromStr};
 use cxx::CxxString;
 
 use crate::{
-    error::FastlyError,
     ffi::{InspectErrorCode, InspectVerdict},
     http::request::Request,
     http::response::Response,
-    try_fe,
 };
 
 pub struct InspectResponse(pub(crate) fastly::security::InspectResponse);
