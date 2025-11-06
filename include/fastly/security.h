@@ -63,6 +63,9 @@ public:
       : err_(std::move(e)) {};
   InspectErrorCode error_code();
   std::string error_msg();
+  /// When getting `InspectErrorCode::BufferSizeError`, this can be used to get
+  /// the required size of the buffer before re-attempting the call.
+  std::optional<std::size_t> required_buffer_size();
 
 private:
   rust::Box<fastly::sys::security::InspectError> err_;
@@ -96,8 +99,12 @@ private:
   InspectResponse(rust::Box<fastly::sys::security::InspectResponse> ir)
       : ir_(std::move(ir)) {};
 };
+
+/// Inspect a `Request` using the [Fastly Next-Gen
+/// WAF](https://docs.fastly.com/en/ngwaf/).
 tl::expected<InspectResponse, InspectError>
 inspect(fastly::http::Request &request, InspectConfig config);
+
 } // namespace fastly::security
 
 #endif

@@ -28,6 +28,16 @@ impl InspectError {
             _ => InspectErrorCode::Unexpected,
         }
     }
+
+    pub fn required_buffer_size(&self, mut out: Pin<&mut usize>) -> bool {
+        match self.0 {
+            fastly::security::InspectError::BufferSizeError(n) => {
+                out.set(n);
+                true
+            }
+            _ => false,
+        }
+    }
 }
 
 #[macro_export]

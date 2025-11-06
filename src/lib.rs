@@ -883,6 +883,7 @@ mod ffi {
         type InspectError;
         fn error_msg(&self, mut out: Pin<&mut CxxString>);
         fn error_code(&self) -> InspectErrorCode;
+        fn required_buffer_size(&self, out: Pin<&mut usize>) -> bool;
         fn f_security_inspect_error_force_symbols(x: Box<InspectError>) -> Box<InspectError>;
     }
 
