@@ -1,8 +1,8 @@
 #ifndef FASTLY_SECURITY_H
 #define FASTLY_SECURITY_H
 
-#include <expected.h>
 #include <fastly/detail/access_bridge_internals.h>
+#include <fastly/expected.h>
 #include <fastly/http/body.h>
 #include <fastly/http/request.h>
 #include <optional>
@@ -96,7 +96,8 @@ private:
   InspectResponse(rust::Box<fastly::sys::security::InspectResponse> ir)
       : ir_(std::move(ir)) {};
 };
-tl::expected<InspectResponse, std::string> inspect(InspectConfig config);
+tl::expected<InspectResponse, InspectError>
+inspect(fastly::http::Request &request, InspectConfig config);
 } // namespace fastly::security
 
 #endif

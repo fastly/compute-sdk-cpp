@@ -59,11 +59,10 @@ pub fn f_security_lookup(
 ) {
     let mut icfg = fastly::security::InspectConfig::from_request(&request.0);
     unsafe {
-        if !client_ip.is_null() {
+        if let Some(client_ip) = client_ip.as_ref() {
             let ip = IpAddr::from_str(try_ie!(
                 err,
                 client_ip
-                    .read()
                     .to_str()
                     .map_err(|_| fastly::security::InspectError::InvalidConfig)
             ));
@@ -73,13 +72,13 @@ pub fn f_security_lookup(
             );
             icfg = icfg.client_ip(ip);
         }
-        if !corp.is_null() {
-            icfg = icfg.corp(corp.read().to_string());
+        if let Some(corp) = corp.as_ref() {
+            icfg = icfg.corp(corp.to_string());
         }
-        if !workspace.is_null() {
-            icfg = icfg.workspace(workspace.read().to_string());
+        if let Some(workspace) = workspace.as_ref() {
+            icfg = icfg.workspace(workspace.to_string());
         }
-        if !buffer_size.is_null() {
+        if let Some(buffer_size) = buffer_size.as_ref() {
             icfg = icfg.buffer_size(*buffer_size);
         }
     }

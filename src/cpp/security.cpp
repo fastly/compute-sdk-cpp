@@ -4,6 +4,13 @@
 #include <ranges>
 
 namespace fastly::security {
+InspectErrorCode InspectError::error_code() { return err_->error_code(); }
+std::string InspectError::error_msg() {
+  std::string msg;
+  err_->error_msg(msg);
+  return msg;
+}
+
 std::int16_t InspectResponse::status() const { return ir_->status(); }
 
 std::optional<std::string> InspectResponse::redirect_url() const {
