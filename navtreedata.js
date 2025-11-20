@@ -25,23 +25,8 @@
 var NAVTREE =
 [
   [ "Fastly Compute C++ SDK", "index.html", [
-    [ "Contributing to this project", "md_CONTRIBUTING.html", [
-      [ "Examples", "index.html#autotoc_md1", null ],
-      [ "Requirements", "index.html#autotoc_md2", [
-        [ "Quickstart", "index.html#autotoc_md3", null ],
-        [ "Just the SDK", "index.html#autotoc_md4", null ],
-        [ "Building from source", "index.html#autotoc_md5", null ],
-        [ "Requirements", "md_CONTRIBUTING.html#autotoc_md7", [
-          [ "Notes on <tt>wasi-sdk</tt>", "md_CONTRIBUTING.html#autotoc_md8", null ]
-        ] ],
-        [ "Example(s)", "md_CONTRIBUTING.html#autotoc_md9", null ],
-        [ "Building Static library", "md_CONTRIBUTING.html#autotoc_md10", [
-          [ "Building in Debug mode", "md_CONTRIBUTING.html#autotoc_md11", null ],
-          [ "Using a different <tt>wasi-sdk</tt>", "md_CONTRIBUTING.html#autotoc_md12", null ],
-          [ "Building the docs", "md_CONTRIBUTING.html#autotoc_md13", null ]
-        ] ]
-      ] ]
-    ] ],
+    [ "Fastly Compute C++ SDK (Beta)", "index.html", null ],
+    [ "Contributing to this project", "md_CONTRIBUTING.html", null ],
     [ "Namespaces", "namespaces.html", [
       [ "Namespace List", "namespaces.html", "namespaces_dup" ],
       [ "Namespace Members", "namespacemembers.html", [
@@ -80,7 +65,7 @@ var NAVTREEINDEX =
 "classfastly_1_1http_1_1Response.html#a0a199a7c1b8174653b4330c0a98434ad",
 "classfastly_1_1http_1_1StatusCode.html#afb9858684411f5b178728690c401b0a7",
 "classfastly_1_1security_1_1InspectResponse.html#a532238a9258c8eda41826a9060a1fb13",
-"structfastly_1_1detail_1_1rust__bridge__tags_1_1esi_1_1DispatchFragmentRequestFnTag.html#a220581f4e3d247106dee54f3a82bee08"
+"structfastly_1_1esi_1_1Configuration.html#a7eb6781431aabc173a8af90964649f23"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

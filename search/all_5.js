@@ -8,7 +8,7 @@ var searchData=
   ['esi_5',['esi',['../namespacefastly_1_1detail_1_1rust__bridge__tags_1_1esi.html',1,'fastly::detail::rust_bridge_tags::esi'],['../namespacefastly_1_1esi.html',1,'fastly::esi']]],
   ['failed_5fdependency_6',['FAILED_DEPENDENCY',['../classfastly_1_1http_1_1StatusCode.html#ae1c33cdc27f614c2daeecca6d635aeca',1,'fastly::http::StatusCode']]],
   ['fastly_7',['fastly',['../namespacefastly.html',1,'']]],
-  ['fastly_20compute_20c_2b_2b_20sdk_8',['Fastly Compute C++ SDK',['../index.html',1,'']]],
+  ['fastly_20compute_20c_2b_2b_20sdk_20_28beta_29_8',['Fastly Compute C++ SDK (Beta)',['../index.html',1,'']]],
   ['fastly_5fkey_5fis_5fvalid_9',['fastly_key_is_valid',['../classfastly_1_1http_1_1Request.html#a0ca2781d200857c80c18984b96009e57',1,'fastly::http::Request']]],
   ['fastlyerror_10',['FastlyError',['../classfastly_1_1error_1_1FastlyError.html',1,'fastly::error::FastlyError'],['../classfastly_1_1error_1_1FastlyError.html#a75d47a6d02c89451c2c9715d04112e36',1,'fastly::error::FastlyError::FastlyError(rust::Box&lt; fastly::sys::error::FastlyError &gt; e)'],['../classfastly_1_1error_1_1FastlyError.html#a197ace6c4dced6e3df6f4da703ab0f88',1,'fastly::error::FastlyError::FastlyError(fastly::sys::error::FastlyError *e)']]],
   ['finish_11',['finish',['../classfastly_1_1http_1_1StreamingBody.html#ac522f320335af6f28468ed0817588faa',1,'fastly::http::StreamingBody::finish()'],['../classfastly_1_1backend_1_1BackendBuilder.html#a6bbfdbd49712f4e0fa64460324e7c619',1,'fastly::backend::BackendBuilder::finish() &amp;&amp;']]],
