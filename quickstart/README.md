@@ -52,7 +52,7 @@ curl -d "hello, world!" http://127.0.0.1:7676/
 ### Documentation
 
 Online documentation can be accessed
-[here](https://cuddly-adventure-lrw9z3m.pages.github.io/).
+[here](https://cpp-compute-sdk.fastly.dev/).
 
 The quickstart tarball also includes the HTML reference docs in
 `docs/index.html`, which you can open locally. If you've configured your editor

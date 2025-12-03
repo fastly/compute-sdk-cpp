@@ -10,6 +10,9 @@ on:
 
 env:
   RUSTFLAGS: -Dwarnings
+  DOCS_FASTLY_API_TOKEN: ${{ secrets.DOCS_FASTLY_API_TOKEN }}
+  DOCS_FASTLY_SERVICE_ID: ${{ vars.DOCS_FASTLY_SERVICE_ID }}
+  DOCS_FASTLY_KVSTORE_NAME: ${{ vars.DOCS_FASTLY_KVSTORE_NAME }}
 
 jobs:
   rustfmt:
@@ -71,7 +74,7 @@ jobs:
       - uses: extractions/setup-just@v3
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
-      
+
       - name: Build WebAssembly module
         run: just
 
@@ -82,8 +85,11 @@ jobs:
         uses: mattnotmitt/doxygen-action@v1.9.5
 
       - name: Deploy docs
-        uses: JamesIves/github-pages-deploy-action@v4
         if: github.ref == 'refs/heads/main'
-        with:
-          branch: gh-pages
-          folder: docs # The folder the action should deploy.
+        env:
+          FASTLY_API_TOKEN: ${{ env.DOCS_FASTLY_API_TOKEN }}
+        run: |
+          npx -y @fastly/compute-js-static-publish@7 --root-dir=./docs --output=./docs-compute-cpp --service-id=${{ env.DOCS_FASTLY_SERVICE_ID }} --kv-store-name=${{ env.DOCS_FASTLY_KVSTORE_NAME }}
+          cd ./docs-compute-cpp
+          npm install
+          npm run fastly:publish

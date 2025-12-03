@@ -1,6 +1,6 @@
 [package]
 name = "fastly-sys"
-version = "0.5.0"
+version = "0.6.0"
 authors = ["Kat Marchán <kat.marchan@fastly.com>", "Sy Brand <sy.brand@fastly.com>"]
 edition = "2024"
 

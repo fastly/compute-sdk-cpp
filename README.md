@@ -8,7 +8,7 @@
 This SDK is lets you use Fastly Compute platform directly with C++, using a
 C++-native API with all the usual facilities of modern C++. In case you got to
 this page from elsewhere, the full documentation is available online at [this
-link](https://cuddly-adventure-lrw9z3m.pages.github.io).
+link](https://cpp-compute-sdk.fastly.dev).
 
 ### Examples
 
