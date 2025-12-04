@@ -81,9 +81,14 @@ jobs:
       - name: Run tests
         run: just test
 
-      - name: Build docs
-        uses: mattnotmitt/doxygen-action@v1.9.5
+      - name: Install Doxygen
+        uses: ssciwr/doxygen-install@v1
+        with:
+          version: "1.14.0"
 
+      - name: Build docs
+        run: just docs
+        
       - name: Deploy docs
         if: github.ref == 'refs/heads/main'
         env:
