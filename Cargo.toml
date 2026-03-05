@@ -14,6 +14,7 @@ log-fastly = "0.11.9"
 thiserror = "2.0.12"
 esi = "0.6.1"
 quick-xml = "0.38.3"
+bytes = "1.11.1"
 
 [build-dependencies]
 cxx-build = "1.0"

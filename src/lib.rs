@@ -3,6 +3,7 @@
 #![allow(clippy::boxed_local, clippy::needless_lifetimes)]
 
 use backend::*;
+use cache::*;
 use config_store::*;
 use device_detection::*;
 use error::*;
@@ -17,6 +18,7 @@ use secret_store::*;
 use security::*;
 
 mod backend;
+mod cache;
 mod config_store;
 mod device_detection;
 mod error;
@@ -1115,6 +1117,12 @@ mod ffi {
         type ProcessFragmentResponseFnTag;
     }
 
+    #[namespace = "fastly::detail::rust_bridge_tags::cache::simple"]
+    unsafe extern "C++" {
+        include!("fastly/detail/rust_bridge_tags.h");
+        type GetOrSetWithFnTag;
+    }
+
     #[namespace = "fastly::sys::esi"]
     extern "Rust" {
         type Processor;
@@ -1146,13 +1154,74 @@ mod ffi {
             is_escaped_content: bool,
         ) -> Box<Processor>;
     }
+
+    #[namespace = "fastly::sys::cache::simple"]
+    #[repr(usize)]
+    pub enum GetOrSetWithFnResult {
+        Ok = 0,
+        Err = 1,
+    }
+
+    #[namespace = "fastly::sys::cache::simple"]
+    #[derive(Debug, Clone, Copy)]
+    #[repr(usize)]
+    pub enum SimpleCacheErrorCode {
+        LimitExceeded,
+        InvalidOperation,
+        Unsupported,
+        Io,
+        Purge,
+        GetOrSet,
+        Other,
+    }
+
+    #[namespace = "fastly::sys::cache::simple"]
+    extern "Rust" {
+        type SimpleCacheError;
+        fn error_msg(&self, mut out: Pin<&mut CxxString>);
+        fn error_code(&self) -> SimpleCacheErrorCode;
+        fn f_cache_simple_error_force_symbols(x: Box<SimpleCacheError>) -> Box<SimpleCacheError>;
+    }
+
+    #[namespace = "fastly::sys::cache::simple"]
+    extern "Rust" {
+        type SimpleCacheEntry;
+        type PurgeOptions;
+        fn f_cache_simple_get(
+            key: &[u8],
+            mut out: Pin<&mut *mut Body>,
+            mut err: Pin<&mut *mut SimpleCacheError>,
+        ) -> bool;
+        fn f_cache_simple_get_or_set(
+            key: &[u8],
+            value: Box<Body>,
+            ttl: u32,
+            mut out: Pin<&mut *mut Body>,
+            mut err: Pin<&mut *mut SimpleCacheError>,
+        ) -> bool;
+        unsafe fn f_cache_simple_get_or_set_with(
+            key: &[u8],
+            make_entry: *const GetOrSetWithFnTag,
+            mut out: Pin<&mut *mut Body>,
+            mut err: Pin<&mut *mut SimpleCacheError>,
+        ) -> bool;
+        fn f_cache_simple_purge(key: &[u8], mut err: Pin<&mut *mut SimpleCacheError>) -> bool;
+        fn f_cache_simple_purge_with_opts(
+            key: &[u8],
+            opts: Box<PurgeOptions>,
+            mut err: Pin<&mut *mut SimpleCacheError>,
+        ) -> bool;
+        fn m_static_cache_simple_purge_options_pop_scope() -> Box<PurgeOptions>;
+        fn m_static_cache_simple_purge_options_global_scope() -> Box<PurgeOptions>;
+    }
 }
 
 // Some types (notably callback functions) are not supported by CXX at all, so we
 // define manual FFI bindings for them here.
 mod manual_ffi {
     use crate::ffi::{
-        DispatchFragmentRequestFnResult, DispatchFragmentRequestFnTag, ProcessFragmentResponseFnTag,
+        DispatchFragmentRequestFnResult, DispatchFragmentRequestFnTag, GetOrSetWithFnResult,
+        GetOrSetWithFnTag, ProcessFragmentResponseFnTag,
     };
 
     // We never rely on the layout of Rust types passed to these functions,
@@ -1175,5 +1244,11 @@ mod manual_ffi {
             response: *mut crate::Response,
             out_response: &mut *mut crate::Response,
         ) -> bool;
+
+        #[link_name = "fastly$cache$simple$manualbridge$GetOrSetWithFn$call"]
+        pub(crate) fn fastly_esi_manualbridge_GetOrSetWithFn_call(
+            func: *const GetOrSetWithFnTag,
+            out: &mut *mut crate::SimpleCacheEntry,
+        ) -> GetOrSetWithFnResult;
     }
 }

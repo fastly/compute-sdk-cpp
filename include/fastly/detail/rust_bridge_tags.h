@@ -25,6 +25,14 @@ protected:
   ProcessFragmentResponseFnTag() = default;
 };
 } // namespace esi
+
+namespace cache::simple {
+struct GetOrSetWithFnTag {
+protected:
+  GetOrSetWithFnTag() = default;
+};
+
+} // namespace cache::simple
 } // namespace fastly::detail::rust_bridge_tags
 
 #endif
