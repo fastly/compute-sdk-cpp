@@ -1,3 +1,5 @@
 [toolchain]
-channel = "1.88.0"
+# We have to keep this at a version that syncs up with our llvm version.
+# wask-sdk as of 30.0 is using LLVM 19, but Rust 1.88 onwards is on LLVM 21
+channel = "1.86.0"
 targets = [ "wasm32-wasip1" ]

@@ -37,7 +37,7 @@ jobs:
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
         with:
-          version: "25"
+          version: "30"
       - name: Run clippy
         run: cargo clippy --all -- -D warnings
 
@@ -49,7 +49,7 @@ jobs:
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
         with:
-          version: "25"
+          version: "30"
       - name: Check C++ Format
         run: /opt/wasi-sdk/bin/clang-format --dry-run --Werror include/**/*.h src/**/*.h src/**/*.cpp
 
@@ -63,17 +63,22 @@ jobs:
         uses: actions/checkout@v4
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: stable
+
       - name: Install Viceroy
         run: cargo install viceroy --locked
 
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
         with:
-          version: "25"
+          version: "30"
 
       - uses: extractions/setup-just@v3
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          target: wasm32-wasip1
 
       - name: Build WebAssembly module
         run: just
