@@ -35,7 +35,7 @@ tl::expected<void, ERLError> PenaltyBox::add(std::string_view entry,
   return {};
 }
 tl::expected<bool, ERLError> PenaltyBox::has(std::string_view entry) const {
-    alignas(4) bool has_out;
+  alignas(4) bool has_out;
   ERL_TRY(fastly::penaltybox_has(name_.c_str(), name_.size(), entry.data(),
                                  entry.size(), &has_out));
   return has_out;
@@ -58,7 +58,8 @@ RateCounter::lookup_rate(std::string_view entry, RateWindow window) const {
 }
 
 tl::expected<std::uint32_t, ERLError>
-RateCounter::lookup_count(std::string_view entry, CounterDuration duration) const {
+RateCounter::lookup_count(std::string_view entry,
+                          CounterDuration duration) const {
   std::uint32_t count_out;
   ERL_TRY(fastly::ratecounter_lookup_count(
       name_.c_str(), name_.size(), entry.data(), entry.size(),

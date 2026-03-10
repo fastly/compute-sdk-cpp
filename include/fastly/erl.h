@@ -67,8 +67,8 @@ public:
   tl::expected<std::uint32_t, ERLError> lookup_rate(std::string_view entry,
                                                     RateWindow window) const;
   /// Lookup the current count for entry in the rate counter for a duration.
-  tl::expected<std::uint32_t, ERLError> lookup_count(std::string_view entry,
-                                                     CounterDuration duration) const;
+  tl::expected<std::uint32_t, ERLError>
+  lookup_count(std::string_view entry, CounterDuration duration) const;
   std::string_view name() const { return name_; }
 
 private:
@@ -83,9 +83,9 @@ public:
 
   /// Increment an entry in a rate counter and check if the client has exceeded
   /// some average number
-  /// of requests per second (RPS) over the window. If the client is over the rps
-  /// limit for the window, add to the penaltybox for ttl. Valid ttl span is 1m
-  /// to 1h.
+  /// of requests per second (RPS) over the window. If the client is over the
+  /// rps limit for the window, add to the penaltybox for ttl. Valid ttl span is
+  /// 1m to 1h.
   tl::expected<bool, ERLError>
   check_rate(std::string_view entry, std::uint32_t delta, RateWindow window,
              std::uint32_t limit, std::chrono::minutes ttl) const;
