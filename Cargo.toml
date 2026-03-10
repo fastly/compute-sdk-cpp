@@ -5,7 +5,7 @@ authors = ["Kat Marchán <kat.marchan@fastly.com>", "Sy Brand <sy.brand@fastly.c
 edition = "2024"
 
 [dependencies]
-cxx = { version = "1.0.158", features = ["c++17"] }
+cxx = { version = "=1.0.158", features = ["c++17"] }
 fastly = "0.11.9"
 fastly-shared = "0.11.9"
 http = "1.3.1"
@@ -16,7 +16,7 @@ esi = "0.6.1"
 quick-xml = "0.38.3"
 
 [build-dependencies]
-cxx-build = "1.0"
+cxx-build = "=1.0.158"
 
 [lib]
 crate-type = ["staticlib"]

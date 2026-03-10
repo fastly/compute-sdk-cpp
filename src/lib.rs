@@ -1116,6 +1116,7 @@ mod ffi {
     }
 
     #[namespace = "fastly::sys::esi"]
+
     extern "Rust" {
         type Processor;
         pub unsafe fn m_esi_processor_process_response(

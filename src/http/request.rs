@@ -43,6 +43,7 @@ pub mod request {
         }
     }
 
+    #[allow(clippy::large_enum_variant)]
     pub enum PollResult {
         Pending(PendingRequest),
         Response(Response),
