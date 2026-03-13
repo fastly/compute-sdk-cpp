@@ -637,6 +637,7 @@ mod ffi {
     extern "Rust" {
         type Body;
         fn m_static_http_body_new() -> Box<Body>;
+        fn m_static_http_body_from_handle(handle: u32) -> Box<Body>;
         fn append(&mut self, other: Box<Body>);
         fn append_trailer(
             &mut self,
@@ -660,6 +661,7 @@ mod ffi {
             err: Pin<&mut *mut FastlyError>,
         );
         fn write(&mut self, bytes: &[u8], err: Pin<&mut *mut FastlyError>) -> usize;
+        fn m_static_http_streaming_body_from_body_handle(handle: u32) -> Box<StreamingBody>;
     }
 
     #[namespace = "fastly::sys::http::purge"]

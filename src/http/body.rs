@@ -14,6 +14,11 @@ pub fn m_static_http_body_new() -> Box<Body> {
     Box::new(Body(fastly::http::Body::new()))
 }
 
+pub fn m_static_http_body_from_handle(handle: u32) -> Box<Body> {
+    let body_handle = unsafe { fastly::handle::BodyHandle::from_u32(handle) };
+    Box::new(Body(body_handle.into()))
+}
+
 impl Body {
     pub fn append(&mut self, other: Box<Body>) {
         self.0.append(other.0);
@@ -56,4 +61,10 @@ impl StreamingBody {
     pub fn write(&mut self, bytes: &[u8], mut err: ErrPtr) -> usize {
         try_fe!(err, self.0.write(bytes))
     }
+}
+
+pub fn m_static_http_streaming_body_from_body_handle(handle: u32) -> Box<StreamingBody> {
+    let body_handle = unsafe { fastly::handle::BodyHandle::from_u32(handle) };
+    let handle = fastly::handle::StreamingBodyHandle::from_body_handle(body_handle);
+    Box::new(StreamingBody(handle.into()))
 }
