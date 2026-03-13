@@ -177,9 +177,6 @@ Status cache_replace_insert(uint32_t replace_handle, uint32_t options_mask,
                             const CacheWriteOptions *options,
                             uint32_t *body_handle_out);
 
-WASM_IMPORT("fastly_cache", "wait")
-Status cache_wait(uint32_t handle);
-
 WASM_IMPORT("fastly_cache", "transaction_update")
 Status cache_transaction_update(uint32_t handle, uint32_t options_mask,
                                 const CacheWriteOptions *options);
@@ -195,10 +192,10 @@ Status cache_transaction_insert_and_stream_back(
     uint32_t *body_handle_out, uint32_t *cache_handle_out);
 
 WASM_IMPORT("fastly_cache", "get_state")
-Status cache_get_state(uint32_t handle, uint8_t *state_out);
+Status cache_get_state(uint32_t handle, uint32_t *state_out);
 
 WASM_IMPORT("fastly_cache", "replace_get_state")
-Status cache_replace_get_state(uint32_t handle, uint8_t *state_out);
+Status cache_replace_get_state(uint32_t handle, uint32_t *state_out);
 
 WASM_IMPORT("fastly_cache", "transaction_cancel")
 Status cache_transaction_cancel(uint32_t handle);

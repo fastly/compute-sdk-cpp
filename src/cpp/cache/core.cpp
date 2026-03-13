@@ -216,7 +216,7 @@ RequestHandle RequestHandle::make() {
 } // namespace detail
 
 bool Transaction::must_insert() const {
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   auto status = fastly::cache_get_state(handle_->handle(), &state);
   if (!status.is_ok()) {
     std::cerr << "cache_get_state failed\n";
@@ -227,7 +227,7 @@ bool Transaction::must_insert() const {
 }
 
 bool Transaction::must_insert_or_update() const {
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   auto status = fastly::cache_get_state(handle_->handle(), &state);
   if (!status.is_ok()) {
     std::cerr << "cache_get_state failed\n";
@@ -262,7 +262,7 @@ TransactionLookupBuilder Transaction::lookup(CacheKey key) {
 }
 
 std::optional<Found> Transaction::found() const {
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   auto status = fastly::cache_get_state(handle_->handle(), &state);
   if (!status.is_ok()) {
     std::cerr << "cache_get_state failed\n";
@@ -287,7 +287,8 @@ tl::expected<Transaction, CacheError> PendingTransaction::wait() && {
   CACHE_TRY(fastly::cache_busy_handle_wait(handle_->handle(), &cache_handle));
 
   // Wait for the cache handle async item to be complete
-  CACHE_TRY(fastly::cache_wait(cache_handle));
+  std::uint32_t cache_lookup_state_out = 0;
+  CACHE_TRY(fastly::cache_get_state(cache_handle, &cache_lookup_state_out));
 
   return Transaction(std::make_shared<detail::CacheHandle>(cache_handle));
 }
@@ -323,7 +324,8 @@ tl::expected<Transaction, CacheError> TransactionLookupBuilder::execute() && {
       key_.data(), key_.size(), options_mask, &options, &cache_handle));
 
   // Wait for the lookup to complete (synchronous behavior)
-  CACHE_TRY(fastly::cache_wait(cache_handle));
+  std::uint32_t state_out = 0;
+  CACHE_TRY(fastly::cache_get_state(cache_handle, &state_out));
 
   return Transaction(std::make_shared<detail::CacheHandle>(cache_handle));
 }
@@ -538,7 +540,7 @@ std::chrono::nanoseconds Found::stale_while_revalidate() const {
 }
 
 bool Found::is_stale() const {
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   fastly::Status status;
   if (handle()) {
     status = fastly::cache_get_state(handle()->handle(), &state);
@@ -555,7 +557,7 @@ bool Found::is_stale() const {
 }
 
 bool Found::is_usable() const {
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   fastly::Status status;
   if (handle()) {
     status = fastly::cache_get_state(handle()->handle(), &state);
@@ -711,11 +713,13 @@ tl::expected<std::optional<Found>, CacheError> LookupBuilder::execute() && {
   CACHE_TRY(fastly::cache_lookup(key_.data(), key_.size(), options_mask,
                                  &options, &cache_handle));
 
-  // Wait for the lookup to complete (synchronous behavior)
-  CACHE_TRY(fastly::cache_wait(cache_handle));
+  // Force await for the lookup to complete (synchronous behavior)
+  // NOTE(@zkat): the Rust SDK does, in fact, double-up on this get_state.
+  std::uint32_t throwaway_state = 0;
+  CACHE_TRY(fastly::cache_get_state(cache_handle, &throwaway_state));
 
   // Check if we found something
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   auto status = fastly::cache_get_state(cache_handle, &state);
   if (!status.is_ok()) {
     return tl::unexpected(from_status(status));
@@ -815,7 +819,7 @@ tl::expected<Replace, CacheError> ReplaceBuilder::begin() && {
   auto handle = std::make_shared<detail::CacheReplaceHandle>(replace_handle);
 
   // Check if an existing object was found
-  std::uint8_t state = 0;
+  std::uint32_t state = 0;
   auto status = fastly::cache_replace_get_state(replace_handle, &state);
   if (!status.is_ok()) {
     return tl::unexpected(from_status(status));
