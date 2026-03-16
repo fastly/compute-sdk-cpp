@@ -1,6 +1,7 @@
 #include <fastly/expected.h>
 #include <fastly/http/body.h>
 #include <fastly/sdk-sys.h>
+#include <streambuf>
 
 namespace fastly::http {
 

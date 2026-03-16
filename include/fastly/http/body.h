@@ -21,6 +21,13 @@ class LookupResponse;
 class KVStore;
 } // namespace fastly::kv_store
 
+namespace fastly::cache::core {
+class TransactionInsertBuilder;
+class InsertBuilder;
+class Replace;
+class Found;
+} // namespace fastly::cache::core
+
 namespace fastly::http {
 
 class Response;
@@ -130,9 +137,13 @@ public:
   //     pref(std::move(prefix)) {};
   // };
 private:
+  friend cache::core::Found;
   rust::Box<fastly::sys::http::Body> bod;
   std::array<char, 512> pbuf;
   std::array<char, 512> gbuf;
+  static Body from_handle(uint32_t body_handle) {
+    return Body(fastly::sys::http::m_static_http_body_from_handle(body_handle));
+  }
   Body(rust::Box<fastly::sys::http::Body> body)
       : std::iostream(this), bod(std::move(body)) {
     this->setg(this->gbuf.data(), this->gbuf.data(), this->gbuf.data());
@@ -157,6 +168,9 @@ private:
 class StreamingBody : public std::ostream, public std::streambuf {
   friend Response;
   friend Request;
+  friend cache::core::TransactionInsertBuilder;
+  friend cache::core::InsertBuilder;
+  friend cache::core::Replace;
   friend std::pair<fastly::expected<Response>,
                    std::vector<request::PendingRequest>>
   request::select(std::vector<request::PendingRequest> &reqs);
@@ -184,6 +198,11 @@ private:
       : std::ostream(this), bod(std::move(body)) {
     this->setp(this->pbuf.data(), this->pbuf.data() + this->pbuf.max_size());
   };
+  static StreamingBody from_body_handle(uint32_t body_handle) {
+    return StreamingBody(
+        fastly::sys::http::m_static_http_streaming_body_from_body_handle(
+            body_handle));
+  }
   rust::Box<fastly::sys::http::StreamingBody> bod;
   std::array<char, 512> pbuf;
 };
