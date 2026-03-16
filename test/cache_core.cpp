@@ -8,11 +8,21 @@ using namespace fastly::cache::core;
 using namespace std::string_literals;
 using namespace std::chrono_literals;
 
+TEST_CASE("strings and spans", "[cache_core]") {
+  std::string key = "my_key";
+  auto result = lookup(key).execute();
+  REQUIRE(result);
+  REQUIRE(!*result);
+
+  std::vector<std::uint8_t> key_bytes = {0x01, 0x02, 0x03};
+  auto result2 = lookup(key_bytes).execute();
+  REQUIRE(result2);
+  REQUIRE(!*result2);
+}
+
 TEST_CASE("cache::core::insert", "[cache_core]") {
-  auto key_string("cache::core::insert"s);
-  std::vector<uint8_t> key(key_string.begin(), key_string.end());
   auto contents("contents here"s);
-  auto writer = insert(key, 1234ns)
+  auto writer = insert("cache::core::insert", 1234ns)
                     .surrogate_keys({"my_key"s})
                     .known_length(contents.size())
                     .execute();
@@ -25,25 +35,21 @@ TEST_CASE("cache::core::insert", "[cache_core]") {
 }
 
 TEST_CASE("failed cache::core::lookup", "[cache_core]") {
-  auto key_string("cache::core::lookup"s);
-  std::vector<uint8_t> key(key_string.begin(), key_string.end());
-  auto found = lookup(key).execute();
+  auto found = lookup("cache::core::lookup").execute();
   REQUIRE(found);
   REQUIRE(!*found);
 }
 
 TEST_CASE("cache::core::lookup", "[cache_core]") {
-  auto key_string("cache::core::lookup"s);
-  std::vector<uint8_t> key(key_string.begin(), key_string.end());
   auto contents("deadbeef badc0ffee"s);
-  auto writer =
-      insert(key, std::chrono::duration_cast<std::chrono::nanoseconds>(1s))
-          .execute();
+  auto writer = insert("cache::core::lookup",
+                       std::chrono::duration_cast<std::chrono::nanoseconds>(1s))
+                    .execute();
 
   *writer << contents;
   REQUIRE(writer->finish());
 
-  auto found = lookup(key).execute();
+  auto found = lookup("cache::core::lookup").execute();
   REQUIRE(found);
   REQUIRE(*found);
   auto stream = (*found)->to_stream();
@@ -54,10 +60,9 @@ TEST_CASE("cache::core::lookup", "[cache_core]") {
 }
 
 TEST_CASE("cache::core::Found::user_metadata", "[cache_core]") {
-  auto key_string("cache::core::Found::user_metadata"s);
-  std::vector<uint8_t> key(key_string.begin(), key_string.end());
-  auto metadata = std::vector<uint8_t>{0xde, 0xad, 0xbe, 0xef};
+  auto key = "cache::core::Found::user_metadata";
   auto contents("deadbeef badc0ffee"s);
+  auto metadata = std::vector<uint8_t>{0xde, 0xad, 0xbe, 0xef};
   auto writer =
       insert(key, std::chrono::duration_cast<std::chrono::nanoseconds>(1s))
           .user_metadata(metadata)
@@ -74,8 +79,7 @@ TEST_CASE("cache::core::Found::user_metadata", "[cache_core]") {
 }
 
 TEST_CASE("cache::core::Transaction", "[cache_core]") {
-  auto key_string("cache::core::Transaction"s);
-  std::vector<uint8_t> key(key_string.begin(), key_string.end());
+  auto key = "cache::core::Transaction";
   auto contents("contents here"s);
 
   auto transaction = Transaction::lookup(key).execute();

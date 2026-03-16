@@ -257,8 +257,8 @@ Transaction::insert(std::chrono::nanoseconds max_age) && {
       std::move(options));
 }
 
-TransactionLookupBuilder Transaction::lookup(CacheKey key) {
-  return TransactionLookupBuilder(std::move(key));
+TransactionLookupBuilder Transaction::lookup(std::span<const std::uint8_t> key) {
+  return TransactionLookupBuilder(std::vector<std::uint8_t>(key.begin(), key.end()));
 }
 
 std::optional<Found> Transaction::found() const {
@@ -683,7 +683,9 @@ Found::to_stream_from_range(std::optional<uint64_t> from,
   return Body::from_handle(body_handle);
 }
 
-LookupBuilder lookup(CacheKey key) { return LookupBuilder(std::move(key)); }
+LookupBuilder lookup(std::span<const std::uint8_t> key) {
+  return LookupBuilder(std::vector<std::uint8_t>(key.begin(), key.end()));
+}
 
 LookupBuilder
 LookupBuilder::header_values(std::string_view name,
@@ -731,9 +733,11 @@ tl::expected<std::optional<Found>, CacheError> LookupBuilder::execute() && {
   return std::nullopt;
 }
 
-InsertBuilder insert(CacheKey key, std::chrono::nanoseconds max_age) {
+InsertBuilder insert(std::span<const std::uint8_t> key,
+                     std::chrono::nanoseconds max_age) {
   WriteOptions options(max_age);
-  return InsertBuilder(std::move(key), std::move(options));
+  return InsertBuilder(std::vector<std::uint8_t>(key.begin(), key.end()),
+                       std::move(options));
 }
 
 InsertBuilder
@@ -808,7 +812,9 @@ tl::expected<http::StreamingBody, CacheError> InsertBuilder::execute() && {
   return http::StreamingBody::from_body_handle(body_handle);
 }
 
-ReplaceBuilder replace(CacheKey key) { return ReplaceBuilder(std::move(key)); }
+ReplaceBuilder replace(std::span<const std::uint8_t> key) {
+  return ReplaceBuilder(std::vector<std::uint8_t>(key.begin(), key.end()));
+}
 
 tl::expected<Replace, CacheError> ReplaceBuilder::begin() && {
   auto [options, options_mask] = as_abi(options_);

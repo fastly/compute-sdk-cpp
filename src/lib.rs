@@ -3,6 +3,7 @@
 #![allow(clippy::boxed_local, clippy::needless_lifetimes)]
 
 use backend::*;
+use cache::*;
 use config_store::*;
 use device_detection::*;
 use error::*;
@@ -17,6 +18,7 @@ use secret_store::*;
 use security::*;
 
 mod backend;
+mod cache;
 mod config_store;
 mod device_detection;
 mod error;
@@ -232,6 +234,12 @@ mod ffi {
         PendingRequest = 1,
         CompletedRequest = 2,
         NoContent = 3,
+    }
+
+    #[namespace = "fastly::sys::cache"]
+    pub enum PurgeScope {
+        Pop = 0,
+        Global = 1,
     }
 
     #[namespace = "fastly::sys::error"]
@@ -1118,7 +1126,6 @@ mod ffi {
     }
 
     #[namespace = "fastly::sys::esi"]
-
     extern "Rust" {
         type Processor;
         pub unsafe fn m_esi_processor_process_response(
@@ -1148,6 +1155,11 @@ mod ffi {
             namespc: &CxxString,
             is_escaped_content: bool,
         ) -> Box<Processor>;
+    }
+
+    #[namespace = "fastly::sys::cache"]
+    extern "Rust" {
+        fn f_cache_surrogate_key_for_cache_key(key: &[u8], scope: PurgeScope) -> String;
     }
 }
 

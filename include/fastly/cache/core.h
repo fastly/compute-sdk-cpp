@@ -16,9 +16,6 @@
 
 namespace fastly::cache::core {
 
-/// Cache key is a byte array used to identify cached items.
-using CacheKey = std::vector<std::uint8_t>;
-
 /// Errors that can arise during cache operations.
 class CacheError {
 public:
@@ -523,8 +520,8 @@ public:
   tl::expected<PendingTransaction, CacheError> execute_async() &&;
 
 private:
-  explicit TransactionLookupBuilder(CacheKey key) : key_(std::move(key)) {}
-  CacheKey key_;
+  explicit TransactionLookupBuilder(std::vector<std::uint8_t> key) : key_(std::move(key)) {}
+  std::vector<std::uint8_t> key_;
   LookupOptions options_;
   friend class Transaction;
 };
@@ -676,7 +673,13 @@ class Transaction {
 public:
   /// Returns a `TransactionLookupBuilder` that will perform a transactional
   /// cache lookup.
-  static TransactionLookupBuilder lookup(CacheKey key);
+  static TransactionLookupBuilder lookup(std::span<const std::uint8_t> key);
+
+  /// Transactional cache lookup with string key.
+  static TransactionLookupBuilder lookup(std::string_view key) {
+    return lookup(std::span(reinterpret_cast<const std::uint8_t *>(key.data()),
+                            key.size()));
+  }
 
   /// Returns a `Found` object for this cache item, if one is available.
   ///
@@ -855,10 +858,10 @@ public:
   tl::expected<std::optional<Found>, CacheError> execute() &&;
 
 private:
-  explicit LookupBuilder(CacheKey key) : key_(std::move(key)) {}
-  CacheKey key_;
+  explicit LookupBuilder(std::vector<std::uint8_t> key) : key_(std::move(key)) {}
+  std::vector<std::uint8_t> key_;
   LookupOptions options_;
-  friend LookupBuilder lookup(CacheKey key);
+  friend LookupBuilder lookup(std::span<const std::uint8_t> key);
 };
 
 /// Returns a `LookupBuilder` that will perform a non-transactional cache
@@ -874,7 +877,13 @@ private:
 ///
 /// To resolve such races between concurrent lookups, use
 /// `Transaction::lookup()` instead.
-LookupBuilder lookup(CacheKey key);
+LookupBuilder lookup(std::span<const std::uint8_t> key);
+
+/// Non-transactional cache lookup with string key.
+inline LookupBuilder lookup(std::string_view key) {
+  return lookup(std::span(reinterpret_cast<const std::uint8_t *>(key.data()),
+                          key.size()));
+}
 
 /// A builder-style API for configuring a non-transactional cache insertion.
 ///
@@ -1005,11 +1014,12 @@ public:
   tl::expected<http::StreamingBody, CacheError> execute() &&;
 
 private:
-  explicit InsertBuilder(CacheKey key, WriteOptions options)
+  explicit InsertBuilder(std::vector<std::uint8_t> key, WriteOptions options)
       : key_(std::move(key)), options_(std::move(options)) {}
-  CacheKey key_;
+  std::vector<std::uint8_t> key_;
   WriteOptions options_;
-  friend InsertBuilder insert(CacheKey key, std::chrono::nanoseconds max_age);
+  friend InsertBuilder insert(std::span<const std::uint8_t> key,
+                              std::chrono::nanoseconds max_age);
 };
 
 /// Returns an `InsertBuilder` that will perform a non-transactional cache
@@ -1018,7 +1028,16 @@ private:
 /// The required `max_age` argument is the maximal "time to live" for the cache
 /// item: the time for which the item will be considered fresh, starting from
 /// the start of its history.
-InsertBuilder insert(CacheKey key, std::chrono::nanoseconds max_age);
+InsertBuilder insert(std::span<const std::uint8_t> key,
+                     std::chrono::nanoseconds max_age);
+
+/// Non-transactional cache insert with string key.
+inline InsertBuilder insert(std::string_view key,
+                            std::chrono::nanoseconds max_age) {
+  return insert(std::span(reinterpret_cast<const std::uint8_t *>(key.data()),
+                          key.size()),
+                max_age);
+}
 
 class Replace;
 
@@ -1041,8 +1060,6 @@ public:
   /// be reading from the object as it is streamed into the cache may encounter
   /// a streaming error.
   tl::expected<Replace, CacheError> begin() &&;
-
-  // TODO: header and header_values
 
   /// Sets the strategy for performing the replace.
   ReplaceBuilder replace_strategy(ReplaceStrategy strategy) &&;
@@ -1072,10 +1089,10 @@ public:
   ReplaceBuilder always_use_requested_range() &&;
 
 private:
-  explicit ReplaceBuilder(CacheKey key) : key_(std::move(key)) {}
-  CacheKey key_;
+  explicit ReplaceBuilder(std::vector<std::uint8_t> key) : key_(std::move(key)) {}
+  std::vector<std::uint8_t> key_;
   ReplaceOptions options_;
-  friend ReplaceBuilder replace(CacheKey key);
+  friend ReplaceBuilder replace(std::span<const std::uint8_t> key);
 };
 
 /// An in-progress Replace operation.
@@ -1208,7 +1225,13 @@ private:
 
 /// Returns a `ReplaceBuilder` that will perform a non-transactional cache
 /// replacement.
-ReplaceBuilder replace(CacheKey key);
+ReplaceBuilder replace(std::span<const std::uint8_t> key);
+
+/// Non-transactional cache replace with string key.
+inline ReplaceBuilder replace(std::string_view key) {
+  return replace(std::span(reinterpret_cast<const std::uint8_t *>(key.data()),
+                           key.size()));
+}
 
 } // namespace fastly::cache::core
 
