@@ -2,6 +2,7 @@
 #define FASTLY_CACHE_SIMPLE_H
 
 #include <chrono>
+#include <fastly/cache/core.h>
 #include <fastly/expected.h>
 #include <fastly/http/body.h>
 #include <functional>
