@@ -1,7 +1,10 @@
 [package]
 name = "fastly-sys"
 version = "0.6.0"
-authors = ["Kat Marchán <kat.marchan@fastly.com>", "Sy Brand <sy.brand@fastly.com>"]
+authors = [
+    "Kat Marchán <kat.marchan@fastly.com>",
+    "Sy Brand <sy.brand@fastly.com>",
+]
 edition = "2024"
 
 [dependencies]
@@ -14,6 +17,7 @@ log-fastly = "0.11.9"
 thiserror = "2.0.12"
 esi = "0.6.1"
 quick-xml = "0.38.3"
+sha2 = "0.10.9"
 
 [build-dependencies]
 cxx-build = "=1.0.158"
