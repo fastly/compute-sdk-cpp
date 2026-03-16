@@ -21,7 +21,6 @@
 #include <algorithm>
 #include <fastly/cache/core.h>
 #include <fastly/cache/simple.h>
-#include <fastly/function_ref.h>
 #include <fastly/http/purge.h>
 #include <iomanip>
 #include <iostream>
