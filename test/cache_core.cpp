@@ -15,7 +15,8 @@ TEST_CASE("strings and spans", "[cache_core]") {
   REQUIRE(!*result);
 
   std::vector<std::uint8_t> key_bytes = {0x01, 0x02, 0x03};
-  auto result2 = lookup(key_bytes).execute();
+  std::span<const std::uint8_t> key_span(key_bytes);
+  auto result2 = lookup(key_span).execute();
   REQUIRE(result2);
   REQUIRE(!*result2);
 }
@@ -103,6 +104,113 @@ TEST_CASE("cache::core::Transaction", "[cache_core]") {
     REQUIRE(stream);
     std::string from_lookup(std::istreambuf_iterator<char>(*stream), {});
     REQUIRE(contents == from_lookup);
+  }
+}
+
+TEST_CASE("cache::core::Transaction with string_view", "[cache_core]") {
+  std::string_view key = "cache::core::Transaction::string_view";
+  auto contents("string view key test"s);
+
+  auto transaction = Transaction::lookup(key).execute();
+  REQUIRE(transaction);
+
+  if (transaction->must_insert()) {
+    auto writer =
+        std::move(*transaction)
+            .insert(std::chrono::duration_cast<std::chrono::nanoseconds>(1s))
+            .execute();
+    REQUIRE(writer);
+    *writer << contents;
+    REQUIRE(writer->finish());
+  }
+}
+
+TEST_CASE("cache::core::Transaction with byte span", "[cache_core]") {
+  std::vector<std::uint8_t> key_bytes = {0xca, 0xfe, 0xba, 0xbe};
+  auto contents("byte span key test"s);
+
+  auto transaction = Transaction::lookup(key_bytes).execute();
+  REQUIRE(transaction);
+
+  if (transaction->must_insert()) {
+    auto writer =
+        std::move(*transaction)
+            .insert(std::chrono::duration_cast<std::chrono::nanoseconds>(1s))
+            .execute();
+    REQUIRE(writer);
+    *writer << contents;
+    REQUIRE(writer->finish());
+  }
+}
+
+TEST_CASE("cache::core::Found metadata", "[cache_core]") {
+  auto key = "cache::core::Found::metadata";
+  auto contents("test content"s);
+  auto ttl = std::chrono::duration_cast<std::chrono::nanoseconds>(10s);
+
+  auto writer = insert(key, ttl).execute();
+  REQUIRE(writer);
+  *writer << contents;
+  REQUIRE(writer->finish());
+
+  auto found = lookup(key).execute();
+  REQUIRE(found);
+  REQUIRE(*found);
+
+  // Check metadata methods
+  auto age = (*found)->age();
+  REQUIRE(age.count() >= 0);
+
+  auto max_age = (*found)->max_age();
+  REQUIRE(max_age == ttl);
+
+  auto remaining = (*found)->remaining_ttl();
+  REQUIRE(remaining.count() > 0);
+  REQUIRE(remaining.count() <= ttl.count());
+
+  REQUIRE((*found)->is_usable());
+  REQUIRE_FALSE((*found)->is_stale());
+}
+
+TEST_CASE("cache::core::insert string overloads", "[cache_core]") {
+  std::string key = "cache::core::insert::string_overload";
+  auto contents("string overload test"s);
+
+  // Test the inline string_view overload
+  auto writer = insert(key, 1s).execute();
+  REQUIRE(writer);
+  *writer << contents;
+  REQUIRE(writer->finish());
+
+  // Verify with string lookup
+  auto found = lookup(key).execute();
+  REQUIRE(found);
+  REQUIRE(*found);
+}
+
+TEST_CASE("cache::core::Transaction execute_and_stream_back", "[cache_core]") {
+  auto key = "cache::core::Transaction::stream_back";
+  auto contents("stream back test"s);
+
+  auto transaction = Transaction::lookup(key).execute();
+  REQUIRE(transaction);
+
+  if (transaction->must_insert()) {
+    auto result =
+        std::move(*transaction)
+            .insert(std::chrono::duration_cast<std::chrono::nanoseconds>(1s))
+            .execute_and_stream_back();
+    REQUIRE(result);
+
+    auto &[writer, found] = *result;
+    writer << contents;
+    REQUIRE(writer.finish());
+
+    // Read back immediately using the found object
+    auto stream = found.to_stream();
+    REQUIRE(stream);
+    std::string from_stream(std::istreambuf_iterator<char>(*stream), {});
+    REQUIRE(from_stream == contents);
   }
 }
 
