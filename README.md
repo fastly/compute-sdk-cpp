@@ -7,16 +7,16 @@ link](https://cpp-compute-sdk.fastly.dev).
 
 ### Features
 
-This SDK supports most Fastly SDK features, with the EXCEPTION OF the following:
+This SDK supports most Fastly SDK features, with the _**exception of**_ the following:
 
-* ❌ [Access control lists](https://www.fastly.com/documentation/guides/security/access-control-lists/about-acls)
-* ❌ [Backend health](https://www.fastly.com/documentation/guides/concepts/healthcheck/)
-* ❌ [Fanout](https://www.fastly.com/documentation/guides/concepts/real-time-messaging/fanout/)
-* ❌ [Websocket passthrough](https://www.fastly.com/documentation/guides/concepts/real-time-messaging/websockets-tunnel/)
-* ❌ [Mutual TLS for origin fetch](https://www.fastly.com/documentation/guides/getting-started/domains/securing-domains/setting-up-mutual-tls-authentication)
-* ❌ [Reusable sandboxes](https://www.fastly.com/documentation/guides/compute/developer-guides/sandbox-lifecycle/)
-* ❌ [Shielding](https://www.fastly.com/documentation/guides/concepts/shielding/)
-* ❌ [Image optimizer](https://www.fastly.com/documentation/reference/io/)
+* [Access control lists](https://www.fastly.com/documentation/guides/security/access-control-lists/about-acls)
+* [Backend health](https://www.fastly.com/documentation/guides/concepts/healthcheck/)
+* [Fanout](https://www.fastly.com/documentation/guides/concepts/real-time-messaging/fanout/)
+* [Websocket passthrough](https://www.fastly.com/documentation/guides/concepts/real-time-messaging/websockets-tunnel/)
+* [Mutual TLS for origin fetch](https://www.fastly.com/documentation/guides/getting-started/domains/securing-domains/setting-up-mutual-tls-authentication)
+* [Reusable sandboxes](https://www.fastly.com/documentation/guides/compute/developer-guides/sandbox-lifecycle/)
+* [Shielding](https://www.fastly.com/documentation/guides/concepts/shielding/)
+* [Image optimizer](https://www.fastly.com/documentation/reference/io/)
 
 These features will be added over time. Please contact us if you need any of
 these in the C++ SDK and priorities can be adjusted.
