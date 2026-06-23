@@ -1,9 +1,4 @@
-# Fastly Compute C++ SDK (Beta)
-
-> [!NOTE]
-> The C++ SDK is still considered a beta-level release until GA. We invite you
-> to start exploring its capabilities in your development environments and would
-> love to hear your feedback.
+# Fastly Compute C++ SDK
 
 This SDK is lets you use Fastly Compute platform directly with C++, using a
 C++-native API with all the usual facilities of modern C++. In case you got to
@@ -12,7 +7,7 @@ link](https://cpp-compute-sdk.fastly.dev).
 
 ### Examples
 
-There's a [list of examples](./examples) you can refer to for a variety of
+There's a [list of examples](./examples.html) you can refer to for a variety of
 tasks.
 
 The examples are fully runnable right away if used as the contents of `main.cpp`
