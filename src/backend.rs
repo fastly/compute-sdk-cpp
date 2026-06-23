@@ -2,7 +2,7 @@ use std::{num::NonZero, pin::Pin, time::Duration};
 
 use cxx::CxxString;
 
-use crate::{error::ErrPtr, try_fe};
+use crate::{error::ErrPtr, ffi::SslVersion, try_fe};
 
 pub struct Backend(pub(crate) fastly::backend::Backend);
 
@@ -175,16 +175,31 @@ pub fn m_backend_backend_builder_disable_ssl(
     builder
 }
 
-// TODO
-// pub fn m_backend_backend_builder_set_min_tls_version(mut builder: Box<BackendBuilder>) -> Box<BackendBuilder> {
-//     builder.0 = builder.0.set_min_tls_version();
-//     builder
-// }
+pub fn m_backend_backend_builder_set_min_tls_version(
+    mut builder: Box<BackendBuilder>,
+    version: SslVersion,
+) -> Box<BackendBuilder> {
+    builder.0 = builder.0.set_min_tls_version(
+        version
+            .repr
+            .try_into()
+            .expect("This conversion should be safe"),
+    );
+    builder
+}
 
-// pub fn m_backend_backend_builder_set_max_tls_version(mut builder: Box<BackendBuilder>) -> Box<BackendBuilder> {
-//     builder.0 = builder.0.set_max_tls_version();
-//     builder
-// }
+pub fn m_backend_backend_builder_set_max_tls_version(
+    mut builder: Box<BackendBuilder>,
+    version: SslVersion,
+) -> Box<BackendBuilder> {
+    builder.0 = builder.0.set_max_tls_version(
+        version
+            .repr
+            .try_into()
+            .expect("This conversion should be safe"),
+    );
+    builder
+}
 
 pub fn m_backend_backend_builder_check_certificate(
     mut builder: Box<BackendBuilder>,
