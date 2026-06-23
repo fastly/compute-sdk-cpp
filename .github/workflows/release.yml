@@ -17,26 +17,27 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@9c091bb # @v7
+        uses: actions/checkout@9c091bb21b7c1c1d1991bb908d89e4e9dddfe3e0 # @v7
 
       - name: Install WASI SDK
-        uses: konsumer/install-wasi-sdk@d728b7a # @v1
+        uses: konsumer/install-wasi-sdk@d728b7abb7ef7db1610039d9798a8270e23f56f8 # @v1
         with:
           version: "${{ env.WASI_SDK_VERSION }}"
 
-      - uses: extractions/setup-just@53165ef # @v3
+      - uses: extractions/setup-just@53165ef7e734c5c07cb06b3c8e7b647c5aa16db3 # @v3
         name: Install Just
 
       - name: Install Rust 
-        uses: actions-rust-lang/setup-rust-toolchain@46268bd # @v1.16.1
+        uses: actions-rust-lang/setup-rust-toolchain@46268bd060767258de96ed93c1251119784f2ab6 # @v1.16.1
         with:
           toolchain: "${{ env.RUST_TOOLCHAIN }}"
+          target: wasm32-wasip1
 
       - name: Build WebAssembly module
         run: just
 
       - name: Build docs
-        uses: mattnotmitt/doxygen-action@411df0c # @v1.9.5
+        uses: mattnotmitt/doxygen-action@411df0c62acb5b96b8a93d93a7bf4b753c47ea05 # @v1.9.5
 
       - name: Set env
         run: echo "ARCHIVE_FILENAME_PREFIX=fastly-cpp-${GITHUB_REF#refs/*/}" >> $GITHUB_ENV
@@ -69,13 +70,7 @@ jobs:
           wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-linux.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-macos.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-linux.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-macos.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-windows.tar.gz
 
       - name: Verify checksums
-        # NB(@zkat): these need to be manually updated every time we upgrade WASI_SDK_VERSION
-        run: |
-          sha256 -c 4f98ee738c7abb45c81a94d1461fc53cc569d1cd01498951c8184d841a027844 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-linux.tar.gz
-          sha256 -c 85c997a2665ead91673b5bb88b7d0df3fc8900df3bfa244f720d478187bbdc78 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-macos.tar.gz
-          sha256 -c 0ba8b5bfaeb2adf3f29bab5841d76cf5318ab8e1642ea195f88baba1abd47bce wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-linux.tar.gz
-          sha256 -c 18f3f201ba9734e6a4455b0b6410690395a55e9ffa9f6f5066f66083a94b93b3 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-macos.tar.gz
-          sha256 -c df14ca2a2127c2d6b6be07e6f5549b3af9c1b3c0112430c200a4749970c59f06 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-windows.tar.gz
+        run: sha256sum -c wasi-sdk-shasums.txt
 
       - name: Extract wasi-sdk tarballs
         run: |
@@ -97,7 +92,7 @@ jobs:
         run: gzip ${{ env.ARCHIVE_FILENAME_PREFIX }}.tar ${{ env.ARCHIVE_FILENAME_PREFIX }}-arm64-linux-wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-quickstart.tar ${{ env.ARCHIVE_FILENAME_PREFIX }}-arm64-macos-wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-quickstart.tar ${{ env.ARCHIVE_FILENAME_PREFIX }}-x86_64-linux-wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-quickstart.tar ${{ env.ARCHIVE_FILENAME_PREFIX }}-x86_64-macos-wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-quickstart.tar ${{ env.ARCHIVE_FILENAME_PREFIX }}-x86_64-windows-wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-quickstart.tar
 
       - name: Upload tarballs for release job
-        uses: actions/upload-artifact@043fb46 # @v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # @v7
         with:
           name: env-cache-${{ github.run_id }}
           retention-days: 7
@@ -111,12 +106,12 @@ jobs:
       contents: write
     steps:
       - name: Download tarballs to release job
-        uses: actions/download-artifact@3e5f45b # @v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # @v8
         with:
           name: env-cache-${{ github.run_id }}
           
       - name: Release action
-        uses: ncipollo/release-action@339a818 # @v1.21.0
+        uses: ncipollo/release-action@339a81892b84b4eeb0f6e744e4574d79d0d9b8dd # @v1.21.0
         with:
           artifacts: "${{ env.ARCHIVE_FILENAME_PREFIX }}*.tar.gz"
           artifactErrorsFailBuild: true
