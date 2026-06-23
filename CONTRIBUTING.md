@@ -7,19 +7,13 @@ right place.
 
 ### Requirements
 
-- `rustc@1.86.0` + `cargo` (use [`rustup`](https://rustup.sh) to install/manage)
-- [`wasi-sdk`](https://github.com/WebAssembly/wasi-sdk), version `25.0` [\[note\]](#notes-on-wasi-sdk)
+- `rustc@1.96.0` + `cargo` (use [`rustup`](https://rustup.sh) to install/manage)
+- [`wasi-sdk`](https://github.com/WebAssembly/wasi-sdk), version `33.0` [\[note\]](#notes-on-wasi-sdk)
 - `cmake` and `make` (likely installed through your package manager)
 - `doxygen` (optional. Only if you want to build documentation)
 - `just` (optional. See `justfile` for equivalent commands to the ones documented below.)
 
 #### Notes on `wasi-sdk`
-
-`wasi-sdk-25.0` is only compatible with `rustc` versions up to `1.86.0`. If you
-use `1.87.0` or later, you'll need to use a higher `wasi-sdk` version. If
-building this project manually, you must make sure that the version of
-`wasi-sdk` version you're using has an equal or greater LLVM version than the
-one used by your `rustc`.
 
 The build script assumes you're installing `wasi-sdk` to `/opt/wasi-sdk`. You
 can specify a custom path using `--set wasi-sdk /path/to/wasi-sdk-dist` in
