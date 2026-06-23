@@ -13,6 +13,8 @@ env:
   DOCS_FASTLY_API_TOKEN: ${{ secrets.DOCS_FASTLY_API_TOKEN }}
   DOCS_FASTLY_SERVICE_ID: ${{ vars.DOCS_FASTLY_SERVICE_ID }}
   DOCS_FASTLY_KVSTORE_NAME: ${{ vars.DOCS_FASTLY_KVSTORE_NAME }}
+  RUST_TOOLCHAIN: "1.96.0"
+  WASI_SDK_VERSION: 33
 
 jobs:
   rustfmt:
@@ -23,6 +25,7 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           components: rustfmt
+          toolchain: "${{ env.RUST_TOOLCHAIN }}"
       - name: Check Rust Format
         run: cargo fmt --all -- --check
 
@@ -34,10 +37,15 @@ jobs:
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           components: clippy
+          toolchain: "${{ env.RUST_TOOLCHAIN }}"
+      - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          target: wasm32-wasip1
+          toolchain: "${{ env.RUST_TOOLCHAIN }}"
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
         with:
-          version: "30"
+          version: ${{ env.WASI_SDK_VERSION }}
       - name: Run clippy
         run: cargo clippy --all -- -D warnings
 
@@ -49,7 +57,7 @@ jobs:
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
         with:
-          version: "30"
+          version: ${{ env.WASI_SDK_VERSION }}
       - name: Check C++ Format
         run: /opt/wasi-sdk/bin/clang-format --dry-run --Werror include/**/*.h src/**/*.h src/**/*.cpp
 
@@ -64,7 +72,7 @@ jobs:
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
-          toolchain: stable
+          toolchain: "${{ env.RUST_TOOLCHAIN }}"
 
       - name: Install Viceroy
         run: cargo install viceroy --locked
@@ -72,13 +80,14 @@ jobs:
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
         with:
-          version: "30"
+          version: ${{ env.WASI_SDK_VERSION }}
 
       - uses: extractions/setup-just@v3
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
         with:
           target: wasm32-wasip1
+          toolchain: "${{ env.RUST_TOOLCHAIN }}"
 
       - name: Build WebAssembly module
         run: just

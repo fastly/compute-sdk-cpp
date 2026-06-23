@@ -17,7 +17,7 @@ for the `quickstart` project.
 
 To use the SDK from the prebuilt static library, all you need is:
 
-- [`wasi-sdk`](https://github.com/WebAssembly/wasi-sdk), version `25.0` (see note below)
+- [`wasi-sdk`](https://github.com/WebAssembly/wasi-sdk), version `33.0` (see note below)
 - [The Fastly CLI](https://www.fastly.com/documentation/reference/tools/cli)
   (optional, but recommended)
 
@@ -47,7 +47,7 @@ assets list](https://github.com/fastly/compute-sdk-cpp/releases/latest) and
 place it somewhere accessible to your preferred build system.
 
 The `libfastly.a` file is a fully-linked, static library/archive built against
-`wasi-sdk@25.0`. It is fairly large, as it includes every possible call, so it
+`wasi-sdk@33.0`. It is fairly large, as it includes every possible call, so it
 is recommended that you use IPO/LTO to reduce your final `main.wasm` file size
 to only what's actually used. If you're using CMake, see
 [CheckIPOSupported](https://cmake.org/cmake/help/latest/module/CheckIPOSupported.html)

@@ -10,6 +10,7 @@ on:
 
 env:
   WASI_SDK_VERSION: 25
+  RUST_TOOLCHAIN: "1.86.0"
 
 jobs:
   release:
@@ -28,6 +29,8 @@ jobs:
       - uses: extractions/setup-just@v3
 
       - uses: actions-rust-lang/setup-rust-toolchain@v1
+        with:
+          toolchain: "${{ env.RUST_TOOLCHAIN }}"
 
       - name: Build WebAssembly module
         run: just

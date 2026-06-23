@@ -11,7 +11,7 @@ This project should be ready to use as soon as you extract the tarball from the
 GitHub release, as long as you have the following prerequisites installed:
 
 - `cmake` and `make`
-- `wasi-sdk`, version `25.0` \*
+- `wasi-sdk`, version `33.0` \*
 
 \* Already included if you used one of the `...-wasi-sdk-...` quickstart
 tarballs. Otherwise, assumed to be located at `/opt/wasi-sdk`. If you place it
