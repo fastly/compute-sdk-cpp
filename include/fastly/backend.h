@@ -17,6 +17,8 @@ class Response;
 
 namespace fastly::backend {
 
+using fastly::sys::backend::SslVersion;
+
 class BackendBuilder;
 class Backend {
   friend fastly::http::Request;
@@ -69,6 +71,8 @@ public:
   BackendBuilder between_bytes_timeout(std::chrono::milliseconds timeout) &&;
   BackendBuilder enable_ssl() &&;
   BackendBuilder disable_ssl() &&;
+  BackendBuilder set_min_tls_version(SslVersion version) &&;
+  BackendBuilder set_max_tls_version(SslVersion version) &&;
   BackendBuilder check_certificate(std::string_view cert) &&;
   BackendBuilder ca_certificate(std::string_view cert) &&;
   BackendBuilder tls_ciphers(std::string_view ciphers) &&;

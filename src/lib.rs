@@ -242,6 +242,16 @@ mod ffi {
         Global = 1,
     }
 
+    #[namespace = "fastly::sys::backend"]
+    #[derive(Clone, Copy, Debug, PartialEq, Eq)]
+    #[repr(u32)]
+    pub enum SslVersion {
+        TLS1 = 0,
+        TLS1_1 = 1,
+        TLS1_2 = 2,
+        TLS1_3 = 3,
+    }
+
     #[namespace = "fastly::sys::error"]
     extern "Rust" {
         type FastlyError;
@@ -311,6 +321,14 @@ mod ffi {
         ) -> Box<BackendBuilder>;
         fn m_backend_backend_builder_disable_ssl(
             builder: Box<BackendBuilder>,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_set_min_tls_version(
+            mut builder: Box<BackendBuilder>,
+            version: SslVersion,
+        ) -> Box<BackendBuilder>;
+        fn m_backend_backend_builder_set_max_tls_version(
+            mut builder: Box<BackendBuilder>,
+            version: SslVersion,
         ) -> Box<BackendBuilder>;
         fn m_backend_backend_builder_check_certificate(
             builder: Box<BackendBuilder>,

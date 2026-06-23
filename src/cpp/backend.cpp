@@ -129,6 +129,20 @@ BackendBuilder BackendBuilder::disable_ssl() && {
   return std::move(*this);
 }
 
+BackendBuilder BackendBuilder::set_min_tls_version(SslVersion version) && {
+  this->builder =
+      fastly::sys::backend::m_backend_backend_builder_set_min_tls_version(
+          std::move(this->builder), version);
+  return std::move(*this);
+}
+
+BackendBuilder BackendBuilder::set_max_tls_version(SslVersion version) && {
+  this->builder =
+      fastly::sys::backend::m_backend_backend_builder_set_max_tls_version(
+          std::move(this->builder), version);
+  return std::move(*this);
+}
+
 BackendBuilder BackendBuilder::check_certificate(std::string_view cert) && {
   this->builder =
       fastly::sys::backend::m_backend_backend_builder_check_certificate(
