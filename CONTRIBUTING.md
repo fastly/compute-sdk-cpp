@@ -17,7 +17,11 @@ right place.
 
 The build script assumes you're installing `wasi-sdk` to `/opt/wasi-sdk`. You
 can specify a custom path using `--set wasi-sdk /path/to/wasi-sdk-dist` in
-`just`, or by supplying the relevant `wasi-sdk-p1.cmake` file with `-DCMAKE_TOOLCHAIN_FILE` if using CMake directly.
+`just`, or by supplying the relevant `wasi-sdk-p1.cmake` file with
+`-DCMAKE_TOOLCHAIN_FILE` if using CMake directly.
+
+Additionally: any time the `wasi-sdk` version is upgraded,
+`./github/workflows/release.yml` needs to be updated with the new shasums.
 
 ### Example(s)
 
