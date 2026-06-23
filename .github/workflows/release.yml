@@ -68,6 +68,14 @@ jobs:
         run: |
           wget https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-linux.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-macos.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-linux.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-macos.tar.gz https://github.com/WebAssembly/wasi-sdk/releases/download/wasi-sdk-${{ env.WASI_SDK_VERSION}}/wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-windows.tar.gz
 
+      - name: Verify checksums
+        run: |
+          sha256 -c 4f98ee738c7abb45c81a94d1461fc53cc569d1cd01498951c8184d841a027844 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-linux.tar.gz
+          sha256 -c 85c997a2665ead91673b5bb88b7d0df3fc8900df3bfa244f720d478187bbdc78 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-macos.tar.gz
+          sha256 -c 0ba8b5bfaeb2adf3f29bab5841d76cf5318ab8e1642ea195f88baba1abd47bce wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-linux.tar.gz
+          sha256 -c 18f3f201ba9734e6a4455b0b6410690395a55e9ffa9f6f5066f66083a94b93b3 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-macos.tar.gz
+          sha256 -c df14ca2a2127c2d6b6be07e6f5549b3af9c1b3c0112430c200a4749970c59f06 wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-x86_64-windows.tar.gz
+
       - name: Extract wasi-sdk tarballs
         run: |
           tar xvzf wasi-sdk-${{ env.WASI_SDK_VERSION }}.0-arm64-linux.tar.gz
