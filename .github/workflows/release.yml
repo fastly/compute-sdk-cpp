@@ -97,7 +97,7 @@ jobs:
           name: env-cache-${{ github.run_id }}
           retention-days: 7
           path: "${{ env.ARCHIVE_FILENAME_PREFIX }}*.tar.gz"
-          compression: 0
+          compression-level: 0
 
   release:
     runs-on: ubuntu-latest
