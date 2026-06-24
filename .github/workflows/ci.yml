@@ -74,8 +74,14 @@ jobs:
         with:
           toolchain: "${{ env.RUST_TOOLCHAIN }}"
 
+      - name: Install Cargo Binstall
+        uses: cargo-bins/cargo-binstall@732870f031d2fb36309d0deaf36abcc704a7be65 # @main
+        
       - name: Install Viceroy
-        run: cargo install viceroy --locked
+        run: cargo binstall viceroy -y --force
+
+      - name: Add Cargo binaries to $PATH
+        run: echo "~/.cargo/bin" >> $GITHUB_PATH
 
       - name: Install WASI SDK
         uses: konsumer/install-wasi-sdk@v1
