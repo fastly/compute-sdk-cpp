@@ -21,3 +21,19 @@ releases. New releases are a three-step process:
 From here, just wait for the [release
 action](https://github.com/fastly/compute-sdk-cpp/actions/workflows/release.yml)
 to complete, and you'll have a live release!
+
+## Updating `wasi-sdk` shasums
+
+Whenever we update the version of `wasi-sdk` we release with, we need to update
+[`wasi-sdk-shasums.txt`](./wasi-sdk-shasums.txt) to have the right shasums and
+filenames, as well as updating our workflow to use the new version. To do so:
+
+1. Go to [the release workflow](./.github/workflows/release.yml) and update the
+   `WASI_SDK_VERSION` env var to the new version.
+1. Go to the `Assets` section in the relevant release under
+   https://github.com/WebAssembly/wasi-sdk/releases.
+1. Update `wasi-sdk-shasums.txt` with the filenames and shasums from this
+   section, removing the `sha256:` prefix from each shasum.
+
+Everything should checksum during release now. You can check this by downloading
+all the relevant tarballs and running `sha256sum -c wasi-sdk-shasums.txt`
