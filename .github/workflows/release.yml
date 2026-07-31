@@ -117,5 +117,3 @@ jobs:
           artifactErrorsFailBuild: true
           artifactContentType: "application/gzip"
           generateReleaseNotes: true
-          draft: true
-          prerelease: true
