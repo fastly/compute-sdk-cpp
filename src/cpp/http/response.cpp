@@ -31,6 +31,24 @@ Response Response::from_status(StatusCode status) {
   return res;
 }
 
+Response Response::see_other(std::string_view destination) {
+  Response res(fastly::sys::http::m_static_http_response_see_other(
+      static_cast<std::string>(destination)));
+  return res;
+}
+
+Response Response::redirect(std::string_view destination) {
+  Response res(fastly::sys::http::m_static_http_response_redirect(
+      static_cast<std::string>(destination)));
+  return res;
+}
+
+Response Response::temporary_redirect(std::string_view destination) {
+  Response res(fastly::sys::http::m_static_http_response_temporary_redirect(
+      static_cast<std::string>(destination)));
+  return res;
+}
+
 Response Response::with_body(Body body) && {
   this->set_body(std::move(body));
   return std::move(*this);
