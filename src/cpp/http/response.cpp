@@ -287,7 +287,7 @@ std::optional<fastly::backend::Backend> Response::get_backend() {
 
 std::optional<std::string> Response::get_backend_addr() {
   std::string addr;
-  bool existed{this->res->get_backend_name(addr)};
+  bool existed{this->res->get_backend_addr(addr)};
   if (!existed) {
     return std::nullopt;
   } else {

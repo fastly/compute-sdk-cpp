@@ -255,7 +255,7 @@ impl Response {
 
     pub fn get_stale_while_revalidate(&self, mut out: Pin<&mut u32>) -> bool {
         self.0
-            .get_age()
+            .get_stale_while_revalidate()
             .map(|swr| swr.as_millis())
             .map(ensure_u32)
             .map(|swr| out.set(swr))
