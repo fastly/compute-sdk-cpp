@@ -233,7 +233,7 @@ public:
   /// Gets the next page of results.
   std::optional<expected<ListPage>> next() {
     fastly::sys::kv_store::ListPage *page;
-    fastly::sys::kv_store::KVStoreError *err;
+    fastly::sys::kv_store::KVStoreError *err{nullptr};
     if (this->iter_->next(page, err)) {
       if (err == nullptr) {
         return ListPage(

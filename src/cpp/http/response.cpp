@@ -70,7 +70,7 @@ Body Response::into_body() {
 }
 
 fastly::expected<void> Response::set_body_text_plain(std::string_view body) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->res->set_body_text_plain(static_cast<std::string>(body), err);
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -86,7 +86,7 @@ Response::with_body_text_html(std::string_view body) && {
 }
 
 fastly::expected<void> Response::set_body_text_html(std::string_view body) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->res->set_body_text_html(static_cast<std::string>(body), err);
   if (err != nullptr) {
     return fastly::expected<void>();
@@ -151,7 +151,7 @@ std::optional<size_t> Response::get_content_length() {
 }
 
 fastly::expected<bool> Response::contains_header(std::string_view name) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   bool has_header{
       this->res->contains_header(static_cast<std::string>(name), err)};
   if (err != nullptr) {
@@ -179,7 +179,7 @@ fastly::expected<std::optional<HeaderValue>>
 Response::get_header(std::string_view name) {
   std::vector<uint8_t> value;
   bool is_sensitive{false};
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   bool has_header{this->res->get_header(static_cast<std::string>(name), value,
                                         is_sensitive, err)};
   if (err != nullptr) {
@@ -195,7 +195,7 @@ Response::get_header(std::string_view name) {
 fastly::expected<HeaderValuesRange>
 Response::get_header_all(std::string_view name) {
   fastly::sys::http::HeaderValuesIter *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->res->get_header_all(static_cast<std::string>(name), out, err);
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -220,7 +220,7 @@ fastly::expected<HeaderNamesRange> Response::get_header_names() {
 
 fastly::expected<void> Response::set_header(std::string_view name,
                                             std::string_view value) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->res->set_header(static_cast<std::string>(name),
                         static_cast<std::string>(value), err);
   if (err != nullptr) {
@@ -232,7 +232,7 @@ fastly::expected<void> Response::set_header(std::string_view name,
 
 fastly::expected<void> Response::append_header(std::string_view name,
                                                std::string_view value) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->res->append_header(static_cast<std::string>(name),
                            static_cast<std::string>(value), err);
   if (err != nullptr) {
@@ -244,7 +244,7 @@ fastly::expected<void> Response::append_header(std::string_view name,
 
 fastly::expected<std::optional<std::string>>
 Response::remove_header(std::string_view name) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   std::string out;
   bool has_header{
       this->res->remove_header(static_cast<std::string>(name), out, err)};

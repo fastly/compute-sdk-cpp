@@ -63,7 +63,7 @@ std::optional<Response> InspectResponse::into_redirect() {
 tl::expected<InspectResponse, InspectError>
 inspect(fastly::http::Request &request, InspectConfig config) {
   fastly::sys::security::InspectResponse *out;
-  fastly::sys::security::InspectError *err;
+  fastly::sys::security::InspectError *err{nullptr};
   auto client_ip = config.client_ip() ? &*config.client_ip() : nullptr;
   auto corp = config.corp() ? &*config.corp() : nullptr;
   auto workspace = config.workspace() ? &*config.workspace() : nullptr;

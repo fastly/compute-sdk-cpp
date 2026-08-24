@@ -7,7 +7,7 @@ namespace fastly::secret_store {
 
 fastly::expected<Secret> Secret::from_bytes(std::vector<uint8_t> data) {
   fastly::sys::secret_store::Secret *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::secret_store::m_static_secret_store_secret_from_bytes(data, out,
                                                                      err);
   if (err != nullptr) {
@@ -25,7 +25,7 @@ std::string Secret::plaintext() {
 
 fastly::expected<SecretStore> SecretStore::open(std::string_view name) {
   fastly::sys::secret_store::SecretStore *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::secret_store::m_static_secret_store_secret_store_open(
       static_cast<std::string>(name), out, err);
   if (err != nullptr) {
@@ -37,7 +37,7 @@ fastly::expected<SecretStore> SecretStore::open(std::string_view name) {
 
 fastly::expected<std::optional<Secret>> SecretStore::get(std::string_view key) {
   fastly::sys::secret_store::Secret *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->ss->get(static_cast<std::string>(key), out, err);
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -49,7 +49,7 @@ fastly::expected<std::optional<Secret>> SecretStore::get(std::string_view key) {
 }
 
 fastly::expected<bool> SecretStore::contains(std::string_view key) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   bool out{this->ss->contains(static_cast<std::string>(key), err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
