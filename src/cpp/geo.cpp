@@ -5,7 +5,7 @@ namespace fastly::geo {
 
 fastly::expected<std::optional<Geo>> geo_lookup(std::string_view ip) {
   fastly::sys::geo::Geo *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::geo::f_geo_geo_lookup(static_cast<std::string>(ip), out, err);
   if (err != nullptr) {
     return fastly::unexpected(err);

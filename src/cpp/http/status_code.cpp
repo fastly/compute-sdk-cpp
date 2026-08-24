@@ -138,7 +138,7 @@ uint16_t StatusCode::as_code() { return this->value; }
 tl::expected<std::optional<std::string>, fastly::FastlyError>
 StatusCode::canonical_reason() {
   std::string reason;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   bool has_reason{fastly::sys::http::f_http_status_code_canonical_reason(
       this->value, reason, err)};
   if (err != nullptr) {

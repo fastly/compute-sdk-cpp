@@ -291,6 +291,9 @@ impl ListResponse<'_> {
         mut out: Pin<&mut *mut ListPage>,
         mut err: Pin<&mut *mut KVStoreError>,
     ) -> bool {
+        // The C++ side branches on `err == nullptr`, so it must be written on
+        // every path, not just the error path.
+        err.set(std::ptr::null_mut());
         self.0
             .next()
             .map(|page| match page {
@@ -438,6 +441,9 @@ pub fn m_static_kv_store_kv_store_open(
     mut out: Pin<&mut *mut KVStore>,
     mut err: Pin<&mut *mut KVStoreError>,
 ) -> bool {
+    // Written on every path, including `Ok(None)` (the store does not exist),
+    // which the C++ side must be able to tell apart from a real error.
+    err.set(std::ptr::null_mut());
     match fastly::kv_store::KVStore::open(name) {
         Ok(store) => store
             .map(|s| {

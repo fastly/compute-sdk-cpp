@@ -62,7 +62,7 @@ void Body::append(Body other) {
 
 fastly::expected<std::size_t> Body::read(uint8_t *buf, std::size_t bufsize) {
   rust::Slice<uint8_t> slice{buf, bufsize};
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   auto ret{this->bod->read(slice, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -73,7 +73,7 @@ fastly::expected<std::size_t> Body::read(uint8_t *buf, std::size_t bufsize) {
 
 fastly::expected<std::size_t> Body::write(uint8_t *buf, std::size_t bufsize) {
   rust::Slice<const uint8_t> slice{buf, bufsize};
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   auto ret{this->bod->write(slice, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -88,7 +88,7 @@ fastly::expected<std::size_t> Body::write(uint8_t *buf, std::size_t bufsize) {
 
 fastly::expected<void> Body::append_trailer(std::string_view header_name,
                                             std::string_view header_value) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->bod->append_trailer(static_cast<std::string>(header_name),
                             static_cast<std::string>(header_value), err);
   if (err != nullptr) {
@@ -136,7 +136,7 @@ int StreamingBody::sync() {
 
 fastly::expected<void> StreamingBody::finish() {
   this->flush();
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::http::m_http_streaming_body_finish(std::move(this->bod), err);
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -152,7 +152,7 @@ void StreamingBody::append(Body other) {
 fastly::expected<std::size_t> StreamingBody::write(uint8_t *buf,
                                                    std::size_t bufsize) {
   rust::Slice<const uint8_t> slice{buf, bufsize};
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   auto ret{this->bod->write(slice, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -164,7 +164,7 @@ fastly::expected<std::size_t> StreamingBody::write(uint8_t *buf,
 fastly::expected<void>
 StreamingBody::append_trailer(std::string_view header_name,
                               std::string_view header_value) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   this->bod->append_trailer(static_cast<std::string>(header_name),
                             static_cast<std::string>(header_value), err);
   if (err != nullptr) {
