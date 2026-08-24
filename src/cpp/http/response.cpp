@@ -257,6 +257,10 @@ Response::remove_header(std::string_view name) {
   }
 }
 
+StatusCode Response::get_status() {
+  return StatusCode(this->res->get_status());
+}
+
 void Response::set_status(StatusCode status) {
   this->res->set_status(status.as_code());
 }

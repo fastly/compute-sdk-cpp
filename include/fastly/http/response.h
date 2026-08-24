@@ -308,6 +308,18 @@ public:
   fastly::expected<std::optional<std::string>>
   remove_header(std::string_view name);
 
+  /// Get the HTTP status code of the response.
+  ///
+  /// # Examples
+  ///
+  /// ```cpp
+  /// auto resp{fastly::Response::from_status(
+  ///     fastly::http::StatusCode::NOT_FOUND)};
+  /// assert(resp.get_status() == fastly::http::StatusCode::NOT_FOUND);
+  /// assert(resp.get_status().as_code() == 404);
+  /// ```
+  StatusCode get_status();
+
   /// Builder-style equivalent of `Response::set_status()`.
   Response with_status(StatusCode status) &&;
 

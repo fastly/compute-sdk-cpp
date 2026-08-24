@@ -204,6 +204,10 @@ impl Response {
             .is_some()
     }
 
+    pub fn get_status(&self) -> u16 {
+        self.0.get_status().as_u16()
+    }
+
     pub fn set_status(&mut self, status: u16) {
         self.0.set_status(status);
     }
