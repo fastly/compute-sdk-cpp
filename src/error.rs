@@ -35,6 +35,8 @@ pub enum FastlyError {
     #[error(transparent)]
     InvalidStatusCode(#[from] http::status::InvalidStatusCode),
     #[error(transparent)]
+    InvalidMethod(#[from] http::method::InvalidMethod),
+    #[error(transparent)]
     IoError(#[from] std::io::Error),
     #[error(transparent)]
     #[allow(clippy::enum_variant_names)]
@@ -101,6 +103,7 @@ impl FastlyError {
             FastlyError::InvalidHeaderName(_) => FastlyErrorCode::InvalidHeaderName,
             FastlyError::InvalidHeaderValue(_) => FastlyErrorCode::InvalidHeaderValue,
             FastlyError::InvalidStatusCode(_) => FastlyErrorCode::InvalidStatusCode,
+            FastlyError::InvalidMethod(_) => FastlyErrorCode::InvalidMethod,
             FastlyError::IoError(_) => FastlyErrorCode::IoError,
             FastlyError::FastlyError(_) => FastlyErrorCode::FastlyError,
             FastlyError::FastlySendError(_) => FastlyErrorCode::FastlySendError,

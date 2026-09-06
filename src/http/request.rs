@@ -146,6 +146,19 @@ pub fn m_static_http_request_new(method: Method, url: &CxxString) -> Box<Request
     )))
 }
 
+pub fn m_static_http_request_new_str(
+    method: &CxxString,
+    url: &CxxString,
+    mut out: Pin<&mut *mut Request>,
+    mut err: ErrPtr,
+) {
+    let method = try_fe!(err, fastly::http::Method::try_from(method.as_bytes()));
+    out.set(Box::into_raw(Box::new(Request(fastly::Request::new(
+        method,
+        url.to_str().expect("Invalid UTF-8 in URL"),
+    )))));
+}
+
 pub fn m_static_http_request_get(url: &CxxString) -> Box<Request> {
     Box::new(Request(fastly::Request::get(
         url.to_str().expect("Invalid UTF-8 in URL"),
@@ -426,6 +439,15 @@ impl Request {
 
     pub fn set_method(&mut self, method: Method) {
         let method: fastly::http::Method = method.into();
+        self.0.set_method(method);
+    }
+
+    pub fn get_method_str(&self, out: Pin<&mut CxxString>) {
+        out.push_str(self.0.get_method_str());
+    }
+
+    pub fn set_method_str(&mut self, method: &CxxString, mut err: ErrPtr) {
+        let method = try_fe!(err, fastly::http::Method::try_from(method.as_bytes()));
         self.0.set_method(method);
     }
 

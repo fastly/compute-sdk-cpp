@@ -43,6 +43,7 @@ mod ffi {
         InvalidHeaderName,
         InvalidHeaderValue,
         InvalidStatusCode,
+        InvalidMethod,
         IoError,
         FastlyError,
         FastlySendError,
@@ -434,6 +435,12 @@ mod ffi {
         fn m_static_http_request_trace(url: &CxxString) -> Box<Request>;
         fn m_static_http_request_patch(url: &CxxString) -> Box<Request>;
         fn m_static_http_request_new(method: Method, url: &CxxString) -> Box<Request>;
+        fn m_static_http_request_new_str(
+            method: &CxxString,
+            url: &CxxString,
+            mut out: Pin<&mut *mut Request>,
+            mut err: Pin<&mut *mut FastlyError>,
+        );
         fn m_static_http_request_from_client() -> Box<Request>;
 
         // Regular methods
@@ -506,6 +513,8 @@ mod ffi {
         ) -> bool;
         fn get_method(&self) -> Method;
         fn set_method(&mut self, method: Method);
+        fn get_method_str(&self, mut out: Pin<&mut CxxString>);
+        fn set_method_str(&mut self, method: &CxxString, mut err: Pin<&mut *mut FastlyError>);
         fn get_url(&self, mut out: Pin<&mut CxxString>);
         fn set_url(&mut self, url: &CxxString, mut err: Pin<&mut *mut FastlyError>);
         fn get_path(&self, mut out: Pin<&mut CxxString>);
