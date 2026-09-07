@@ -156,6 +156,12 @@ public:
   /// empty body.
   Request(Method method, std::string_view url);
 
+  /// Create a new request with an arbitrary method string (e.g. `PURGE`)
+  /// rather than one of the standard methods in `Method`, no headers, and an
+  /// empty body. Fails if `method` is not a valid HTTP method token.
+  static fastly::expected<Request> create(std::string_view method,
+                                          std::string_view url);
+
   /// Create a new `GET` `Request` with the given URL, no headers, and an
   /// empty body.
   static Request get(std::string_view url);
@@ -505,11 +511,26 @@ public:
   /// Builder-style equivalent of `Request::set_method()`.
   Request with_method(Method method) &&;
 
+  /// Builder-style equivalent of `Request::set_method()`, accepting an
+  /// arbitrary method string (e.g. `PURGE`) rather than one of the standard
+  /// methods in `Method`. Fails if `method` is not a valid HTTP method token.
+  fastly::expected<Request> with_method(std::string_view method) &&;
+
   /// Get the request method.
   Method get_method();
 
+  /// Get the request method as a string. Unlike `Request::get_method()`,
+  /// this works for nonstandard methods (e.g. `PURGE`) that aren't
+  /// represented in `Method`.
+  std::string get_method_str();
+
   /// Set the request method.
   void set_method(Method method);
+
+  /// Set the request method to an arbitrary method string (e.g. `PURGE`)
+  /// rather than one of the standard methods in `Method`. Fails if `method`
+  /// is not a valid HTTP method token.
+  fastly::expected<void> set_method(std::string_view method);
 
   /// Builder-style equivalent of `Request::set_url()`.
   fastly::expected<Request> with_url(std::string_view url) &&;
