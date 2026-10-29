@@ -6,7 +6,7 @@ namespace fastly::device_detection {
 
 fastly::expected<std::optional<Device>> lookup(std::string_view user_agent) {
   fastly::sys::device_detection::Device *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::device_detection::f_device_detection_lookup(
       static_cast<std::string>(user_agent), out, err);
   if (err != nullptr) {

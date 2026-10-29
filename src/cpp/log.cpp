@@ -18,7 +18,7 @@ std::string Endpoint::name() {
 
 fastly::expected<Endpoint> Endpoint::from_name(std::string_view name) {
   fastly::sys::log::Endpoint *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::log::m_static_log_endpoint_try_from_name(
       static_cast<std::string>(name), out, err);
   if (err == nullptr) {

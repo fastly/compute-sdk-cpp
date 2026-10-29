@@ -78,7 +78,7 @@ tl::expected<void, FastlyError> Processor::process_response(
     Response &src_document, std::optional<Response> client_response_metadata,
     std::optional<DispatchFragmentRequestFn> dispatch_fragment_request,
     std::optional<ProcessFragmentResponseFn> process_fragment_response) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   // The Rust side will take ownership
   auto raw_metadata =
       client_response_metadata.has_value()
@@ -112,7 +112,7 @@ tl::expected<std::string, FastlyError> Processor::process_document(
     const std::string &src_document,
     std::optional<DispatchFragmentRequestFn> dispatch_fragment_request,
     std::optional<ProcessFragmentResponseFn> process_fragment_response) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   // We convert the callbacks to their tag types here, or pass null if not
   // present. They will be converted back to their real types when the C++
   // callback bindings are invoked from Rust.

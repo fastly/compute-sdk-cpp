@@ -6,7 +6,7 @@ namespace fastly::config_store {
 
 fastly::expected<ConfigStore> ConfigStore::open(std::string_view name) {
   fastly::sys::config_store::ConfigStore *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::config_store::m_static_config_store_config_store_open(
       static_cast<std::string>(name), out, err);
   if (err != nullptr) {
@@ -19,7 +19,7 @@ fastly::expected<ConfigStore> ConfigStore::open(std::string_view name) {
 fastly::expected<std::optional<std::string>>
 ConfigStore::get(std::string_view key) {
   std::string out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   auto some{this->cs->get(static_cast<std::string>(key), out, err)};
   if (err != nullptr) {
     return fastly::unexpected(err);
@@ -31,7 +31,7 @@ ConfigStore::get(std::string_view key) {
 }
 
 fastly::expected<bool> ConfigStore::contains(std::string_view key) {
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   bool out{this->cs->contains(static_cast<std::string>(key), err)};
   if (err != nullptr) {
     return fastly::unexpected(err);

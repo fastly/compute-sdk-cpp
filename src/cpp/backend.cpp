@@ -6,7 +6,7 @@ namespace fastly::backend {
 
 fastly::expected<Backend> Backend::from_name(std::string_view name) {
   fastly::sys::backend::Backend *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::backend::m_static_backend_backend_from_name(
       static_cast<std::string>(name), out, err);
   if (err != nullptr) {
@@ -214,7 +214,7 @@ BackendBuilder BackendBuilder::tcp_keepalive_time_secs(uint32_t secs) && {
 
 fastly::expected<Backend> BackendBuilder::finish() && {
   fastly::sys::backend::Backend *out;
-  fastly::sys::error::FastlyError *err;
+  fastly::sys::error::FastlyError *err{nullptr};
   fastly::sys::backend::m_backend_backend_builder_finish(
       std::move(this->builder), out, err);
   if (err != nullptr) {
