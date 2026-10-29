@@ -74,6 +74,20 @@ Request::Request(Method method, std::string_view url)
     : req(fastly::sys::http::m_static_http_request_new(
           method, static_cast<std::string>(url))) {}
 
+fastly::expected<Request> Request::create(std::string_view method,
+                                          std::string_view url) {
+  fastly::sys::http::Request *out;
+  fastly::sys::error::FastlyError *err;
+  fastly::sys::http::m_static_http_request_new_str(
+      static_cast<std::string>(method), static_cast<std::string>(url), out,
+      err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return FSLY_BOX(http, Request, out);
+  }
+}
+
 Request Request::from_client() {
   Request req{fastly::sys::http::m_static_http_request_from_client()};
   return req;
@@ -433,9 +447,29 @@ Request Request::with_method(Method method) && {
   return std::move(*this);
 }
 
+fastly::expected<Request> Request::with_method(std::string_view method) && {
+  return this->set_method(method).map([this]() { return std::move(*this); });
+}
+
 Method Request::get_method() { return this->req->get_method(); }
 
+std::string Request::get_method_str() {
+  std::string out;
+  this->req->get_method_str(out);
+  return out;
+}
+
 void Request::set_method(Method method) { this->req->set_method(method); }
+
+fastly::expected<void> Request::set_method(std::string_view method) {
+  fastly::sys::error::FastlyError *err;
+  this->req->set_method_str(static_cast<std::string>(method), err);
+  if (err != nullptr) {
+    return fastly::unexpected(err);
+  } else {
+    return fastly::expected<void>();
+  }
+}
 
 fastly::expected<Request> Request::with_url(std::string_view url) && {
   return this->set_url(url).map([this]() { return std::move(*this); });
