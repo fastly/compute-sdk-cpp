@@ -645,6 +645,7 @@ mod ffi {
             out: Pin<&mut CxxString>,
             mut err: Pin<&mut *mut FastlyError>,
         ) -> bool;
+        fn get_status(&self) -> u16;
         fn set_status(&mut self, status: u16);
         fn get_backend_name(&self, out: Pin<&mut CxxString>) -> bool;
         fn get_backend(&self) -> *mut Backend;

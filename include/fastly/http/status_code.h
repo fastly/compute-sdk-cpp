@@ -276,7 +276,7 @@ public:
   /// The method validates the correctness of the supplied uint16_t. It must be
   /// greater or equal to 100 and less than 1000, or this method will return
   /// `std::nullopt`.
-  std::optional<StatusCode> from_code(uint16_t code);
+  static std::optional<StatusCode> from_code(uint16_t code);
 
   /// Returns the `uint16_t` corresponding to this `StatusCode`.
   uint16_t as_code();
